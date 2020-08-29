@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/404Error.css">
+		<script src="" defer></script>
+        <title>Streetor · 404 (Not Found)</title>
+    </head>
+    <body>
+		<div id="404image"></div>
+		<p>Sorry, that page wasn't found. It either doesn't exist or you mistyped the URL.</p>
+		<input type="text" id="searchBar">
+    </body>
+</html>

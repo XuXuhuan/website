@@ -1,0 +1,49 @@
+body {
+	margin: 0;
+}
+#topnav {
+	display: fixed;
+	display: table-cell;
+	vertical-align: middle;
+	width: 100vw;
+	height: 10vh;
+}
+#topnavText {
+	margin: 0;
+	color: #ffffff;
+	text-align: center;
+	font-size: 40px;
+	font-family: montserratReg, Verdana, sans-serif;
+}
+#mainCont {
+	position: relative;
+	flex-flow: column;
+	display: -webkit-flexbox;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+   	justify-content: center;
+	margin: 25vh 30vw 0 30vw;
+}
+#imageCont {
+	background-size: contain;
+	background-repeat: no-repeat;
+	height: 20vh;
+	width: 20vh;
+}
+#deleteText {
+	font-size: 20px;
+	font-family: robotoReg, Helvetica, sans-serif;
+}
+@font-face {
+	font-family: montserratReg;
+	src: url("../Assets/Font-Import/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+	font-family: robotoReg;
+	src: url("../Assets/Font-Import/Roboto/Roboto-Regular.ttf");
+}

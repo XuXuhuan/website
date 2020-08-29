@@ -1,0 +1,818 @@
+* {
+	box-sizing: border-box;
+}
+:root {
+	--sideMenuImageOpacity: 1;
+	--sideMenuTextTransform: scaleX(0);
+	--UIdefaultColor: #35363A;
+	--UIdefaultTextColor: #ffffff;
+	--UIdefaultInputColor: #141618;
+	--UIselectedBgColor: #26272B;
+	--deleteAccountButtonHoverBgColor: #E60505;
+}
+.notSelectable {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+@font-face {
+	font-family: MontserratReg;
+	src: url("../Assets/Font-Import/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+	font-family: MontserratMed;
+	src: url("../Assets/Font-Import/Montserrat/Montserrat-Medium.ttf");
+}
+@font-face {
+	font-family: balooDaReg;
+	src: url("../Assets/Font-Import/Baloo_Da_2/BalooDa2-Regular.ttf");
+}
+@font-face {
+	font-family: RobotoReg;
+	src: url("../Assets/Font-Import/Roboto/Roboto-Regular.ttf");
+}
+body {
+	margin: 0;
+	background-color: #232527;
+}
+body::after {
+	position: absolute;
+	width:0;
+	height:0;
+	overflow: hidden;
+	z-index:-1;
+	content:url("../Assets/darkTheme/close.png") url("../Assets/darkTheme/menu.png") url("../Assets/darkTheme/homeIcon.png") url("../Assets/darkTheme/compass.png") url("../Assets/darkTheme/CogWheel.png") url("../Assets/darkTheme/person.png") url("../Assets/darkTheme/privacyLock.png") url("../Assets/darkTheme/PasswordInvisible.png") url("../Assets/darkTheme/PasswordVisible.png");
+}
+#topnav {
+	position: fixed;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-ms-align-items: center;
+	align-items: center;
+	justify-content: space-between;
+	flex: 1;
+	width: 100%;
+	height: 10vh;
+	background-color: rgb(25, 25, 25);
+}
+#orgName {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	display: inline-flex;
+	text-align: center;
+	color: var(--UIdefaultTextColor);
+	font-family: MontserratMed, Verdana, sans-serif;
+	margin: 0;
+}
+#menuToggle {
+	position: relative;
+	background-color: transparent;
+	width: 4vh;
+	height: 3vh;
+	left: 0;
+	padding: 0;
+	border: 0;
+	animation-duration: 0.4s;
+	animation-fill-mode: forwards;
+	filter: brightness(70%);
+	outline: none;
+}
+#menuImageCont {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: var(--menuImage, url("../Assets/darkTheme/menu.png"));
+	height: 100%;
+	width: 100%;
+}
+#logLabel {
+	margin: 0;
+	text-decoration: none;
+	position: relative;
+	display: inline-block;
+	font-family: balooDaReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
+	cursor: pointer;
+}
+#logLabel::before {
+	content: "";
+	position: absolute;
+	bottom: 3px;
+	width: 100%;
+	height: 0;
+	border-bottom: 1.5px solid #ffffff;
+	-webkit-transform: scaleX(0);
+	-ms-transform: scaleX(0);
+	-o-transform: scaleX(0);
+	transform: scaleX(0);
+	-webkit-transition: -webkit-transform 0.15s ease-in;
+	-o-transition: -o-transform 0.15s ease-in;
+	transition: 0.15s ease-in;
+}
+#logLabel:hover::before {
+	-webkit-transform: scaleX(1);
+	-ms-transform: scaleX(1);
+	-o-transform: scaleX(1);
+	transform: scaleX(1);
+}
+#alertCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	height: fit-content;
+	width: fit-content;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	flex-direction: column;
+	-ms-align-items: center;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 700px;
+	background-color: var(--UIdefaultColor);
+	border-radius: 10px;
+	font-family: balooDaReg, Arial, sans-serif;
+	font-size: 20px;
+	margin-top: 5vh;
+}
+#alertText {
+	color: var(--UIdefaultTextColor);
+	font-size: 20px;
+	margin: 10px;
+}
+#sidenav {
+	position: fixed;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	height: 90vh;
+	background-color: #292A2D;
+	top: 10vh;
+	-webkit-transition: left 0.4s linear;
+	-o-transition: left 0.4s linear;
+	transition: left 0.4s linear;
+}
+#sidenav > a {
+	display: inline-block;
+	width: 100%;
+	min-width: 190px;
+	height: 8vh;
+	text-decoration: none;
+}
+#sidenav > a:hover {
+	--sideMenuImageOpacity: 0.5;
+	--sideMenuTextTransform: scaleX(1);
+}
+#sidenav > a:nth-child(odd) {
+	background-color: #292A2D;
+}
+#sidenav > a:nth-child(even) {
+	background-color: #191B1D;
+}
+.innerLinksCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-ms-align-items: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+}
+.innerLinksCont > p {
+	position: relative;
+	display: inline-block;
+	color: var(--UIdefaultTextColor);
+	margin: 0;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	font-size: 22px;
+}
+.innerLinksCont > p::before {
+	content: "";
+	position: absolute;
+	bottom: 3px;
+	width: 100%;
+	height: 0;
+	border-bottom: 1.5px solid #ffffff;
+	-webkit-transition: -webkit-transform 0.15s ease-in;
+	-o-transition: -o-transform 0.15s ease-in;
+	transition: 0.15s ease-in;
+	-webkit-transform: var(--sideMenuTextTransform, scaleX(0));
+	-ms-transform: var(--sideMenuTextTransform, scaleX(0));
+	-o-transform: var(--sideMenuTextTransform, scaleX(0));
+	transform: var(--sideMenuTextTransform, scaleX(0));
+}
+.innerLinksCont > div {
+	margin-left: 2em;
+	margin-right: 1.5em;
+}
+.sideNavImage {
+	position: relative;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 4vh;
+}
+#homeImage {
+	background-image: url("../Assets/darkTheme/homeIcon.png");
+	height: 4vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+#profilesImage {
+	background-image: url("../Assets/darkTheme/person.png");
+	height: 4vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+#settingsImage {
+	background-image: url("../Assets/darkTheme/CogWheel.png");
+	height: 3.5vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+#postsImage {
+	background-image: url("../Assets/darkTheme/notepad.png");
+	height: 4vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+#addPostImage {
+	background-image: url("../Assets/darkTheme/plusSign.png");
+	height: 3.5vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+#exploreImage {
+	background-image: url("../Assets/darkTheme/compass.png");
+	height: 4vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+#privacyImage {
+	background-image: url("../Assets/darkTheme/privacyLock.png");
+	height: 4vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+@-webkit-keyframes menuAnimationOpen {
+	0% {
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	49% {
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+}
+@-webkit-keyframes menuAnimationClose {
+	0% {
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	49% {
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+}
+@-moz-keyframes menuAnimationOpen {
+	0% {
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	49% {
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+}
+@-moz-keyframes menuAnimationClose {
+	0% {
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	49% {
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+}
+@-o-keyframes menuAnimationOpen {
+	0% {
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	49% {
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+}
+@-o-keyframes menuAnimationClose {
+	0% {
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	49% {
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+}
+@keyframes menuAnimationOpen {
+	0% {
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	49% {
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+}
+@keyframes menuAnimationClose {
+	0% {
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	49% {
+		--menuImage: url("../Assets/darkTheme/close.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../Assets/darkTheme/menu.png");
+	}
+}
+#mainCont {
+	position: absolute;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+main {
+	position: absolute;
+	width: 100%;
+	height: 90vh;
+	top: 10vh;
+	z-index: -999;
+}
+@media only screen and (min-width: 427px) {
+	#topnav {
+		padding: 0 2em 0 2em;
+	}
+	#logLabel {
+		font-size: 150%;
+	}
+}
+@media only screen and (max-width: 1024px) {
+	#orgName {
+		font-size: 150%;
+	}
+}
+@media only screen and (min-width: 1025px) {
+	#orgName {
+		font-size: 200%;
+	}
+}
+@media only screen and (max-width: 767px) {
+	#topnav {
+		padding: 0 1em 0 1em;
+	}
+	#logLabel {
+		font-size: 125%;
+	}
+	#sidenav {
+		width: 100%;
+		height: 90vh;
+		left: -100%;
+	}
+}
+@media only screen and (min-width: 768px) {
+	#sidenav {
+		width: 25vw;
+		left: -25vw;
+	}
+}
+@media only screen and (max-width: 720px) {
+	#alertCont {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+@media only screen and (max-width: 768px) {
+	#settingsOptions {
+		width: 100%;
+	}
+	#mainCont {
+		flex-direction: column;
+	}
+	#optionsList {
+		flex-direction: row;
+		justify-content: space-around;
+	}
+	.optionButtons {
+		padding: 0 15px 0 15px;
+	}
+	.selectedTab {
+		border-bottom: 3px solid white !important;
+	}
+	.infoRow, .infoColumnRow {
+		background-color: #2D2E32;
+	}
+	.optionButtons:hover {
+		border-bottom: 3px solid rgba(255, 255, 255, 0.4);
+	}
+	.optionsText {
+		padding-top: 15.8px;
+		padding-bottom: 15.8px;
+		width: 100%;
+	}
+	.passwordShowButton {
+		background-color: #3C3E40;
+	}
+}
+@media only screen and (min-width: 769px) {
+	#selectedTabLine {
+		position: absolute;
+		background-color: #ffffff;
+		top: 0;
+		height: 50px;
+		width: 3px;
+		-webkit-transition: top 0.15s ease-out;
+		-o-transition: top 0.15s ease-out;
+		transition: top 0.15s ease-out;
+	}
+	#optionsList {
+		background-color: var(--UIdefaultColor);
+		flex-direction: column;
+		margin-left: 3px;
+	}
+	#settingsOptions {
+		position: relative;
+		vertical-align: top;
+		height: 100px;
+		width: 200px;
+		margin-left: 1em;
+		margin-right: 1em;
+	}
+	#settingsInfoCont {
+		vertical-align: top;
+		margin-top: 30px;
+		margin-right: 2em;
+		height: fit-content;
+		width: calc(100% - 4em - 200px);
+	}
+	.topHeaderInfo {
+		margin-top: 0;
+	}
+	.optionButtons {
+		position: relative;
+		padding: 0;
+		border-bottom: 0 !important;
+		border-right: 0 !important;
+		border-top: 0 !important;
+	}
+	.optionButtons:hover {
+		border-left: 3px solid rgba(255, 255, 255, 0.4);
+		--textSize: calc(100% + 3px);
+	}
+	.infoRow, .infoColumnRow {
+		background-color: var(--UIdefaultColor);
+	}
+	.optionsText {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		padding-top: 15.8px;
+		padding-bottom: 15.8px;
+		width: var(--textSize, 100%);
+	}
+	.passwordShowButton {
+		background-color: #2D2F31;
+	}
+}
+#settingsOptions {
+	margin-top: 30px;
+}
+#optionsList {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	height: 100%;
+	width: 100%;
+	background-color: var(--UIdefaultColor);
+	margin: 0;
+	list-style: none;
+	padding: 0;
+}
+.optionButtons {
+	display: block;
+	background-color: transparent;
+	justify-content: center;
+	align-items: center;
+	color: var(--UIdefaultTextColor);
+	height: 50px;
+	border: 0;
+	width: 100%;
+	outline: none;
+}
+.optionButtons:hover {
+	cursor: pointer;
+}
+.optionsText {
+	margin: 0;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	text-align: center;
+	font-size: 15px;
+}
+#settingsInfoCont {
+	position: relative;
+	flex-direction: column;
+}
+#settingsInfoCont > h1 {
+	color: #ffffff;
+	font-family: MontserratReg, Verdana, sans-serif;
+}
+.infoRow {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	width: 100%;
+	color: var(--UIdefaultTextColor);
+	font-family: BalooDaReg, Arial, sans-serif;
+	font-size: 20px;
+	border-bottom: 1px solid #ffffff;
+	padding: 15px 1em 15px 1em;
+	align-items: center;
+}
+.infoColumnRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	color: var(--UIdefaultTextColor);
+	font-family: BalooDaReg, Arial, sans-serif;
+	font-size: 20px;
+	border-bottom: 1px solid #ffffff;
+	padding: 15px 1em 15px 1em;
+}
+.infoColumnRow:nth-child(4), .infoColumnRow:nth-child(8), .infoRow:nth-last-child(1) {
+	border: 0 !important;
+}
+.rowInfo {
+	margin: 0;
+	word-break: break-all;
+}
+#changePasswordText, #changeUsernameText, #changeEmailText {
+	font-family: BalooDaReg, Arial, sans-serif;
+	width: fit-content;
+	border-radius: 7px;
+	margin: 0;
+	background-color: transparent;
+	color: var(--UIdefaultTextColor);
+	outline: none;
+	cursor: pointer;
+	-webkit-transition: margin-bottom 0.3s ease-out;
+	-o-transition: margin-bottom 0.3s ease-out;
+	transition: margin-bottom 0.3s ease-out;
+}
+.dropDownMenuArrow {
+	-webkit-transition: transform 0.15s ease-in;
+	-o-transition: transform 0.15s ease-in;
+	transition: transform 0.15s ease-in;
+}
+#changeUserCont, #changePassCont, #changeEmailCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 0;
+	overflow: hidden;
+	-webkit-transition: height 0.3s ease-out;
+	-o-transition: height 0.3s ease-out;
+	transition: height 0.3s ease-out;
+}
+#innerConfirmPassCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+#confirmPassCont {
+	margin-bottom: 5px;
+}
+#newPasswordField, #confirmPasswordField, #confirmPasswordNewEmailField {
+	outline: none;
+	border: 0;
+	height: 40px;
+	width: calc(100% - 50px);
+	padding-right: 40px;
+	padding-left: 10px;
+	border-radius: 5px 0 0 5px;
+	background-color: var(--UIdefaultInputColor);
+	color: var(--UIdefaultTextColor);
+	vertical-align: top;
+}
+#newUsernameField, #newEmailField {
+	outline: none;
+	border: 0;
+	height: 40px;
+	width: 100%;
+	padding-right: 40px;
+	padding-left: 10px;
+	border-radius: 5px;
+	background-color: var(--UIdefaultInputColor);
+	color: var(--UIdefaultTextColor);
+	vertical-align: top;
+}
+.passwordShowButton {
+	padding: 0;
+	float: right;
+	height: 40px;
+	width: 50px;
+	outline: none;
+	border-radius: 0 5px 5px 0;
+	border: 0;
+	cursor: pointer;
+}
+.showPassImage {
+	display: inline-block;
+	background-color: transparent;
+	vertical-align: middle;
+	border: 0;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-image: url("../Assets/darkTheme/PasswordInvisible.png");
+	height: 15px;
+	width: calc(1012 / 616 * 15px);
+}
+.inputErrorText {
+	height: 36.8px;
+	margin: 0;
+	font-size: 15px;
+	font-family: MontserratReg, Verdana, sans-serif;
+	color: #ff0000;
+}
+#confirmPasswordNewEmailError {
+	height: 57.2px !important;
+}
+#verifyEmailError {
+	text-align: center;
+}
+#verifyEmailButton, #sendChangePasswordEmailButton, #sendChangeUsernameEmailButton, #sendChangeEmailEmailButton, #saveBioButton, #deleteAccountButton {
+	display: block;
+	margin: 0 auto 0 auto;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	font-size: 17px;
+	border-radius: 10px;
+	background-color: transparent;
+	color: var(--UIdefaultTextColor);
+	cursor: pointer;
+	outline: none;
+	border: 2px solid white;
+	height: 100%;
+	width: 200px;
+	-webkit-transition: background-color 0.3s ease-out;
+	-o-transition: background-color 0.3s ease-out;
+	transition: background-color 0.3s ease-out;
+}
+#verifyEmailButtonCont, #deleteAccountButtonCont {
+	margin-bottom: 10px;
+}
+#saveBioButton {
+	height: 40px;
+}
+#deleteAccountButton {
+	border-color: #E60505;
+}
+#deleteAccountError, #verifyEmailError {
+	text-align: center;
+}
+#verifyEmailButton:hover, #sendChangePasswordEmailButton:hover, #sendChangeUsernameEmailButton:hover, #sendChangeEmailEmailButton:hover, #saveBioButton:hover {
+	background-color: var(--UIselectedBgColor);
+}
+#deleteAccountButton:hover {
+	background-color: var(--deleteAccountButtonHoverBgColor);
+}
+#bioInput {
+	background-color: var(--UIdefaultInputColor);
+	font-family: MontserratReg, Verdana, sans-serif;
+	padding: 8px;
+	border-radius: 6px;
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	outline: none;
+	width: 100%;
+	resize: vertical;
+}
+#bioInput::placeholder {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+#darkThemeLabel, #twoFactorAuthLabel {
+	word-break: keep-all;
+	margin-right: 1em;
+}
+#deleteAccountButtonLabel, #emailVerifiedRowInfo {
+	display: block;
+	margin: 0 auto;
+	word-break: keep-all;
+}
+#darkThemeSwitchCont, #twoFactorAuthSwitchCont {
+	position: relative;
+	border-radius: 12px;
+	padding: 2px;
+	height: 24px;
+	width: 45px;
+	background-color: #232428;
+	cursor: pointer;
+	overflow: hidden;
+}
+#darkThemeSwitch, #twoFactorAuthSwitch {
+	position: absolute;
+	border-radius: 50%;
+	background-color: white;
+	height: 20px;
+	width: 20px;
+	top: 2px;
+	left: 2px;
+}
+.switchedOnSwitchCont {
+	background-color: rgba(255, 255, 255, 0.2) !important;
+}
+.switchedOnSwitch {
+	left: 23px !important;
+}
