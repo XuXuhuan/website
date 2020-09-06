@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 date_default_timezone_set("MST");
-$assocReturn = array("message" => "", "leftoverCooldown" => 0);
+$assocReturn = array("message" => "");
 $emailHeaders[] = "MIME-Version: 1.0";
 $emailHeaders[] = "Content-type:text/html; charset=utf-8";
 $emailHeaders[] = "From: <noreply@streetor.sg>";
@@ -22,6 +22,7 @@ if ($mysqliConnection -> connect_errno) {
 				$changeContent = $mysqliConnection -> real_escape_string(urldecode($_POST["content"]));
 				switch($changeType) {
 					case "1": //change username
+						$assocReturn["leftoverCooldown"] = 0;
 						if (preg_match("/[^a-z0-9._]/i", $changeContent) == true) {
 							$assocReturn["message"] = "Username may only contain letters, numbers, . and _.";
 						}
@@ -195,8 +196,9 @@ if ($mysqliConnection -> connect_errno) {
 								$assocReturn["message"] = "An internal error occurred. Please refresh the page or try again later.";
 							}
 						}
-						break;
+					break;
 					case "2": //change password
+						$assocReturn["leftoverCooldown"] = 0;
 						if (preg_replace("/(strong(er)*)*(complex)*(password[0-9]{0,3})|(12345678(9)*)/i", "", $changeContent) === "") {
 							$assocReturn["newPassError"] = "Please create a stronger password.";
 						}
@@ -370,8 +372,9 @@ if ($mysqliConnection -> connect_errno) {
 								$assocReturn["message"] = "An internal error occurred. Please refresh the page or try again later.";
 							}
 						}
-						break;
+					break;
 					case "3": //change email
+						$assocReturn["leftoverCooldown"] = 0;
 						if (empty(trim($_POST["content2"]))) {
 							$assocReturn["message"] = "This field is required.";
 						}
@@ -568,6 +571,38 @@ if ($mysqliConnection -> connect_errno) {
 						}
 					break;
 					case "5": //change 2FA
+						$assocReturn["canSwitch"] = false;
+						if (empty(trim($_POST["content2"]))) {
+							$assocReturn["message"] = "This field is required.";
+						} else {
+							$selectNeededDetailsQuery = "SELECT password, 2FAenabled
+							FROM accountdetails
+							WHERE accountID = '" . $_SESSION["userID"] . "'";
+							if ($queriedNeededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
+								if ($assocNeededDetails = $queriedNeededDetails -> fetch_assoc()) {
+									$dbPassword = $assocNeededDetails["password"];
+									$db2FAenabled = $assocNeededDetails["2FAenabled"];
+									$update2FAquery = "UPDATE accountdetails
+									SET 2FAenabled = (0 - $db2FAenabled + 1)
+									WHERE accountID = '" . $_SESSION["userID"] . "'";
+									if (password_verify(base64_encode(hash("sha512", $_POST["content2"], true)), $dbPassword) === true) {
+										if ($mysqliConnection -> query($update2FAquery)) {
+											$assocReturn["message"] = "Your 2 factor authentication has been <b>" . ((0 -$db2FAenabled + 1) === 1 ? "enabled" : "disabled") . "</b>.";
+											$assocReturn["canSwitch"] = true;
+										} else {
+											$assocReturn["message"] = "An internal error occurred. Please refresh the page or try again later.";
+										}
+									} else {
+										$assocReturn["message"] = "Incorrect password.";
+									}
+								} else {
+									$assocReturn["message"] = "An internal error occurred. Please refresh the page or try again later.";
+								}
+								$queriedNeededDetails -> free();
+							} else {
+								$assocReturn["message"] = "An internal error occurred. Please refresh the page or try again later.";
+							}
+						}
 					break;
 				}
 			}
