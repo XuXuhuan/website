@@ -20,8 +20,8 @@ if ($mysqliConnection -> connect_error) {
                     if ($assocNeededDetails = $allNeededDetails -> fetch_assoc()) {
                         if ($assocNeededDetails["2FAenabled"] == true) {
                             $assocReturn["concatSlider"] = '
-                            <span id="twoFactorAuthSwitchCont" class="sliderSwitchCont" onclick="twoFactorAuthSwitch()" style="background-color: rgba(255, 255, 255, 0.2)">
-                                <span id="twoFactorAuthSwitch" style="left: 23px"></span>
+                            <span id="twoFactorAuthSwitchCont" class="sliderSwitchCont switchedOnSwitchCont" onclick="twoFactorAuthSwitch()">
+                                <span id="twoFactorAuthSwitch" class="switchedOnSwitch"></span>
                             </span>';
                         } else {
                             $assocReturn["concatSlider"] = '

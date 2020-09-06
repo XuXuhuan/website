@@ -770,13 +770,26 @@ function twoFactorAuthSwitch() {
 				refTwoFactorAuthConfirmPasswordError.innerHTML = "An internal error occurred. Please refresh the page or try again later";
 			}
 			xhr.onload = function() {
+				const refTwoFactorAuthSwitchCont = document.querySelector("#twoFactorAuthSwitchCont");
+				const refTwoFactorAuthSwitch = document.querySelector("#twoFactorAuthSwitch");
 				twoFactorAuthConfirmPasswordError = xhr.response["message"];
 				refTwoFactorAuthConfirmPasswordError.innerHTML = xhr.response["message"];
 				twoFactorAuthConfirmPasswordText = "";
 				refTwoFactorAuthConfirmPasswordField.value = "";
-				if (xhr.response["canSwitch"] === true) {
-					document.querySelector("#twoFactorAuthSwitchCont").classList.toggle("switchedOnSwitchCont");
-					document.querySelector("#twoFactorAuthSwitch").classList.toggle("switchedOnSwitch");
+				if (xhr.response["switch"] === true) {
+					 if (!refTwoFactorAuthSwitchCont.classList.contains("switchedOnSwitchCont")) {
+						refTwoFactorAuthSwitchCont.classList.add("switchedOnSwitchCont");
+					 }
+					 if (!refTwoFactorAuthSwitch.classList.contains("switchedOnSwitch")) {
+						refTwoFactorAuthSwitch.classList.add("switchedOnSwitch");
+					 }
+				} else {
+					if (refTwoFactorAuthSwitchCont.classList.contains("switchedOnSwitchCont")) {
+					   refTwoFactorAuthSwitchCont.classList.remove("switchedOnSwitchCont");
+					}
+					if (refTwoFactorAuthSwitch.classList.contains("switchedOnSwitch")) {
+					   refTwoFactorAuthSwitch.classList.remove("switchedOnSwitch");
+					}
 				}
 			}
 			xhr.send("type=5&content=null&content2=" + encodeURIComponent(refTwoFactorAuthConfirmPasswordField.value));

@@ -587,8 +587,8 @@ if ($mysqliConnection -> connect_errno) {
 									WHERE accountID = '" . $_SESSION["userID"] . "'";
 									if (password_verify(base64_encode(hash("sha512", $_POST["content2"], true)), $dbPassword) === true) {
 										if ($mysqliConnection -> query($update2FAquery)) {
-											$assocReturn["message"] = "Your 2 factor authentication has been <b>" . ((0 -$db2FAenabled + 1) === 1 ? "enabled" : "disabled") . "</b>.";
-											$assocReturn["canSwitch"] = true;
+											$assocReturn["message"] = "Your 2 factor authentication has been <b>" . ((0 - $db2FAenabled + 1) === 1 ? "enabled" : "disabled") . "</b>.";
+											$assocReturn["switch"] = (0 - $db2FAenabled + 1) === 1 ? true : false;
 										} else {
 											$assocReturn["message"] = "An internal error occurred. Please refresh the page or try again later.";
 										}
