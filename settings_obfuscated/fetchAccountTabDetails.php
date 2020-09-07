@@ -12,7 +12,7 @@ $assocReturn = array("username" => "",
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
 if ($mysqliConnection -> connect_error) {
     $assocReturn["username"] = $assocReturn["email"] = $assocReturn["emailVerifiedRowInfoText"] = "[A connection error occurred. Please refresh the page or try again later.]";
-    $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: BalooDaReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[A connection error occurred. Please refresh the page or try again later.]</p>';
+    $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[A connection error occurred. Please refresh the page or try again later.]</p>';
 } else {
     if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
@@ -40,24 +40,24 @@ if ($mysqliConnection -> connect_error) {
                         }
                     } else {
                         $assocReturn["username"] = $assocReturn["email"] = $assocReturn["emailVerifiedRowInfoText"] = "[Error. Please refresh the page or try again later.]";
-                        $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: BalooDaReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Error. Please refresh the page or try again later.]</p>';
+                        $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Error. Please refresh the page or try again later.]</p>';
                     }
                 } else {
                     $assocReturn["username"] = $assocReturn["email"] = $assocReturn["emailVerifiedRowInfoText"] = "[Error. Please <a href='https://www.streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.]";
-                    $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: BalooDaReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Error. Please <a href="https://www.streetor.sg/login/" style="color: #4486f4;">log in</a> and try again.]</p>';
+                    $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Error. Please <a href="https://www.streetor.sg/login/" style="color: #4486f4;">log in</a> and try again.]</p>';
                 }
                 $allNeededDetails -> free();
             } else {
                 $assocReturn["username"] = $assocReturn["email"] = $assocReturn["emailVerifiedRowInfoText"] = "[Error. Please refresh the page or try again later.]";
-                $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: BalooDaReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Error. Please refresh the page or try again later.]</p>';
+                $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Error. Please refresh the page or try again later.]</p>';
             }
         } else {
             $assocReturn["username"] = $assocReturn["email"] = $assocReturn["emailVerifiedRowInfoText"] = "[This feature is reserved for signed in users only. Please <a href='https://www.streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.]";
-            $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: BalooDaReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[This feature is reserved for signed in users only. Please <a href="https://www.streetor.sg/login/" style="color: #4486f4;">log in</a> and try again.]</p>';
+            $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[This feature is reserved for signed in users only. Please <a href="https://www.streetor.sg/login/" style="color: #4486f4;">log in</a> and try again.]</p>';
         }
     } else {
         $assocReturn["username"] = $assocReturn["email"] = $assocReturn["emailVerifiedRowInfoText"] = "[Your connection is insecure and this request could not be processed. Please refresh the page or try again later.]";
-        $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: BalooDaReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Your connection is insecure and this request could not be processed. Please refresh the page or try again later.]</p>';
+        $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Your connection is insecure and this request could not be processed. Please refresh the page or try again later.]</p>';
     }
 }
 $mysqliConnection -> close();

@@ -24,8 +24,8 @@
 	src: url("../Assets/Font-Import/Montserrat/Montserrat-Medium.ttf");
 }
 @font-face {
-	font-family: balooDaReg;
-	src: url("../Assets/Font-Import/Baloo_Da_2/BalooDa2-Regular.ttf");
+	font-family: LatoReg;
+	src: url("../Assets/Font-Import/Lato/Lato-Regular.ttf");
 }
 @font-face {
 	font-family: RobotoReg;
@@ -93,7 +93,7 @@ body::after {
 	text-decoration: none;
 	position: relative;
 	display: inline-block;
-	font-family: balooDaReg, Arial, sans-serif;
+	font-family: LatoReg, Arial, sans-serif;
 	color: var(--UIdefaultTextColor);
 	cursor: pointer;
 }
@@ -139,7 +139,7 @@ body::after {
 	max-width: 700px;
 	background-color: var(--UIdefaultColor);
 	border-radius: 10px;
-	font-family: balooDaReg, Arial, sans-serif;
+	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	margin-top: 5vh;
 }

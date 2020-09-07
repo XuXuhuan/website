@@ -5,8 +5,20 @@
 	--sideMenuImageOpacity: 1;
 	--sideMenuTextTransform: scaleX(0);
 	--sideMenuTextColor: #000000;
-	--UIdefaultTextColor: #ffffff;
+	--UIdefaultColor: #ffffff;
+	--UIdefaultTextColor: #000000;
 	--alertUIcolor: #3390FF;
+	--UIdefaultInputColor: #D7D7D7;
+	--UIselectedBgColor: #AAAAAA;
+	--deleteAccountButtonHoverBgColor: #E60505;
+}
+.notSelectable {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 @font-face {
 	font-family: MontserratReg;
@@ -17,8 +29,8 @@
 	src: url("../Assets/Font-Import/Montserrat/Montserrat-Medium.ttf");
 }
 @font-face {
-	font-family: balooDaReg;
-	src: url("../Assets/Font-Import/Baloo_Da_2/BalooDa2-Regular.ttf");
+	font-family: LatoReg;
+	src: url("../Assets/Font-Import/Lato/Lato-Regular.ttf");
 }
 @font-face {
 	font-family: RobotoReg;
@@ -26,7 +38,7 @@
 }
 body {
 	margin: 0;
-	background-color: #ffffff;
+	background-color: #DDDDDD;
 }
 body::after {
 	position: absolute;
@@ -90,7 +102,7 @@ body::after {
 	text-decoration: none;
 	position: relative;
 	display: inline-block;
-	font-family: balooDaReg, Arial, sans-serif;
+	font-family: LatoReg, Arial, sans-serif;
 	color: #ffffff;
 	cursor: pointer;
 }
@@ -136,7 +148,7 @@ body::after {
 	max-width: 700px;
 	background-color: var(--alertUIcolor);
 	border-radius: 10px;
-	font-family: balooDaReg, Arial, sans-serif;
+	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	margin-top: 5vh;
 }
@@ -166,7 +178,6 @@ body::after {
 	min-width: 190px;
 	height: 8vh;
 	text-decoration: none;
-	color: var(--sideMenuTextColor);
 }
 #sidenav > a:hover {
 	--sideMenuImageOpacity: 0.5;
@@ -192,6 +203,7 @@ body::after {
 .innerLinksCont > p {
 	position: relative;
 	display: inline-block;
+	color: var(--UIdefaultTextColor);
 	margin: 0;
 	font-family: RobotoReg, Helvetica, sans-serif;
 	font-size: 22px;
@@ -412,26 +424,10 @@ main {
 		font-size: 150%;
 	}
 }
-@media only screen and (min-width: 768px) {
-	#sidenav {
-		width: 25vw;
-		left: -25vw;
-	}
-}
 @media only screen and (max-width: 720px) {
 	#alertCont {
 		margin-left: 10px;
 		margin-right: 10px;
-	}
-}
-@media only screen and (max-width: 1024px) {
-	#orgName {
-		font-size: 150%;
-	}
-}
-@media only screen and (min-width: 1025px) {
-	#orgName {
-		font-size: 200%;
 	}
 }
 @media only screen and (max-width: 767px) {
@@ -446,4 +442,388 @@ main {
 		height: 90vh;
 		left: -100%;
 	}
+}
+@media only screen and (max-width: 768px) {
+	#settingsOptions {
+		width: 100%;
+	}
+	#mainCont {
+		flex-direction: column;
+	}
+	#optionsList {
+		flex-direction: row;
+		justify-content: space-around;
+	}
+	.optionButtons {
+		padding: 0 15px 0 15px;
+	}
+	.selectedTab {
+		border-bottom: 3px solid black !important;
+	}
+	.infoRow, .infoColumnRow {
+		background-color: #F5F5F5;
+	}
+	.optionButtons:hover {
+		border-bottom: 3px solid rgba(0, 0, 0, 0.4);
+	}
+	.optionsText {
+		padding-top: 15.8px;
+		padding-bottom: 15.8px;
+		width: 100%;
+	}
+	.passwordShowButton {
+		background-color: #E6E6E6;
+	}
+}
+@media only screen and (min-width: 768px) {
+	#sidenav {
+		width: 25vw;
+		left: -25vw;
+	}
+}
+@media only screen and (min-width: 769px) {
+	#selectedTabLine {
+		position: absolute;
+		background-color: #000000;
+		top: 0;
+		height: 50px;
+		width: 3px;
+		-webkit-transition: top 0.15s ease-out;
+		-o-transition: top 0.15s ease-out;
+		transition: top 0.15s ease-out;
+	}
+	#optionsList {
+		background-color: var(--UIdefaultColor);
+		flex-direction: column;
+		margin-left: 3px;
+	}
+	#settingsOptions {
+		position: relative;
+		vertical-align: top;
+		height: 100px;
+		width: 200px;
+		margin-left: 1em;
+		margin-right: 1em;
+	}
+	#settingsInfoCont {
+		vertical-align: top;
+		margin-top: 30px;
+		margin-right: 2em;
+		height: fit-content;
+		width: calc(100% - 4em - 200px);
+	}
+	.topHeaderInfo {
+		margin-top: 0;
+	}
+	.optionButtons {
+		position: relative;
+		padding: 0;
+		border-bottom: 0 !important;
+		border-right: 0 !important;
+		border-top: 0 !important;
+	}
+	.optionButtons:hover {
+		border-left: 3px solid rgba(0, 0, 0, 0.4);
+		--textSize: calc(100% + 3px);
+	}
+	.infoRow, .infoColumnRow {
+		background-color: var(--UIdefaultColor);
+	}
+	.optionsText {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		padding-top: 15.8px;
+		padding-bottom: 15.8px;
+		width: var(--textSize, 100%);
+	}
+	.passwordShowButton {
+		background-color: #E1E1E1;
+	}
+}
+@media only screen and (max-width: 1024px) {
+	#orgName {
+		font-size: 150%;
+	}
+}
+@media only screen and (min-width: 1025px) {
+	#orgName {
+		font-size: 200%;
+	}
+}
+#settingsOptions {
+	margin-top: 30px;
+}
+#optionsList {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	height: 100%;
+	width: 100%;
+	background-color: var(--UIdefaultColor);
+	margin: 0;
+	list-style: none;
+	padding: 0;
+}
+.optionButtons {
+	display: block;
+	background-color: transparent;
+	justify-content: center;
+	align-items: center;
+	color: var(--UIdefaultTextColor);
+	height: 50px;
+	border: 0;
+	width: 100%;
+	outline: none;
+}
+.optionButtons:hover {
+	cursor: pointer;
+}
+.optionsText {
+	margin: 0;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	text-align: center;
+	font-size: 15px;
+}
+#settingsInfoCont {
+	position: relative;
+	flex-direction: column;
+}
+#settingsInfoCont > h1 {
+	color: black;
+	font-family: MontserratReg, Verdana, sans-serif;
+}
+.infoRow {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	width: 100%;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	border-bottom: 1px solid #000000;
+	padding: 15px 1em 15px 1em;
+	align-items: center;
+}
+.infoColumnRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	border-bottom: 1px solid #000000;
+	padding: 15px 1em 15px 1em;
+}
+.infoColumnRow:nth-child(4), .infoColumnRow:nth-child(8), .infoRow:nth-last-child(1) {
+	border: 0 !important;
+}
+.rowInfo {
+	margin: 0;
+	word-break: break-all;
+}
+#changePasswordText, #changeUsernameText, #changeEmailText {
+	font-family: LatoReg, Arial, sans-serif;
+	width: fit-content;
+	border-radius: 7px;
+	margin: 0;
+	background-color: transparent;
+	color: var(--UIdefaultTextColor);
+	outline: none;
+	cursor: pointer;
+	-webkit-transition: margin-bottom 0.3s ease-out;
+	-o-transition: margin-bottom 0.3s ease-out;
+	transition: margin-bottom 0.3s ease-out;
+}
+.dropDownMenuArrow {
+	fill: var(--UIdefaultTextColor);
+	-webkit-transition: transform 0.15s ease-in;
+	-o-transition: transform 0.15s ease-in;
+	transition: transform 0.15s ease-in;
+}
+#changeUserCont, #changePassCont, #changeEmailCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 0;
+	overflow: hidden;
+	-webkit-transition: height 0.3s ease-out;
+	-o-transition: height 0.3s ease-out;
+	transition: height 0.3s ease-out;
+}
+#innerConfirmPassCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+#confirmPassCont {
+	margin-bottom: 5px;
+}
+#newPasswordField, #confirmPasswordField, #confirmPasswordNewEmailField, #confirmPasswordChange2FAField {
+	outline: none;
+	border: 0;
+	height: 40px;
+	width: calc(100% - 50px);
+	padding-right: 40px;
+	padding-left: 10px;
+	border-radius: 5px 0 0 5px;
+	background-color: var(--UIdefaultInputColor);
+	color: var(--UIdefaultTextColor);
+	vertical-align: top;
+}
+#newUsernameField, #newEmailField {
+	outline: none;
+	border: 0;
+	height: 40px;
+	width: 100%;
+	padding-right: 40px;
+	padding-left: 10px;
+	border-radius: 5px;
+	background-color: var(--UIdefaultInputColor);
+	color: var(--UIdefaultTextColor);
+	vertical-align: top;
+}
+.passwordShowButton {
+	padding: 0;
+	float: right;
+	height: 40px;
+	width: 50px;
+	outline: none;
+	border-radius: 0 5px 5px 0;
+	border: 0;
+	cursor: pointer;
+}
+.showPassImage {
+	display: inline-block;
+	background-color: transparent;
+	vertical-align: middle;
+	border: 0;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-image: url("../Assets/lightTheme/PasswordInvisible.png");
+	height: 15px;
+	width: calc(1012 / 616 * 15px);
+}
+.inputErrorText {
+	height: 36.8px;
+	margin: 0;
+	font-size: 15px;
+	font-family: MontserratReg, Verdana, sans-serif;
+	color: #ff0000;
+}
+#confirmPasswordNewEmailError, #confirmPasswordChange2FAError {
+	height: 57.2px !important;
+}
+#verifyEmailError {
+	text-align: center;
+}
+#verifyEmailButton, #sendChangePasswordEmailButton, #sendChangeUsernameEmailButton, #sendChangeEmailEmailButton, #saveBioButton, #deleteAccountButton {
+	display: block;
+	margin: 0 auto 0 auto;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	font-size: 17px;
+	border-radius: 10px;
+	background-color: transparent;
+	color: var(--UIdefaultTextColor);
+	cursor: pointer;
+	outline: none;
+	border: 2px solid black;
+	height: 100%;
+	width: 200px;
+	-webkit-transition: background-color 0.3s ease-out;
+	-o-transition: background-color 0.3s ease-out;
+	transition: background-color 0.3s ease-out;
+}
+#verifyEmailButtonCont, #deleteAccountButtonCont {
+	margin-bottom: 10px;
+}
+#saveBioButton {
+	height: 40px;
+}
+#deleteAccountButton {
+	border-color: #E60505;
+	-webkit-transition: background-color color 0.3s ease-out;
+	-o-transition: background-color color 0.3s ease-out;
+	transition: background-color color 0.3s ease-out;
+}
+#deleteAccountError, #verifyEmailError {
+	text-align: center;
+}
+#verifyEmailButton:hover, #sendChangePasswordEmailButton:hover, #sendChangeUsernameEmailButton:hover, #sendChangeEmailEmailButton:hover, #saveBioButton:hover {
+	background-color: var(--UIselectedBgColor);
+}
+#deleteAccountButton:hover {
+	background-color: var(--deleteAccountButtonHoverBgColor);
+	color: #ffffff;
+}
+#bioInput {
+	background-color: var(--UIdefaultInputColor);
+	font-family: MontserratReg, Verdana, sans-serif;
+	padding: 8px;
+	border-radius: 6px;
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	outline: none;
+	width: 100%;
+	resize: vertical;
+}
+#bioInput::placeholder {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+#darkThemeLabel, #twoFactorAuthLabel {
+	word-break: keep-all;
+	margin-right: 1em;
+}
+#deleteAccountButtonLabel, #emailVerifiedRowInfo {
+	display: block;
+	margin: 0 auto;
+	word-break: keep-all;
+}
+#darkThemeSwitchCont, #twoFactorAuthSwitchCont {
+	position: relative;
+	border-radius: 12px;
+	padding: 2px;
+	height: 24px;
+	width: 45px;
+	background-color: #232428;
+	cursor: pointer;
+	overflow: hidden;
+}
+#darkThemeSwitch, #twoFactorAuthSwitch {
+	position: absolute;
+	border-radius: 50%;
+	background-color: white;
+	height: 20px;
+	width: 20px;
+	top: 2px;
+	left: 2px;
+}
+.switchedOnSwitchCont {
+	background-color: rgba(145, 145, 145, 0.2) !important;
+}
+.switchedOnSwitch {
+	left: 23px !important;
 }
