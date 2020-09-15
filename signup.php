@@ -3,24 +3,22 @@ error_reporting(0);
 date_default_timezone_set("MST");
 session_start();
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
-$getUser = $mysqliConnection -> real_escape_string(urldecode($_POST["username"]));
-$getPass = $mysqliConnection -> real_escape_string(urldecode($_POST["password"]));
-$getfName = $mysqliConnection -> real_escape_string(urldecode($_POST["fName"]));
-$getlName = $mysqliConnection -> real_escape_string(urldecode($_POST["lName"]));
-$getEmail = $mysqliConnection -> real_escape_string(urldecode($_POST["email"]));
+$getUser = $mysqliConnection -> real_escape_string($_POST["username"]);
+$getPass = $mysqliConnection -> real_escape_string($_POST["password"]);
+$getfName = $mysqliConnection -> real_escape_string($_POST["fName"]);
+$getlName = $mysqliConnection -> real_escape_string($_POST["lName"]);
+$getEmail = $mysqliConnection -> real_escape_string($_POST["email"]);
 function getRandomString($stringLength) {
 	return bin2hex(random_bytes($stringLength / 2));
 }
 $randomString = isset($_SESSION["emailVerifToken"]) ? $_SESSION["emailVerifToken"] : getRandomString(20);
 $_SESSION["emailVerifToken"] = isset($_SESSION["emailVerifToken"]) ? $_SESSION["emailVerifToken"] : $randomString;
-$fetchEmailAndUsernameQueries = "
-SELECT username
+$fetchEmailAndUsernameQueries = "SELECT username
 FROM accountdetails
-WHERE username = '$getUser';";
-$fetchEmailAndUsernameQueries .= "
-SELECT email
+WHERE LOWER(username) = LOWER('$getUser');";
+$fetchEmailAndUsernameQueries .= "SELECT email
 FROM accountdetails
-WHERE email = '$getEmail'";
+WHERE LOWER(email) = LOWER('$getEmail')";
 $AssocReturn = array("errormessages" => array(
 	"usernameError" => "",
 	"passwordError" => "",

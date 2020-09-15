@@ -2,10 +2,9 @@
 error_reporting(0);
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
 $fetchUser = $mysqliConnection -> real_escape_string($_POST["username"]);
-$fetchUsernameQuery = "
-	SELECT username
-	FROM accountdetails
-	WHERE username = '$fetchUser'";
+$fetchUsernameQuery = "SELECT username
+FROM accountdetails
+WHERE LOWER(username) = LOWER('$fetchUser')";
 if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 	if ($mysqliConnection -> connect_errno) {
 		echo "A connection error occurred. Please try again later.";

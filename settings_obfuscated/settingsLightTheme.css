@@ -135,7 +135,9 @@ body::after {
 	display: -o-flex;
 	display: flex;
 	height: fit-content;
+height: -moz-fit-content;
 	width: fit-content;
+width: -moz-fit-content;;
 	-webkit-flex-direction: column;
 	-moz-flex-direction: column;
 	-ms-flex-direction: column;
@@ -510,6 +512,7 @@ main {
 		margin-top: 30px;
 		margin-right: 2em;
 		height: fit-content;
+height: -moz-fit-content;
 		width: calc(100% - 4em - 200px);
 	}
 	.topHeaderInfo {
@@ -635,6 +638,7 @@ main {
 #changePasswordText, #changeUsernameText, #changeEmailText {
 	font-family: LatoReg, Arial, sans-serif;
 	width: fit-content;
+width: -moz-fit-content;;
 	border-radius: 7px;
 	margin: 0;
 	background-color: transparent;

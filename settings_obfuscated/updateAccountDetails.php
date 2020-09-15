@@ -15,13 +15,29 @@ if ($mysqliConnection -> connect_errno) {
 } else {
 	if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
-			$changeType = urldecode($_POST["type"]);
-			if (empty($changeType)) {
+			$changeType = $_POST["type"];
+			if (empty($changeType) && empty(json_decode(file_get_contents("php://input"), true)["type"])) {
 				$assocReturn["message"] = "This request is invalid. Please refresh the page or try again later.";
+			}
+			else if (json_decode(file_get_contents("php://input"), true)["type"] === 4) {
+				$changeContent = $mysqliConnection -> real_escape_string(json_decode(file_get_contents("php://input"), true)["content"]);
+				if (strlen($changeContent) > 200) {
+					$assocReturn["message"] = "This biography is too long. The maximum number of characters is 200.";
+				}
+				else if (!empty(trim($changeContent))) {
+					$updateBioQuery = "UPDATE accountdetails
+					SET biography = '$changeContent'
+					WHERE accountID = '" . $_SESSION["userID"] . "'";
+					if ($mysqliConnection -> query($updateBioQuery)) {
+						$assocReturn["message"] = "Biography updated.";
+					} else {
+						$assocReturn["message"] = "An internal error occurred. Please refresh the page or try again later.";
+					}
+				}
 			} else {
-				$changeContent = $mysqliConnection -> real_escape_string(urldecode($_POST["content"]));
 				switch($changeType) {
 					case "1": //change username
+						$changeContent = $mysqliConnection -> real_escape_string($_POST["content"]);
 						$assocReturn["leftoverCooldown"] = 0;
 						if (preg_match("/[^a-z0-9._]/i", $changeContent) == true) {
 							$assocReturn["message"] = "Username may only contain letters, numbers, . and _.";
@@ -198,6 +214,7 @@ if ($mysqliConnection -> connect_errno) {
 						}
 					break;
 					case "2": //change password
+						$changeContent = $mysqliConnection -> real_escape_string($_POST["content"]);
 						$assocReturn["leftoverCooldown"] = 0;
 						if (preg_replace("/(strong(er)*)*(complex)*(password[0-9]{0,3})|(12345678(9)*)/i", "", $changeContent) === "") {
 							$assocReturn["newPassError"] = "Please create a stronger password.";
@@ -374,6 +391,7 @@ if ($mysqliConnection -> connect_errno) {
 						}
 					break;
 					case "3": //change email
+						$changeContent = $mysqliConnection -> real_escape_string($_POST["content"]);
 						$assocReturn["leftoverCooldown"] = 0;
 						if (empty(trim($_POST["content2"]))) {
 							$assocReturn["message"] = "This field is required.";
@@ -555,22 +573,8 @@ if ($mysqliConnection -> connect_errno) {
 							}
 						}
 					break;
-					case "4": //update bio
-						if (strlen($changeContent) > 200) {
-							$assocReturn["message"] = "This biography is too long. The maximum number of characters is 200.";
-						}
-						else if (!empty(trim($changeContent))) {
-							$updateBioQuery = "UPDATE accountdetails
-							SET biography = '$changeContent'
-							WHERE accountID = '" . $_SESSION["userID"] . "'";
-							if ($mysqliConnection -> query($updateBioQuery)) {
-								$assocReturn["message"] = "Biography updated.";
-							} else {
-								$assocReturn["message"] = "An internal error occurred. Please refresh the page or try again later.";
-							}
-						}
-					break;
 					case "5": //change 2FA
+						$changeContent = $mysqliConnection -> real_escape_string($_POST["content"]);
 						$assocReturn["canSwitch"] = false;
 						if (empty(trim($_POST["content2"]))) {
 							$assocReturn["message"] = "This field is required.";

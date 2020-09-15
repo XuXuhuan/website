@@ -2,10 +2,9 @@
 error_reporting(0);
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
 $fetchEmail = $mysqliConnection -> real_escape_string($_POST["email"]);
-$fetchEmailQuery = "
-	SELECT email
-	FROM accountdetails
-	WHERE email = '$fetchEmail'";
+$fetchEmailQuery = "SELECT email
+FROM accountdetails
+WHERE LOWER(email) = LOWER('$fetchEmail')";
 if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 	if ($mysqliConnection -> connect_errno) {
 		echo "A connection error occurred. Please try again later.";

@@ -97,19 +97,13 @@ if ($mysqliConnection -> connect_errno) {
 		}
 		else if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 			$selectEmailVerifiedQuery = "
-			SELECT emailVerificationTime, accountDeletionTime, emailVerified, biography
+			SELECT emailVerified, biography
 			FROM accountdetails
 			WHERE accountID = " . $_SESSION["userID"] . "
 			AND emailVerified = 0";
 			if ($allNeededDetails = $mysqliConnection -> query($selectEmailVerifiedQuery)) {
 				if ($allNeededDetails -> num_rows > 0) {
 					if ($assocNeededDetails = $allNeededDetails -> fetch_assoc()) {
-						$dbVerificationEmailLastSentTime = $assocNeededDetails["emailVerificationTime"];
-						$dbDeletionEmailLastSentTime = $assocNeededDetails["accountDeletionTime"];
-						$remainingVerificationCooldown = strtotime($dbVerificationEmailLastSentTime) > (time() - 120) ?
-						"Please wait " . (strtotime($dbVerificationEmailLastSentTime) - time() + 120) . " more seconds!" : "";
-						$remainingDeletionCooldown = strtotime($dbDeletionEmailLastSentTime) > (time() - 120) ?
-						"Please wait " . (strtotime($dbDeletionEmailLastSentTime) - time() + 120) . " more seconds!" : "";
 						$emailIsVerified = $assocNeededDetails["emailVerified"] == true ? "Yes" : "No";
 						$userBiography = $assocNeededDetails["biography"];
 					} else {
