@@ -2,6 +2,7 @@
 session_start();
 error_reporting(0);
 date_default_timezone_set("MST");
+$userProfile;
 $profilesPageHTML = '';
 $stylesheetLink;
 $loginAlert;
@@ -84,11 +85,40 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			$logoutOrLogin = "<a href='https://www.streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>";
 		}
 	}
-	if (preg_match("/[^0-9]/", $_GET["id"]) == true) {
-		$loginAlert = '
-		<div id="alertCont">
-			<p id="alertText">This link is invalid. The user&#39;s profile ID may only contain numbers.</p>
+	if (empty($_GET["id"])) {
+		$profilesPageHTML = '
+		<div id="profileContents">
+			<div id="searchFormCont">
+				<form action="profileSearch.php" id="profileSearchForm" method="GET" autocomplete="off">
+					<label for="profileSearchField" id="profileSearchLabel">Search</label>
+					<div id="searchBarCont">
+						<input type="text" name="query" id="profileSearchField" placeholder="Search Profiles">
+						<button id="profileSearchButton" type="submit">
+							<div id="profileSearchImage"></div>
+						</button>
+					</div>
+				</form>
+			</div>
 		</div>';
+		$userProfile = "Search Profiles";
+	}
+	else if (preg_match("/[^0-9]/", $_GET["id"]) == true) {
+		$profilesPageHTML = '
+		<div id="profileContents">
+			<div id="searchFormCont">
+				<form action="profileSearch.php" id="profileSearchForm" method="GET" autocomplete="off">
+					<label for="profileSearchField" id="profileSearchLabel">Search</label>
+					<div id="searchBarCont">
+						<input type="text" name="query" id="profileSearchField" placeholder="Search Profiles">
+						<button id="profileSearchButton" type="submit">
+							<div id="profileSearchImage"></div>
+						</button>
+					</div>
+				</form>
+				<p class="inputErrorText">Invalid ID in the URL provided. A valid ID only contains numbers.</p>
+			</div>
+		</div>';
+		$userProfile = "Invalid ID";
 	} else {
 		$userID = $mysqliConnection -> real_escape_string($_GET["id"]);
 		$selectProfileDetailsQuery = "SELECT username, biography
@@ -99,9 +129,21 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				if ($assocProfileDetails = $queriedProfileDetails -> fetch_assoc()) {
 					$profileUsername = $assocProfileDetails["username"];
 					$profileBio = $assocProfileDetails["biography"];
+					$userProfile = $profileUsername;
 					if (empty($loginAlert)) {
 						$profilesPageHTML = '
 						<div id="profileContents">
+							<div id="searchFormCont">
+								<form action="profileSearch.php" id="profileSearchForm" method="GET" autocomplete="off">
+									<label for="profileSearchField" id="profileSearchLabel">Search</label>
+									<div id="searchBarCont">
+										<input type="text" name="query" id="profileSearchField" placeholder="Search Profiles">
+										<button id="profileSearchButton" type="submit">
+											<div id="profileSearchImage"></div>
+										</button>
+									</div>
+								</form>
+							</div>
 							<div class="infoColumnRow" id="nameAndBioRow">
 								<h2 id="userProfileName">' . htmlspecialchars($profileUsername, ENT_QUOTES) . '</h2>
 								<p id="biographyText">' . preg_replace("/\n/", "<br>", htmlspecialchars($profileBio, ENT_QUOTES)) . '</p>
@@ -118,10 +160,22 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					</div>';
 				}
 			} else {
-				$loginAlert = '
-				<div id="alertCont">
-					<p id="alertText">This user was not found. Please enter a valid account ID.</p>
+				$profilesPageHTML = '
+				<div id="profileContents">
+					<div id="searchFormCont">
+						<form action="profileSearch.php" id="profileSearchForm" method="GET" autocomplete="off">
+							<label for="profileSearchField" id="profileSearchLabel">Search</label>
+							<div id="searchBarCont">
+								<input type="text" name="query" id="profileSearchField" placeholder="Search Profiles">
+								<button id="profileSearchButton" type="submit">
+									<div id="profileSearchImage"></div>
+								</button>
+							</div>
+						</form>
+						<p class="inputErrorText">User not found.</p>
+					</div>
 				</div>';
+				$userProfile = "User not found";
 			}
 			$queriedProfileDetails -> free();
 		} else {
@@ -148,7 +202,7 @@ echo '
 	<meta name="description" content="Share about your lifestyle or lifestyle tips!">
 	<link rel="stylesheet" href="' . $stylesheetLink . '">
 	<script src="web.js" defer></script>
-	<title>Profiles · Streetor</title>
+	<title>' . $userProfile . ' · Streetor</title>
 </head>
 <body>
 	<header>

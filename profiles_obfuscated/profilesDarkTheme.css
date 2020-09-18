@@ -14,6 +14,8 @@
 	--sideMenuTextTransform: scaleX(0);
 	--UIdefaultColor: #35363A;
 	--UIdefaultTextColor: #ffffff;
+	--profileSearchButtonBgColor: #2D2F31;
+	--textFieldColor: #141618;
 }
 @font-face {
 	font-family: MontserratReg;
@@ -126,9 +128,9 @@ body::after {
 	display: -o-flex;
 	display: flex;
 	height: fit-content;
-height: -moz-fit-content;
+		height: -moz-fit-content;
 	width: fit-content;
-width: -moz-fit-content;;
+	width: -moz-fit-content;
 	-webkit-flex-direction: column;
 	-moz-flex-direction: column;
 	-ms-flex-direction: column;
@@ -476,8 +478,9 @@ main {
 	#profileContents {
 		position: relative;
 		width: 80%;
-		left: 10%;
-		right: 10%;
+	}
+	#profileSearchField {
+		width: 300px;
 	}
 }
 @media only screen and (max-width: 720px) {
@@ -487,9 +490,11 @@ main {
 	}
 }
 #profileContents {
-	margin-top: 30px;
+	display: block;
+	margin: 30px auto 0 auto;
 }
 .infoRow {
+	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -520,6 +525,60 @@ main {
 }
 .infoColumnRow:nth-last-child(1) {
 	border: 0 !important;
+}
+.inputErrorText {
+	margin: 0;
+	font-size: 15px;
+	font-family: MontserratReg, Verdana, sans-serif;
+	color: #ff0000;
+}
+#searchFormCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	align-items: center;
+	margin-bottom: 20px;
+}
+#profileSearchForm {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+}
+#profileSearchField {
+	outline: none;
+	height: 30px;
+	vertical-align: top;
+	background-color: var(--textFieldColor);
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	font-size: 16px;
+	border-radius: 4px 0 0 4px;
+	height: 35px;
+	min-width: 238px;
+	padding: 0 0 0 5px;
+}
+#profileSearchButton {
+	outline: none;
+	float: right;
+	border: 0;
+	padding: 10px 12.5px;
+	background-color: var(--profileSearchButtonBgColor);
+	cursor: pointer;
+	border-radius: 0 4px 4px 0;
+}
+#profileSearchImage {
+	background-image: url("../Assets/darkTheme/search_magnifying_glass.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 15px;
+	width: calc(733 / 680 * 15px);
 }
 #userProfileName {
 	position: relative;

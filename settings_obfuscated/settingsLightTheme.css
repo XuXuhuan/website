@@ -11,6 +11,7 @@
 	--UIdefaultInputColor: #D7D7D7;
 	--UIselectedBgColor: #AAAAAA;
 	--deleteAccountButtonHoverBgColor: #E60505;
+	--showPassLink: url("../Assets/lightTheme/PasswordVisible.png");
 }
 .notSelectable {
 	-webkit-touch-callout: none;
@@ -135,9 +136,9 @@ body::after {
 	display: -o-flex;
 	display: flex;
 	height: fit-content;
-height: -moz-fit-content;
+		height: -moz-fit-content;
 	width: fit-content;
-width: -moz-fit-content;;
+	width: -moz-fit-content;
 	-webkit-flex-direction: column;
 	-moz-flex-direction: column;
 	-ms-flex-direction: column;
@@ -512,7 +513,7 @@ main {
 		margin-top: 30px;
 		margin-right: 2em;
 		height: fit-content;
-height: -moz-fit-content;
+		height: -moz-fit-content;
 		width: calc(100% - 4em - 200px);
 	}
 	.topHeaderInfo {
@@ -600,6 +601,7 @@ height: -moz-fit-content;
 	font-family: MontserratReg, Verdana, sans-serif;
 }
 .infoRow {
+	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -638,7 +640,7 @@ height: -moz-fit-content;
 #changePasswordText, #changeUsernameText, #changeEmailText {
 	font-family: LatoReg, Arial, sans-serif;
 	width: fit-content;
-width: -moz-fit-content;;
+	width: -moz-fit-content;
 	border-radius: 7px;
 	margin: 0;
 	background-color: transparent;

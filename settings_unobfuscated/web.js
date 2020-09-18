@@ -50,7 +50,6 @@ var newEmailText = "";
 var newEmailConfirmPasswordText = "";
 var bioText = "";
 var twoFactorAuthConfirmPasswordText = "";
-var theme;
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
 function getCookie(cookieName) {
@@ -67,11 +66,6 @@ function getCookie(cookieName) {
 		}
 	}
 	return "";
-}
-if (getCookie("darktheme") !== "false") {
-	theme = "darkTheme";
-} else {
-	theme = "lightTheme";
 }
 function changeUserToggle() {
 	const refNewUserCont = document.querySelector("#newUserCont");
@@ -177,7 +171,7 @@ function newPassFieldShowToggle() {
 			createdToggleFieldStyle.id = "newPasswordStyles"
 			createdToggleFieldSheet.insertRule(`
 			#newPassImage {
-				background-image: url("../Assets/${theme}/PasswordVisible.png") !important;
+				background-image: var(--showPassLink) !important;
 				width: calc(1000 / 600 * 15px) !important;
 			}`);
 		}
@@ -200,7 +194,7 @@ function confirmPassFieldShowToggle() {
 			createdToggleFieldStyle.id = "confirmPasswordStyles";
 			createdToggleFieldSheet.insertRule(`
 			#confirmPassImage {
-				background-image: url("../Assets/${theme}/PasswordVisible.png");
+				background-image: var(--showPassLink) !important;
 				width: calc(1000 / 600 * 15px);
 			}`);
 		}
@@ -223,7 +217,7 @@ function newEmailConfirmPassFieldShowToggle() {
 			createdToggleFieldStyle.id = "newEmailConfirmPasswordStyles";
 			createdToggleFieldSheet.insertRule(`
 			#newEmailConfirmPassImage {
-				background-image: url("../Assets/${theme}/PasswordVisible.png");
+				background-image: var(--showPassLink) !important;
 				width: calc(1000 / 600 * 15px);
 			}`);
 		}
@@ -246,7 +240,7 @@ function change2FAConfirmPassFieldShowToggle() {
 			createdToggleFieldStyle.id = "change2FAConfirmPasswordStyles";
 			createdToggleFieldSheet.insertRule(`
 			#change2FAConfirmPassImage {
-				background-image: url("../Assets/${theme}/PasswordVisible.png");
+				background-image: var(--showPassLink) !important;
 				width: calc(1000 / 600 * 15px);
 			}`);
 		}
@@ -724,17 +718,13 @@ function deleteAccount() {
 	}
 }
 function themeSwitch() {
-	const refDarkThemeSwitchCont = document.querySelector("#darkThemeSwitchCont");
-	const refDarkThemeSwitch = document.querySelector("#darkThemeSwitch");
 	if (getCookie("darktheme") !== "false") {
 		document.cookie = "darktheme=false; expires=31 Dec 10000 12:00:00 UTC; path=/";
-		theme = "lightTheme";
 		if (refStyleSheetLink.href !== "https://streetor.sg/settings/settingsLightTheme.css") {
 			refStyleSheetLink.setAttribute("href", "settingsLightTheme.css");
 		}
 	} else {
 		document.cookie = "darktheme=true; expires=31 Dec 10000 12:00:00 UTC; path=/";
-		theme = "darkTheme";
 		if (refStyleSheetLink.href !== "https://streetor.sg/settings/settingsDarkTheme.css") {
 			refStyleSheetLink.setAttribute("href", "settingsDarkTheme.css");
 		}
@@ -920,12 +910,6 @@ refAccountButton.addEventListener("click", function(triggered) {
 			</div>
 			<p id="deleteAccountError" class="inputErrorText">${accountDeletionError}</p>
 		</div>`;
-		if (getCookie("darktheme") !== "false") {
-			const refDarkThemeSwitchCont = document.querySelector("#darkThemeSwitchCont");
-			const refDarkThemeSwitch = document.querySelector("#darkThemeSwitch");
-			refDarkThemeSwitchCont.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
-			refDarkThemeSwitch.style.left = "23px";
-		}
 		const refUsernameInfo = document.querySelector("#usernameRowInfo");
 		const refEmailInfo = document.querySelector("#emailRowInfo");
 		const refEmailVerifiedRow = document.querySelector("#emailVerifiedRow");

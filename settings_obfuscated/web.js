@@ -1,1073 +1,1100 @@
-const _0x5919 = [
-    '</p>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09<div\x20id=\x22confirmPasswordNewEmailCont\x22>\x0a\x09\x09\x09\x09\x09<label\x20for=\x22newEmailConfirmPassword\x22\x20id=\x22newEmailConfirmPasswordLabel\x22>Password</label>\x0a\x09\x09\x09\x09\x09<input\x20value=\x22',
-    'Email:\x20[Error.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later]',
-    'username',
-    'brightness(100%)',
-    'Username\x20may\x20only\x20contain\x20between\x203-20\x20characters.',
-    '#changePasswordText',
-    'darkTheme',
-    'add',
-    '\x0a\x09\x09\x09#changePassMenuArrow\x20{\x0a\x09\x09\x09\x09transform:\x20rotate(180deg);\x0a\x09\x09\x09}',
-    '#stylesheetLink',
-    '#changeEmailStyles',
-    'Microsoft.XMLHTTP',
-    'addEventListener',
-    '#emailVerifiedRow',
-    'responseType',
-    '#newEmailCont',
-    'Password\x20must\x20contain\x208\x20or\x20more\x20characters.',
-    'contains',
-    'stringify',
-    '#innerConfirmPassCont',
-    '#sendChangeUsernameEmailButton',
-    'confirmPasswordStyles',
-    'false',
-    'send',
-    'changeUsernameStyles',
-    'Save\x20Changes',
-    '\x0a\x09\x09\x09#changePasswordText\x20{\x0a\x09\x09\x09\x09margin-bottom:\x2015px\x20!important;\x0a\x09\x09\x09}',
-    'emailVerifiedRowInfoStyle',
-    'fetchSecurityTabDetails.php',
-    'type=1&content=',
-    '</p>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09<div\x20class=\x22sendEmailButtonCont\x22\x20style=\x22height:\x2040px;\x22>\x0a\x09\x09\x09\x09\x09<button\x20id=\x22sendChangeEmailEmailButton\x22\x20class=\x22notSelectable\x22\x20onclick=\x22updateEmail()\x22>',
-    'backgroundColor',
-    'https://streetor.sg/settings/settingsLightTheme.css',
-    '#confirmPasswordChange2FAError',
-    '#settingsInfoCont',
-    'trim',
-    'application/json',
-    '#newUserCont',
-    '\x0a\x09\x09\x09#changePassCont\x20{\x0a\x09\x09\x09\x09height:\x20',
-    'Username\x20may\x20only\x20contain\x20letters,\x20numbers,\x20.\x20and\x20_.',
-    'animationName',
-    '#bioInputError',
-    '</button>\x0a\x09\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09</div>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22>\x0a\x09\x09\x09<p\x20id=\x22changeEmailText\x22\x20class=\x22notSelectable\x22\x20onclick=\x22changeEmailToggle()\x22>\x0a\x09\x09\x09\x09Change\x20Your\x20Email\x0a\x09\x09\x09\x09<svg\x20version=\x221.0\x22\x20xmlns=\x22http://www.w3.org/2000/svg\x22\x20class=\x22dropDownMenuArrow\x22\x20id=\x22changeEmailMenuArrow\x22\x20width=\x2210px\x22\x20height=\x2210px\x22\x20viewBox=\x220\x200\x201131.000000\x20744.000000\x22\x20preserveAspectRatio=\x22xMidYMid\x20meet\x22>\x0a\x09\x09\x09\x09\x09<g\x20transform=\x22translate(0.000000,744.000000)\x20scale(0.100000,-0.100000)\x22\x20stroke=\x22none\x22>\x0a\x09\x09\x09\x09\x09\x09<path\x20d=\x22M887\x206552\x20c-482\x20-482\x20-877\x20-882\x20-877\x20-887\x200\x20-13\x205642\x20-5655\x205655\x0a\x09\x09\x09\x09\x09\x09-5655\x2012\x200\x205645\x205645\x205645\x205657\x200\x2012\x20-1753\x201763\x20-1765\x201763\x20-5\x200\x20-882\x20-872\x0a\x09\x09\x09\x09\x09\x09-1947\x20-1937\x20l-1938\x20-1938\x20-1938\x201938\x20c-1065\x201065\x20-1942\x201937\x20-1947\x201937\x20-6\x200\x0a\x09\x09\x09\x09\x09\x09-405\x20-395\x20-888\x20-878z\x22/>\x0a\x09\x09\x09\x09\x09</g>\x0a\x09\x09\x09\x09</svg>\x0a\x09\x09\x09</p>\x0a\x09\x09\x09<div\x20id=\x22changeEmailCont\x22>\x0a\x09\x09\x09\x09<div\x20id=\x22newEmailCont\x22\x20style=\x22margin-bottom:\x205px;\x22>\x0a\x09\x09\x09\x09\x09<label\x20for=\x22newEmail\x22\x20id=\x22newEmailLabel\x22>New\x20Email</label>\x0a\x09\x09\x09\x09\x09<input\x20value=\x22',
-    'switch',
-    'newPassError',
-    'emailVerifiedRowStyle',
-    '</button>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoRow\x22>\x0a\x09\x09\x09<label\x20for=\x22darkThemeSwitchCont\x22\x20class=\x22rowInfo\x20notSelectable\x22\x20id=\x22darkThemeLabel\x22>Dark\x20Theme:</label>\x0a\x09\x09\x09<span\x20id=\x22darkThemeSwitchCont\x22\x20class=\x22sliderSwitchCont\x22\x20onclick=\x22themeSwitch()\x22>\x0a\x09\x09\x09\x09<span\x20id=\x22darkThemeSwitch\x22></span>\x0a\x09\x09\x09</span>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22\x20style=\x22padding-bottom:\x200;\x22>\x0a\x09\x09\x09<label\x20id=\x22deleteAccountButtonLabel\x22\x20for=\x22deleteAccountButtonLabel\x22\x20class=\x22rowInfo\x20notSelectable\x22>Delete\x20This\x20Account:</label>\x0a\x09\x09\x09<div\x20id=\x22deleteAccountButtonCont\x22\x20style=\x22height:\x2040px;\x22>\x0a\x09\x09\x09\x09<button\x20id=\x22deleteAccountButton\x22\x20class=\x22notSelectable\x22\x20onclick=\x22deleteAccount()\x22>',
-    '#twoFactorAuthLabel',
+const _0x5b4d = [
     'type=3&content=',
-    '../sendDeletionEmail.php',
-    'top',
-    'setRequestHeader',
-    '#newEmailField',
-    '#twoFactorAuthSwitchCont',
-    '#darkThemeSwitchCont',
-    'Two\x20Factor\x20Authentication:\x20[Error.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later]',
-    '#verifyEmailButton',
-    '</p>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09<div\x20id=\x22innerConfirmPassCont\x22>\x0a\x09\x09\x09\x09\x09<div\x20id=\x22confirmPassCont\x22>\x0a\x09\x09\x09\x09\x09\x09<label\x20for=\x22confirmPassword\x22\x20id=\x22confirmPasswordLabel\x22>Confirm\x20Password</label>\x0a\x09\x09\x09\x09\x09\x09<input\x20value=\x22',
-    'toggle',
-    'rgba(255,\x20255,\x20255,\x200.2)',
-    '\x0a\x09\x09\x09#newEmailConfirmPassImage\x20{\x0a\x09\x09\x09\x09background-image:\x20url(\x22../Assets/',
-    '#sidenav',
-    '#change2FAConfirmPasswordStyles',
-    '</button>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09</div>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22>\x0a\x09\x09\x09<p\x20id=\x22changePasswordText\x22\x20class=\x22notSelectable\x22\x20onclick=\x22changePassToggle()\x22>\x0a\x09\x09\x09\x09Change\x20Your\x20Password\x0a\x09\x09\x09\x09<svg\x20version=\x221.0\x22\x20xmlns=\x22http://www.w3.org/2000/svg\x22\x20class=\x22dropDownMenuArrow\x22\x20id=\x22changePassMenuArrow\x22\x20width=\x2210px\x22\x20height=\x2210px\x22\x20viewBox=\x220\x200\x201131.000000\x20744.000000\x22\x20preserveAspectRatio=\x22xMidYMid\x20meet\x22>\x0a\x09\x09\x09\x09\x09<g\x20transform=\x22translate(0.000000,744.000000)\x20scale(0.100000,-0.100000)\x22\x20stroke=\x22none\x22>\x0a\x09\x09\x09\x09\x09\x09<path\x20d=\x22M887\x206552\x20c-482\x20-482\x20-877\x20-882\x20-877\x20-887\x200\x20-13\x205642\x20-5655\x205655\x0a\x09\x09\x09\x09\x09\x09-5655\x2012\x200\x205645\x205645\x205645\x205657\x200\x2012\x20-1753\x201763\x20-1765\x201763\x20-5\x200\x20-882\x20-872\x0a\x09\x09\x09\x09\x09\x09-1947\x20-1937\x20l-1938\x20-1938\x20-1938\x201938\x20c-1065\x201065\x20-1942\x201937\x20-1947\x201937\x20-6\x200\x0a\x09\x09\x09\x09\x09\x09-405\x20-395\x20-888\x20-878z\x22/>\x0a\x09\x09\x09\x09\x09</g>\x0a\x09\x09\x09\x09</svg>\x0a\x09\x09\x09</p>\x0a\x09\x09\x09<div\x20id=\x22changePassCont\x22>\x0a\x09\x09\x09\x09<div\x20id=\x22newPassCont\x22>\x0a\x09\x09\x09\x09\x09<label\x20for=\x22newPassword\x22\x20id=\x22newPasswordLabel\x22>New\x20Password</label>\x0a\x09\x09\x09\x09\x09<input\x20value=\x22',
-    'application/x-www-form-urlencoded',
-    'insertRule',
-    'Change\x20Username',
-    'substring',
-    'response',
-    '\x0a\x09\x09<h1\x20class=\x22topHeaderInfo\x20notSelectable\x22>Details</h1>\x0a\x09\x09<div\x20class=\x22infoRow\x22\x20id=\x22usernameRow\x22>\x0a\x09\x09\x09<p\x20class=\x22rowInfo\x20notSelectable\x22\x20id=\x22usernameRowInfo\x22>Username:</p>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoRow\x22\x20id=\x22emailRow\x22>\x0a\x09\x09\x09<p\x20class=\x22rowInfo\x20notSelectable\x22\x20id=\x22emailRowInfo\x22>Email:</p>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22\x20id=\x22emailVerifiedRow\x22\x20style=\x22padding-bottom:\x200;\x22>\x0a\x09\x09\x09<p\x20class=\x22rowInfo\x20notSelectable\x22\x20id=\x22emailVerifiedRowInfo\x22\x20style=\x22margin-bottom:\x2010px;\x22>Email\x20Verified:\x20</p>\x0a\x09\x09</div>\x0a\x09\x09<h1\x20class=\x22notSelectable\x22>Change\x20Details</h1>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22>\x0a\x09\x09\x09<p\x20id=\x22changeUsernameText\x22\x20class=\x22notSelectable\x22\x20onclick=\x22changeUserToggle()\x22>\x0a\x09\x09\x09\x09Change\x20Your\x20Username\x0a\x09\x09\x09\x09<svg\x20version=\x221.0\x22\x20xmlns=\x22http://www.w3.org/2000/svg\x22\x20class=\x22dropDownMenuArrow\x22\x20id=\x22changeUserMenuArrow\x22\x20width=\x2210px\x22\x20height=\x2210px\x22\x20viewBox=\x220\x200\x201131.000000\x20744.000000\x22\x20preserveAspectRatio=\x22xMidYMid\x20meet\x22>\x0a\x09\x09\x09\x09\x09<g\x20transform=\x22translate(0.000000,744.000000)\x20scale(0.100000,-0.100000)\x22\x20stroke=\x22none\x22>\x0a\x09\x09\x09\x09\x09\x09<path\x20d=\x22M887\x206552\x20c-482\x20-482\x20-877\x20-882\x20-877\x20-887\x200\x20-13\x205642\x20-5655\x205655\x0a\x09\x09\x09\x09\x09\x09-5655\x2012\x200\x205645\x205645\x205645\x205657\x200\x2012\x20-1753\x201763\x20-1765\x201763\x20-5\x200\x20-882\x20-872\x0a\x09\x09\x09\x09\x09\x09-1947\x20-1937\x20l-1938\x20-1938\x20-1938\x201938\x20c-1065\x201065\x20-1942\x201937\x20-1947\x201937\x20-6\x200\x0a\x09\x09\x09\x09\x09\x09-405\x20-395\x20-888\x20-878z\x22/>\x0a\x09\x09\x09\x09\x09</g>\x0a\x09\x09\x09\x09</svg>\x0a\x09\x09\x09</p>\x0a\x09\x09\x09<div\x20id=\x22changeUserCont\x22>\x0a\x09\x09\x09\x09<div\x20id=\x22newUserCont\x22\x20style=\x22margin-bottom:\x205px;\x22>\x0a\x09\x09\x09\x09\x09<label\x20for=\x22newUsername\x22\x20id=\x22newUsernameLabel\x22>New\x20Username</label>\x0a\x09\x09\x09\x09\x09<input\x20value=\x22',
-    '#newPasswordStyles',
-    'changeEmailStyles',
-    'Content-type',
-    '</button>\x0a\x09\x09\x09</div>\x0a\x09\x09\x09<p\x20id=\x22deleteAccountError\x22\x20class=\x22inputErrorText\x22>',
-    'updateAccountDetails.php',
-    '\x22\x20type=\x22password\x22\x20placeholder=\x22Password\x22\x20autocomplete=\x22off\x22\x20id=\x22confirmPasswordNewEmailField\x22\x20onkeyup=\x22validateNewEmailPasswordField(event)\x22>\x0a\x09\x09\x09\x09\x09<button\x20id=\x22newEmailConfirmPassShowButton\x22\x20class=\x22passwordShowButton\x20notSelectable\x22\x20onclick=\x22newEmailConfirmPassFieldShowToggle()\x22>\x0a\x09\x09\x09\x09\x09\x09<div\x20class=\x22showPassImage\x22\x20id=\x22newEmailConfirmPassImage\x22></div>\x0a\x09\x09\x09\x09\x09</button>\x0a\x09\x09\x09\x09\x09<p\x20id=\x22confirmPasswordNewEmailError\x22\x20class=\x22inputErrorText\x22>',
-    'left',
-    '</textarea>\x0a\x09\x09\x09</div>\x0a\x09\x09\x09<p\x20id=\x22bioInputError\x22\x20class=\x22inputErrorText\x22>',
-    '#selectedTabLine',
-    'length',
-    'Biography\x20(optional):\x20[Error.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later.]',
-    'value',
     'innerHTML',
-    '\x0a\x09\x09\x09#changeEmailText\x20{\x0a\x09\x09\x09\x09margin-bottom:\x2015px\x20!important;\x0a\x09\x09\x09}',
-    '\x0a\x09\x09\x09#changeUserCont\x20{\x0a\x09\x09\x09\x09height:\x20',
-    'biographyHTML',
-    'https://streetor.sg/settings/settingsDarkTheme.css',
-    '../EmailTaken.php',
-    'height',
-    'href',
-    '#sendChangePasswordEmailButton',
-    'clientWidth',
-    'click',
-    'An\x20internal\x20error\x20occurred.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later.',
-    'email=',
-    '#verifyEmailError',
-    'Change\x20Password',
-    '\x22\x20type=\x22password\x22\x20onkeyup=\x22validateChangePassFields(event)\x22\x20placeholder=\x22New\x20Password\x22\x20autocomplete=\x22off\x22\x20id=\x22newPasswordField\x22>\x0a\x09\x09\x09\x09\x09<button\x20id=\x22newPassShowButton\x22\x20class=\x22passwordShowButton\x20notSelectable\x22\x20onclick=\x22newPassFieldShowToggle()\x22>\x0a\x09\x09\x09\x09\x09\x09<div\x20class=\x22showPassImage\x22\x20id=\x22newPassImage\x22></div>\x0a\x09\x09\x09\x09\x09</button>\x0a\x09\x09\x09\x09\x09<p\x20id=\x22newPasswordError\x22\x20class=\x22inputErrorText\x22>',
-    'getBoundingClientRect',
-    '#bioInput',
-    'Send\x20Email',
-    '#emailVerifiedRowInfo',
-    'button',
-    '#usernameRowInfo',
-    '</p>\x0a\x09\x09\x09<button\x20id=\x22saveBioButton\x22\x20class=\x22notSelectable\x22\x20onclick=\x22updateBio()\x22>',
-    'querySelector',
-    '</p>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09<div\x20class=\x22sendEmailButtonCont\x22\x20style=\x22height:\x2040px;\x22>\x0a\x09\x09\x09\x09\x09<button\x20id=\x22sendChangeUsernameEmailButton\x22\x20class=\x22notSelectable\x22\x20onclick=\x22updateUsername()\x22>',
-    '#newPasswordField',
-    '#confirmPasswordNewEmailField',
-    '\x0a\x09\x09\x09#change2FAConfirmPassImage\x20{\x0a\x09\x09\x09\x09background-image:\x20url(\x22../Assets/',
-    'An\x20internal\x20error\x20occurred.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later',
-    '#darkThemeSwitch',
-    'leftoverCooldown',
-    'email',
-    '#confirmPasswordStyles',
-    'menuAnimationClose',
-    'onload',
-    'charAt',
-    '#newEmailConfirmPasswordStyles',
-    'keyCode',
+    '#newUsernameField',
+    'message',
+    '#settingsInfoCont',
+    '#accountButton',
+    'Microsoft.XMLHTTP',
+    'username=',
     'json',
-    '#deleteAccountError',
-    '\x22\x20type=\x22password\x22\x20placeholder=\x22Password\x22\x20autocomplete=\x22off\x22\x20id=\x22confirmPasswordChange2FAField\x22\x20onkeyup=\x22validateChange2FAPasswordField(event)\x22>\x0a\x09\x09\x09\x09<button\x20id=\x22change2FAConfirmPassShowButton\x22\x20class=\x22passwordShowButton\x20notSelectable\x22\x20onclick=\x22change2FAConfirmPassFieldShowToggle()\x22>\x0a\x09\x09\x09\x09\x09<div\x20class=\x22showPassImage\x22\x20id=\x22change2FAConfirmPassImage\x22></div>\x0a\x09\x09\x09\x09</button>\x0a\x09\x09\x09\x09<p\x20id=\x22confirmPasswordChange2FAError\x22\x20class=\x22inputErrorText\x22>',
-    'Username:\x20',
-    'switchedOnSwitch',
-    '23px',
-    'Username:\x20[Error.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later]',
-    'Re-send\x20Email',
+    'classList',
+    'button',
+    '\x0a\x09\x09\x09#confirmPassImage\x20{\x0a\x09\x09\x09\x09background-image:\x20var(--showPassLink)\x20!important;\x0a\x09\x09\x09\x09width:\x20calc(1000\x20/\x20600\x20*\x2015px);\x0a\x09\x09\x09}',
+    '#newPasswordStyles',
+    '\x0a\x09\x09\x09#changeUserCont\x20{\x0a\x09\x09\x09\x09height:\x20',
+    '</p>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09<div\x20id=\x22innerConfirmPassCont\x22>\x0a\x09\x09\x09\x09\x09<div\x20id=\x22confirmPassCont\x22>\x0a\x09\x09\x09\x09\x09\x09<label\x20for=\x22confirmPassword\x22\x20id=\x22confirmPasswordLabel\x22>Confirm\x20Password</label>\x0a\x09\x09\x09\x09\x09\x09<input\x20value=\x22',
     'GET',
-    'darktheme',
+    'Biography\x20(optional):\x20[Error.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later.]',
+    'Username:\x20',
+    '</p>\x0a\x09\x09</div>',
+    '#change2FAConfirmPasswordStyles',
+    'appendChild',
+    'split',
+    'type=5&content=null&content2=',
+    '#twoFactorAuthSwitchCont',
+    'open',
+    'newPasswordStyles',
+    '../sendVerifEmail.php',
+    'https://streetor.sg/settings/settingsDarkTheme.css',
     'switchedOnSwitchCont',
+    '#change2FACont',
+    '#selectedTabLine',
+    'type',
+    'replace',
+    '\x0a\x09\x09\x09#changeEmailCont\x20{\x0a\x09\x09\x09\x09height:\x20',
+    'value',
+    'filter',
+    'addEventListener',
+    'application/x-www-form-urlencoded',
+    'type=2&content=',
+    '#twoFactorAuthSwitch',
+    '#deleteAccountButton',
+    '#usernameRowInfo',
+    '\x0a\x09\x09<h1\x20class=\x22topHeaderInfo\x20notSelectable\x22>Account\x20Security</h1>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22\x20id=\x22twoFactorAuthRow\x22\x20style=\x22border:\x200;\x22>\x0a\x09\x09\x09<div\x20id=\x22change2FACont\x22\x20class=\x22infoRow\x22\x20style=\x22margin-bottom:\x205px;\x20padding:\x200;\x20border:\x200;\x22>\x0a\x09\x09\x09\x09<p\x20id=\x22twoFactorAuthLabel\x22\x20class=\x22rowInfo\x20notSelectable\x22>2\x20Factor\x20Authentication:</p>\x0a\x09\x09\x09</div>\x0a\x09\x09\x09<div\x20id=\x22confirmPasswordChange2FACont\x22>\x0a\x09\x09\x09\x09<label\x20for=\x22change2FAConfirmPassword\x22\x20id=\x22change2FAConfirmPasswordLabel\x22>Password</label>\x0a\x09\x09\x09\x09<input\x20value=\x22',
+    'concatSlider',
+    'stringify',
+    'brightness(100%)',
+    '#newPasswordError',
+    'changePasswordStyles',
+    'style',
+    'settingsLightTheme.css',
+    'charAt',
+    'emailVerifiedRowInfoText',
+    'This\x20field\x20is\x20required.',
+    '#confirmPasswordField',
+    '#newEmailError',
+    'Change\x20Username',
+    'createElement',
+    '#changeUsernameStyles',
+    'emailVerifiedRowInfoStyle',
+    'menuAnimationOpen',
+    'add',
+    '#sendChangeEmailEmailButton',
+    '#confirmPasswordNewEmailCont',
+    '\x0a\x09\x09\x09#change2FAConfirmPassImage\x20{\x0a\x09\x09\x09\x09background-image:\x20var(--showPassLink)\x20!important;\x0a\x09\x09\x09\x09width:\x20calc(1000\x20/\x20600\x20*\x2015px);\x0a\x09\x09\x09}',
+    '\x0a\x09\x09\x09#changePassMenuArrow\x20{\x0a\x09\x09\x09\x09transform:\x20rotate(180deg);\x0a\x09\x09\x09}',
+    '#confirmPasswordNewEmailError',
+    '</p>\x0a\x09\x09\x09</div>\x0a\x09\x09</div>',
+    '</p>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09<div\x20id=\x22confirmPasswordNewEmailCont\x22>\x0a\x09\x09\x09\x09\x09<label\x20for=\x22newEmailConfirmPassword\x22\x20id=\x22newEmailConfirmPasswordLabel\x22>Password</label>\x0a\x09\x09\x09\x09\x09<input\x20value=\x22',
+    '#confirmPasswordStyles',
+    'animationName',
+    'Send\x20Email',
+    'onload',
+    '&content2=',
+    'changeEmailStyles',
+    '../sendDeletionEmail.php',
+    'darktheme=false;\x20expires=31\x20Dec\x2010000\x2012:00:00\x20UTC;\x20path=/',
+    '\x0a\x09\x09\x09#changePassCont\x20{\x0a\x09\x09\x09\x09height:\x20',
+    'responseType',
+    'Username\x20may\x20only\x20contain\x20letters,\x20numbers,\x20.\x20and\x20_.',
+    'https://streetor.sg/settings/settingsLightTheme.css',
+    '#stylesheetLink',
+    '\x0a\x09\x09\x09#changeUsernameText\x20{\x0a\x09\x09\x09\x09margin-bottom:\x2015px\x20!important;\x0a\x09\x09\x09}',
+    '#changePasswordText',
+    'left',
+    '#sidenav',
+    '</p>\x0a\x09\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09\x09<div\x20class=\x22sendEmailButtonCont\x22\x20style=\x22height:\x2040px;\x22>\x0a\x09\x09\x09\x09\x09\x09<button\x20id=\x22sendChangePasswordEmailButton\x22\x20class=\x22notSelectable\x22\x20onclick=\x22updatePassword()\x22>',
+    'Username\x20may\x20only\x20contain\x20between\x203-20\x20characters.',
+    'username',
+    'indexOf',
+    'fetchAccountTabDetails.php',
+    'XMLHttpRequest',
+    'darktheme=true;\x20expires=31\x20Dec\x2010000\x2012:00:00\x20UTC;\x20path=/',
+    '</button>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09</div>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22>\x0a\x09\x09\x09<p\x20id=\x22changePasswordText\x22\x20class=\x22notSelectable\x22\x20onclick=\x22changePassToggle()\x22>\x0a\x09\x09\x09\x09Change\x20Your\x20Password\x0a\x09\x09\x09\x09<svg\x20version=\x221.0\x22\x20xmlns=\x22http://www.w3.org/2000/svg\x22\x20class=\x22dropDownMenuArrow\x22\x20id=\x22changePassMenuArrow\x22\x20width=\x2210px\x22\x20height=\x2210px\x22\x20viewBox=\x220\x200\x201131.000000\x20744.000000\x22\x20preserveAspectRatio=\x22xMidYMid\x20meet\x22>\x0a\x09\x09\x09\x09\x09<g\x20transform=\x22translate(0.000000,744.000000)\x20scale(0.100000,-0.100000)\x22\x20stroke=\x22none\x22>\x0a\x09\x09\x09\x09\x09\x09<path\x20d=\x22M887\x206552\x20c-482\x20-482\x20-877\x20-882\x20-877\x20-887\x200\x20-13\x205642\x20-5655\x205655\x0a\x09\x09\x09\x09\x09\x09-5655\x2012\x200\x205645\x205645\x205645\x205657\x200\x2012\x20-1753\x201763\x20-1765\x201763\x20-5\x200\x20-882\x20-872\x0a\x09\x09\x09\x09\x09\x09-1947\x20-1937\x20l-1938\x20-1938\x20-1938\x201938\x20c-1065\x201065\x20-1942\x201937\x20-1947\x201937\x20-6\x200\x0a\x09\x09\x09\x09\x09\x09-405\x20-395\x20-888\x20-878z\x22/>\x0a\x09\x09\x09\x09\x09</g>\x0a\x09\x09\x09\x09</svg>\x0a\x09\x09\x09</p>\x0a\x09\x09\x09<div\x20id=\x22changePassCont\x22>\x0a\x09\x09\x09\x09<div\x20id=\x22newPassCont\x22>\x0a\x09\x09\x09\x09\x09<label\x20for=\x22newPassword\x22\x20id=\x22newPasswordLabel\x22>New\x20Password</label>\x0a\x09\x09\x09\x09\x09<input\x20value=\x22',
+    '#newEmailCont',
+    '#newUsernameError',
+    'concatText',
+    'emailVerificationHTML',
+    '\x22\x20type=\x22password\x22\x20placeholder=\x22Password\x22\x20autocomplete=\x22off\x22\x20id=\x22confirmPasswordChange2FAField\x22\x20onkeyup=\x22validateChange2FAPasswordField(event)\x22>\x0a\x09\x09\x09\x09<button\x20id=\x22change2FAConfirmPassShowButton\x22\x20class=\x22passwordShowButton\x20notSelectable\x22\x20onclick=\x22change2FAConfirmPassFieldShowToggle()\x22>\x0a\x09\x09\x09\x09\x09<div\x20class=\x22showPassImage\x22\x20id=\x22change2FAConfirmPassImage\x22></div>\x0a\x09\x09\x09\x09</button>\x0a\x09\x09\x09\x09<p\x20id=\x22confirmPasswordChange2FAError\x22\x20class=\x22inputErrorText\x22>',
+    'sheet',
+    '#emailRowInfo',
+    '#confirmPasswordError',
+    'toggle',
+    'change2FAConfirmPasswordStyles',
+    '#newEmailField',
     '#bioContainer',
-    '#bioInfoLabel',
+    'Please\x20create\x20a\x20stronger\x20password.',
+    'responseText',
+    'pointer',
+    'settingsDarkTheme.css',
+    'menuAnimationClose',
+    'newPassError',
+    'Save\x20Changes',
+    '#bioInput',
+    '#changePasswordStyles',
+    '#innerConfirmPassCont',
+    '#emailVerifiedRow',
+    '#bioInputError',
+    'email=',
+    '#changeEmailStyles',
+    '\x0a\x09\x09\x09#changeEmailMenuArrow\x20{\x0a\x09\x09\x09\x09transform:\x20rotate(180deg);\x0a\x09\x09\x09}',
+    'changeUsernameStyles',
+    'Email\x20Verified:\x20[Error.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later.]',
     '#confirmPasswordChange2FAField',
     'removeChild',
-    '\x0a\x09\x09\x09#changeUsernameText\x20{\x0a\x09\x09\x09\x09margin-bottom:\x2015px\x20!important;\x0a\x09\x09\x09}',
-    'This\x20field\x20is\x20required.',
-    'POST',
-    'style',
-    '#confirmPasswordNewEmailError',
-    'pointer',
-    '#menuToggle',
-    '\x0a\x09\x09\x09#confirmPassImage\x20{\x0a\x09\x09\x09\x09background-image:\x20url(\x22../Assets/',
-    'Re-send\x20Email\x20(',
-    '#sendChangeEmailEmailButton',
-    '\x0a\x09\x09\x09#newPassImage\x20{\x0a\x09\x09\x09\x09background-image:\x20url(\x22../Assets/',
-    'lightTheme',
-    'settingsDarkTheme.css',
-    'change2FAConfirmPasswordStyles',
-    'Please\x20create\x20a\x20stronger\x20password.',
-    '50px',
-    '#newPasswordError',
-    'replace',
-    '#newUsernameError',
-    '/PasswordVisible.png\x22);\x0a\x09\x09\x09\x09width:\x20calc(1000\x20/\x20600\x20*\x2015px);\x0a\x09\x09\x09}',
-    '\x0a\x09\x09\x09#changeUserMenuArrow\x20{\x0a\x09\x09\x09\x09transform:\x20rotate(180deg);\x0a\x09\x09\x09}',
-    'Email\x20Verified:\x20[Error.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later.]',
-    '</p>\x0a\x09\x09\x09</div>\x0a\x09\x09</div>',
-    'newEmailConfirmPasswordStyles',
-    'split',
-    'classList',
-    'sheet',
-    'open',
-    '../sendVerifEmail.php',
-    '#deleteAccountButton',
-    'emailVerifiedRowInfoText',
-    '#confirmPasswordNewEmailCont',
-    'newPasswordStyles',
-    'type=5&content=null&content2=',
-    '#changeUsernameStyles',
-    'username=',
-    'darktheme=true;\x20expires=31\x20Dec\x2010000\x2012:00:00\x20UTC;\x20path=/',
-    'menuAnimationOpen',
-    'px\x20!important;\x0a\x09\x09\x09}',
-    '#emailRowInfo',
-    'Please\x20enter\x20a\x20valid\x20email.',
-    '\x22\x20type=\x22password\x22\x20onkeyup=\x22validateChangePassFields(event)\x22\x20placeholder=\x22Confirm\x20Password\x22\x20autocomplete=\x22off\x22\x20id=\x22confirmPasswordField\x22>\x0a\x09\x09\x09\x09\x09\x09<button\x20id=\x22confirmPassShowButton\x22\x20class=\x22passwordShowButton\x20notSelectable\x22\x20onclick=\x22confirmPassFieldShowToggle()\x22>\x0a\x09\x09\x09\x09\x09\x09\x09<div\x20class=\x22showPassImage\x22\x20id=\x22confirmPassImage\x22></div>\x0a\x09\x09\x09\x09\x09\x09</button>\x0a\x09\x09\x09\x09\x09\x09<p\x20id=\x22confirmPasswordError\x22\x20class=\x22inputErrorText\x22>',
-    'responseText',
-    '</p>\x0a\x09\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09\x09<div\x20class=\x22sendEmailButtonCont\x22\x20style=\x22height:\x2040px;\x22>\x0a\x09\x09\x09\x09\x09\x09<button\x20id=\x22sendChangePasswordEmailButton\x22\x20class=\x22notSelectable\x22\x20onclick=\x22updatePassword()\x22>',
-    'password',
-    'Passwords\x20do\x20not\x20match.',
-    'onerror',
-    'settingsLightTheme.css',
-    'concatSlider',
-    'head',
-    '#twoFactorAuthSwitch',
-    'createElement',
-    'cookie',
-    '\x22\x20type=\x22text\x22\x20onkeyup=\x22validateChangeEmailField(event)\x22\x20placeholder=\x22New\x20Email\x22\x20autocomplete=\x22off\x22\x20id=\x22newEmailField\x22>\x0a\x09\x09\x09\x09\x09<p\x20id=\x22newEmailError\x22\x20class=\x22inputErrorText\x22>',
-    'darktheme=false;\x20expires=31\x20Dec\x2010000\x2012:00:00\x20UTC;\x20path=/',
-    '#newEmailError',
-    '#confirmPasswordField',
-    'type',
-    '#newPassCont',
-    'changePasswordStyles',
-    'appendChild',
-    '#change2FACont',
+    'darktheme',
     '../UsernameTaken.php',
-    'test',
-    'XMLHttpRequest',
-    '&content2=',
-    '\x22\x20type=\x22text\x22\x20onkeyup=\x22validateChangeUserField(event)\x22\x20placeholder=\x22New\x20Username\x22\x20autocomplete=\x22off\x22\x20id=\x22newUsernameField\x22>\x0a\x09\x09\x09\x09\x09<p\x20id=\x22newUsernameError\x22\x20class=\x22inputErrorText\x22>',
-    '/PasswordVisible.png\x22)\x20!important;\x0a\x09\x09\x09\x09width:\x20calc(1000\x20/\x20600\x20*\x2015px)\x20!important;\x0a\x09\x09\x09}',
-    '\x0a\x09\x09<h1\x20class=\x22topHeaderInfo\x20notSelectable\x22>Account\x20Security</h1>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22\x20id=\x22twoFactorAuthRow\x22\x20style=\x22border:\x200;\x22>\x0a\x09\x09\x09<div\x20id=\x22change2FACont\x22\x20class=\x22infoRow\x22\x20style=\x22margin-bottom:\x205px;\x20padding:\x200;\x20border:\x200;\x22>\x0a\x09\x09\x09\x09<p\x20id=\x22twoFactorAuthLabel\x22\x20class=\x22rowInfo\x20notSelectable\x22>2\x20Factor\x20Authentication:</p>\x0a\x09\x09\x09</div>\x0a\x09\x09\x09<div\x20id=\x22confirmPasswordChange2FACont\x22>\x0a\x09\x09\x09\x09<label\x20for=\x22change2FAConfirmPassword\x22\x20id=\x22change2FAConfirmPasswordLabel\x22>Password</label>\x0a\x09\x09\x09\x09<input\x20value=\x22',
-    'setAttribute',
-    '#changePasswordStyles',
-    'message',
-    'filter',
-    '\x0a\x09\x09\x09#changeEmailCont\x20{\x0a\x09\x09\x09\x09height:\x20',
-    'parentNode',
-    '#confirmPasswordError',
-    'text',
-    'Change\x20Email',
+    'getBoundingClientRect',
+    'false',
+    '\x0a\x09\x09\x09#changeUserMenuArrow\x20{\x0a\x09\x09\x09\x09transform:\x20rotate(180deg);\x0a\x09\x09\x09}',
+    'fetchSecurityTabDetails.php',
+    '50px',
+    'Please\x20enter\x20a\x20valid\x20email.',
+    '</p>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09<div\x20class=\x22sendEmailButtonCont\x22\x20style=\x22height:\x2040px;\x22>\x0a\x09\x09\x09\x09\x09<button\x20id=\x22sendChangeEmailEmailButton\x22\x20class=\x22notSelectable\x22\x20onclick=\x22updateEmail()\x22>',
+    'onerror',
     '#securityButton',
-    '</button>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09</div>\x0a\x09\x09</div>\x0a\x09\x09<h1\x20class=\x22notSelectable\x22>Other\x20Settings</h1>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22>\x0a\x09\x09\x09<label\x20for=\x22bioInput\x22\x20onkeyup=\x22saveBioValue()\x22\x20class=\x22rowInfo\x20notSelectable\x22\x20id=\x22bioInfoLabel\x22\x20style=\x22vertical-align:\x20top;\x22>Biography\x20(optional):</label>\x0a\x09\x09\x09<div\x20id=\x22bioContainer\x22>\x0a\x09\x09\x09\x09<textarea\x20id=\x22bioInput\x22\x20placeholder=\x22Share\x20about\x20yourself\x20in\x20200\x20characters.\x22\x20maxlength=\x22200\x22\x20rows=\x2210\x22>',
-    'newEmailError',
-    'remove',
-    '</p>\x0a\x09\x09</div>',
-    '#newUsernameField',
-    'emailVerificationHTML',
-    '\x0a\x09\x09\x09#changeEmailMenuArrow\x20{\x0a\x09\x09\x09\x09transform:\x20rotate(180deg);\x0a\x09\x09\x09}',
-    'indexOf',
-    'Email:\x20',
+    'Change\x20Email',
+    '</textarea>\x0a\x09\x09\x09</div>\x0a\x09\x09\x09<p\x20id=\x22bioInputError\x22\x20class=\x22inputErrorText\x22>',
+    '#emailVerifiedRowInfo',
+    'substring',
+    'text',
+    '#confirmPasswordNewEmailField',
+    'POST',
+    '#verifyEmailButton',
+    'Re-send\x20Email',
+    'An\x20internal\x20error\x20occurred.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later',
+    '\x22\x20type=\x22text\x22\x20onkeyup=\x22validateChangeUserField(event)\x22\x20placeholder=\x22New\x20Username\x22\x20autocomplete=\x22off\x22\x20id=\x22newUsernameField\x22>\x0a\x09\x09\x09\x09\x09<p\x20id=\x22newUsernameError\x22\x20class=\x22inputErrorText\x22>',
+    'response',
     'cursor',
-    '#accountButton',
-    'concatText',
-    'type=2&content=',
+    'head',
+    'Email:\x20',
+    'contains',
+    'Password\x20must\x20contain\x208\x20or\x20more\x20characters.',
+    'querySelector',
+    '#menuToggle',
+    'switchedOnSwitch',
+    '#verifyEmailError',
+    '#confirmPasswordChange2FAError',
+    '#newPassCont',
+    'Change\x20Password',
+    'setRequestHeader',
+    'switch',
+    'confirmPasswordStyles',
+    'email',
+    'height',
+    'clientWidth',
+    '</button>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoRow\x22>\x0a\x09\x09\x09<label\x20for=\x22darkThemeSwitchCont\x22\x20class=\x22rowInfo\x20notSelectable\x22\x20id=\x22darkThemeLabel\x22>Dark\x20Theme:</label>\x0a\x09\x09\x09<span\x20id=\x22darkThemeSwitchCont\x22\x20class=\x22sliderSwitchCont\x22\x20onclick=\x22themeSwitch()\x22>\x0a\x09\x09\x09\x09<span\x20id=\x22darkThemeSwitch\x22></span>\x0a\x09\x09\x09</span>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22\x20style=\x22padding-bottom:\x200;\x22>\x0a\x09\x09\x09<label\x20id=\x22deleteAccountButtonLabel\x22\x20for=\x22deleteAccountButtonLabel\x22\x20class=\x22rowInfo\x20notSelectable\x22>Delete\x20This\x20Account:</label>\x0a\x09\x09\x09<div\x20id=\x22deleteAccountButtonCont\x22\x20style=\x22height:\x2040px;\x22>\x0a\x09\x09\x09\x09<button\x20id=\x22deleteAccountButton\x22\x20class=\x22notSelectable\x22\x20onclick=\x22deleteAccount()\x22>',
+    '#deleteAccountError',
+    'Content-type',
+    'Passwords\x20do\x20not\x20match.',
+    '#twoFactorAuthLabel',
+    '\x0a\x09\x09\x09#changeEmailText\x20{\x0a\x09\x09\x09\x09margin-bottom:\x2015px\x20!important;\x0a\x09\x09\x09}',
+    'Email:\x20[Error.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later]',
+    '#sendChangeUsernameEmailButton',
+    'cookie',
+    'Two\x20Factor\x20Authentication:\x20[Error.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later]',
+    '\x0a\x09\x09\x09#newEmailConfirmPassImage\x20{\x0a\x09\x09\x09\x09background-image:\x20var(--showPassLink)\x20!important;\x0a\x09\x09\x09\x09width:\x20calc(1000\x20/\x20600\x20*\x2015px);\x0a\x09\x09\x09}',
     'selectedTab',
-    'fetchAccountTabDetails.php'
+    'trim',
+    'href',
+    'test',
+    'newEmailConfirmPasswordStyles',
+    '\x0a\x09\x09<h1\x20class=\x22topHeaderInfo\x20notSelectable\x22>Details</h1>\x0a\x09\x09<div\x20class=\x22infoRow\x22\x20id=\x22usernameRow\x22>\x0a\x09\x09\x09<p\x20class=\x22rowInfo\x20notSelectable\x22\x20id=\x22usernameRowInfo\x22>Username:</p>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoRow\x22\x20id=\x22emailRow\x22>\x0a\x09\x09\x09<p\x20class=\x22rowInfo\x20notSelectable\x22\x20id=\x22emailRowInfo\x22>Email:</p>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22\x20id=\x22emailVerifiedRow\x22\x20style=\x22padding-bottom:\x200;\x22>\x0a\x09\x09\x09<p\x20class=\x22rowInfo\x20notSelectable\x22\x20id=\x22emailVerifiedRowInfo\x22\x20style=\x22margin-bottom:\x2010px;\x22>Email\x20Verified:\x20</p>\x0a\x09\x09</div>\x0a\x09\x09<h1\x20class=\x22notSelectable\x22>Change\x20Details</h1>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22>\x0a\x09\x09\x09<p\x20id=\x22changeUsernameText\x22\x20class=\x22notSelectable\x22\x20onclick=\x22changeUserToggle()\x22>\x0a\x09\x09\x09\x09Change\x20Your\x20Username\x0a\x09\x09\x09\x09<svg\x20version=\x221.0\x22\x20xmlns=\x22http://www.w3.org/2000/svg\x22\x20class=\x22dropDownMenuArrow\x22\x20id=\x22changeUserMenuArrow\x22\x20width=\x2210px\x22\x20height=\x2210px\x22\x20viewBox=\x220\x200\x201131.000000\x20744.000000\x22\x20preserveAspectRatio=\x22xMidYMid\x20meet\x22>\x0a\x09\x09\x09\x09\x09<g\x20transform=\x22translate(0.000000,744.000000)\x20scale(0.100000,-0.100000)\x22\x20stroke=\x22none\x22>\x0a\x09\x09\x09\x09\x09\x09<path\x20d=\x22M887\x206552\x20c-482\x20-482\x20-877\x20-882\x20-877\x20-887\x200\x20-13\x205642\x20-5655\x205655\x0a\x09\x09\x09\x09\x09\x09-5655\x2012\x200\x205645\x205645\x205645\x205657\x200\x2012\x20-1753\x201763\x20-1765\x201763\x20-5\x200\x20-882\x20-872\x0a\x09\x09\x09\x09\x09\x09-1947\x20-1937\x20l-1938\x20-1938\x20-1938\x201938\x20c-1065\x201065\x20-1942\x201937\x20-1947\x201937\x20-6\x200\x0a\x09\x09\x09\x09\x09\x09-405\x20-395\x20-888\x20-878z\x22/>\x0a\x09\x09\x09\x09\x09</g>\x0a\x09\x09\x09\x09</svg>\x0a\x09\x09\x09</p>\x0a\x09\x09\x09<div\x20id=\x22changeUserCont\x22>\x0a\x09\x09\x09\x09<div\x20id=\x22newUserCont\x22\x20style=\x22margin-bottom:\x205px;\x22>\x0a\x09\x09\x09\x09\x09<label\x20for=\x22newUsername\x22\x20id=\x22newUsernameLabel\x22>New\x20Username</label>\x0a\x09\x09\x09\x09\x09<input\x20value=\x22',
+    '\x22\x20type=\x22password\x22\x20onkeyup=\x22validateChangePassFields(event)\x22\x20placeholder=\x22Confirm\x20Password\x22\x20autocomplete=\x22off\x22\x20id=\x22confirmPasswordField\x22>\x0a\x09\x09\x09\x09\x09\x09<button\x20id=\x22confirmPassShowButton\x22\x20class=\x22passwordShowButton\x20notSelectable\x22\x20onclick=\x22confirmPassFieldShowToggle()\x22>\x0a\x09\x09\x09\x09\x09\x09\x09<div\x20class=\x22showPassImage\x22\x20id=\x22confirmPassImage\x22></div>\x0a\x09\x09\x09\x09\x09\x09</button>\x0a\x09\x09\x09\x09\x09\x09<p\x20id=\x22confirmPasswordError\x22\x20class=\x22inputErrorText\x22>',
+    '#newPasswordField',
+    'send',
+    '../EmailTaken.php',
+    'click',
+    'length',
+    '</p>\x0a\x09\x09\x09<button\x20id=\x22saveBioButton\x22\x20class=\x22notSelectable\x22\x20onclick=\x22updateBio()\x22>',
+    '\x22\x20type=\x22password\x22\x20onkeyup=\x22validateChangePassFields(event)\x22\x20placeholder=\x22New\x20Password\x22\x20autocomplete=\x22off\x22\x20id=\x22newPasswordField\x22>\x0a\x09\x09\x09\x09\x09<button\x20id=\x22newPassShowButton\x22\x20class=\x22passwordShowButton\x20notSelectable\x22\x20onclick=\x22newPassFieldShowToggle()\x22>\x0a\x09\x09\x09\x09\x09\x09<div\x20class=\x22showPassImage\x22\x20id=\x22newPassImage\x22></div>\x0a\x09\x09\x09\x09\x09</button>\x0a\x09\x09\x09\x09\x09<p\x20id=\x22newPasswordError\x22\x20class=\x22inputErrorText\x22>',
+    'parentNode',
+    'remove',
+    '</button>\x0a\x09\x09\x09</div>\x0a\x09\x09\x09<p\x20id=\x22deleteAccountError\x22\x20class=\x22inputErrorText\x22>',
+    'An\x20internal\x20error\x20occurred.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later.',
+    'application/json',
+    '</button>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09</div>\x0a\x09\x09</div>\x0a\x09\x09<h1\x20class=\x22notSelectable\x22>Other\x20Settings</h1>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22>\x0a\x09\x09\x09<label\x20for=\x22bioInput\x22\x20onkeyup=\x22saveBioValue()\x22\x20class=\x22rowInfo\x20notSelectable\x22\x20id=\x22bioInfoLabel\x22\x20style=\x22vertical-align:\x20top;\x22>Biography\x20(optional):</label>\x0a\x09\x09\x09<div\x20id=\x22bioContainer\x22>\x0a\x09\x09\x09\x09<textarea\x20id=\x22bioInput\x22\x20placeholder=\x22Share\x20about\x20yourself\x20in\x20200\x20characters.\x22\x20maxlength=\x22200\x22\x20rows=\x2210\x22>',
+    'px\x20!important;\x0a\x09\x09\x09}',
+    '#bioInfoLabel',
+    '#darkThemeSwitch',
+    '</button>\x0a\x09\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09</div>\x0a\x09\x09</div>\x0a\x09\x09<div\x20class=\x22infoColumnRow\x22>\x0a\x09\x09\x09<p\x20id=\x22changeEmailText\x22\x20class=\x22notSelectable\x22\x20onclick=\x22changeEmailToggle()\x22>\x0a\x09\x09\x09\x09Change\x20Your\x20Email\x0a\x09\x09\x09\x09<svg\x20version=\x221.0\x22\x20xmlns=\x22http://www.w3.org/2000/svg\x22\x20class=\x22dropDownMenuArrow\x22\x20id=\x22changeEmailMenuArrow\x22\x20width=\x2210px\x22\x20height=\x2210px\x22\x20viewBox=\x220\x200\x201131.000000\x20744.000000\x22\x20preserveAspectRatio=\x22xMidYMid\x20meet\x22>\x0a\x09\x09\x09\x09\x09<g\x20transform=\x22translate(0.000000,744.000000)\x20scale(0.100000,-0.100000)\x22\x20stroke=\x22none\x22>\x0a\x09\x09\x09\x09\x09\x09<path\x20d=\x22M887\x206552\x20c-482\x20-482\x20-877\x20-882\x20-877\x20-887\x200\x20-13\x205642\x20-5655\x205655\x0a\x09\x09\x09\x09\x09\x09-5655\x2012\x200\x205645\x205645\x205645\x205657\x200\x2012\x20-1753\x201763\x20-1765\x201763\x20-5\x200\x20-882\x20-872\x0a\x09\x09\x09\x09\x09\x09-1947\x20-1937\x20l-1938\x20-1938\x20-1938\x201938\x20c-1065\x201065\x20-1942\x201937\x20-1947\x201937\x20-6\x200\x0a\x09\x09\x09\x09\x09\x09-405\x20-395\x20-888\x20-878z\x22/>\x0a\x09\x09\x09\x09\x09</g>\x0a\x09\x09\x09\x09</svg>\x0a\x09\x09\x09</p>\x0a\x09\x09\x09<div\x20id=\x22changeEmailCont\x22>\x0a\x09\x09\x09\x09<div\x20id=\x22newEmailCont\x22\x20style=\x22margin-bottom:\x205px;\x22>\x0a\x09\x09\x09\x09\x09<label\x20for=\x22newEmail\x22\x20id=\x22newEmailLabel\x22>New\x20Email</label>\x0a\x09\x09\x09\x09\x09<input\x20value=\x22',
+    '\x0a\x09\x09\x09#newPassImage\x20{\x0a\x09\x09\x09\x09background-image:\x20var(--showPassLink)\x20!important;\x0a\x09\x09\x09\x09width:\x20calc(1000\x20/\x20600\x20*\x2015px)\x20!important;\x0a\x09\x09\x09}',
+    'Username:\x20[Error.\x20Please\x20refresh\x20the\x20page\x20or\x20try\x20again\x20later]',
+    'top',
+    'keyCode',
+    'emailVerifiedRowStyle',
+    '\x22\x20type=\x22password\x22\x20placeholder=\x22Password\x22\x20autocomplete=\x22off\x22\x20id=\x22confirmPasswordNewEmailField\x22\x20onkeyup=\x22validateNewEmailPasswordField(event)\x22>\x0a\x09\x09\x09\x09\x09<button\x20id=\x22newEmailConfirmPassShowButton\x22\x20class=\x22passwordShowButton\x20notSelectable\x22\x20onclick=\x22newEmailConfirmPassFieldShowToggle()\x22>\x0a\x09\x09\x09\x09\x09\x09<div\x20class=\x22showPassImage\x22\x20id=\x22newEmailConfirmPassImage\x22></div>\x0a\x09\x09\x09\x09\x09</button>\x0a\x09\x09\x09\x09\x09<p\x20id=\x22confirmPasswordNewEmailError\x22\x20class=\x22inputErrorText\x22>',
+    'insertRule',
+    '#newEmailConfirmPasswordStyles',
+    'leftoverCooldown',
+    'type=1&content=',
+    'Re-send\x20Email\x20(',
+    '#sendChangePasswordEmailButton',
+    '\x22\x20type=\x22text\x22\x20onkeyup=\x22validateChangeEmailField(event)\x22\x20placeholder=\x22New\x20Email\x22\x20autocomplete=\x22off\x22\x20id=\x22newEmailField\x22>\x0a\x09\x09\x09\x09\x09<p\x20id=\x22newEmailError\x22\x20class=\x22inputErrorText\x22>',
+    'setAttribute',
+    'newEmailError',
+    '#newUserCont',
+    '</p>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09<div\x20class=\x22sendEmailButtonCont\x22\x20style=\x22height:\x2040px;\x22>\x0a\x09\x09\x09\x09\x09<button\x20id=\x22sendChangeUsernameEmailButton\x22\x20class=\x22notSelectable\x22\x20onclick=\x22updateUsername()\x22>',
+    'updateAccountDetails.php',
+    '\x0a\x09\x09\x09#changePasswordText\x20{\x0a\x09\x09\x09\x09margin-bottom:\x2015px\x20!important;\x0a\x09\x09\x09}',
+    'biographyHTML',
+    'password'
 ];
-(function (_0x5442aa, _0x591995) {
-    const _0x5a465a = function (_0x4a504c) {
-        while (--_0x4a504c) {
-            _0x5442aa['push'](_0x5442aa['shift']());
+(function (_0x462a5d, _0x5b4de0) {
+    const _0x239b5b = function (_0x52c351) {
+        while (--_0x52c351) {
+            _0x462a5d['push'](_0x462a5d['shift']());
         }
     };
-    _0x5a465a(++_0x591995);
-}(_0x5919, 0x1c6));
-const _0x5a46 = function (_0x5442aa, _0x591995) {
-    _0x5442aa = _0x5442aa - 0x0;
-    let _0x5a465a = _0x5919[_0x5442aa];
-    return _0x5a465a;
+    _0x239b5b(++_0x5b4de0);
+}(_0x5b4d, 0xd3));
+const _0x239b = function (_0x462a5d, _0x5b4de0) {
+    _0x462a5d = _0x462a5d - 0x0;
+    let _0x239b5b = _0x5b4d[_0x462a5d];
+    return _0x239b5b;
 };
+const _0x5af27a = _0x239b;
 'use strict';
-const _0x4a504c = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const _0x2df46c = /(strong(er)*)*(complex)*(password[0-9]{0,3})|(12345678(9)*)/gi;
-const _0x4db56c = /[^a-z0-9._]/gi;
-const _0x1e772d = document[_0x5a46('0x6d')](_0x5a46('0x91'));
-const _0x2f9647 = document[_0x5a46('0x6d')](_0x5a46('0x41'));
-const _0x35d920 = document[_0x5a46('0x6d')](_0x5a46('0x73'));
-const _0x3302f8 = document[_0x5a46('0x6d')](_0x5a46('0xd'));
-const _0x663218 = document[_0x5a46('0x6d')](_0x5a46('0x26'));
-const _0x432bb2 = document[_0x5a46('0x6d')](_0x5a46('0x52'));
-const _0x23568b = document[_0x5a46('0x6d')](_0x5a46('0xe4'));
-const _0x56af3d = document[_0x5a46('0x6d')](_0x5a46('0xd9'));
-const _0x1872ad = document[_0x5a46('0x6d')](_0x5a46('0x9'));
-var _0x3889fc;
-var _0x1fc13a;
-var _0x56551e;
-var _0x33fa31;
-var _0x43f269;
-var _0x25b7fc;
-var _0x2601c7;
-var _0x269efb;
-var _0x411668;
-var _0x1c64eb = ![];
-var _0x52214b = ![];
-var _0x20494a = ![];
-var _0x2bc03e = ![];
-var _0x128f24 = ![];
-var _0x41add1 = ![];
-var _0x14a3d4 = ![];
-var _0x54a9a8 = ![];
-var _0x5e9608 = _0x5a46('0x68');
-var _0x151445 = _0x5a46('0x46');
-var _0x2dbc68 = _0x5a46('0x64');
-var _0x12664e = _0x5a46('0xd8');
-var _0x54a94a = _0x5a46('0x68');
-var _0x35867c = _0x5a46('0x1d');
-var _0x2dbb16 = '';
-var _0x5d610a = _0x5a46('0x8c');
-var _0x1837df = _0x5a46('0x8c');
-var _0x2c9f8d = _0x5a46('0x8c');
-var _0x241b07 = _0x5a46('0x8c');
-var _0x67cc95 = _0x5a46('0x8c');
-var _0x52f8a0 = _0x5a46('0x8c');
-var _0x4c4430 = '';
-var _0x15e000 = '';
-var _0x49c036 = '';
-var _0x5ae933 = '';
-var _0x33af6f = '';
-var _0x4f20e0 = '';
-var _0x390dbb = '';
-var _0x15b5d1 = '';
-var _0x1baa0d = '';
-var _0x43c29f;
-_0x1e772d[_0x5a46('0x8e')][_0x5a46('0xd3')] = _0x5a46('0x7');
-_0x1e772d[_0x5a46('0x8e')][_0x5a46('0xe3')] = _0x5a46('0x90');
-function _0x22d57f(_0x465460) {
-    var _0x4367e9 = _0x465460 + '=';
-    var _0x1822ec = decodeURIComponent(document[_0x5a46('0xbf')]);
-    var _0x348a49 = _0x1822ec[_0x5a46('0xa3')](';');
-    for (var _0x36d141 = 0x0; _0x36d141 < _0x348a49[_0x5a46('0x53')]; _0x36d141++) {
-        var _0x3b9903 = _0x348a49[_0x36d141];
-        if (_0x3b9903[_0x5a46('0x79')](0x0) == '\x20') {
-            _0x3b9903 = _0x3b9903[_0x5a46('0x47')](0x1);
+const _0x52c351 = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const _0x16711c = /(strong(er)*)*(complex)*(password[0-9]{0,3})|(12345678(9)*)/gi;
+const _0x95a620 = /[^a-z0-9._]/gi;
+const _0x30915a = document[_0x5af27a('0xa2')](_0x5af27a('0xa3'));
+const _0x393222 = document[_0x5af27a('0xa2')](_0x5af27a('0x5e'));
+const _0x493abf = document[_0x5af27a('0xa2')](_0x5af27a('0xd0'));
+const _0x366cb3 = document[_0x5af27a('0xa2')](_0x5af27a('0x5a'));
+const _0x4dd48c = document[_0x5af27a('0xa2')](_0x5af27a('0xe'));
+const _0x3682b2 = document[_0x5af27a('0xa2')](_0x5af27a('0x28'));
+const _0x42cd2a = document[_0x5af27a('0xa2')](_0x5af27a('0xf'));
+const _0x58485d = document[_0x5af27a('0xa2')](_0x5af27a('0x90'));
+const _0x4169d5 = document[_0x5af27a('0xa2')](_0x5af27a('0x5c'));
+var _0x2a11de;
+var _0x25ce9f;
+var _0xa246eb;
+var _0x4526ac;
+var _0xee4d28;
+var _0x838460;
+var _0x56c05f;
+var _0x187374;
+var _0x33d291;
+var _0x3f0d74 = ![];
+var _0x25f92e = ![];
+var _0x4c479b = ![];
+var _0x2068b8 = ![];
+var _0x4eb776 = ![];
+var _0xfac32f = ![];
+var _0x1633ef = ![];
+var _0x2d5e00 = ![];
+var _0x30ac15 = _0x5af27a('0x50');
+var _0x370d8e = _0x5af27a('0x41');
+var _0x4af9ac = _0x5af27a('0xa8');
+var _0x46410e = _0x5af27a('0x91');
+var _0x188d5a = _0x5af27a('0x50');
+var _0x3bd6f7 = _0x5af27a('0x79');
+var _0x1ec758 = '';
+var _0x5e8fa1 = _0x5af27a('0x3e');
+var _0x33be91 = _0x5af27a('0x3e');
+var _0x5dc171 = _0x5af27a('0x3e');
+var _0x432c86 = _0x5af27a('0x3e');
+var _0x41beef = _0x5af27a('0x3e');
+var _0x315957 = _0x5af27a('0x3e');
+var _0x365db5 = '';
+var _0x27345e = '';
+var _0x12f999 = '';
+var _0x1a9ec0 = '';
+var _0x30ad51 = '';
+var _0x3fe696 = '';
+var _0x3a0f23 = '';
+var _0x453126 = '';
+var _0x269c15 = '';
+_0x30915a[_0x5af27a('0x3a')][_0x5af27a('0x2d')] = _0x5af27a('0x37');
+_0x30915a[_0x5af27a('0x3a')][_0x5af27a('0x9d')] = _0x5af27a('0x75');
+function _0x2312e3(_0x85d336) {
+    const _0x44c398 = _0x5af27a;
+    var _0x314b42 = _0x85d336 + '=';
+    var _0x3020af = decodeURIComponent(document[_0x44c398('0xb7')]);
+    var _0x367f4e = _0x3020af[_0x44c398('0x1f')](';');
+    for (var _0xd5cffe = 0x0; _0xd5cffe < _0x367f4e[_0x44c398('0xc5')]; _0xd5cffe++) {
+        var _0x95fb67 = _0x367f4e[_0xd5cffe];
+        if (_0x95fb67[_0x44c398('0x3c')](0x0) == '\x20') {
+            _0x95fb67 = _0x95fb67[_0x44c398('0x94')](0x1);
         }
-        if (_0x3b9903[_0x5a46('0xe1')](_0x4367e9) == 0x0) {
-            return _0x3b9903[_0x5a46('0x47')](_0x4367e9[_0x5a46('0x53')]);
+        if (_0x95fb67[_0x44c398('0x62')](_0x314b42) == 0x0) {
+            return _0x95fb67[_0x44c398('0x94')](_0x314b42[_0x44c398('0xc5')]);
         }
     }
     return '';
 }
-if (_0x22d57f(_0x5a46('0x85')) !== _0x5a46('0x1a')) {
-    _0x43c29f = _0x5a46('0xa');
-} else {
-    _0x43c29f = _0x5a46('0x96');
-}
 function changeUserToggle() {
-    const _0x13f61b = document[_0x5a46('0x6d')](_0x5a46('0x29'));
-    const _0x3009ff = document[_0x5a46('0x6d')](_0x5a46('0x18'));
-    if (_0x1c64eb === ![]) {
-        if (!document[_0x5a46('0x6d')](_0x5a46('0xad'))) {
-            var _0x431920 = document[_0x5a46('0xbe')](_0x5a46('0x8e'));
-            document[_0x5a46('0xbc')][_0x5a46('0xc7')](_0x431920);
-            var _0x2ef9af = _0x431920[_0x5a46('0xa5')];
-            _0x431920['id'] = _0x5a46('0x1c');
-            _0x2ef9af[_0x5a46('0x45')](_0x5a46('0x8b'));
-            _0x2ef9af[_0x5a46('0x45')](_0x5a46('0x58') + (_0x13f61b[_0x5a46('0x66')]()[_0x5a46('0x5c')] + 0x5 + _0x3009ff[_0x5a46('0x66')]()[_0x5a46('0x5c')]) + _0x5a46('0xb1'));
-            _0x2ef9af[_0x5a46('0x45')](_0x5a46('0x9f'));
+    const _0x26b1e8 = _0x5af27a;
+    const _0x4b7442 = document[_0x26b1e8('0xa2')](_0x26b1e8('0x4'));
+    const _0x25b71f = document[_0x26b1e8('0xa2')](_0x26b1e8('0xb6'));
+    if (_0x3f0d74 === ![]) {
+        if (!document[_0x26b1e8('0xa2')](_0x26b1e8('0x43'))) {
+            var _0x339edf = document[_0x26b1e8('0x42')](_0x26b1e8('0x3a'));
+            document[_0x26b1e8('0x9e')][_0x26b1e8('0x1e')](_0x339edf);
+            var _0x3e369f = _0x339edf[_0x26b1e8('0x6c')];
+            _0x339edf['id'] = _0x26b1e8('0x82');
+            _0x3e369f[_0x26b1e8('0xd8')](_0x26b1e8('0x5b'));
+            _0x3e369f[_0x26b1e8('0xd8')](_0x26b1e8('0x17') + (_0x4b7442[_0x26b1e8('0x88')]()[_0x26b1e8('0xad')] + 0x5 + _0x25b71f[_0x26b1e8('0x88')]()[_0x26b1e8('0xad')]) + _0x26b1e8('0xce'));
+            _0x3e369f[_0x26b1e8('0xd8')](_0x26b1e8('0x8a'));
         }
-        _0x1c64eb = !![];
+        _0x3f0d74 = !![];
     } else {
-        if (document[_0x5a46('0x6d')](_0x5a46('0xad'))) {
-            const _0x964044 = document[_0x5a46('0x6d')](_0x5a46('0xad'));
-            _0x964044[_0x5a46('0xd5')][_0x5a46('0x8a')](_0x964044);
+        if (document[_0x26b1e8('0xa2')](_0x26b1e8('0x43'))) {
+            const _0x500abb = document[_0x26b1e8('0xa2')](_0x26b1e8('0x43'));
+            _0x500abb[_0x26b1e8('0xc8')][_0x26b1e8('0x85')](_0x500abb);
         }
-        _0x1c64eb = ![];
+        _0x3f0d74 = ![];
     }
 }
 function changePassToggle() {
-    const _0x18c0a = document[_0x5a46('0x6d')](_0x5a46('0xc5'));
-    const _0x595aef = document[_0x5a46('0x6d')](_0x5a46('0x17'));
-    if (_0x52214b === ![]) {
-        if (!document[_0x5a46('0x6d')](_0x5a46('0xd1'))) {
-            var _0xa9f501 = document[_0x5a46('0xbe')](_0x5a46('0x8e'));
-            document[_0x5a46('0xbc')][_0x5a46('0xc7')](_0xa9f501);
-            var _0x55f43c = _0xa9f501[_0x5a46('0xa5')];
-            _0xa9f501['id'] = _0x5a46('0xc6');
-            _0x55f43c[_0x5a46('0x45')](_0x5a46('0x1e'));
-            _0x55f43c[_0x5a46('0x45')](_0x5a46('0xc'));
-            _0x55f43c[_0x5a46('0x45')](_0x5a46('0x2a') + (_0x18c0a[_0x5a46('0x66')]()[_0x5a46('0x5c')] + _0x595aef[_0x5a46('0x66')]()[_0x5a46('0x5c')]) + _0x5a46('0xb1'));
+    const _0x25326b = _0x5af27a;
+    const _0xac67ee = document[_0x25326b('0xa2')](_0x25326b('0xa7'));
+    const _0x175572 = document[_0x25326b('0xa2')](_0x25326b('0x7c'));
+    if (_0x25f92e === ![]) {
+        if (!document[_0x25326b('0xa2')](_0x25326b('0x7b'))) {
+            var _0x54e8b8 = document[_0x25326b('0x42')](_0x25326b('0x3a'));
+            document[_0x25326b('0x9e')][_0x25326b('0x1e')](_0x54e8b8);
+            var _0x3af91b = _0x54e8b8[_0x25326b('0x6c')];
+            _0x54e8b8['id'] = _0x25326b('0x39');
+            _0x3af91b[_0x25326b('0xd8')](_0x25326b('0x7'));
+            _0x3af91b[_0x25326b('0xd8')](_0x25326b('0x4a'));
+            _0x3af91b[_0x25326b('0xd8')](_0x25326b('0x56') + (_0xac67ee[_0x25326b('0x88')]()[_0x25326b('0xad')] + _0x175572[_0x25326b('0x88')]()[_0x25326b('0xad')]) + _0x25326b('0xce'));
         }
-        _0x52214b = !![];
+        _0x25f92e = !![];
     } else {
-        if (document[_0x5a46('0x6d')](_0x5a46('0xd1'))) {
-            const _0x354311 = document[_0x5a46('0x6d')](_0x5a46('0xd1'));
-            _0x354311[_0x5a46('0xd5')][_0x5a46('0x8a')](_0x354311);
+        if (document[_0x25326b('0xa2')](_0x25326b('0x7b'))) {
+            const _0x3a3343 = document[_0x25326b('0xa2')](_0x25326b('0x7b'));
+            _0x3a3343[_0x25326b('0xc8')][_0x25326b('0x85')](_0x3a3343);
         }
-        _0x52214b = ![];
+        _0x25f92e = ![];
     }
 }
 function changeEmailToggle() {
-    const _0x29ee83 = document[_0x5a46('0x6d')](_0x5a46('0x13'));
-    const _0x58bfe9 = document[_0x5a46('0x6d')](_0x5a46('0xaa'));
-    const _0x36c637 = document[_0x5a46('0x6d')](_0x5a46('0x94'));
-    if (_0x20494a === ![]) {
-        if (!document[_0x5a46('0x6d')](_0x5a46('0xe'))) {
-            var _0x13e88a = document[_0x5a46('0xbe')](_0x5a46('0x8e'));
-            document[_0x5a46('0xbc')][_0x5a46('0xc7')](_0x13e88a);
-            var _0x2f1b33 = _0x13e88a[_0x5a46('0xa5')];
-            _0x13e88a['id'] = _0x5a46('0x4b');
-            _0x2f1b33[_0x5a46('0x45')](_0x5a46('0x57'));
-            _0x2f1b33[_0x5a46('0x45')](_0x5a46('0xd4') + (_0x29ee83[_0x5a46('0x66')]()[_0x5a46('0x5c')] + _0x58bfe9[_0x5a46('0x66')]()[_0x5a46('0x5c')] + 0x5 + _0x36c637[_0x5a46('0x66')]()[_0x5a46('0x5c')]) + _0x5a46('0xb1'));
-            _0x2f1b33[_0x5a46('0x45')](_0x5a46('0xe0'));
+    const _0x1c10f3 = _0x5af27a;
+    const _0x1710c6 = document[_0x1c10f3('0xa2')](_0x1c10f3('0x67'));
+    const _0x32fbe6 = document[_0x1c10f3('0xa2')](_0x1c10f3('0x48'));
+    const _0x511c2a = document[_0x1c10f3('0xa2')](_0x1c10f3('0x47'));
+    if (_0x4c479b === ![]) {
+        if (!document[_0x1c10f3('0xa2')](_0x1c10f3('0x80'))) {
+            var _0x449771 = document[_0x1c10f3('0x42')](_0x1c10f3('0x3a'));
+            document[_0x1c10f3('0x9e')][_0x1c10f3('0x1e')](_0x449771);
+            var _0x5e2b95 = _0x449771[_0x1c10f3('0x6c')];
+            _0x449771['id'] = _0x1c10f3('0x53');
+            _0x5e2b95[_0x1c10f3('0xd8')](_0x1c10f3('0xb4'));
+            _0x5e2b95[_0x1c10f3('0xd8')](_0x1c10f3('0x2b') + (_0x1710c6[_0x1c10f3('0x88')]()[_0x1c10f3('0xad')] + _0x32fbe6[_0x1c10f3('0x88')]()[_0x1c10f3('0xad')] + 0x5 + _0x511c2a[_0x1c10f3('0x88')]()[_0x1c10f3('0xad')]) + _0x1c10f3('0xce'));
+            _0x5e2b95[_0x1c10f3('0xd8')](_0x1c10f3('0x81'));
         }
-        _0x20494a = !![];
+        _0x4c479b = !![];
     } else {
-        if (document[_0x5a46('0x6d')](_0x5a46('0xe'))) {
-            const _0x49e3a0 = document[_0x5a46('0x6d')](_0x5a46('0xe'));
-            _0x49e3a0[_0x5a46('0xd5')][_0x5a46('0x8a')](_0x49e3a0);
+        if (document[_0x1c10f3('0xa2')](_0x1c10f3('0x80'))) {
+            const _0x3cbc57 = document[_0x1c10f3('0xa2')](_0x1c10f3('0x80'));
+            _0x3cbc57[_0x1c10f3('0xc8')][_0x1c10f3('0x85')](_0x3cbc57);
         }
-        _0x20494a = ![];
+        _0x4c479b = ![];
     }
 }
 function newPassFieldShowToggle() {
-    const _0x1c30dd = document[_0x5a46('0x6d')](_0x5a46('0x6f'));
-    if (_0x1c30dd[_0x5a46('0xc4')] === _0x5a46('0xb7')) {
-        if (!document[_0x5a46('0x6d')](_0x5a46('0x4a'))) {
-            var _0x12f416 = document[_0x5a46('0xbe')](_0x5a46('0x8e'));
-            document[_0x5a46('0xbc')][_0x5a46('0xc7')](_0x12f416);
-            var _0xc04a2b = _0x12f416[_0x5a46('0xa5')];
-            _0x12f416['id'] = _0x5a46('0xab');
-            _0xc04a2b[_0x5a46('0x45')](_0x5a46('0x95') + _0x43c29f + _0x5a46('0xce'));
+    const _0x1ebc82 = _0x5af27a;
+    const _0x11e68a = document[_0x1ebc82('0xa2')](_0x1ebc82('0xc1'));
+    if (_0x11e68a[_0x1ebc82('0x29')] === _0x1ebc82('0x9')) {
+        if (!document[_0x1ebc82('0xa2')](_0x1ebc82('0x16'))) {
+            var _0x436c13 = document[_0x1ebc82('0x42')](_0x1ebc82('0x3a'));
+            document[_0x1ebc82('0x9e')][_0x1ebc82('0x1e')](_0x436c13);
+            var _0x40c7f0 = _0x436c13[_0x1ebc82('0x6c')];
+            _0x436c13['id'] = _0x1ebc82('0x23');
+            _0x40c7f0[_0x1ebc82('0xd8')](_0x1ebc82('0xd2'));
         }
-        _0x1c30dd[_0x5a46('0xc4')] = _0x5a46('0xd7');
+        _0x11e68a[_0x1ebc82('0x29')] = _0x1ebc82('0x95');
     } else {
-        if (document[_0x5a46('0x6d')](_0x5a46('0x4a'))) {
-            const _0x3b452c = document[_0x5a46('0x6d')](_0x5a46('0x4a'));
-            _0x3b452c[_0x5a46('0xd5')][_0x5a46('0x8a')](_0x3b452c);
+        if (document[_0x1ebc82('0xa2')](_0x1ebc82('0x16'))) {
+            const _0x77fbd9 = document[_0x1ebc82('0xa2')](_0x1ebc82('0x16'));
+            _0x77fbd9[_0x1ebc82('0xc8')][_0x1ebc82('0x85')](_0x77fbd9);
         }
-        _0x1c30dd[_0x5a46('0xc4')] = _0x5a46('0xb7');
+        _0x11e68a[_0x1ebc82('0x29')] = _0x1ebc82('0x9');
     }
 }
 function confirmPassFieldShowToggle() {
-    const _0x1a9e3b = document[_0x5a46('0x6d')](_0x5a46('0xc3'));
-    if (_0x1a9e3b[_0x5a46('0xc4')] === _0x5a46('0xb7')) {
-        if (!document[_0x5a46('0x6d')](_0x5a46('0x76'))) {
-            var _0x163bb9 = document[_0x5a46('0xbe')](_0x5a46('0x8e'));
-            document[_0x5a46('0xbc')][_0x5a46('0xc7')](_0x163bb9);
-            var _0x75adea = _0x163bb9[_0x5a46('0xa5')];
-            _0x163bb9['id'] = _0x5a46('0x19');
-            _0x75adea[_0x5a46('0x45')](_0x5a46('0x92') + _0x43c29f + _0x5a46('0x9e'));
+    const _0x56cbc2 = _0x5af27a;
+    const _0x14e1a3 = document[_0x56cbc2('0xa2')](_0x56cbc2('0x3f'));
+    if (_0x14e1a3[_0x56cbc2('0x29')] === _0x56cbc2('0x9')) {
+        if (!document[_0x56cbc2('0xa2')](_0x56cbc2('0x4e'))) {
+            var _0x53382d = document[_0x56cbc2('0x42')](_0x56cbc2('0x3a'));
+            document[_0x56cbc2('0x9e')][_0x56cbc2('0x1e')](_0x53382d);
+            var _0x4517c3 = _0x53382d[_0x56cbc2('0x6c')];
+            _0x53382d['id'] = _0x56cbc2('0xab');
+            _0x4517c3[_0x56cbc2('0xd8')](_0x56cbc2('0x15'));
         }
-        _0x1a9e3b[_0x5a46('0xc4')] = _0x5a46('0xd7');
+        _0x14e1a3[_0x56cbc2('0x29')] = _0x56cbc2('0x95');
     } else {
-        if (document[_0x5a46('0x6d')](_0x5a46('0x76'))) {
-            const _0x522fb0 = document[_0x5a46('0x6d')](_0x5a46('0x76'));
-            _0x522fb0[_0x5a46('0xd5')][_0x5a46('0x8a')](_0x522fb0);
+        if (document[_0x56cbc2('0xa2')](_0x56cbc2('0x4e'))) {
+            const _0x299aec = document[_0x56cbc2('0xa2')](_0x56cbc2('0x4e'));
+            _0x299aec[_0x56cbc2('0xc8')][_0x56cbc2('0x85')](_0x299aec);
         }
-        _0x1a9e3b[_0x5a46('0xc4')] = _0x5a46('0xb7');
+        _0x14e1a3[_0x56cbc2('0x29')] = _0x56cbc2('0x9');
     }
 }
 function newEmailConfirmPassFieldShowToggle() {
-    const _0x289e2f = document[_0x5a46('0x6d')](_0x5a46('0x70'));
-    if (_0x289e2f[_0x5a46('0xc4')] === _0x5a46('0xb7')) {
-        if (!document[_0x5a46('0x6d')](_0x5a46('0x7a'))) {
-            var _0x164e37 = document[_0x5a46('0xbe')](_0x5a46('0x8e'));
-            document[_0x5a46('0xbc')][_0x5a46('0xc7')](_0x164e37);
-            var _0x202bd7 = _0x164e37[_0x5a46('0xa5')];
-            _0x164e37['id'] = _0x5a46('0xa2');
-            _0x202bd7[_0x5a46('0x45')](_0x5a46('0x40') + _0x43c29f + _0x5a46('0x9e'));
+    const _0x1608da = _0x5af27a;
+    const _0x14cd0f = document[_0x1608da('0xa2')](_0x1608da('0x96'));
+    if (_0x14cd0f[_0x1608da('0x29')] === _0x1608da('0x9')) {
+        if (!document[_0x1608da('0xa2')](_0x1608da('0xd9'))) {
+            var _0x1b596b = document[_0x1608da('0x42')](_0x1608da('0x3a'));
+            document[_0x1608da('0x9e')][_0x1608da('0x1e')](_0x1b596b);
+            var _0x42e413 = _0x1b596b[_0x1608da('0x6c')];
+            _0x1b596b['id'] = _0x1608da('0xbe');
+            _0x42e413[_0x1608da('0xd8')](_0x1608da('0xb9'));
         }
-        _0x289e2f[_0x5a46('0xc4')] = _0x5a46('0xd7');
+        _0x14cd0f[_0x1608da('0x29')] = _0x1608da('0x95');
     } else {
-        if (document[_0x5a46('0x6d')](_0x5a46('0x7a'))) {
-            const _0x44366f = document[_0x5a46('0x6d')](_0x5a46('0x7a'));
-            _0x44366f[_0x5a46('0xd5')][_0x5a46('0x8a')](_0x44366f);
+        if (document[_0x1608da('0xa2')](_0x1608da('0xd9'))) {
+            const _0x55329a = document[_0x1608da('0xa2')](_0x1608da('0xd9'));
+            _0x55329a[_0x1608da('0xc8')][_0x1608da('0x85')](_0x55329a);
         }
-        _0x289e2f[_0x5a46('0xc4')] = _0x5a46('0xb7');
+        _0x14cd0f[_0x1608da('0x29')] = _0x1608da('0x9');
     }
 }
 function change2FAConfirmPassFieldShowToggle() {
-    const _0x4a112c = document[_0x5a46('0x6d')](_0x5a46('0x89'));
-    if (_0x4a112c[_0x5a46('0xc4')] === _0x5a46('0xb7')) {
-        if (!document[_0x5a46('0x6d')](_0x5a46('0x42'))) {
-            var _0x1d6dde = document[_0x5a46('0xbe')](_0x5a46('0x8e'));
-            document[_0x5a46('0xbc')][_0x5a46('0xc7')](_0x1d6dde);
-            var _0x24de9d = _0x1d6dde[_0x5a46('0xa5')];
-            _0x1d6dde['id'] = _0x5a46('0x98');
-            _0x24de9d[_0x5a46('0x45')](_0x5a46('0x71') + _0x43c29f + _0x5a46('0x9e'));
+    const _0x504d90 = _0x5af27a;
+    const _0x4c020b = document[_0x504d90('0xa2')](_0x504d90('0x84'));
+    if (_0x4c020b[_0x504d90('0x29')] === _0x504d90('0x9')) {
+        if (!document[_0x504d90('0xa2')](_0x504d90('0x1d'))) {
+            var _0x2b3444 = document[_0x504d90('0x42')](_0x504d90('0x3a'));
+            document[_0x504d90('0x9e')][_0x504d90('0x1e')](_0x2b3444);
+            var _0x99c84f = _0x2b3444[_0x504d90('0x6c')];
+            _0x2b3444['id'] = _0x504d90('0x70');
+            _0x99c84f[_0x504d90('0xd8')](_0x504d90('0x49'));
         }
-        _0x4a112c[_0x5a46('0xc4')] = _0x5a46('0xd7');
+        _0x4c020b[_0x504d90('0x29')] = _0x504d90('0x95');
     } else {
-        if (document[_0x5a46('0x6d')](_0x5a46('0x42'))) {
-            const _0x5beb5e = document[_0x5a46('0x6d')](_0x5a46('0x42'));
-            _0x5beb5e[_0x5a46('0xd5')][_0x5a46('0x8a')](_0x5beb5e);
+        if (document[_0x504d90('0xa2')](_0x504d90('0x1d'))) {
+            const _0x13d879 = document[_0x504d90('0xa2')](_0x504d90('0x1d'));
+            _0x13d879[_0x504d90('0xc8')][_0x504d90('0x85')](_0x13d879);
         }
-        _0x4a112c[_0x5a46('0xc4')] = _0x5a46('0xb7');
+        _0x4c020b[_0x504d90('0x29')] = _0x504d90('0x9');
     }
 }
-function validateChangeUserField(_0x3aa6bb) {
-    const _0x2378cd = document[_0x5a46('0x6d')](_0x5a46('0xde'));
-    const _0x3a1153 = document[_0x5a46('0x6d')](_0x5a46('0x9d'));
-    clearTimeout(_0x1fc13a);
-    clearTimeout(_0x56551e);
-    if (_0x4db56c[_0x5a46('0xca')](_0x2378cd[_0x5a46('0x55')]) === !![]) {
-        _0x3a1153[_0x5a46('0x56')] = _0x5a46('0x2b');
-        _0x5d610a = _0x5a46('0x2b');
-    } else if (_0x2378cd[_0x5a46('0x55')][_0x5a46('0x27')]()[_0x5a46('0x53')] === 0x0) {
-        _0x3a1153[_0x5a46('0x56')] = _0x5a46('0x8c');
-        _0x5d610a = _0x5a46('0x8c');
-    } else if (_0x2378cd[_0x5a46('0x55')][_0x5a46('0x53')] < 0x3 || _0x2378cd[_0x5a46('0x55')][_0x5a46('0x53')] > 0x14) {
-        _0x3a1153[_0x5a46('0x56')] = _0x5a46('0x8');
-        _0x5d610a = _0x5a46('0x8');
-    } else if (_0x3aa6bb && _0x3aa6bb[_0x5a46('0x7b')] === 0xd) {
+function validateChangeUserField(_0x15bc8b) {
+    const _0x889a9 = _0x5af27a;
+    const _0x3d5f4d = document[_0x889a9('0xa2')](_0x889a9('0xc'));
+    const _0xcfef9 = document[_0x889a9('0xa2')](_0x889a9('0x68'));
+    clearTimeout(_0x25ce9f);
+    clearTimeout(_0xa246eb);
+    if (_0x95a620[_0x889a9('0xbd')](_0x3d5f4d[_0x889a9('0x2c')]) === !![]) {
+        _0xcfef9[_0x889a9('0xb')] = _0x889a9('0x58');
+        _0x5e8fa1 = _0x889a9('0x58');
+    } else if (_0x3d5f4d[_0x889a9('0x2c')][_0x889a9('0xbb')]()[_0x889a9('0xc5')] === 0x0) {
+        _0xcfef9[_0x889a9('0xb')] = _0x889a9('0x3e');
+        _0x5e8fa1 = _0x889a9('0x3e');
+    } else if (_0x3d5f4d[_0x889a9('0x2c')][_0x889a9('0xc5')] < 0x3 || _0x3d5f4d[_0x889a9('0x2c')][_0x889a9('0xc5')] > 0x14) {
+        _0xcfef9[_0x889a9('0xb')] = _0x889a9('0x60');
+        _0x5e8fa1 = _0x889a9('0x60');
+    } else if (_0x15bc8b && _0x15bc8b[_0x889a9('0xd5')] === 0xd) {
         updateUsername();
     } else {
-        _0x5d610a = '';
-        _0x3a1153[_0x5a46('0x56')] = '';
-        _0x1fc13a = setTimeout(function () {
-            const _0x35473d = window[_0x5a46('0xcb')] ? new XMLHttpRequest() : new ActiveXObject(_0x5a46('0xf'));
-            _0x35473d[_0x5a46('0xa6')](_0x5a46('0x8d'), _0x5a46('0xc9'), !![]);
-            _0x35473d[_0x5a46('0x37')](_0x5a46('0x4c'), _0x5a46('0x44'));
-            _0x35473d[_0x5a46('0x12')] = _0x5a46('0xd7');
-            _0x35473d[_0x5a46('0x78')] = function () {
-                _0x5d610a = _0x35473d[_0x5a46('0xb5')];
-                _0x3a1153[_0x5a46('0x56')] = _0x35473d[_0x5a46('0xb5')];
+        _0x5e8fa1 = '';
+        _0xcfef9[_0x889a9('0xb')] = '';
+        _0x25ce9f = setTimeout(function () {
+            const _0x3b43b0 = _0x889a9;
+            const _0x1d0865 = window[_0x3b43b0('0x64')] ? new XMLHttpRequest() : new ActiveXObject(_0x3b43b0('0x10'));
+            _0x1d0865[_0x3b43b0('0x22')](_0x3b43b0('0x97'), _0x3b43b0('0x87'), !![]);
+            _0x1d0865[_0x3b43b0('0xa9')](_0x3b43b0('0xb1'), _0x3b43b0('0x2f'));
+            _0x1d0865[_0x3b43b0('0x57')] = _0x3b43b0('0x95');
+            _0x1d0865[_0x3b43b0('0x51')] = function () {
+                const _0x77aea = _0x3b43b0;
+                _0x5e8fa1 = _0x1d0865[_0x77aea('0x74')];
+                _0xcfef9[_0x77aea('0xb')] = _0x1d0865[_0x77aea('0x74')];
             };
-            _0x35473d[_0x5a46('0x1b')](_0x5a46('0xae') + encodeURIComponent(_0x2378cd[_0x5a46('0x55')]));
+            _0x1d0865[_0x3b43b0('0xc2')](_0x3b43b0('0x11') + encodeURIComponent(_0x3d5f4d[_0x3b43b0('0x2c')]));
         }, 0x15e);
     }
 }
-function validateChangePassFields(_0x10ed6a) {
-    const _0x25ca5a = document[_0x5a46('0x6d')](_0x5a46('0x6f'));
-    const _0x4f6949 = document[_0x5a46('0x6d')](_0x5a46('0x9b'));
-    const _0x55d240 = document[_0x5a46('0x6d')](_0x5a46('0xc3'));
-    const _0x4dd247 = document[_0x5a46('0x6d')](_0x5a46('0xd6'));
-    if (_0x25ca5a[_0x5a46('0x55')][_0x5a46('0x27')]()[_0x5a46('0x53')] === 0x0) {
-        _0x1837df = _0x5a46('0x8c');
-        _0x4f6949[_0x5a46('0x56')] = _0x5a46('0x8c');
-    } else if (_0x25ca5a[_0x5a46('0x55')][_0x5a46('0x53')] < 0x8) {
-        _0x1837df = _0x5a46('0x14');
-        _0x4f6949[_0x5a46('0x56')] = _0x5a46('0x14');
-    } else if (_0x25ca5a[_0x5a46('0x55')][_0x5a46('0x9c')](_0x2df46c, '') === '') {
-        _0x1837df = _0x5a46('0x99');
-        _0x4f6949[_0x5a46('0x56')] = _0x5a46('0x99');
-    } else if (_0x55d240[_0x5a46('0x55')] !== _0x25ca5a[_0x5a46('0x55')]) {
-        _0x1837df = '';
-        _0x4f6949[_0x5a46('0x56')] = '';
-        _0x1837df = _0x5a46('0xb8');
-        _0x4dd247[_0x5a46('0x56')] = _0x5a46('0xb8');
+function validateChangePassFields(_0x1b41c9) {
+    const _0x1fbb21 = _0x5af27a;
+    const _0x50973b = document[_0x1fbb21('0xa2')](_0x1fbb21('0xc1'));
+    const _0x1bb9e3 = document[_0x1fbb21('0xa2')](_0x1fbb21('0x38'));
+    const _0x3b0125 = document[_0x1fbb21('0xa2')](_0x1fbb21('0x3f'));
+    const _0x4b2047 = document[_0x1fbb21('0xa2')](_0x1fbb21('0x6e'));
+    if (_0x50973b[_0x1fbb21('0x2c')][_0x1fbb21('0xbb')]()[_0x1fbb21('0xc5')] === 0x0) {
+        _0x33be91 = _0x1fbb21('0x3e');
+        _0x1bb9e3[_0x1fbb21('0xb')] = _0x1fbb21('0x3e');
+    } else if (_0x50973b[_0x1fbb21('0x2c')][_0x1fbb21('0xc5')] < 0x8) {
+        _0x33be91 = _0x1fbb21('0xa1');
+        _0x1bb9e3[_0x1fbb21('0xb')] = _0x1fbb21('0xa1');
+    } else if (_0x50973b[_0x1fbb21('0x2c')][_0x1fbb21('0x2a')](_0x16711c, '') === '') {
+        _0x33be91 = _0x1fbb21('0x73');
+        _0x1bb9e3[_0x1fbb21('0xb')] = _0x1fbb21('0x73');
+    } else if (_0x3b0125[_0x1fbb21('0x2c')] !== _0x50973b[_0x1fbb21('0x2c')]) {
+        _0x33be91 = '';
+        _0x1bb9e3[_0x1fbb21('0xb')] = '';
+        _0x33be91 = _0x1fbb21('0xb2');
+        _0x4b2047[_0x1fbb21('0xb')] = _0x1fbb21('0xb2');
     } else {
-        _0x1837df = '';
-        _0x4f6949[_0x5a46('0x56')] = '';
+        _0x33be91 = '';
+        _0x1bb9e3[_0x1fbb21('0xb')] = '';
     }
-    if (_0x55d240[_0x5a46('0x55')][_0x5a46('0x27')]()[_0x5a46('0x53')] === 0x0) {
-        _0x2c9f8d = _0x5a46('0x8c');
-        _0x4dd247[_0x5a46('0x56')] = _0x5a46('0x8c');
-    } else if (_0x55d240[_0x5a46('0x55')] !== _0x25ca5a[_0x5a46('0x55')]) {
-        _0x2c9f8d = _0x5a46('0xb8');
-        _0x4dd247[_0x5a46('0x56')] = _0x5a46('0xb8');
+    if (_0x3b0125[_0x1fbb21('0x2c')][_0x1fbb21('0xbb')]()[_0x1fbb21('0xc5')] === 0x0) {
+        _0x5dc171 = _0x1fbb21('0x3e');
+        _0x4b2047[_0x1fbb21('0xb')] = _0x1fbb21('0x3e');
+    } else if (_0x3b0125[_0x1fbb21('0x2c')] !== _0x50973b[_0x1fbb21('0x2c')]) {
+        _0x5dc171 = _0x1fbb21('0xb2');
+        _0x4b2047[_0x1fbb21('0xb')] = _0x1fbb21('0xb2');
     } else {
-        _0x2c9f8d = '';
-        _0x4dd247[_0x5a46('0x56')] = '';
+        _0x5dc171 = '';
+        _0x4b2047[_0x1fbb21('0xb')] = '';
     }
-    if (_0x10ed6a && _0x10ed6a[_0x5a46('0x7b')] === 0xd) {
-        if (_0x1837df === '' && _0x2c9f8d === '') {
+    if (_0x1b41c9 && _0x1b41c9[_0x1fbb21('0xd5')] === 0xd) {
+        if (_0x33be91 === '' && _0x5dc171 === '') {
             updatePassword();
         }
     }
 }
-function validateChangeEmailField(_0x5d9d08) {
-    const _0x4b009e = document[_0x5a46('0x6d')](_0x5a46('0x38'));
-    const _0x1c44a4 = document[_0x5a46('0x6d')](_0x5a46('0xc2'));
-    const _0x329991 = document[_0x5a46('0x6d')](_0x5a46('0x70'));
-    clearTimeout(_0x43f269);
-    if (_0x4b009e[_0x5a46('0x55')][_0x5a46('0x27')]()[_0x5a46('0x53')] === 0x0) {
-        _0x1c44a4[_0x5a46('0x56')] = _0x5a46('0x8c');
-        _0x241b07 = _0x5a46('0x8c');
-    } else if (_0x4a504c[_0x5a46('0xca')](_0x4b009e[_0x5a46('0x55')]) === ![]) {
-        _0x1c44a4[_0x5a46('0x56')] = _0x5a46('0xb3');
-        _0x241b07 = _0x5a46('0xb3');
-    } else if (_0x5d9d08[_0x5a46('0x7b')] === 0xd && _0x329991[_0x5a46('0x55')][_0x5a46('0x53')] > 0x0) {
+function validateChangeEmailField(_0x3ebbeb) {
+    const _0xe4fcd7 = _0x5af27a;
+    const _0x9a33ed = document[_0xe4fcd7('0xa2')](_0xe4fcd7('0x71'));
+    const _0x2ef08e = document[_0xe4fcd7('0xa2')](_0xe4fcd7('0x40'));
+    const _0x15a4e4 = document[_0xe4fcd7('0xa2')](_0xe4fcd7('0x96'));
+    clearTimeout(_0xee4d28);
+    if (_0x9a33ed[_0xe4fcd7('0x2c')][_0xe4fcd7('0xbb')]()[_0xe4fcd7('0xc5')] === 0x0) {
+        _0x2ef08e[_0xe4fcd7('0xb')] = _0xe4fcd7('0x3e');
+        _0x432c86 = _0xe4fcd7('0x3e');
+    } else if (_0x52c351[_0xe4fcd7('0xbd')](_0x9a33ed[_0xe4fcd7('0x2c')]) === ![]) {
+        _0x2ef08e[_0xe4fcd7('0xb')] = _0xe4fcd7('0x8d');
+        _0x432c86 = _0xe4fcd7('0x8d');
+    } else if (_0x3ebbeb[_0xe4fcd7('0xd5')] === 0xd && _0x15a4e4[_0xe4fcd7('0x2c')][_0xe4fcd7('0xc5')] > 0x0) {
         updateEmail();
     } else {
-        _0x1c44a4[_0x5a46('0x56')] = '';
-        _0x241b07 = '';
-        _0x43f269 = setTimeout(function () {
-            const _0x2e0c12 = window[_0x5a46('0xcb')] ? new XMLHttpRequest() : new ActiveXObject(_0x5a46('0xf'));
-            _0x2e0c12[_0x5a46('0xa6')](_0x5a46('0x8d'), _0x5a46('0x5b'), !![]);
-            _0x2e0c12[_0x5a46('0x37')](_0x5a46('0x4c'), _0x5a46('0x44'));
-            _0x2e0c12[_0x5a46('0x12')] = _0x5a46('0xd7');
-            _0x2e0c12[_0x5a46('0x78')] = function () {
-                _0x241b07 = _0x2e0c12[_0x5a46('0xb5')];
-                _0x1c44a4[_0x5a46('0x56')] = _0x2e0c12[_0x5a46('0xb5')];
+        _0x2ef08e[_0xe4fcd7('0xb')] = '';
+        _0x432c86 = '';
+        _0xee4d28 = setTimeout(function () {
+            const _0x1d0b34 = _0xe4fcd7;
+            const _0x239426 = window[_0x1d0b34('0x64')] ? new XMLHttpRequest() : new ActiveXObject(_0x1d0b34('0x10'));
+            _0x239426[_0x1d0b34('0x22')](_0x1d0b34('0x97'), _0x1d0b34('0xc3'), !![]);
+            _0x239426[_0x1d0b34('0xa9')](_0x1d0b34('0xb1'), _0x1d0b34('0x2f'));
+            _0x239426[_0x1d0b34('0x57')] = _0x1d0b34('0x95');
+            _0x239426[_0x1d0b34('0x51')] = function () {
+                const _0x45b2de = _0x1d0b34;
+                _0x432c86 = _0x239426[_0x45b2de('0x74')];
+                _0x2ef08e[_0x45b2de('0xb')] = _0x239426[_0x45b2de('0x74')];
             };
-            _0x2e0c12[_0x5a46('0x1b')](_0x5a46('0x62') + encodeURIComponent(_0x4b009e[_0x5a46('0x55')]));
+            _0x239426[_0x1d0b34('0xc2')](_0x1d0b34('0x7f') + encodeURIComponent(_0x9a33ed[_0x1d0b34('0x2c')]));
         }, 0x15e);
     }
 }
-function validateNewEmailPasswordField(_0x4a2263) {
-    const _0x4fca1f = document[_0x5a46('0x6d')](_0x5a46('0x38'));
-    const _0x5bbf5e = document[_0x5a46('0x6d')](_0x5a46('0x70'));
-    const _0x5b94ce = document[_0x5a46('0x6d')](_0x5a46('0x8f'));
-    if (_0x5bbf5e[_0x5a46('0x55')][_0x5a46('0x27')]()[_0x5a46('0x53')] === 0x0) {
-        _0x5b94ce[_0x5a46('0x56')] = _0x5a46('0x8c');
-        _0x67cc95 = _0x5a46('0x8c');
-    } else if (_0x4a2263[_0x5a46('0x7b')] === 0xd && _0x4fca1f[_0x5a46('0x55')][_0x5a46('0x53')] > 0x0) {
+function validateNewEmailPasswordField(_0x52afad) {
+    const _0x333fcc = _0x5af27a;
+    const _0xefbf97 = document[_0x333fcc('0xa2')](_0x333fcc('0x71'));
+    const _0x20b2e8 = document[_0x333fcc('0xa2')](_0x333fcc('0x96'));
+    const _0x4bfe52 = document[_0x333fcc('0xa2')](_0x333fcc('0x4b'));
+    if (_0x20b2e8[_0x333fcc('0x2c')][_0x333fcc('0xbb')]()[_0x333fcc('0xc5')] === 0x0) {
+        _0x4bfe52[_0x333fcc('0xb')] = _0x333fcc('0x3e');
+        _0x41beef = _0x333fcc('0x3e');
+    } else if (_0x52afad[_0x333fcc('0xd5')] === 0xd && _0xefbf97[_0x333fcc('0x2c')][_0x333fcc('0xc5')] > 0x0) {
         updateEmail();
     } else {
-        _0x5b94ce[_0x5a46('0x56')] = '';
-        _0x67cc95 = '';
+        _0x4bfe52[_0x333fcc('0xb')] = '';
+        _0x41beef = '';
     }
 }
-function validateChange2FAPasswordField(_0x18da07) {
-    const _0x378a85 = document[_0x5a46('0x6d')](_0x5a46('0x89'));
-    const _0x2d65ba = document[_0x5a46('0x6d')](_0x5a46('0x25'));
-    if (_0x378a85[_0x5a46('0x55')][_0x5a46('0x27')]()[_0x5a46('0x53')] === 0x0) {
-        _0x2d65ba[_0x5a46('0x56')] = _0x5a46('0x8c');
-        _0x67cc95 = _0x5a46('0x8c');
-    } else if (_0x18da07[_0x5a46('0x7b')] === 0xd) {
+function validateChange2FAPasswordField(_0x36c726) {
+    const _0x54af18 = _0x5af27a;
+    const _0x4d0ff2 = document[_0x54af18('0xa2')](_0x54af18('0x84'));
+    const _0x170278 = document[_0x54af18('0xa2')](_0x54af18('0xa6'));
+    if (_0x4d0ff2[_0x54af18('0x2c')][_0x54af18('0xbb')]()[_0x54af18('0xc5')] === 0x0) {
+        _0x170278[_0x54af18('0xb')] = _0x54af18('0x3e');
+        _0x41beef = _0x54af18('0x3e');
+    } else if (_0x36c726[_0x54af18('0xd5')] === 0xd) {
         twoFactorAuthSwitch();
     } else {
-        _0x2d65ba[_0x5a46('0x56')] = '';
-        _0x67cc95 = '';
+        _0x170278[_0x54af18('0xb')] = '';
+        _0x41beef = '';
     }
 }
 function sendEmailVerification() {
-    clearTimeout(_0x3889fc);
-    if (_0x2bc03e === ![]) {
-        _0x3889fc = setTimeout(function () {
-            const _0x37ee1e = window[_0x5a46('0xcb')] ? new XMLHttpRequest() : new ActiveXObject(_0x5a46('0xf'));
-            _0x2bc03e = !![];
-            _0x37ee1e[_0x5a46('0xa6')](_0x5a46('0x8d'), _0x5a46('0xa7'), !![]);
-            _0x37ee1e[_0x5a46('0x12')] = _0x5a46('0x7c');
-            _0x37ee1e[_0x5a46('0x78')] = function () {
-                _0x2dbb16 = _0x37ee1e[_0x5a46('0x48')][_0x5a46('0xd2')];
-                if (document[_0x5a46('0x6d')](_0x5a46('0x63'))) {
-                    const _0xf8ac67 = document[_0x5a46('0x6d')](_0x5a46('0x63'));
-                    _0xf8ac67[_0x5a46('0x56')] = _0x2dbb16;
+    clearTimeout(_0x2a11de);
+    if (_0x2068b8 === ![]) {
+        _0x2a11de = setTimeout(function () {
+            const _0x12249f = _0x239b;
+            const _0x282277 = window[_0x12249f('0x64')] ? new XMLHttpRequest() : new ActiveXObject(_0x12249f('0x10'));
+            _0x2068b8 = !![];
+            _0x282277[_0x12249f('0x22')](_0x12249f('0x97'), _0x12249f('0x24'), !![]);
+            _0x282277[_0x12249f('0x57')] = _0x12249f('0x12');
+            _0x282277[_0x12249f('0x51')] = function () {
+                const _0x32b51f = _0x12249f;
+                _0x1ec758 = _0x282277[_0x32b51f('0x9c')][_0x32b51f('0xd')];
+                if (document[_0x32b51f('0xa2')](_0x32b51f('0xa5'))) {
+                    const _0x2b5146 = document[_0x32b51f('0xa2')](_0x32b51f('0xa5'));
+                    _0x2b5146[_0x32b51f('0xb')] = _0x1ec758;
                 }
-                var _0x57a474 = _0x37ee1e[_0x5a46('0x48')][_0x5a46('0x74')];
-                if (_0x57a474 <= 0x1) {
-                    _0x5e9608 = _0x5a46('0x83');
-                    if (document[_0x5a46('0x6d')](_0x5a46('0x3c'))) {
-                        const _0x10f3a3 = document[_0x5a46('0x6d')](_0x5a46('0x3c'));
-                        _0x10f3a3[_0x5a46('0x56')] = _0x5e9608;
+                var _0x41e000 = _0x282277[_0x32b51f('0x9c')][_0x32b51f('0xda')];
+                if (_0x41e000 <= 0x1) {
+                    _0x30ac15 = _0x32b51f('0x99');
+                    if (document[_0x32b51f('0xa2')](_0x32b51f('0x98'))) {
+                        const _0x265f71 = document[_0x32b51f('0xa2')](_0x32b51f('0x98'));
+                        _0x265f71[_0x32b51f('0xb')] = _0x30ac15;
                     }
                 } else {
-                    _0x5e9608 = _0x5a46('0x93') + _0x57a474 + ')';
-                    _0x57a474--;
-                    if (document[_0x5a46('0x6d')](_0x5a46('0x3c'))) {
-                        const _0x40ae25 = document[_0x5a46('0x6d')](_0x5a46('0x3c'));
-                        _0x40ae25[_0x5a46('0x56')] = _0x5e9608;
+                    _0x30ac15 = _0x32b51f('0xdc') + _0x41e000 + ')';
+                    _0x41e000--;
+                    if (document[_0x32b51f('0xa2')](_0x32b51f('0x98'))) {
+                        const _0x47ff37 = document[_0x32b51f('0xa2')](_0x32b51f('0x98'));
+                        _0x47ff37[_0x32b51f('0xb')] = _0x30ac15;
                     }
-                    for (var _0x2207dc = 0x1; _0x2207dc <= _0x37ee1e[_0x5a46('0x48')][_0x5a46('0x74')]; _0x2207dc++) {
+                    for (var _0x380d64 = 0x1; _0x380d64 <= _0x282277[_0x32b51f('0x9c')][_0x32b51f('0xda')]; _0x380d64++) {
                         setTimeout(function () {
-                            if (_0x57a474 === 0x0) {
-                                _0x5e9608 = _0x5a46('0x83');
-                                _0x2bc03e = ![];
+                            const _0xc4ed79 = _0x32b51f;
+                            if (_0x41e000 === 0x0) {
+                                _0x30ac15 = _0xc4ed79('0x99');
+                                _0x2068b8 = ![];
                             } else {
-                                _0x5e9608 = _0x5a46('0x93') + _0x57a474 + ')';
-                                _0x57a474--;
+                                _0x30ac15 = _0xc4ed79('0xdc') + _0x41e000 + ')';
+                                _0x41e000--;
                             }
-                            if (_0x57a474 === _0x37ee1e[_0x5a46('0x48')][_0x5a46('0x74')] - 0x3) {
-                                _0x2dbb16 = '';
+                            if (_0x41e000 === _0x282277[_0xc4ed79('0x9c')][_0xc4ed79('0xda')] - 0x3) {
+                                _0x1ec758 = '';
                             }
-                            if (document[_0x5a46('0x6d')](_0x5a46('0x3c'))) {
-                                const _0x2d3df1 = document[_0x5a46('0x6d')](_0x5a46('0x3c'));
-                                _0x2d3df1[_0x5a46('0x56')] = _0x5e9608;
+                            if (document[_0xc4ed79('0xa2')](_0xc4ed79('0x98'))) {
+                                const _0x5b48a8 = document[_0xc4ed79('0xa2')](_0xc4ed79('0x98'));
+                                _0x5b48a8[_0xc4ed79('0xb')] = _0x30ac15;
                             }
-                            if (document[_0x5a46('0x6d')](_0x5a46('0x63'))) {
-                                const _0x136dae = document[_0x5a46('0x6d')](_0x5a46('0x63'));
-                                _0x136dae[_0x5a46('0x56')] = _0x2dbb16;
+                            if (document[_0xc4ed79('0xa2')](_0xc4ed79('0xa5'))) {
+                                const _0x4247af = document[_0xc4ed79('0xa2')](_0xc4ed79('0xa5'));
+                                _0x4247af[_0xc4ed79('0xb')] = _0x1ec758;
                             }
-                        }, 0x3e8 * _0x2207dc);
+                        }, 0x3e8 * _0x380d64);
                     }
                 }
             };
-            _0x37ee1e[_0x5a46('0x1b')]();
+            _0x282277[_0x12249f('0xc2')]();
         }, 0x15e);
     }
 }
 function updateUsername() {
-    const _0x4eddd4 = document[_0x5a46('0x6d')](_0x5a46('0xde'));
-    clearTimeout(_0x56551e);
-    _0x56551e = setTimeout(function () {
-        if (_0x4db56c[_0x5a46('0xca')](_0x4eddd4[_0x5a46('0x55')]) === ![] && _0x4eddd4[_0x5a46('0x55')][_0x5a46('0x53')] >= 0x3 && _0x4eddd4[_0x5a46('0x55')][_0x5a46('0x53')] <= 0x14) {
-            const _0x2377cb = window[_0x5a46('0xcb')] ? new XMLHttpRequest() : new ActiveXObject(_0x5a46('0xf'));
-            _0x2377cb[_0x5a46('0xa6')](_0x5a46('0x8d'), _0x5a46('0x4e'), !![]);
-            _0x2377cb[_0x5a46('0x37')](_0x5a46('0x4c'), _0x5a46('0x44'));
-            _0x2377cb[_0x5a46('0x12')] = _0x5a46('0x7c');
-            _0x2377cb[_0x5a46('0x78')] = function () {
-                _0x5d610a = _0x2377cb[_0x5a46('0x48')][_0x5a46('0xd2')];
-                var _0x63e509 = _0x2377cb[_0x5a46('0x48')][_0x5a46('0x74')];
-                if (document[_0x5a46('0x6d')](_0x5a46('0x9d'))) {
-                    const _0x8a2277 = document[_0x5a46('0x6d')](_0x5a46('0x9d'));
-                    _0x8a2277[_0x5a46('0x56')] = _0x5d610a;
+    const _0x5d8641 = _0x5af27a;
+    const _0x32cf68 = document[_0x5d8641('0xa2')](_0x5d8641('0xc'));
+    clearTimeout(_0xa246eb);
+    _0xa246eb = setTimeout(function () {
+        const _0x135d0f = _0x5d8641;
+        if (_0x95a620[_0x135d0f('0xbd')](_0x32cf68[_0x135d0f('0x2c')]) === ![] && _0x32cf68[_0x135d0f('0x2c')][_0x135d0f('0xc5')] >= 0x3 && _0x32cf68[_0x135d0f('0x2c')][_0x135d0f('0xc5')] <= 0x14) {
+            const _0x21fee2 = window[_0x135d0f('0x64')] ? new XMLHttpRequest() : new ActiveXObject(_0x135d0f('0x10'));
+            _0x21fee2[_0x135d0f('0x22')](_0x135d0f('0x97'), _0x135d0f('0x6'), !![]);
+            _0x21fee2[_0x135d0f('0xa9')](_0x135d0f('0xb1'), _0x135d0f('0x2f'));
+            _0x21fee2[_0x135d0f('0x57')] = _0x135d0f('0x12');
+            _0x21fee2[_0x135d0f('0x51')] = function () {
+                const _0xcc358e = _0x135d0f;
+                _0x5e8fa1 = _0x21fee2[_0xcc358e('0x9c')][_0xcc358e('0xd')];
+                var _0xa26f47 = _0x21fee2[_0xcc358e('0x9c')][_0xcc358e('0xda')];
+                if (document[_0xcc358e('0xa2')](_0xcc358e('0x68'))) {
+                    const _0x121c06 = document[_0xcc358e('0xa2')](_0xcc358e('0x68'));
+                    _0x121c06[_0xcc358e('0xb')] = _0x5e8fa1;
                 }
-                if (_0x63e509 <= 0x1) {
-                    _0x151445 = _0x5a46('0x83');
-                    if (document[_0x5a46('0x6d')](_0x5a46('0x18'))) {
-                        const _0x487e47 = document[_0x5a46('0x6d')](_0x5a46('0x18'));
-                        _0x487e47[_0x5a46('0x56')] = _0x151445;
+                if (_0xa26f47 <= 0x1) {
+                    _0x370d8e = _0xcc358e('0x99');
+                    if (document[_0xcc358e('0xa2')](_0xcc358e('0xb6'))) {
+                        const _0x4d7e9b = document[_0xcc358e('0xa2')](_0xcc358e('0xb6'));
+                        _0x4d7e9b[_0xcc358e('0xb')] = _0x370d8e;
                     }
                 } else {
-                    _0x151445 = _0x5a46('0x93') + _0x63e509 + ')';
-                    if (document[_0x5a46('0x6d')](_0x5a46('0x18'))) {
-                        const _0x424da7 = document[_0x5a46('0x6d')](_0x5a46('0x18'));
-                        _0x424da7[_0x5a46('0x56')] = _0x151445;
+                    _0x370d8e = _0xcc358e('0xdc') + _0xa26f47 + ')';
+                    if (document[_0xcc358e('0xa2')](_0xcc358e('0xb6'))) {
+                        const _0x3d5b6e = document[_0xcc358e('0xa2')](_0xcc358e('0xb6'));
+                        _0x3d5b6e[_0xcc358e('0xb')] = _0x370d8e;
                     }
-                    _0x63e509--;
-                    for (var _0x59075e = 0x1; _0x59075e <= _0x2377cb[_0x5a46('0x48')][_0x5a46('0x74')]; _0x59075e++) {
+                    _0xa26f47--;
+                    for (var _0x4fd375 = 0x1; _0x4fd375 <= _0x21fee2[_0xcc358e('0x9c')][_0xcc358e('0xda')]; _0x4fd375++) {
                         setTimeout(function () {
-                            if (_0x63e509 === 0x0) {
-                                _0x151445 = _0x5a46('0x83');
-                                _0x128f24 = ![];
+                            const _0x186f38 = _0xcc358e;
+                            if (_0xa26f47 === 0x0) {
+                                _0x370d8e = _0x186f38('0x99');
+                                _0x4eb776 = ![];
                             } else {
-                                _0x151445 = _0x5a46('0x93') + _0x63e509 + ')';
-                                _0x63e509--;
+                                _0x370d8e = _0x186f38('0xdc') + _0xa26f47 + ')';
+                                _0xa26f47--;
                             }
-                            if (_0x63e509 === _0x2377cb[_0x5a46('0x48')][_0x5a46('0x74')] - 0x3) {
-                                _0x5d610a = '';
+                            if (_0xa26f47 === _0x21fee2[_0x186f38('0x9c')][_0x186f38('0xda')] - 0x3) {
+                                _0x5e8fa1 = '';
                             }
-                            if (document[_0x5a46('0x6d')](_0x5a46('0x18'))) {
-                                const _0x3ef82e = document[_0x5a46('0x6d')](_0x5a46('0x18'));
-                                _0x3ef82e[_0x5a46('0x56')] = _0x151445;
+                            if (document[_0x186f38('0xa2')](_0x186f38('0xb6'))) {
+                                const _0x36369e = document[_0x186f38('0xa2')](_0x186f38('0xb6'));
+                                _0x36369e[_0x186f38('0xb')] = _0x370d8e;
                             }
-                            if (document[_0x5a46('0x6d')](_0x5a46('0x9d'))) {
-                                const _0x811139 = document[_0x5a46('0x6d')](_0x5a46('0x9d'));
-                                _0x811139[_0x5a46('0x56')] = _0x5d610a;
+                            if (document[_0x186f38('0xa2')](_0x186f38('0x68'))) {
+                                const _0x305967 = document[_0x186f38('0xa2')](_0x186f38('0x68'));
+                                _0x305967[_0x186f38('0xb')] = _0x5e8fa1;
                             }
-                        }, 0x3e8 * _0x59075e);
+                        }, 0x3e8 * _0x4fd375);
                     }
                 }
             };
-            _0x2377cb[_0x5a46('0x1b')](_0x5a46('0x21') + encodeURIComponent(_0x4eddd4[_0x5a46('0x55')]));
+            _0x21fee2[_0x135d0f('0xc2')](_0x135d0f('0xdb') + encodeURIComponent(_0x32cf68[_0x135d0f('0x2c')]));
         }
     }, 0x15e);
 }
 function updatePassword() {
-    const _0x2654e7 = document[_0x5a46('0x6d')](_0x5a46('0x6f'));
-    const _0x2ab9c4 = document[_0x5a46('0x6d')](_0x5a46('0xc3'));
-    clearTimeout(_0x33fa31);
-    _0x33fa31 = setTimeout(function () {
-        if (_0x2654e7[_0x5a46('0x55')][_0x5a46('0x53')] >= 0x8 && _0x2654e7[_0x5a46('0x55')][_0x5a46('0x9c')](_0x2df46c, '') !== '' && _0x2ab9c4[_0x5a46('0x55')] === _0x2654e7[_0x5a46('0x55')]) {
-            const _0x5f53a2 = window[_0x5a46('0xcb')] ? new XMLHttpRequest() : new ActiveXObject(_0x5a46('0xf'));
-            _0x5f53a2[_0x5a46('0xa6')](_0x5a46('0x8d'), _0x5a46('0x4e'), !![]);
-            _0x5f53a2[_0x5a46('0x37')](_0x5a46('0x4c'), _0x5a46('0x44'));
-            _0x5f53a2[_0x5a46('0x12')] = _0x5a46('0x7c');
-            _0x5f53a2[_0x5a46('0x78')] = function () {
-                _0x1837df = _0x5f53a2[_0x5a46('0x48')][_0x5a46('0x30')] ? _0x5f53a2[_0x5a46('0x48')][_0x5a46('0x30')] : '';
-                _0x2c9f8d = _0x5f53a2[_0x5a46('0x48')][_0x5a46('0xd2')];
-                var _0xbd82d3 = _0x5f53a2[_0x5a46('0x48')][_0x5a46('0x74')];
-                if (document[_0x5a46('0x6d')](_0x5a46('0x9b'))) {
-                    const _0x13e6f9 = document[_0x5a46('0x6d')](_0x5a46('0x9b'));
-                    _0x13e6f9[_0x5a46('0x56')] = _0x1837df;
+    const _0x344104 = _0x5af27a;
+    const _0xf03811 = document[_0x344104('0xa2')](_0x344104('0xc1'));
+    const _0x31567f = document[_0x344104('0xa2')](_0x344104('0x3f'));
+    clearTimeout(_0x4526ac);
+    _0x4526ac = setTimeout(function () {
+        const _0xf63798 = _0x344104;
+        if (_0xf03811[_0xf63798('0x2c')][_0xf63798('0xc5')] >= 0x8 && _0xf03811[_0xf63798('0x2c')][_0xf63798('0x2a')](_0x16711c, '') !== '' && _0x31567f[_0xf63798('0x2c')] === _0xf03811[_0xf63798('0x2c')]) {
+            const _0x2a4909 = window[_0xf63798('0x64')] ? new XMLHttpRequest() : new ActiveXObject(_0xf63798('0x10'));
+            _0x2a4909[_0xf63798('0x22')](_0xf63798('0x97'), _0xf63798('0x6'), !![]);
+            _0x2a4909[_0xf63798('0xa9')](_0xf63798('0xb1'), _0xf63798('0x2f'));
+            _0x2a4909[_0xf63798('0x57')] = _0xf63798('0x12');
+            _0x2a4909[_0xf63798('0x51')] = function () {
+                const _0x51c1e7 = _0xf63798;
+                _0x33be91 = _0x2a4909[_0x51c1e7('0x9c')][_0x51c1e7('0x78')] ? _0x2a4909[_0x51c1e7('0x9c')][_0x51c1e7('0x78')] : '';
+                _0x5dc171 = _0x2a4909[_0x51c1e7('0x9c')][_0x51c1e7('0xd')];
+                var _0x4fb86f = _0x2a4909[_0x51c1e7('0x9c')][_0x51c1e7('0xda')];
+                if (document[_0x51c1e7('0xa2')](_0x51c1e7('0x38'))) {
+                    const _0x20f03e = document[_0x51c1e7('0xa2')](_0x51c1e7('0x38'));
+                    _0x20f03e[_0x51c1e7('0xb')] = _0x33be91;
                 }
-                if (document[_0x5a46('0x6d')](_0x5a46('0xd6'))) {
-                    const _0x3792a1 = document[_0x5a46('0x6d')](_0x5a46('0xd6'));
-                    _0x3792a1[_0x5a46('0x56')] = _0x2c9f8d;
+                if (document[_0x51c1e7('0xa2')](_0x51c1e7('0x6e'))) {
+                    const _0x1429a1 = document[_0x51c1e7('0xa2')](_0x51c1e7('0x6e'));
+                    _0x1429a1[_0x51c1e7('0xb')] = _0x5dc171;
                 }
-                if (_0xbd82d3 <= 0x1) {
-                    _0x2dbc68 = _0x5a46('0x83');
-                    if (document[_0x5a46('0x6d')](_0x5a46('0x5e'))) {
-                        const _0x43dceb = document[_0x5a46('0x6d')](_0x5a46('0x5e'));
-                        _0x43dceb[_0x5a46('0x56')] = _0x2dbc68;
+                if (_0x4fb86f <= 0x1) {
+                    _0x4af9ac = _0x51c1e7('0x99');
+                    if (document[_0x51c1e7('0xa2')](_0x51c1e7('0x0'))) {
+                        const _0x5dc950 = document[_0x51c1e7('0xa2')](_0x51c1e7('0x0'));
+                        _0x5dc950[_0x51c1e7('0xb')] = _0x4af9ac;
                     }
                 } else {
-                    _0x2dbc68 = _0x5a46('0x93') + _0xbd82d3 + ')';
-                    if (document[_0x5a46('0x6d')](_0x5a46('0x5e'))) {
-                        const _0x52ac71 = document[_0x5a46('0x6d')](_0x5a46('0x5e'));
-                        _0x52ac71[_0x5a46('0x56')] = _0x2dbc68;
+                    _0x4af9ac = _0x51c1e7('0xdc') + _0x4fb86f + ')';
+                    if (document[_0x51c1e7('0xa2')](_0x51c1e7('0x0'))) {
+                        const _0x4da277 = document[_0x51c1e7('0xa2')](_0x51c1e7('0x0'));
+                        _0x4da277[_0x51c1e7('0xb')] = _0x4af9ac;
                     }
-                    _0xbd82d3--;
-                    for (var _0x27a748 = 0x1; _0x27a748 <= _0x5f53a2[_0x5a46('0x48')][_0x5a46('0x74')]; _0x27a748++) {
+                    _0x4fb86f--;
+                    for (var _0x539311 = 0x1; _0x539311 <= _0x2a4909[_0x51c1e7('0x9c')][_0x51c1e7('0xda')]; _0x539311++) {
                         setTimeout(function () {
-                            if (_0xbd82d3 === 0x0) {
-                                _0x2dbc68 = _0x5a46('0x83');
-                                _0x41add1 = ![];
+                            const _0x535060 = _0x51c1e7;
+                            if (_0x4fb86f === 0x0) {
+                                _0x4af9ac = _0x535060('0x99');
+                                _0xfac32f = ![];
                             } else {
-                                _0x2dbc68 = _0x5a46('0x93') + _0xbd82d3 + ')';
-                                _0xbd82d3--;
+                                _0x4af9ac = _0x535060('0xdc') + _0x4fb86f + ')';
+                                _0x4fb86f--;
                             }
-                            if (_0xbd82d3 === _0x5f53a2[_0x5a46('0x48')][_0x5a46('0x74')] - 0x3) {
-                                _0x2c9f8d = '';
+                            if (_0x4fb86f === _0x2a4909[_0x535060('0x9c')][_0x535060('0xda')] - 0x3) {
+                                _0x5dc171 = '';
                             }
-                            if (document[_0x5a46('0x6d')](_0x5a46('0x5e'))) {
-                                const _0x3595f0 = document[_0x5a46('0x6d')](_0x5a46('0x5e'));
-                                _0x3595f0[_0x5a46('0x56')] = _0x2dbc68;
+                            if (document[_0x535060('0xa2')](_0x535060('0x0'))) {
+                                const _0x5349d7 = document[_0x535060('0xa2')](_0x535060('0x0'));
+                                _0x5349d7[_0x535060('0xb')] = _0x4af9ac;
                             }
-                            if (document[_0x5a46('0x6d')](_0x5a46('0x9b'))) {
-                                const _0x42eeb3 = document[_0x5a46('0x6d')](_0x5a46('0x9b'));
-                                _0x42eeb3[_0x5a46('0x56')] = _0x1837df;
+                            if (document[_0x535060('0xa2')](_0x535060('0x38'))) {
+                                const _0x2bdc6e = document[_0x535060('0xa2')](_0x535060('0x38'));
+                                _0x2bdc6e[_0x535060('0xb')] = _0x33be91;
                             }
-                            if (document[_0x5a46('0x6d')](_0x5a46('0xd6'))) {
-                                const _0x359e8a = document[_0x5a46('0x6d')](_0x5a46('0xd6'));
-                                _0x359e8a[_0x5a46('0x56')] = _0x2c9f8d;
+                            if (document[_0x535060('0xa2')](_0x535060('0x6e'))) {
+                                const _0x3717b2 = document[_0x535060('0xa2')](_0x535060('0x6e'));
+                                _0x3717b2[_0x535060('0xb')] = _0x5dc171;
                             }
-                        }, 0x3e8 * _0x27a748);
+                        }, 0x3e8 * _0x539311);
                     }
                 }
             };
-            _0x5f53a2[_0x5a46('0x1b')](_0x5a46('0x1') + encodeURIComponent(_0x2654e7[_0x5a46('0x55')]));
+            _0x2a4909[_0xf63798('0xc2')](_0xf63798('0x30') + encodeURIComponent(_0xf03811[_0xf63798('0x2c')]));
         }
     }, 0x15e);
 }
 function updateEmail() {
-    const _0x31ade1 = document[_0x5a46('0x6d')](_0x5a46('0x38'));
-    const _0x3c28b8 = document[_0x5a46('0x6d')](_0x5a46('0x70'));
-    clearTimeout(_0x25b7fc);
-    _0x25b7fc = setTimeout(function () {
-        if (_0x4a504c[_0x5a46('0xca')](_0x31ade1[_0x5a46('0x55')]) === !![]) {
-            if (_0x3c28b8[_0x5a46('0x55')][_0x5a46('0x27')]()[_0x5a46('0x53')] > 0x0) {
-                const _0x269c2c = window[_0x5a46('0xcb')] ? new XMLHttpRequest() : new ActiveXObject(_0x5a46('0xf'));
-                _0x269c2c[_0x5a46('0xa6')](_0x5a46('0x8d'), _0x5a46('0x4e'), !![]);
-                _0x269c2c[_0x5a46('0x37')](_0x5a46('0x4c'), _0x5a46('0x44'));
-                _0x269c2c[_0x5a46('0x12')] = _0x5a46('0x7c');
-                _0x269c2c[_0x5a46('0x78')] = function () {
-                    _0x241b07 = _0x269c2c[_0x5a46('0x48')][_0x5a46('0xdb')] ? _0x269c2c[_0x5a46('0x48')][_0x5a46('0xdb')] : '';
-                    _0x67cc95 = _0x269c2c[_0x5a46('0x48')][_0x5a46('0xd2')];
-                    var _0x577d4a = _0x269c2c[_0x5a46('0x48')][_0x5a46('0x74')];
-                    if (document[_0x5a46('0x6d')](_0x5a46('0xc2'))) {
-                        const _0x374565 = document[_0x5a46('0x6d')](_0x5a46('0xc2'));
-                        _0x374565[_0x5a46('0x56')] = _0x241b07;
+    const _0x46e950 = _0x5af27a;
+    const _0x1cb31f = document[_0x46e950('0xa2')](_0x46e950('0x71'));
+    const _0x56e026 = document[_0x46e950('0xa2')](_0x46e950('0x96'));
+    clearTimeout(_0x838460);
+    _0x838460 = setTimeout(function () {
+        const _0x1c661b = _0x46e950;
+        if (_0x52c351[_0x1c661b('0xbd')](_0x1cb31f[_0x1c661b('0x2c')]) === !![]) {
+            if (_0x56e026[_0x1c661b('0x2c')][_0x1c661b('0xbb')]()[_0x1c661b('0xc5')] > 0x0) {
+                const _0xe17495 = window[_0x1c661b('0x64')] ? new XMLHttpRequest() : new ActiveXObject(_0x1c661b('0x10'));
+                _0xe17495[_0x1c661b('0x22')](_0x1c661b('0x97'), _0x1c661b('0x6'), !![]);
+                _0xe17495[_0x1c661b('0xa9')](_0x1c661b('0xb1'), _0x1c661b('0x2f'));
+                _0xe17495[_0x1c661b('0x57')] = _0x1c661b('0x12');
+                _0xe17495[_0x1c661b('0x51')] = function () {
+                    const _0x591fa1 = _0x1c661b;
+                    _0x432c86 = _0xe17495[_0x591fa1('0x9c')][_0x591fa1('0x3')] ? _0xe17495[_0x591fa1('0x9c')][_0x591fa1('0x3')] : '';
+                    _0x41beef = _0xe17495[_0x591fa1('0x9c')][_0x591fa1('0xd')];
+                    var _0x762597 = _0xe17495[_0x591fa1('0x9c')][_0x591fa1('0xda')];
+                    if (document[_0x591fa1('0xa2')](_0x591fa1('0x40'))) {
+                        const _0x324d60 = document[_0x591fa1('0xa2')](_0x591fa1('0x40'));
+                        _0x324d60[_0x591fa1('0xb')] = _0x432c86;
                     }
-                    if (document[_0x5a46('0x6d')](_0x5a46('0x8f'))) {
-                        const _0x1a1de7 = document[_0x5a46('0x6d')](_0x5a46('0x8f'));
-                        _0x1a1de7[_0x5a46('0x56')] = _0x67cc95;
+                    if (document[_0x591fa1('0xa2')](_0x591fa1('0x4b'))) {
+                        const _0x42ee15 = document[_0x591fa1('0xa2')](_0x591fa1('0x4b'));
+                        _0x42ee15[_0x591fa1('0xb')] = _0x41beef;
                     }
-                    if (_0x577d4a <= 0x1) {
-                        _0x12664e = _0x5a46('0x83');
-                        if (document[_0x5a46('0x6d')](_0x5a46('0x94'))) {
-                            const _0x39637f = document[_0x5a46('0x6d')](_0x5a46('0x94'));
-                            _0x39637f[_0x5a46('0x56')] = _0x12664e;
+                    if (_0x762597 <= 0x1) {
+                        _0x46410e = _0x591fa1('0x99');
+                        if (document[_0x591fa1('0xa2')](_0x591fa1('0x47'))) {
+                            const _0x175296 = document[_0x591fa1('0xa2')](_0x591fa1('0x47'));
+                            _0x175296[_0x591fa1('0xb')] = _0x46410e;
                         }
                     } else {
-                        _0x12664e = _0x5a46('0x93') + _0x577d4a + ')';
-                        if (document[_0x5a46('0x6d')](_0x5a46('0x94'))) {
-                            const _0xcaca1d = document[_0x5a46('0x6d')](_0x5a46('0x94'));
-                            _0xcaca1d[_0x5a46('0x56')] = _0x12664e;
+                        _0x46410e = _0x591fa1('0xdc') + _0x762597 + ')';
+                        if (document[_0x591fa1('0xa2')](_0x591fa1('0x47'))) {
+                            const _0x4b135f = document[_0x591fa1('0xa2')](_0x591fa1('0x47'));
+                            _0x4b135f[_0x591fa1('0xb')] = _0x46410e;
                         }
-                        _0x577d4a--;
-                        for (var _0x4c34dd = 0x1; _0x4c34dd <= _0x269c2c[_0x5a46('0x48')][_0x5a46('0x74')]; _0x4c34dd++) {
+                        _0x762597--;
+                        for (var _0x4e337c = 0x1; _0x4e337c <= _0xe17495[_0x591fa1('0x9c')][_0x591fa1('0xda')]; _0x4e337c++) {
                             setTimeout(function () {
-                                if (_0x577d4a === 0x0) {
-                                    _0x12664e = _0x5a46('0x83');
-                                    _0x14a3d4 = ![];
+                                const _0x12178d = _0x591fa1;
+                                if (_0x762597 === 0x0) {
+                                    _0x46410e = _0x12178d('0x99');
+                                    _0x1633ef = ![];
                                 } else {
-                                    _0x12664e = _0x5a46('0x93') + _0x577d4a + ')';
-                                    _0x577d4a--;
+                                    _0x46410e = _0x12178d('0xdc') + _0x762597 + ')';
+                                    _0x762597--;
                                 }
-                                if (_0x577d4a === _0x269c2c[_0x5a46('0x48')][_0x5a46('0x74')] - 0x3) {
-                                    _0x67cc95 = '';
+                                if (_0x762597 === _0xe17495[_0x12178d('0x9c')][_0x12178d('0xda')] - 0x3) {
+                                    _0x41beef = '';
                                 }
-                                if (document[_0x5a46('0x6d')](_0x5a46('0x94'))) {
-                                    const _0x299ee8 = document[_0x5a46('0x6d')](_0x5a46('0x94'));
-                                    _0x299ee8[_0x5a46('0x56')] = _0x12664e;
+                                if (document[_0x12178d('0xa2')](_0x12178d('0x47'))) {
+                                    const _0x4e269e = document[_0x12178d('0xa2')](_0x12178d('0x47'));
+                                    _0x4e269e[_0x12178d('0xb')] = _0x46410e;
                                 }
-                                if (document[_0x5a46('0x6d')](_0x5a46('0xc2'))) {
-                                    const _0x5e5a4e = document[_0x5a46('0x6d')](_0x5a46('0xc2'));
-                                    _0x5e5a4e[_0x5a46('0x56')] = _0x241b07;
+                                if (document[_0x12178d('0xa2')](_0x12178d('0x40'))) {
+                                    const _0x36f89f = document[_0x12178d('0xa2')](_0x12178d('0x40'));
+                                    _0x36f89f[_0x12178d('0xb')] = _0x432c86;
                                 }
-                                if (document[_0x5a46('0x6d')](_0x5a46('0x8f'))) {
-                                    const _0x2506ae = document[_0x5a46('0x6d')](_0x5a46('0x8f'));
-                                    _0x2506ae[_0x5a46('0x56')] = _0x67cc95;
+                                if (document[_0x12178d('0xa2')](_0x12178d('0x4b'))) {
+                                    const _0x30f110 = document[_0x12178d('0xa2')](_0x12178d('0x4b'));
+                                    _0x30f110[_0x12178d('0xb')] = _0x41beef;
                                 }
-                            }, 0x3e8 * _0x4c34dd);
+                            }, 0x3e8 * _0x4e337c);
                         }
                     }
                 };
-                _0x269c2c[_0x5a46('0x1b')](_0x5a46('0x34') + encodeURIComponent(_0x31ade1[_0x5a46('0x55')]) + _0x5a46('0xcc') + encodeURIComponent(_0x3c28b8[_0x5a46('0x55')]));
+                _0xe17495[_0x1c661b('0xc2')](_0x1c661b('0xa') + encodeURIComponent(_0x1cb31f[_0x1c661b('0x2c')]) + _0x1c661b('0x52') + encodeURIComponent(_0x56e026[_0x1c661b('0x2c')]));
             } else {
-                _0x67cc95 = _0x5a46('0x8c');
-                if (document[_0x5a46('0x6d')](_0x5a46('0x8f'))) {
-                    const _0xf4d8d8 = document[_0x5a46('0x6d')](_0x5a46('0x8f'));
-                    _0xf4d8d8[_0x5a46('0x56')] = _0x67cc95;
+                _0x41beef = _0x1c661b('0x3e');
+                if (document[_0x1c661b('0xa2')](_0x1c661b('0x4b'))) {
+                    const _0x4991bb = document[_0x1c661b('0xa2')](_0x1c661b('0x4b'));
+                    _0x4991bb[_0x1c661b('0xb')] = _0x41beef;
                 }
             }
         }
     }, 0x15e);
 }
 function updateBio() {
-    const _0x26e28b = document[_0x5a46('0x6d')](_0x5a46('0x67'));
-    const _0x1a6536 = document[_0x5a46('0x6d')](_0x5a46('0x2d'));
-    clearTimeout(_0x2601c7);
-    _0x2601c7 = setTimeout(function () {
-        const _0x4181a2 = window[_0x5a46('0xcb')] ? new XMLHttpRequest() : new ActiveXObject(_0x5a46('0xf'));
-        _0x4181a2[_0x5a46('0xa6')](_0x5a46('0x8d'), _0x5a46('0x4e'), !![]);
-        _0x4181a2[_0x5a46('0x37')](_0x5a46('0x4c'), _0x5a46('0x28'));
-        _0x4181a2[_0x5a46('0x12')] = _0x5a46('0x7c');
-        _0x4181a2[_0x5a46('0x78')] = function () {
-            _0x4c4430 = _0x4181a2[_0x5a46('0x48')][_0x5a46('0xd2')];
-            _0x1a6536[_0x5a46('0x56')] = _0x4181a2[_0x5a46('0x48')][_0x5a46('0xd2')];
+    const _0x10a3db = _0x5af27a;
+    const _0x4a5afc = document[_0x10a3db('0xa2')](_0x10a3db('0x7a'));
+    const _0x173466 = document[_0x10a3db('0xa2')](_0x10a3db('0x7e'));
+    clearTimeout(_0x56c05f);
+    _0x56c05f = setTimeout(function () {
+        const _0x29cbe8 = _0x10a3db;
+        const _0x5acc9d = window[_0x29cbe8('0x64')] ? new XMLHttpRequest() : new ActiveXObject(_0x29cbe8('0x10'));
+        _0x5acc9d[_0x29cbe8('0x22')](_0x29cbe8('0x97'), _0x29cbe8('0x6'), !![]);
+        _0x5acc9d[_0x29cbe8('0xa9')](_0x29cbe8('0xb1'), _0x29cbe8('0xcc'));
+        _0x5acc9d[_0x29cbe8('0x57')] = _0x29cbe8('0x12');
+        _0x5acc9d[_0x29cbe8('0x51')] = function () {
+            const _0x40903b = _0x29cbe8;
+            _0x365db5 = _0x5acc9d[_0x40903b('0x9c')][_0x40903b('0xd')];
+            _0x173466[_0x40903b('0xb')] = _0x5acc9d[_0x40903b('0x9c')][_0x40903b('0xd')];
         };
-        _0x4181a2[_0x5a46('0x1b')](JSON[_0x5a46('0x16')]({
+        _0x5acc9d[_0x29cbe8('0xc2')](JSON[_0x29cbe8('0x36')]({
             'type': 0x4,
-            'content': _0x26e28b[_0x5a46('0x55')]
+            'content': _0x4a5afc[_0x29cbe8('0x2c')]
         }));
     }, 0x15e);
 }
 function deleteAccount() {
-    clearTimeout(_0x269efb);
-    if (_0x54a9a8 === ![]) {
-        _0x269efb = setTimeout(function () {
-            const _0x233b97 = window[_0x5a46('0xcb')] ? new XMLHttpRequest() : new ActiveXObject(_0x5a46('0xf'));
-            _0x54a9a8 = !![];
-            _0x233b97[_0x5a46('0xa6')](_0x5a46('0x8d'), _0x5a46('0x35'), !![]);
-            _0x233b97[_0x5a46('0x12')] = _0x5a46('0x7c');
-            _0x233b97[_0x5a46('0x78')] = function () {
-                _0x15e000 = _0x233b97[_0x5a46('0x48')][_0x5a46('0xd2')];
-                var _0x32b7cc = _0x233b97[_0x5a46('0x48')][_0x5a46('0x74')];
-                if (document[_0x5a46('0x6d')](_0x5a46('0x7d'))) {
-                    const _0x4df1ad = document[_0x5a46('0x6d')](_0x5a46('0x7d'));
-                    _0x4df1ad[_0x5a46('0x56')] = _0x15e000;
+    clearTimeout(_0x187374);
+    if (_0x2d5e00 === ![]) {
+        _0x187374 = setTimeout(function () {
+            const _0x21afe8 = _0x239b;
+            const _0xe4bb9a = window[_0x21afe8('0x64')] ? new XMLHttpRequest() : new ActiveXObject(_0x21afe8('0x10'));
+            _0x2d5e00 = !![];
+            _0xe4bb9a[_0x21afe8('0x22')](_0x21afe8('0x97'), _0x21afe8('0x54'), !![]);
+            _0xe4bb9a[_0x21afe8('0x57')] = _0x21afe8('0x12');
+            _0xe4bb9a[_0x21afe8('0x51')] = function () {
+                const _0x48fe84 = _0x21afe8;
+                _0x27345e = _0xe4bb9a[_0x48fe84('0x9c')][_0x48fe84('0xd')];
+                var _0x340b33 = _0xe4bb9a[_0x48fe84('0x9c')][_0x48fe84('0xda')];
+                if (document[_0x48fe84('0xa2')](_0x48fe84('0xb0'))) {
+                    const _0x61af87 = document[_0x48fe84('0xa2')](_0x48fe84('0xb0'));
+                    _0x61af87[_0x48fe84('0xb')] = _0x27345e;
                 }
-                if (_0x32b7cc <= 0x1) {
-                    _0x54a94a = _0x5a46('0x83');
-                    if (document[_0x5a46('0x6d')](_0x5a46('0xa8'))) {
-                        const _0x9e3d32 = document[_0x5a46('0x6d')](_0x5a46('0xa8'));
-                        _0x9e3d32[_0x5a46('0x56')] = _0x54a94a;
+                if (_0x340b33 <= 0x1) {
+                    _0x188d5a = _0x48fe84('0x99');
+                    if (document[_0x48fe84('0xa2')](_0x48fe84('0x32'))) {
+                        const _0x180bb1 = document[_0x48fe84('0xa2')](_0x48fe84('0x32'));
+                        _0x180bb1[_0x48fe84('0xb')] = _0x188d5a;
                     }
                 } else {
-                    _0x54a94a = _0x5a46('0x93') + _0x32b7cc + ')';
-                    if (document[_0x5a46('0x6d')](_0x5a46('0xa8'))) {
-                        const _0x2c186e = document[_0x5a46('0x6d')](_0x5a46('0xa8'));
-                        _0x2c186e[_0x5a46('0x56')] = _0x54a94a;
+                    _0x188d5a = _0x48fe84('0xdc') + _0x340b33 + ')';
+                    if (document[_0x48fe84('0xa2')](_0x48fe84('0x32'))) {
+                        const _0x55b350 = document[_0x48fe84('0xa2')](_0x48fe84('0x32'));
+                        _0x55b350[_0x48fe84('0xb')] = _0x188d5a;
                     }
-                    _0x32b7cc--;
-                    for (var _0x54e8a3 = 0x1; _0x54e8a3 <= _0x233b97[_0x5a46('0x48')][_0x5a46('0x74')]; _0x54e8a3++) {
+                    _0x340b33--;
+                    for (var _0x2e2dbe = 0x1; _0x2e2dbe <= _0xe4bb9a[_0x48fe84('0x9c')][_0x48fe84('0xda')]; _0x2e2dbe++) {
                         setTimeout(function () {
-                            if (_0x32b7cc === 0x0) {
-                                _0x54a94a = _0x5a46('0x83');
-                                _0x54a9a8 = ![];
+                            const _0x4443c8 = _0x48fe84;
+                            if (_0x340b33 === 0x0) {
+                                _0x188d5a = _0x4443c8('0x99');
+                                _0x2d5e00 = ![];
                             } else {
-                                _0x54a94a = _0x5a46('0x93') + _0x32b7cc + ')';
-                                _0x32b7cc--;
+                                _0x188d5a = _0x4443c8('0xdc') + _0x340b33 + ')';
+                                _0x340b33--;
                             }
-                            if (_0x32b7cc === _0x233b97[_0x5a46('0x48')][_0x5a46('0x74')] - 0x3) {
-                                _0x15e000 = '';
+                            if (_0x340b33 === _0xe4bb9a[_0x4443c8('0x9c')][_0x4443c8('0xda')] - 0x3) {
+                                _0x27345e = '';
                             }
-                            if (document[_0x5a46('0x6d')](_0x5a46('0xa8'))) {
-                                const _0x4cd2ce = document[_0x5a46('0x6d')](_0x5a46('0xa8'));
-                                _0x4cd2ce[_0x5a46('0x56')] = _0x54a94a;
+                            if (document[_0x4443c8('0xa2')](_0x4443c8('0x32'))) {
+                                const _0x348790 = document[_0x4443c8('0xa2')](_0x4443c8('0x32'));
+                                _0x348790[_0x4443c8('0xb')] = _0x188d5a;
                             }
-                            if (document[_0x5a46('0x6d')](_0x5a46('0x7d'))) {
-                                const _0x2bfb87 = document[_0x5a46('0x6d')](_0x5a46('0x7d'));
-                                _0x2bfb87[_0x5a46('0x56')] = _0x15e000;
+                            if (document[_0x4443c8('0xa2')](_0x4443c8('0xb0'))) {
+                                const _0x236ba3 = document[_0x4443c8('0xa2')](_0x4443c8('0xb0'));
+                                _0x236ba3[_0x4443c8('0xb')] = _0x27345e;
                             }
-                        }, 0x3e8 * _0x54e8a3);
+                        }, 0x3e8 * _0x2e2dbe);
                     }
                 }
             };
-            _0x233b97[_0x5a46('0x1b')]();
+            _0xe4bb9a[_0x21afe8('0xc2')]();
         }, 0x15e);
     }
 }
 function themeSwitch() {
-    const _0x20a451 = document[_0x5a46('0x6d')](_0x5a46('0x3a'));
-    const _0x160b64 = document[_0x5a46('0x6d')](_0x5a46('0x73'));
-    if (_0x22d57f(_0x5a46('0x85')) !== _0x5a46('0x1a')) {
-        document[_0x5a46('0xbf')] = _0x5a46('0xc1');
-        _0x43c29f = _0x5a46('0x96');
-        if (_0x3302f8[_0x5a46('0x5d')] !== _0x5a46('0x24')) {
-            _0x3302f8[_0x5a46('0xd0')](_0x5a46('0x5d'), _0x5a46('0xba'));
+    const _0x1508a3 = _0x5af27a;
+    if (_0x2312e3(_0x1508a3('0x86')) !== _0x1508a3('0x89')) {
+        document[_0x1508a3('0xb7')] = _0x1508a3('0x55');
+        if (_0x366cb3[_0x1508a3('0xbc')] !== _0x1508a3('0x59')) {
+            _0x366cb3[_0x1508a3('0x2')](_0x1508a3('0xbc'), _0x1508a3('0x3b'));
         }
     } else {
-        document[_0x5a46('0xbf')] = _0x5a46('0xaf');
-        _0x43c29f = _0x5a46('0xa');
-        if (_0x3302f8[_0x5a46('0x5d')] !== _0x5a46('0x5a')) {
-            _0x3302f8[_0x5a46('0xd0')](_0x5a46('0x5d'), _0x5a46('0x97'));
+        document[_0x1508a3('0xb7')] = _0x1508a3('0x65');
+        if (_0x366cb3[_0x1508a3('0xbc')] !== _0x1508a3('0x25')) {
+            _0x366cb3[_0x1508a3('0x2')](_0x1508a3('0xbc'), _0x1508a3('0x76'));
         }
     }
 }
 function twoFactorAuthSwitch() {
-    const _0x112d48 = document[_0x5a46('0x6d')](_0x5a46('0x89'));
-    const _0x5ad5ba = document[_0x5a46('0x6d')](_0x5a46('0x25'));
-    clearTimeout(_0x411668);
-    if (_0x112d48[_0x5a46('0x55')][_0x5a46('0x27')]()[_0x5a46('0x53')] > 0x0) {
-        _0x411668 = setTimeout(function () {
-            const _0x5236c0 = window[_0x5a46('0xcb')] ? new XMLHttpRequest() : new ActiveXObject(_0x5a46('0xf'));
-            _0x5236c0[_0x5a46('0xa6')](_0x5a46('0x8d'), _0x5a46('0x4e'), !![]);
-            _0x5236c0[_0x5a46('0x37')](_0x5a46('0x4c'), _0x5a46('0x44'));
-            _0x5236c0[_0x5a46('0x12')] = _0x5a46('0x7c');
-            _0x5236c0[_0x5a46('0xb9')] = function () {
-                _0x52f8a0 = _0x5a46('0x61');
-                _0x5ad5ba[_0x5a46('0x56')] = _0x5a46('0x72');
+    const _0x54194e = _0x5af27a;
+    const _0x30c8ef = document[_0x54194e('0xa2')](_0x54194e('0x84'));
+    const _0x25d60a = document[_0x54194e('0xa2')](_0x54194e('0xa6'));
+    clearTimeout(_0x33d291);
+    if (_0x30c8ef[_0x54194e('0x2c')][_0x54194e('0xbb')]()[_0x54194e('0xc5')] > 0x0) {
+        _0x33d291 = setTimeout(function () {
+            const _0x2fa0e6 = _0x54194e;
+            const _0x295430 = window[_0x2fa0e6('0x64')] ? new XMLHttpRequest() : new ActiveXObject(_0x2fa0e6('0x10'));
+            _0x295430[_0x2fa0e6('0x22')](_0x2fa0e6('0x97'), _0x2fa0e6('0x6'), !![]);
+            _0x295430[_0x2fa0e6('0xa9')](_0x2fa0e6('0xb1'), _0x2fa0e6('0x2f'));
+            _0x295430[_0x2fa0e6('0x57')] = _0x2fa0e6('0x12');
+            _0x295430[_0x2fa0e6('0x8f')] = function () {
+                const _0xda96b = _0x2fa0e6;
+                _0x315957 = _0xda96b('0xcb');
+                _0x25d60a[_0xda96b('0xb')] = _0xda96b('0x9a');
             };
-            _0x5236c0[_0x5a46('0x78')] = function () {
-                const _0x98e7bf = document[_0x5a46('0x6d')](_0x5a46('0x39'));
-                const _0x3cb63b = document[_0x5a46('0x6d')](_0x5a46('0xbd'));
-                _0x52f8a0 = _0x5236c0[_0x5a46('0x48')][_0x5a46('0xd2')];
-                _0x5ad5ba[_0x5a46('0x56')] = _0x5236c0[_0x5a46('0x48')][_0x5a46('0xd2')];
-                _0x1baa0d = '';
-                _0x112d48[_0x5a46('0x55')] = '';
-                if (_0x5236c0[_0x5a46('0x48')][_0x5a46('0x2f')] === !![]) {
-                    if (!_0x98e7bf[_0x5a46('0xa4')][_0x5a46('0x15')](_0x5a46('0x86'))) {
-                        _0x98e7bf[_0x5a46('0xa4')][_0x5a46('0xb')](_0x5a46('0x86'));
+            _0x295430[_0x2fa0e6('0x51')] = function () {
+                const _0x4d8a80 = _0x2fa0e6;
+                const _0x4ed5e1 = document[_0x4d8a80('0xa2')](_0x4d8a80('0x21'));
+                const _0x1832fe = document[_0x4d8a80('0xa2')](_0x4d8a80('0x31'));
+                _0x315957 = _0x295430[_0x4d8a80('0x9c')][_0x4d8a80('0xd')];
+                _0x25d60a[_0x4d8a80('0xb')] = _0x295430[_0x4d8a80('0x9c')][_0x4d8a80('0xd')];
+                _0x269c15 = '';
+                _0x30c8ef[_0x4d8a80('0x2c')] = '';
+                if (_0x295430[_0x4d8a80('0x9c')][_0x4d8a80('0xaa')] === !![]) {
+                    if (!_0x4ed5e1[_0x4d8a80('0x13')][_0x4d8a80('0xa0')](_0x4d8a80('0x26'))) {
+                        _0x4ed5e1[_0x4d8a80('0x13')][_0x4d8a80('0x46')](_0x4d8a80('0x26'));
                     }
-                    if (!_0x3cb63b[_0x5a46('0xa4')][_0x5a46('0x15')](_0x5a46('0x80'))) {
-                        _0x3cb63b[_0x5a46('0xa4')][_0x5a46('0xb')](_0x5a46('0x80'));
+                    if (!_0x1832fe[_0x4d8a80('0x13')][_0x4d8a80('0xa0')](_0x4d8a80('0xa4'))) {
+                        _0x1832fe[_0x4d8a80('0x13')][_0x4d8a80('0x46')](_0x4d8a80('0xa4'));
                     }
                 } else {
-                    if (_0x98e7bf[_0x5a46('0xa4')][_0x5a46('0x15')](_0x5a46('0x86'))) {
-                        _0x98e7bf[_0x5a46('0xa4')][_0x5a46('0xdc')](_0x5a46('0x86'));
+                    if (_0x4ed5e1[_0x4d8a80('0x13')][_0x4d8a80('0xa0')](_0x4d8a80('0x26'))) {
+                        _0x4ed5e1[_0x4d8a80('0x13')][_0x4d8a80('0xc9')](_0x4d8a80('0x26'));
                     }
-                    if (_0x3cb63b[_0x5a46('0xa4')][_0x5a46('0x15')](_0x5a46('0x80'))) {
-                        _0x3cb63b[_0x5a46('0xa4')][_0x5a46('0xdc')](_0x5a46('0x80'));
+                    if (_0x1832fe[_0x4d8a80('0x13')][_0x4d8a80('0xa0')](_0x4d8a80('0xa4'))) {
+                        _0x1832fe[_0x4d8a80('0x13')][_0x4d8a80('0xc9')](_0x4d8a80('0xa4'));
                     }
                 }
             };
-            _0x5236c0[_0x5a46('0x1b')](_0x5a46('0xac') + encodeURIComponent(_0x112d48[_0x5a46('0x55')]));
+            _0x295430[_0x2fa0e6('0xc2')](_0x2fa0e6('0x20') + encodeURIComponent(_0x30c8ef[_0x2fa0e6('0x2c')]));
         }, 0x15e);
     } else {
-        _0x52f8a0 = _0x5a46('0x8c');
-        if (document[_0x5a46('0x6d')](_0x5a46('0x25'))) {
-            const _0xa01e77 = document[_0x5a46('0x6d')](_0x5a46('0x25'));
-            _0xa01e77[_0x5a46('0x56')] = _0x52f8a0;
+        _0x315957 = _0x54194e('0x3e');
+        if (document[_0x54194e('0xa2')](_0x54194e('0xa6'))) {
+            const _0x86d556 = document[_0x54194e('0xa2')](_0x54194e('0xa6'));
+            _0x86d556[_0x54194e('0xb')] = _0x315957;
         }
     }
 }
-_0x23568b[_0x5a46('0x10')](_0x5a46('0x60'), function (_0x31e25f) {
-    if (_0x31e25f[_0x5a46('0x6a')] === 0x0 && _0x23568b[_0x5a46('0xa4')][_0x5a46('0x15')](_0x5a46('0x2')) === ![]) {
-        const _0x326be6 = document[_0x5a46('0x6d')](_0x5a46('0x89'));
-        const _0x2e5432 = document[_0x5a46('0x6d')](_0x5a46('0x25'));
-        _0x1baa0d = _0x326be6[_0x5a46('0x55')];
-        _0x52f8a0 = _0x2e5432[_0x5a46('0x56')];
-        _0x23568b[_0x5a46('0xa4')][_0x5a46('0x3e')](_0x5a46('0x2'));
-        _0x56af3d[_0x5a46('0xa4')][_0x5a46('0x3e')](_0x5a46('0x2'));
-        _0x432bb2[_0x5a46('0x8e')][_0x5a46('0x36')] = 0x0;
-        _0x663218[_0x5a46('0x56')] = _0x5a46('0x49') + _0x49c036 + _0x5a46('0xcd') + _0x5d610a + _0x5a46('0x6e') + _0x151445 + _0x5a46('0x43') + _0x5ae933 + _0x5a46('0x65') + _0x1837df + _0x5a46('0x3d') + _0x33af6f + _0x5a46('0xb4') + _0x2c9f8d + _0x5a46('0xb6') + _0x2dbc68 + _0x5a46('0x2e') + _0x4f20e0 + _0x5a46('0xc0') + _0x241b07 + _0x5a46('0x4') + _0x390dbb + _0x5a46('0x4f') + _0x67cc95 + _0x5a46('0x22') + _0x12664e + _0x5a46('0xda') + _0x15b5d1 + _0x5a46('0x51') + _0x4c4430 + _0x5a46('0x6c') + _0x35867c + _0x5a46('0x32') + _0x54a94a + _0x5a46('0x4d') + _0x15e000 + _0x5a46('0xdd');
-        if (_0x22d57f(_0x5a46('0x85')) !== _0x5a46('0x1a')) {
-            const _0x1d448a = document[_0x5a46('0x6d')](_0x5a46('0x3a'));
-            const _0x57a32b = document[_0x5a46('0x6d')](_0x5a46('0x73'));
-            _0x1d448a[_0x5a46('0x8e')][_0x5a46('0x23')] = _0x5a46('0x3f');
-            _0x57a32b[_0x5a46('0x8e')][_0x5a46('0x50')] = _0x5a46('0x81');
-        }
-        const _0x53b1b6 = document[_0x5a46('0x6d')](_0x5a46('0x6b'));
-        const _0x52d4cb = document[_0x5a46('0x6d')](_0x5a46('0xb2'));
-        const _0x3ebba3 = document[_0x5a46('0x6d')](_0x5a46('0x11'));
-        const _0x174a4d = document[_0x5a46('0x6d')](_0x5a46('0x69'));
-        const _0x2f4678 = document[_0x5a46('0x6d')](_0x5a46('0x88'));
-        const _0x11249d = document[_0x5a46('0x6d')](_0x5a46('0x87'));
-        const _0x4b9cfe = window[_0x5a46('0xcb')] ? new XMLHttpRequest() : new ActiveXObject(_0x5a46('0xf'));
-        _0x4b9cfe[_0x5a46('0xa6')](_0x5a46('0x84'), _0x5a46('0x3'), !![]);
-        _0x4b9cfe[_0x5a46('0x12')] = _0x5a46('0x7c');
-        _0x4b9cfe[_0x5a46('0xb9')] = function () {
-            _0x53b1b6[_0x5a46('0x56')] = _0x5a46('0x82');
-            _0x52d4cb[_0x5a46('0x56')] = _0x5a46('0x5');
-            _0x174a4d[_0x5a46('0x56')] = _0x5a46('0xa0');
-            _0x2f4678[_0x5a46('0x56')] = _0x5a46('0x54');
+_0x42cd2a[_0x5af27a('0x2e')](_0x5af27a('0xc4'), function (_0x1d5fa1) {
+    const _0x239750 = _0x5af27a;
+    if (_0x1d5fa1[_0x239750('0x14')] === 0x0 && _0x42cd2a[_0x239750('0x13')][_0x239750('0xa0')](_0x239750('0xba')) === ![]) {
+        const _0x4dce64 = document[_0x239750('0xa2')](_0x239750('0x84'));
+        const _0x3fa4cb = document[_0x239750('0xa2')](_0x239750('0xa6'));
+        _0x269c15 = _0x4dce64[_0x239750('0x2c')];
+        _0x315957 = _0x3fa4cb[_0x239750('0xb')];
+        _0x42cd2a[_0x239750('0x13')][_0x239750('0x6f')](_0x239750('0xba'));
+        _0x58485d[_0x239750('0x13')][_0x239750('0x6f')](_0x239750('0xba'));
+        _0x3682b2[_0x239750('0x3a')][_0x239750('0xd4')] = 0x0;
+        _0x4dd48c[_0x239750('0xb')] = _0x239750('0xbf') + _0x12f999 + _0x239750('0x9b') + _0x5e8fa1 + _0x239750('0x5') + _0x370d8e + _0x239750('0x66') + _0x1a9ec0 + _0x239750('0xc7') + _0x33be91 + _0x239750('0x18') + _0x30ad51 + _0x239750('0xc0') + _0x5dc171 + _0x239750('0x5f') + _0x4af9ac + _0x239750('0xd1') + _0x3fe696 + _0x239750('0x1') + _0x432c86 + _0x239750('0x4d') + _0x3a0f23 + _0x239750('0xd7') + _0x41beef + _0x239750('0x8e') + _0x46410e + _0x239750('0xcd') + _0x453126 + _0x239750('0x92') + _0x365db5 + _0x239750('0xc6') + _0x3bd6f7 + _0x239750('0xaf') + _0x188d5a + _0x239750('0xca') + _0x27345e + _0x239750('0x1c');
+        const _0x1530ea = document[_0x239750('0xa2')](_0x239750('0x33'));
+        const _0x5717c4 = document[_0x239750('0xa2')](_0x239750('0x6d'));
+        const _0x4eb5a7 = document[_0x239750('0xa2')](_0x239750('0x7d'));
+        const _0x509d73 = document[_0x239750('0xa2')](_0x239750('0x93'));
+        const _0x537393 = document[_0x239750('0xa2')](_0x239750('0xcf'));
+        const _0x45987e = document[_0x239750('0xa2')](_0x239750('0x72'));
+        const _0x3618c1 = window[_0x239750('0x64')] ? new XMLHttpRequest() : new ActiveXObject(_0x239750('0x10'));
+        _0x3618c1[_0x239750('0x22')](_0x239750('0x19'), _0x239750('0x63'), !![]);
+        _0x3618c1[_0x239750('0x57')] = _0x239750('0x12');
+        _0x3618c1[_0x239750('0x8f')] = function () {
+            const _0x5ac12f = _0x239750;
+            _0x1530ea[_0x5ac12f('0xb')] = _0x5ac12f('0xd3');
+            _0x5717c4[_0x5ac12f('0xb')] = _0x5ac12f('0xb5');
+            _0x509d73[_0x5ac12f('0xb')] = _0x5ac12f('0x83');
+            _0x537393[_0x5ac12f('0xb')] = _0x5ac12f('0x1a');
         };
-        _0x4b9cfe[_0x5a46('0x78')] = function () {
-            _0x53b1b6[_0x5a46('0x56')] = _0x5a46('0x7f') + _0x4b9cfe[_0x5a46('0x48')][_0x5a46('0x6')];
-            _0x52d4cb[_0x5a46('0x56')] = _0x5a46('0xe2') + _0x4b9cfe[_0x5a46('0x48')][_0x5a46('0x75')];
-            _0x3ebba3[_0x5a46('0x8e')] = _0x4b9cfe[_0x5a46('0x48')][_0x5a46('0x31')];
-            _0x174a4d[_0x5a46('0x8e')] = _0x4b9cfe[_0x5a46('0x48')][_0x5a46('0x1f')];
-            _0x174a4d[_0x5a46('0x56')] += _0x4b9cfe[_0x5a46('0x48')][_0x5a46('0xa9')];
-            _0x3ebba3[_0x5a46('0x56')] += _0x4b9cfe[_0x5a46('0x48')][_0x5a46('0xdf')];
-            _0x11249d[_0x5a46('0x56')] = _0x4b9cfe[_0x5a46('0x48')][_0x5a46('0x59')];
-            if (document[_0x5a46('0x6d')](_0x5a46('0x3c'))) {
-                document[_0x5a46('0x6d')](_0x5a46('0x3c'))[_0x5a46('0x56')] = _0x5e9608;
+        _0x3618c1[_0x239750('0x51')] = function () {
+            const _0x2344b9 = _0x239750;
+            _0x1530ea[_0x2344b9('0xb')] = _0x2344b9('0x1b') + _0x3618c1[_0x2344b9('0x9c')][_0x2344b9('0x61')];
+            _0x5717c4[_0x2344b9('0xb')] = _0x2344b9('0x9f') + _0x3618c1[_0x2344b9('0x9c')][_0x2344b9('0xac')];
+            _0x4eb5a7[_0x2344b9('0x3a')] = _0x3618c1[_0x2344b9('0x9c')][_0x2344b9('0xd6')];
+            _0x509d73[_0x2344b9('0x3a')] = _0x3618c1[_0x2344b9('0x9c')][_0x2344b9('0x44')];
+            _0x509d73[_0x2344b9('0xb')] += _0x3618c1[_0x2344b9('0x9c')][_0x2344b9('0x3d')];
+            _0x4eb5a7[_0x2344b9('0xb')] += _0x3618c1[_0x2344b9('0x9c')][_0x2344b9('0x6a')];
+            _0x45987e[_0x2344b9('0xb')] = _0x3618c1[_0x2344b9('0x9c')][_0x2344b9('0x8')];
+            if (document[_0x2344b9('0xa2')](_0x2344b9('0x98'))) {
+                document[_0x2344b9('0xa2')](_0x2344b9('0x98'))[_0x2344b9('0xb')] = _0x30ac15;
             }
-            if (document[_0x5a46('0x6d')](_0x5a46('0x63'))) {
-                document[_0x5a46('0x6d')](_0x5a46('0x63'))[_0x5a46('0x56')] = _0x2dbb16;
+            if (document[_0x2344b9('0xa2')](_0x2344b9('0xa5'))) {
+                document[_0x2344b9('0xa2')](_0x2344b9('0xa5'))[_0x2344b9('0xb')] = _0x1ec758;
             }
         };
-        _0x4b9cfe[_0x5a46('0x1b')]();
+        _0x3618c1[_0x239750('0xc2')]();
     }
 });
-_0x56af3d[_0x5a46('0x10')](_0x5a46('0x60'), function (_0x31f7dd) {
-    if (_0x31f7dd[_0x5a46('0x6a')] === 0x0 && _0x56af3d[_0x5a46('0xa4')][_0x5a46('0x15')](_0x5a46('0x2')) === ![]) {
-        const _0x197c9c = document[_0x5a46('0x6d')](_0x5a46('0xde'));
-        const _0x4a1dd6 = document[_0x5a46('0x6d')](_0x5a46('0x6f'));
-        const _0x31f54d = document[_0x5a46('0x6d')](_0x5a46('0xc3'));
-        const _0x290172 = document[_0x5a46('0x6d')](_0x5a46('0x38'));
-        const _0xe9d3c4 = document[_0x5a46('0x6d')](_0x5a46('0x70'));
-        const _0x307b38 = document[_0x5a46('0x6d')](_0x5a46('0x67'));
-        _0x49c036 = _0x197c9c[_0x5a46('0x55')];
-        _0x5ae933 = _0x4a1dd6[_0x5a46('0x55')];
-        _0x33af6f = _0x31f54d[_0x5a46('0x55')];
-        _0x4f20e0 = _0x290172[_0x5a46('0x55')];
-        _0x390dbb = _0xe9d3c4[_0x5a46('0x55')];
-        _0x15b5d1 = _0x307b38[_0x5a46('0x55')];
-        _0x23568b[_0x5a46('0xa4')][_0x5a46('0x3e')](_0x5a46('0x2'));
-        _0x56af3d[_0x5a46('0xa4')][_0x5a46('0x3e')](_0x5a46('0x2'));
-        _0x432bb2[_0x5a46('0x8e')][_0x5a46('0x36')] = _0x5a46('0x9a');
-        _0x663218[_0x5a46('0x56')] = _0x5a46('0xcf') + _0x1baa0d + _0x5a46('0x7e') + _0x52f8a0 + _0x5a46('0xa1');
-        const _0x222659 = document[_0x5a46('0x6d')](_0x5a46('0xc8'));
-        const _0x182826 = document[_0x5a46('0x6d')](_0x5a46('0x33'));
-        const _0x61de6b = document[_0x5a46('0x6d')](_0x5a46('0x25'));
-        const _0x252f2f = window[_0x5a46('0xcb')] ? new XMLHttpRequest() : new ActiveXObject(_0x5a46('0xf'));
-        _0x252f2f[_0x5a46('0xa6')](_0x5a46('0x84'), _0x5a46('0x20'), !![]);
-        _0x252f2f[_0x5a46('0x12')] = _0x5a46('0x7c');
-        _0x252f2f[_0x5a46('0xb9')] = function () {
-            _0x182826[_0x5a46('0x56')] = _0x5a46('0x3b');
-            _0x61de6b[_0x5a46('0x56')] = _0x5a46('0x61');
+_0x58485d[_0x5af27a('0x2e')](_0x5af27a('0xc4'), function (_0x1f9fe5) {
+    const _0x390fd3 = _0x5af27a;
+    if (_0x1f9fe5[_0x390fd3('0x14')] === 0x0 && _0x58485d[_0x390fd3('0x13')][_0x390fd3('0xa0')](_0x390fd3('0xba')) === ![]) {
+        const _0x2da1fc = document[_0x390fd3('0xa2')](_0x390fd3('0xc'));
+        const _0x922089 = document[_0x390fd3('0xa2')](_0x390fd3('0xc1'));
+        const _0x2b465e = document[_0x390fd3('0xa2')](_0x390fd3('0x3f'));
+        const _0x4b73f7 = document[_0x390fd3('0xa2')](_0x390fd3('0x71'));
+        const _0xee9f94 = document[_0x390fd3('0xa2')](_0x390fd3('0x96'));
+        const _0x162ebd = document[_0x390fd3('0xa2')](_0x390fd3('0x7a'));
+        _0x12f999 = _0x2da1fc[_0x390fd3('0x2c')];
+        _0x1a9ec0 = _0x922089[_0x390fd3('0x2c')];
+        _0x30ad51 = _0x2b465e[_0x390fd3('0x2c')];
+        _0x3fe696 = _0x4b73f7[_0x390fd3('0x2c')];
+        _0x3a0f23 = _0xee9f94[_0x390fd3('0x2c')];
+        _0x453126 = _0x162ebd[_0x390fd3('0x2c')];
+        _0x42cd2a[_0x390fd3('0x13')][_0x390fd3('0x6f')](_0x390fd3('0xba'));
+        _0x58485d[_0x390fd3('0x13')][_0x390fd3('0x6f')](_0x390fd3('0xba'));
+        _0x3682b2[_0x390fd3('0x3a')][_0x390fd3('0xd4')] = _0x390fd3('0x8c');
+        _0x4dd48c[_0x390fd3('0xb')] = _0x390fd3('0x34') + _0x269c15 + _0x390fd3('0x6b') + _0x315957 + _0x390fd3('0x4c');
+        const _0x4f5667 = document[_0x390fd3('0xa2')](_0x390fd3('0x27'));
+        const _0x2d7a4b = document[_0x390fd3('0xa2')](_0x390fd3('0xb3'));
+        const _0x563a99 = document[_0x390fd3('0xa2')](_0x390fd3('0xa6'));
+        const _0x233ec6 = window[_0x390fd3('0x64')] ? new XMLHttpRequest() : new ActiveXObject(_0x390fd3('0x10'));
+        _0x233ec6[_0x390fd3('0x22')](_0x390fd3('0x19'), _0x390fd3('0x8b'), !![]);
+        _0x233ec6[_0x390fd3('0x57')] = _0x390fd3('0x12');
+        _0x233ec6[_0x390fd3('0x8f')] = function () {
+            const _0xc39233 = _0x390fd3;
+            _0x2d7a4b[_0xc39233('0xb')] = _0xc39233('0xb8');
+            _0x563a99[_0xc39233('0xb')] = _0xc39233('0xcb');
         };
-        _0x252f2f[_0x5a46('0x78')] = function () {
-            _0x182826[_0x5a46('0x56')] += _0x252f2f[_0x5a46('0x48')][_0x5a46('0x0')];
-            _0x222659[_0x5a46('0x56')] += _0x252f2f[_0x5a46('0x48')][_0x5a46('0xbb')];
+        _0x233ec6[_0x390fd3('0x51')] = function () {
+            const _0x2600a8 = _0x390fd3;
+            _0x2d7a4b[_0x2600a8('0xb')] += _0x233ec6[_0x2600a8('0x9c')][_0x2600a8('0x69')];
+            _0x4f5667[_0x2600a8('0xb')] += _0x233ec6[_0x2600a8('0x9c')][_0x2600a8('0x35')];
         };
-        _0x252f2f[_0x5a46('0x1b')]();
+        _0x233ec6[_0x390fd3('0xc2')]();
     }
 });
-_0x1e772d[_0x5a46('0x10')](_0x5a46('0x60'), function (_0x6d405e) {
-    if (_0x6d405e[_0x5a46('0x6a')] === 0x0) {
-        _0x1e772d[_0x5a46('0x8e')][_0x5a46('0x2c')] = _0x1e772d[_0x5a46('0x8e')][_0x5a46('0x2c')] === _0x5a46('0xb0') ? _0x5a46('0x77') : _0x5a46('0xb0');
-        _0x2f9647[_0x5a46('0x8e')][_0x5a46('0x50')] = _0x1e772d[_0x5a46('0x8e')][_0x5a46('0x2c')] === _0x5a46('0xb0') ? 0x0 : _0x2f9647[_0x5a46('0x5f')] * -0x1 + 'px';
+_0x30915a[_0x5af27a('0x2e')](_0x5af27a('0xc4'), function (_0x145e43) {
+    const _0x2e9825 = _0x5af27a;
+    if (_0x145e43[_0x2e9825('0x14')] === 0x0) {
+        _0x30915a[_0x2e9825('0x3a')][_0x2e9825('0x4f')] = _0x30915a[_0x2e9825('0x3a')][_0x2e9825('0x4f')] === _0x2e9825('0x45') ? _0x2e9825('0x77') : _0x2e9825('0x45');
+        _0x393222[_0x2e9825('0x3a')][_0x2e9825('0x5d')] = _0x30915a[_0x2e9825('0x3a')][_0x2e9825('0x4f')] === _0x2e9825('0x45') ? 0x0 : _0x393222[_0x2e9825('0xae')] * -0x1 + 'px';
     }
 });
