@@ -26,7 +26,7 @@ if ($mysqliConnection -> connect_errno) {
 				}
 				else if (!empty(trim($changeContent))) {
 					$updateBioQuery = "UPDATE accountdetails
-					SET biography = '$changeContent'
+					SET biography = '" . preg_replace("/^[ \t\r\n\v\f]{2,}$/m", "", $changeContent) . "'
 					WHERE accountID = '" . $_SESSION["userID"] . "'";
 					if ($mysqliConnection -> query($updateBioQuery)) {
 						$assocReturn["message"] = "Biography updated.";
@@ -216,7 +216,7 @@ if ($mysqliConnection -> connect_errno) {
 					case "2": //change password
 						$changeContent = $mysqliConnection -> real_escape_string($_POST["content"]);
 						$assocReturn["leftoverCooldown"] = 0;
-						if (preg_replace("/(strong(er)*)*(complex)*(password[0-9]{0,3})|(12345678(9)*)/i", "", $changeContent) === "") {
+						if (empty(preg_replace("/(strong(er)*)*(complex)*(password[0-9]{0,3})/i", "", $changeContent))) {
 							$assocReturn["newPassError"] = "Please create a stronger password.";
 						}
 						else if (empty(trim($changeContent))) {

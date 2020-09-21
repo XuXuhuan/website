@@ -169,7 +169,7 @@ if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		else if (strlen($getUser) < 3 || strlen($getUser) > 20) {
 			$AssocReturn["errormessages"]["usernameError"] = "Username may only contain 3-20 characters.";
 		}
-		if (preg_replace("/(strong(er)*)*(complex)*(password[0-9]{0,3})|(12345678(9)*)/i", "", $getPass) === "") {
+		if (empty(preg_replace("/(strong(er)*)*(complex)*(password[0-9]{0,3})/i", "", $getPass))) {
 			$AssocReturn["errormessages"]["passwordError"] = "Please create a stronger password.";
 		}
 		else if (empty(trim($getPass))) {

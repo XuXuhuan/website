@@ -31,14 +31,6 @@ body {
 	margin: 0;
 	background-color: #DDDDDD;
 }
-body::after {
-	position: absolute;
-	width:0;
-	height:0;
-	overflow: hidden;
-	z-index:-1;
-	content:url("../Assets/lightTheme/close.png") url("../Assets/lightTheme/menu.png") url("../Assets/lightTheme/homeIcon.png") url("../Assets/lightTheme/compass.png") url("../Assets/lightTheme/CogWheel.png") url("../Assets/lightTheme/person.png") url("../Assets/lightTheme/privacyLock.png") url("../Assets/lightTheme/PasswordInvisible.png") url("../Assets/lightTheme/PasswordVisible.png");
-}
 #topnav {
 	position: fixed;
 	display: -webkit-flex;

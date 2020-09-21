@@ -89,7 +89,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		$profilesPageHTML = '
 		<div id="profileContents">
 			<div id="searchFormCont">
-				<form action="profileSearch.php" id="profileSearchForm" method="GET" autocomplete="off">
+				<form action="profileSearch/index.php" id="profileSearchForm" method="GET" autocomplete="off">
 					<label for="profileSearchField" id="profileSearchLabel">Search</label>
 					<div id="searchBarCont">
 						<input type="text" name="query" id="profileSearchField" placeholder="Search Profiles">
@@ -106,7 +106,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		$profilesPageHTML = '
 		<div id="profileContents">
 			<div id="searchFormCont">
-				<form action="profileSearch.php" id="profileSearchForm" method="GET" autocomplete="off">
+				<form action="profileSearch/index.php" id="profileSearchForm" method="GET" autocomplete="off">
 					<label for="profileSearchField" id="profileSearchLabel">Search</label>
 					<div id="searchBarCont">
 						<input type="text" name="query" id="profileSearchField" placeholder="Search Profiles">
@@ -134,7 +134,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 						$profilesPageHTML = '
 						<div id="profileContents">
 							<div id="searchFormCont">
-								<form action="profileSearch.php" id="profileSearchForm" method="GET" autocomplete="off">
+								<form action="profileSearch/index.php" id="profileSearchForm" method="GET" autocomplete="off">
 									<label for="profileSearchField" id="profileSearchLabel">Search</label>
 									<div id="searchBarCont">
 										<input type="text" name="query" id="profileSearchField" placeholder="Search Profiles">
@@ -163,7 +163,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				$profilesPageHTML = '
 				<div id="profileContents">
 					<div id="searchFormCont">
-						<form action="profileSearch.php" id="profileSearchForm" method="GET" autocomplete="off">
+						<form action="profileSearch/index.php" id="profileSearchForm" method="GET" autocomplete="off">
 							<label for="profileSearchField" id="profileSearchLabel">Search</label>
 							<div id="searchBarCont">
 								<input type="text" name="query" id="profileSearchField" placeholder="Search Profiles">

@@ -1,6 +1,6 @@
 "use strict";
 const emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const passEasyTest = /(strong(er)*)*(complex)*(password[0-9]{0,3})|(12345678(9)*)/gi;
+const passEasyTest = /(strong(er)*)*(complex)*(password[0-9]{0,3})/gi;
 const userDirtRegexp = /[^a-z0-9._]/gi;
 const refMenuButton = document.querySelector("#menuToggle");
 const refSideNav = document.querySelector("#sidenav");
@@ -269,7 +269,8 @@ function validateChangeUserField(event) {
 	else if (refNewUserField.value.length < 3 || refNewUserField.value.length > 20) {
 		refNewUserError.innerHTML = "Username may only contain between 3-20 characters.";
 		newUsernameChangeError = "Username may only contain between 3-20 characters.";
-	} else if (event && event.keyCode === 13) {
+	}
+	else if (event.keyCode === 13) {
 		updateUsername();
 	} else {
 		newUsernameChangeError = "";
@@ -286,6 +287,10 @@ function validateChangeUserField(event) {
 			xhr.send("username=" + encodeURIComponent(refNewUserField.value));
 		}, 350);
 	}
+}
+function cancelChangeUserFieldTimeout() {
+	clearTimeout(checkUser);
+	clearTimeout(checkUserSubmit);
 }
 function validateChangePassFields(event) {
 	const refNewPassField = document.querySelector("#newPasswordField");
@@ -361,6 +366,9 @@ function validateChangeEmailField(event) {
 		}, 350);
 	}
 }
+function cancelChangeEmailFieldTimeout() {
+	clearTimeout(checkEmail);
+}
 function validateNewEmailPasswordField(event) {
 	const refEmailField = document.querySelector("#newEmailField");
 	const refNewEmailConfirmPassField = document.querySelector("#confirmPasswordNewEmailField");
@@ -391,8 +399,8 @@ function validateChange2FAPasswordField(event) {
 	}
 }
 function sendEmailVerification() {
-	clearTimeout(checkEmailVerification);
 	if (emailVerificationEmailSent === false) {
+		clearTimeout(checkEmailVerification);
 		checkEmailVerification = setTimeout(function() {
 			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 			emailVerificationEmailSent = true;
@@ -445,6 +453,9 @@ function sendEmailVerification() {
 			xhr.send();
 		}, 350);
 	}
+}
+function cancelEmailVerificationTimeout() {
+	clearTimeout(checkEmailVerification);
 }
 function updateUsername() {
 	const refNewUserField = document.querySelector("#newUsernameField");
@@ -502,6 +513,9 @@ function updateUsername() {
 			xhr.send("type=1&content=" + encodeURIComponent(refNewUserField.value));
 		}
 	}, 350);
+}
+function cancelUpdateUsernameTimeout() {
+	clearTimeout(checkUserSubmit);
 }
 function updatePassword() {
 	const refNewPassField = document.querySelector("#newPasswordField");
@@ -570,6 +584,9 @@ function updatePassword() {
 		}
 	}, 350);
 }
+function cancelUpdatePasswordTimeout() {
+	clearTimeout(checkPassword);
+}
 function updateEmail() {
 	const refNewEmailField = document.querySelector("#newEmailField");
 	const refNewEmailConfirmPassField = document.querySelector("#confirmPasswordNewEmailField");
@@ -585,6 +602,8 @@ function updateEmail() {
 					newEmailChangeError = xhr.response["newEmailError"] ? xhr.response["newEmailError"] : "";
 					newEmailConfirmPasswordChangeError = xhr.response["message"];
 					var leftCooldown = xhr.response["leftoverCooldown"];
+					newEmailConfirmPasswordText = "";
+					refNewEmailConfirmPassField.value = "";
 					if (document.querySelector("#newEmailError")) {
 						const refNewEmailError = document.querySelector("#newEmailError");
 						refNewEmailError.innerHTML = newEmailChangeError;
@@ -645,6 +664,9 @@ function updateEmail() {
 		}
 	}, 350);
 }
+function cancelUpdateEmailTimeout() {
+	clearTimeout(checkEmailSubmit);
+}
 function updateBio() {
 	const refBioInput = document.querySelector("#bioInput");
 	const refBioError = document.querySelector("#bioInputError");
@@ -661,9 +683,12 @@ function updateBio() {
 		xhr.send(JSON.stringify({type : 4, content : refBioInput.value}));
 	}, 350);
 }
+function cancelUpdateBioTimeout() {
+	clearTimeout(checkBio);
+}
 function deleteAccount() {
-	clearTimeout(checkDeleteAccount);
 	if (accountDeletionEmailSent === false) {
+		clearTimeout(checkDeleteAccount);
 		checkDeleteAccount = setTimeout(function() {
 			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 			accountDeletionEmailSent = true;
@@ -717,6 +742,9 @@ function deleteAccount() {
 		}, 350);
 	}
 }
+function cancelDeleteAccountTimeout() {
+	clearTimeout(checkDeleteAccount);
+}
 function themeSwitch() {
 	if (getCookie("darktheme") !== "false") {
 		document.cookie = "darktheme=false; expires=31 Dec 10000 12:00:00 UTC; path=/";
@@ -733,8 +761,8 @@ function themeSwitch() {
 function twoFactorAuthSwitch() {
 	const refTwoFactorAuthConfirmPasswordField = document.querySelector("#confirmPasswordChange2FAField");
 	const refTwoFactorAuthConfirmPasswordError = document.querySelector("#confirmPasswordChange2FAError");
-	clearTimeout(checkTwoFactorAuth);
 	if (refTwoFactorAuthConfirmPasswordField.value.trim().length > 0) {
+		clearTimeout(checkTwoFactorAuth);
 		checkTwoFactorAuth = setTimeout(function() {
 			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 			xhr.open("POST", "updateAccountDetails.php", true);
@@ -777,6 +805,9 @@ function twoFactorAuthSwitch() {
 		}
 	}
 }
+function cancelTwoFactorAuthSwitchTimeout() {
+	clearTimeout(checkTwoFactorAuth);
+}
 refAccountButton.addEventListener("click", function(triggered) {
 	if (triggered.button === 0 && refAccountButton.classList.contains("selectedTab") === false) {
 		const refTwoFactorAuthConfirmPasswordField = document.querySelector("#confirmPasswordChange2FAField");
@@ -802,7 +833,7 @@ refAccountButton.addEventListener("click", function(triggered) {
 			<p id="changeUsernameText" class="notSelectable" onclick="changeUserToggle()">
 				Change Your Username
 				<svg version="1.0" xmlns="http://www.w3.org/2000/svg" class="dropDownMenuArrow" id="changeUserMenuArrow" width="10px" height="10px" viewBox="0 0 1131.000000 744.000000" preserveAspectRatio="xMidYMid meet">
-					<g transform="translate(0.000000,744.000000) scale(0.100000,-0.100000)" stroke="none">
+					<g transform="translate(0.000000,744.000000) scale(0.100000,-0.100000)" stroke="none" fill="#ffffff">
 						<path d="M887 6552 c-482 -482 -877 -882 -877 -887 0 -13 5642 -5655 5655
 						-5655 12 0 5645 5645 5645 5657 0 12 -1753 1763 -1765 1763 -5 0 -882 -872
 						-1947 -1937 l-1938 -1938 -1938 1938 c-1065 1065 -1942 1937 -1947 1937 -6 0
@@ -813,11 +844,11 @@ refAccountButton.addEventListener("click", function(triggered) {
 			<div id="changeUserCont">
 				<div id="newUserCont" style="margin-bottom: 5px;">
 					<label for="newUsername" id="newUsernameLabel">New Username</label>
-					<input value="${newUsernameText}" type="text" onkeyup="validateChangeUserField(event)" placeholder="New Username" autocomplete="off" id="newUsernameField">
+					<input type="text" value="${newUsernameText}" onkeyup="validateChangeUserField(event)" onkeydown="cancelChangeUserFieldTimeout()" placeholder="New Username" autocomplete="off" id="newUsernameField">
 					<p id="newUsernameError" class="inputErrorText">${newUsernameChangeError}</p>
 				</div>
 				<div class="sendEmailButtonCont" style="height: 40px;">
-					<button id="sendChangeUsernameEmailButton" class="notSelectable" onclick="updateUsername()">${changeUserButtonText}</button>
+					<button id="sendChangeUsernameEmailButton" class="notSelectable" onmouseup="updateUsername()" onmousedown="cancelUpdateUsernameTimeout()">${changeUserButtonText}</button>
 				</div>
 			</div>
 		</div>
@@ -825,7 +856,7 @@ refAccountButton.addEventListener("click", function(triggered) {
 			<p id="changePasswordText" class="notSelectable" onclick="changePassToggle()">
 				Change Your Password
 				<svg version="1.0" xmlns="http://www.w3.org/2000/svg" class="dropDownMenuArrow" id="changePassMenuArrow" width="10px" height="10px" viewBox="0 0 1131.000000 744.000000" preserveAspectRatio="xMidYMid meet">
-					<g transform="translate(0.000000,744.000000) scale(0.100000,-0.100000)" stroke="none">
+					<g transform="translate(0.000000,744.000000) scale(0.100000,-0.100000)" stroke="none" fill="#ffffff">
 						<path d="M887 6552 c-482 -482 -877 -882 -877 -887 0 -13 5642 -5655 5655
 						-5655 12 0 5645 5645 5645 5657 0 12 -1753 1763 -1765 1763 -5 0 -882 -872
 						-1947 -1937 l-1938 -1938 -1938 1938 c-1065 1065 -1942 1937 -1947 1937 -6 0
@@ -836,7 +867,7 @@ refAccountButton.addEventListener("click", function(triggered) {
 			<div id="changePassCont">
 				<div id="newPassCont">
 					<label for="newPassword" id="newPasswordLabel">New Password</label>
-					<input value="${newPasswordText}" type="password" onkeyup="validateChangePassFields(event)" placeholder="New Password" autocomplete="off" id="newPasswordField">
+					<input type="password" value="${newPasswordText}" onkeyup="validateChangePassFields(event)" placeholder="New Password" autocomplete="off" id="newPasswordField">
 					<button id="newPassShowButton" class="passwordShowButton notSelectable" onclick="newPassFieldShowToggle()">
 						<div class="showPassImage" id="newPassImage"></div>
 					</button>
@@ -845,14 +876,14 @@ refAccountButton.addEventListener("click", function(triggered) {
 				<div id="innerConfirmPassCont">
 					<div id="confirmPassCont">
 						<label for="confirmPassword" id="confirmPasswordLabel">Confirm Password</label>
-						<input value="${confirmPasswordText}" type="password" onkeyup="validateChangePassFields(event)" placeholder="Confirm Password" autocomplete="off" id="confirmPasswordField">
+						<input type="password" value="${confirmPasswordText}" onkeyup="validateChangePassFields(event)" placeholder="Confirm Password" autocomplete="off" id="confirmPasswordField">
 						<button id="confirmPassShowButton" class="passwordShowButton notSelectable" onclick="confirmPassFieldShowToggle()">
 							<div class="showPassImage" id="confirmPassImage"></div>
 						</button>
 						<p id="confirmPasswordError" class="inputErrorText">${confirmPasswordChangeError}</p>
 					</div>
 					<div class="sendEmailButtonCont" style="height: 40px;">
-						<button id="sendChangePasswordEmailButton" class="notSelectable" onclick="updatePassword()">${changePassButtonText}</button>
+						<button id="sendChangePasswordEmailButton" class="notSelectable" onmouseup="updatePassword()" onmousedown="cancelUpdatePasswordTimeout()">${changePassButtonText}</button>
 					</div>
 				</div>
 			</div>
@@ -861,7 +892,7 @@ refAccountButton.addEventListener("click", function(triggered) {
 			<p id="changeEmailText" class="notSelectable" onclick="changeEmailToggle()">
 				Change Your Email
 				<svg version="1.0" xmlns="http://www.w3.org/2000/svg" class="dropDownMenuArrow" id="changeEmailMenuArrow" width="10px" height="10px" viewBox="0 0 1131.000000 744.000000" preserveAspectRatio="xMidYMid meet">
-					<g transform="translate(0.000000,744.000000) scale(0.100000,-0.100000)" stroke="none">
+					<g transform="translate(0.000000,744.000000) scale(0.100000,-0.100000)" stroke="none" fill="#ffffff">
 						<path d="M887 6552 c-482 -482 -877 -882 -877 -887 0 -13 5642 -5655 5655
 						-5655 12 0 5645 5645 5645 5657 0 12 -1753 1763 -1765 1763 -5 0 -882 -872
 						-1947 -1937 l-1938 -1938 -1938 1938 c-1065 1065 -1942 1937 -1947 1937 -6 0
@@ -872,19 +903,19 @@ refAccountButton.addEventListener("click", function(triggered) {
 			<div id="changeEmailCont">
 				<div id="newEmailCont" style="margin-bottom: 5px;">
 					<label for="newEmail" id="newEmailLabel">New Email</label>
-					<input value="${newEmailText}" type="text" onkeyup="validateChangeEmailField(event)" placeholder="New Email" autocomplete="off" id="newEmailField">
+					<input type="text" value="${newEmailText}" onkeyup="validateChangeEmailField(event)" onkeydown="cancelChangeEmailFieldTimeout()" placeholder="New Email" autocomplete="off" id="newEmailField">
 					<p id="newEmailError" class="inputErrorText">${newEmailChangeError}</p>
 				</div>
 				<div id="confirmPasswordNewEmailCont">
 					<label for="newEmailConfirmPassword" id="newEmailConfirmPasswordLabel">Password</label>
-					<input value="${newEmailConfirmPasswordText}" type="password" placeholder="Password" autocomplete="off" id="confirmPasswordNewEmailField" onkeyup="validateNewEmailPasswordField(event)">
+					<input type="password" value="${newEmailConfirmPasswordText}" placeholder="Password" autocomplete="off" id="confirmPasswordNewEmailField" onkeyup="validateNewEmailPasswordField(event)">
 					<button id="newEmailConfirmPassShowButton" class="passwordShowButton notSelectable" onclick="newEmailConfirmPassFieldShowToggle()">
 						<div class="showPassImage" id="newEmailConfirmPassImage"></div>
 					</button>
 					<p id="confirmPasswordNewEmailError" class="inputErrorText">${newEmailConfirmPasswordChangeError}</p>
 				</div>
 				<div class="sendEmailButtonCont" style="height: 40px;">
-					<button id="sendChangeEmailEmailButton" class="notSelectable" onclick="updateEmail()">${changeEmailButtonText}</button>
+					<button id="sendChangeEmailEmailButton" class="notSelectable" onmouseup="updateEmail()" onmousedown="cancelUpdateEmailTimeout()">${changeEmailButtonText}</button>
 				</div>
 			</div>
 		</div>
@@ -895,7 +926,7 @@ refAccountButton.addEventListener("click", function(triggered) {
 				<textarea id="bioInput" placeholder="Share about yourself in 200 characters." maxlength="200" rows="10">${bioText}</textarea>
 			</div>
 			<p id="bioInputError" class="inputErrorText">${bioInputError}</p>
-			<button id="saveBioButton" class="notSelectable" onclick="updateBio()">${changeBioButtonText}</button>
+			<button id="saveBioButton" class="notSelectable" onmouseup="updateBio()" onmousedown="cancelUpdateBioTimeout()">${changeBioButtonText}</button>
 		</div>
 		<div class="infoRow">
 			<label for="darkThemeSwitchCont" class="rowInfo notSelectable" id="darkThemeLabel">Dark Theme:</label>
@@ -906,7 +937,7 @@ refAccountButton.addEventListener("click", function(triggered) {
 		<div class="infoColumnRow" style="padding-bottom: 0;">
 			<label id="deleteAccountButtonLabel" for="deleteAccountButtonLabel" class="rowInfo notSelectable">Delete This Account:</label>
 			<div id="deleteAccountButtonCont" style="height: 40px;">
-				<button id="deleteAccountButton" class="notSelectable" onclick="deleteAccount()">${accountDeletionButtonText}</button>
+				<button id="deleteAccountButton" class="notSelectable" onmouseup="deleteAccount()" onmousedown="cancelDeleteAccountTimeout()">${accountDeletionButtonText}</button>
 			</div>
 			<p id="deleteAccountError" class="inputErrorText">${accountDeletionError}</p>
 		</div>`;

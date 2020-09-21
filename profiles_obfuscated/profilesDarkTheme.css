@@ -37,14 +37,6 @@ body {
 	margin: 0;
 	background-color: #232527;
 }
-body::after {
-	position: absolute;
-	width:0;
-	height:0;
-	overflow: hidden;
-	z-index:-1;
-	content:url("../Assets/darkTheme/close.png") url("../Assets/darkTheme/menu.png") url("../Assets/darkTheme/homeIcon.png") url("../Assets/darkTheme/compass.png") url("../Assets/darkTheme/CogWheel.png") url("../Assets/darkTheme/person.png") url("../Assets/darkTheme/privacyLock.png") url("../Assets/darkTheme/PasswordInvisible.png") url("../Assets/darkTheme/PasswordVisible.png");
-}
 #topnav {
 	position: fixed;
 	display: -webkit-flex;

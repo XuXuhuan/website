@@ -78,7 +78,7 @@
 					<div class="infoColumnRow" id="emailVerifiedRow" style="padding-bottom: 0;">
 						<p class="rowInfo notSelectable" id="emailVerifiedRowInfo" style="margin-bottom: 10px;">Email Verified: No</p>
 						<div id="verifyEmailButtonCont" style="height: 40px;">
-							<button class="notSelectable" id="verifyEmailButton" onclick="sendEmailVerification()">Verify Email</button>
+							<button class="notSelectable" id="verifyEmailButton" onmouseup="sendEmailVerification()" onmousedown="cancelEmailVerificationTimeout()">Verify Email</button>
 						</div>
 						<p class="inputErrorText" id="verifyEmailError" style="text-align: center;"></p>
 					</div>
@@ -98,11 +98,11 @@
 						<div id="changeUserCont">
 							<div id="newUserCont" style="margin-bottom: 5px;">
 								<label for="newUsername" id="newUsernameLabel">New Username</label>
-								<input type="text" onkeyup="validateChangeUserField(event)" placeholder="New Username" autocomplete="off" id="newUsernameField">
+								<input type="text" onkeyup="validateChangeUserField(event)" onkeydown="cancelChangeUserFieldTimeout()" placeholder="New Username" autocomplete="off" id="newUsernameField">
 								<p id="newUsernameError" class="inputErrorText">This field is required.</p>
 							</div>
 							<div class="sendEmailButtonCont" style="height: 40px;">
-								<button id="sendChangeUsernameEmailButton" class="notSelectable" onclick="updateUsername()">Change Username</button>
+								<button id="sendChangeUsernameEmailButton" class="notSelectable" onmouseup="updateUsername()" onmousedown="cancelUpdateUsernameTimeout()">Change Username</button>
 							</div>
 						</div>
 					</div>
@@ -137,7 +137,7 @@
 									<p id="confirmPasswordError" class="inputErrorText">This field is required.</p>
 								</div>
 								<div class="sendEmailButtonCont" style="height: 40px;">
-									<button id="sendChangePasswordEmailButton" class="notSelectable" onclick="updatePassword()">Change Password</button>
+									<button id="sendChangePasswordEmailButton" class="notSelectable" onmouseup="updatePassword()" onmousedown="cancelUpdatePasswordTimeout()">Change Password</button>
 								</div>
 							</div>
 						</div>
@@ -157,7 +157,7 @@
 						<div id="changeEmailCont">
 							<div id="newEmailCont" style="margin-bottom: 5px;">
 								<label for="newEmail" id="newEmailLabel">New Email</label>
-								<input type="text" onkeyup="validateChangeEmailField(event)" placeholder="New Email" autocomplete="off" id="newEmailField">
+								<input type="text" onkeyup="validateChangeEmailField(event)" onkeydown="cancelChangeEmailFieldTimeout()" placeholder="New Email" autocomplete="off" id="newEmailField">
 								<p id="newEmailError" class="inputErrorText">This field is required.</p>
 							</div>
 							<div id="confirmPasswordNewEmailCont">
@@ -169,7 +169,7 @@
 								<p id="confirmPasswordNewEmailError" class="inputErrorText">This field is required.</p>
 							</div>
 							<div class="sendEmailButtonCont" style="height: 40px;">
-								<button id="sendChangeEmailEmailButton" class="notSelectable" onclick="updateEmail()">Change Email</button>
+								<button id="sendChangeEmailEmailButton" class="notSelectable" onmouseup="updateEmail()" onmousedown="cancelUpdateEmailTimeout()">Change Email</button>
 							</div>
 						</div>
 					</div>
@@ -180,7 +180,7 @@
 							<textarea id="bioInput" placeholder="Share about yourself in 200 characters." maxlength="200" rows="10"></textarea>
 						</div>
 						<p id="bioInputError" class="inputErrorText"></p>
-						<button id="saveBioButton" class="notSelectable" onclick="updateBio()">Save Changes</button>
+						<button id="saveBioButton" class="notSelectable" onmouseup="updateBio()" onmousedown="cancelUpdateBioTimeout()">Save Changes</button>
 					</div>
 					<div class="infoRow">
 						<label for="darkThemeSwitchCont" class="rowInfo notSelectable" id="darkThemeLabel">Dark Theme:</label>
@@ -191,7 +191,7 @@
 					<div class="infoColumnRow" style="padding-bottom: 0;">
 						<label id="deleteAccountButtonLabel" for="deleteAccountButtonLabel" class="rowInfo notSelectable">Delete This Account:</label>
 						<div id="deleteAccountButtonCont" style="height: 40px;">
-							<button id="deleteAccountButton" class="notSelectable" onclick="deleteAccount()">Send Email</button>
+							<button id="deleteAccountButton" class="notSelectable" onmouseup="deleteAccount()" onmousedown="cancelDeleteAccountTimeout()">Send Email</button>
 						</div>
 						<p id="deleteAccountError" class="inputErrorText"></p>
 					</div>

@@ -14,6 +14,8 @@
 	--sideMenuTextTransform: scaleX(0);
 	--UIdefaultColor: #35363A;
 	--UIdefaultTextColor: #ffffff;
+	--profileSearchButtonBgColor: #2D2F31;
+	--textFieldColor: #141618;
 }
 @font-face {
 	font-family: MontserratReg;
@@ -34,14 +36,6 @@
 body {
 	margin: 0;
 	background-color: #232527;
-}
-body::after {
-	position: absolute;
-	width:0;
-	height:0;
-	overflow: hidden;
-	z-index:-1;
-	content:url("../../Assets/darkTheme/close.png") url("../../Assets/darkTheme/menu.png") url("../../Assets/darkTheme/homeIcon.png") url("../../Assets/darkTheme/compass.png") url("../../Assets/darkTheme/CogWheel.png") url("../../Assets/darkTheme/person.png") url("../../Assets/darkTheme/privacyLock.png") url("../../Assets/darkTheme/PasswordInvisible.png") url("../../Assets/darkTheme/PasswordVisible.png");
 }
 #topnav {
 	position: fixed;
@@ -472,9 +466,191 @@ main {
 		left: -25vw;
 	}
 }
+@media only screen and (min-width: 769px) {
+	#profileContents {
+		position: relative;
+		width: 80%;
+	}
+	#profileSearchField {
+		width: 300px;
+	}
+}
 @media only screen and (max-width: 720px) {
 	#alertCont {
 		margin-left: 10px;
 		margin-right: 10px;
 	}
+}
+#profileContents {
+	display: block;
+	margin: 30px auto 0 auto;
+}
+.infoRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	align-items: center;
+	border-bottom: 1px solid #ffffff;
+    background-color: var(--UIdefaultColor);
+}
+.infoColumnRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	background-color: var(--UIdefaultColor);
+	margin-bottom: 10px;
+}
+.infoColumnRow:nth-last-child(2) {
+	border: 0 !important;
+	margin-bottom: 20px !important;
+}
+.inputErrorText {
+	margin: 0;
+	font-size: 15px;
+	font-family: MontserratReg, Verdana, sans-serif;
+	color: #ff0000;
+}
+#searchFormCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	align-items: center;
+	margin-bottom: 20px;
+}
+#profileSearchForm {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+}
+#profileSearchField {
+	outline: none;
+	height: 30px;
+	vertical-align: top;
+	background-color: var(--textFieldColor);
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	font-size: 16px;
+	border-radius: 4px 0 0 4px;
+	height: 35px;
+	min-width: 238px;
+	padding: 0 0 0 5px;
+}
+#profileSearchButton {
+	outline: none;
+	float: right;
+	border: 0;
+	padding: 10px 12.5px;
+	background-color: var(--profileSearchButtonBgColor);
+	cursor: pointer;
+	border-radius: 0 4px 4px 0;
+}
+#profileSearchImage {
+	background-image: url("../../Assets/darkTheme/search_magnifying_glass.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 15px;
+	width: calc(733 / 680 * 15px);
+}
+.userListName {
+	margin: 0;
+	text-decoration: underline;
+	width: fit-content;
+	width: -moz-fit-content;
+	font-weight: bold;
+	font-size: 1.17em;
+	color: var(--UIdefaultTextColor);
+}
+.bioPreview {
+	margin: 10px 0 0 0;
+	font-size: 15px;
+	word-break: break-all;
+	max-height: 55.2px;
+	height: 55.2px;
+	overflow: hidden;
+}
+#changePageWrapper {
+	background-color: transparent;
+	align-items: center;
+}
+#changePageCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+#nextPageButton, #prevPageButton {
+	cursor: pointer;
+	background-color: var(--UIdefaultColor);
+	outline: none;
+	border: 0;
+	padding: 9px 10px;
+	border-radius: 3px;
+}
+#nextPageButton {
+	margin-left: 10px;
+}
+#prevPageButton {
+	margin-right: 10px;
+}
+.changePageArrowCont {
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 15px;
+	width: calc(354 / 566 * 15px);
+	cursor: pointer;
+}
+#leftArrowCont {
+	background-image: url("../../Assets/darkTheme/leftArrow.png");
+}
+#rightArrowCont {
+	background-image: url("../../Assets/darkTheme/rightArrow.png");
+}
+#pageCount {
+	font-size: 15px;
+	margin-top: 15px;
+}
+#currentPageCount {
+	-moz-appearance: textfield;
+	width: 30px;
+	outline: none;
+	font-family: LatoReg, Arial, sans-serif;
+	background-color: var(--UIdefaultColor);
+	color: var(--UIdefaultTextColor);
+	border: 0;
+	padding-left: 5px;
+	border-radius: 3px;
+}
+#currentPageCount::-webkit-outer-spin-button, #currentPageCount::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+#resultCount {
+	font-size: 15px;
+	margin: 0;
+	font-family: LatoReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
 }

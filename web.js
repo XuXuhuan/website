@@ -13,7 +13,7 @@ const emailErrorReferral = document.querySelector("#emailError");
 const signupButtonReferral = document.querySelector("#signUpButton");
 const signupMessageReferral = document.querySelector("#signupMessage");
 const emailTest = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const passEasyTest = /(strong(er)*)*(complex)*(password[0-9]{0,3})|(12345678(9)*)/gi;
+const passEasyTest = /(strong(er)*)*(complex)*(password[0-9]{0,3})/gi;
 const userDirtRegexp = /[^a-z0-9._]/gi;
 var passShowing = false;
 var checkUser;

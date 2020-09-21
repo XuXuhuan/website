@@ -18,17 +18,10 @@ if ($mysqliConnection -> connect_error) {
             if ($allNeededDetails = $mysqliConnection -> query($neededDetailsQuery)) {
                 if ($allNeededDetails -> num_rows > 0) {
                     if ($assocNeededDetails = $allNeededDetails -> fetch_assoc()) {
-                        if ($assocNeededDetails["2FAenabled"] == true) {
-                            $assocReturn["concatSlider"] = '
-                            <span id="twoFactorAuthSwitchCont" class="sliderSwitchCont switchedOnSwitchCont" onclick="twoFactorAuthSwitch()">
-                                <span id="twoFactorAuthSwitch" class="switchedOnSwitch"></span>
-                            </span>';
-                        } else {
-                            $assocReturn["concatSlider"] = '
-                            <span id="twoFactorAuthSwitchCont" class="sliderSwitchCont" onclick="twoFactorAuthSwitch()">
-                                <span id="twoFactorAuthSwitch"></span>
-                            </span>';
-                        }
+                        $assocReturn["concatSlider"] = '
+                        <span id="twoFactorAuthSwitchCont" class="sliderSwitchCont" onmouseup="twoFactorAuthSwitch()" onmousedown="cancelTwoFactorAuthSwitchTimeout()">
+                            <span id="twoFactorAuthSwitch"' . ($assocNeededDetails["2FAenabled"] == true ? ' class="switchedOnSwitch"' : '') . '></span>
+                        </span>';
                     } else {
                         $assocReturn["concatText"] = "[Error. Please refresh the page or try again later.]";
                     }
