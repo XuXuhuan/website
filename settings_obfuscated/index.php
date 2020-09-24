@@ -21,7 +21,7 @@ if (isset($_COOKIE["darktheme"]) && $_COOKIE["darktheme"] === "false") {
 if ($mysqliConnection -> connect_errno) {
 	$loginAlert = '
 	<div id="alertCont">
-		<p id="alertText">A connection error occurred. Please refresh the page or try again later.</p>
+		<p id="alertText">A connection error occurred. Please try again later.</p>
 	</div>';
 } else {
 	if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
@@ -63,7 +63,7 @@ if ($mysqliConnection -> connect_errno) {
 									} else {
 										$loginAlert = '
 										<div id="alertCont">
-											<p id="alertText">An internal error occurred. Please refresh the page or try again later.</p>
+											<p id="alertText">An internal error occurred. Please try again later.</p>
 										</div>';
 									}
 								} else {
@@ -72,7 +72,7 @@ if ($mysqliConnection -> connect_errno) {
 							} else {
 								$loginAlert = '
 								<div id="alertCont">
-									<p id="alertText">An internal error occurred. Please refresh the page or try again later.</p>
+									<p id="alertText">An internal error occurred. Please try again later.</p>
 								</div>';
 							}
 						} else {
@@ -109,7 +109,7 @@ if ($mysqliConnection -> connect_errno) {
 					} else {
 						$loginAlert = '
 						<div id="alertCont">
-							<p id="alertText">An internal error occurred. Please refresh the page or try again later.</p>
+							<p id="alertText">An internal error occurred. Please try again later.</p>
 						</div>';
 					}
 				}
@@ -117,14 +117,14 @@ if ($mysqliConnection -> connect_errno) {
 			} else {
 				$loginAlert = '
 				<div id="alertCont">
-					<p id="alertText">An internal error occurred. Please refresh the page or try again later.</p>
+					<p id="alertText">An internal error occurred. Please try again later.</p>
 				</div>';
 			}
 		}
 	} else {
 		$loginAlert = '
 		<div id="alertCont">
-			<p id="alertText">Your connection is not secure and this request could not be processed. Please refresh the page or try again later.</p>
+			<p id="alertText">Your connection is not secure and this request could not be processed. Please try again later.</p>
 		</div>';
 	}
 }
@@ -304,7 +304,7 @@ if (!empty($loginAlert)) {
 							<div id="changeUserCont">
 								<div id="newUserCont" style="margin-bottom: 5px;">
 									<label for="newUsername" id="newUsernameLabel">New Username</label>
-									<input type="text" onkeyup="validateChangeUserField(event)" placeholder="New Username" autocomplete="off" id="newUsernameField">
+									<input type="text" onkeyup="validateChangeUserField(Event)" placeholder="New Username" autocomplete="off" id="newUsernameField">
 									<p id="newUsernameError" class="inputErrorText">This field is required.</p>
 								</div>
 								<div class="sendEmailButtonCont" style="height: 40px;">
@@ -327,7 +327,7 @@ if (!empty($loginAlert)) {
 							<div id="changePassCont">
 								<div id="newPassCont">
 									<label for="newPassword" id="newPasswordLabel">New Password</label>
-									<input type="password" onkeyup="validateChangePassFields(event)" placeholder="New Password" autocomplete="off" id="newPasswordField">
+									<input type="password" onkeyup="validateChangePassFields(Event)" placeholder="New Password" autocomplete="off" id="newPasswordField">
 									<button id="newPassShowButton" class="passwordShowButton notSelectable" onclick="newPassFieldShowToggle()">
 										<div class="showPassImage" id="newPassImage"></div>
 									</button>
@@ -336,7 +336,7 @@ if (!empty($loginAlert)) {
 								<div id="innerConfirmPassCont">
 									<div id="confirmPassCont">
 										<label for="confirmPassword" id="confirmPasswordLabel">Confirm Password</label>
-										<input type="password" onkeyup="validateChangePassFields(event)" placeholder="Confirm Password" autocomplete="off" id="confirmPasswordField">
+										<input type="password" onkeyup="validateChangePassFields(Event)" placeholder="Confirm Password" autocomplete="off" id="confirmPasswordField">
 										<button id="confirmPassShowButton" class="passwordShowButton notSelectable" onclick="confirmPassFieldShowToggle()">
 											<div class="showPassImage" id="confirmPassImage"></div>
 										</button>
@@ -363,12 +363,12 @@ if (!empty($loginAlert)) {
 							<div id="changeEmailCont">
 								<div id="newEmailCont" style="margin-bottom: 5px;">
 									<label for="newEmail" id="newEmailLabel">New Email</label>
-									<input type="text" onkeyup="validateChangeEmailField(event)" placeholder="New Email" autocomplete="off" id="newEmailField">
+									<input type="text" onkeyup="validateChangeEmailField(Event)" placeholder="New Email" autocomplete="off" id="newEmailField">
 									<p id="newEmailError" class="inputErrorText">This field is required.</p>
 								</div>
 								<div id="confirmPasswordNewEmailCont">
 									<label for="newEmailConfirmPassword" id="newEmailConfirmPasswordLabel">Password</label>
-									<input type="password" placeholder="Password" autocomplete="off" id="confirmPasswordNewEmailField" onkeyup="validateNewEmailPasswordField(event)">
+									<input type="password" placeholder="Password" autocomplete="off" id="confirmPasswordNewEmailField" onkeyup="validateNewEmailPasswordField(Event)">
 									<button id="newEmailConfirmPassShowButton" class="passwordShowButton notSelectable" onclick="newEmailConfirmPassFieldShowToggle()">
 										<div class="showPassImage" id="newEmailConfirmPassImage"></div>
 									</button>

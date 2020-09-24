@@ -21,7 +21,7 @@ if (isset($_COOKIE["darktheme"]) && $_COOKIE["darktheme"] === "false") {
 if ($mysqliConnection -> connect_errno) {
 	$loginAlert = '
 	<div id="alertCont">
-		<p id="alertText">A connection error occurred. Please refresh the page or try again later.</p>
+		<p id="alertText">A connection error occurred. Please try again later.</p>
 	</div>';
 }
 else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
@@ -58,7 +58,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 								} else {
 									$loginAlert = '
 									<div id="alertCont">
-										<p id="alertText">An internal error occurred. Please refresh the page or try again later.</p>
+										<p id="alertText">An internal error occurred. Please try again later.</p>
 									</div>';
 								}
 							} else {
@@ -67,7 +67,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 						} else {
 							$loginAlert = '
 							<div id="alertCont">
-								<p id="alertText">An internal error occurred. Please refresh the page or try again later.</p>
+								<p id="alertText">An internal error occurred. Please try again later.</p>
 							</div>';
 						}
 					} else {
@@ -156,7 +156,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				} else {
 					$loginAlert = '
 					<div id="alertCont">
-						<p id="alertText">An internal error occurred. Please refresh the page or try again later.</p>
+						<p id="alertText">An internal error occurred. Please try again later.</p>
 					</div>';
 				}
 			} else {
@@ -181,14 +181,14 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		} else {
 			$loginAlert = '
 			<div id="alertCont">
-				<p id="alertText">An internal error occurred. Please refresh the page or try again later.</p>
+				<p id="alertText">An internal error occurred. Please try again later.</p>
 			</div>';
 		}
 	}
 } else {
 	$loginAlert = '
 	<div id="alertCont">
-		<p id="alertText">Your connection is not secure and this request could not be processed. Please refresh the page or try again later.</p>
+		<p id="alertText">Your connection is not secure and this request could not be processed. Please try again later.</p>
 	</div>';
 }
 $mysqliConnection -> close();

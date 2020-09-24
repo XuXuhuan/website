@@ -12,7 +12,7 @@ function getRandomString($stringLength) {
 }
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
 if ($mysqliConnection -> connect_errno) {
-	$AssocReturn["errormessages"]["loginError"] = "A connection error occurred. Please refresh the page or try again later.";
+	$AssocReturn["errormessages"]["loginError"] = "A connection error occurred. Please try again later.";
 } else {
 	if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		$getUser = $mysqliConnection -> real_escape_string($_POST["username"]);
@@ -56,24 +56,24 @@ if ($mysqliConnection -> connect_errno) {
 								$AssocReturn["successmessage"] = "Logging in...";
 								$AssocReturn["successURL"] = "https://www.streetor.sg/home/";
 							} else {
-								$AssocReturn["errormessages"]["loginError"] = "An internal error occurred. Please refresh the page or try again later.";
+								$AssocReturn["errormessages"]["loginError"] = "An internal error occurred. Please try again later.";
 							}
 						} else {
 							$AssocReturn["errormessages"]["passwordError"] = "Incorrect password.";
 						}
 					} else {
-						$AssocReturn["errormessages"]["loginError"] = "An internal error occurred. Please refresh the page or try again later.";
+						$AssocReturn["errormessages"]["loginError"] = "An internal error occurred. Please try again later.";
 					}
 				} else {
 					$AssocReturn["errormessages"]["usernameError"] = "No such account exists with this username.";
 				}
 				$queriedUsers -> free();
 			} else {
-				$AssocReturn["errormessages"]["loginError"] = "An internal error occurred. Please refresh the page or try again later.";
+				$AssocReturn["errormessages"]["loginError"] = "An internal error occurred. Please try again later.";
 			}
 		}
 	} else {
-		$AssocReturn["errormessages"]["loginError"] = "Your connection is not secure and this request could not be processed. Please refresh the page or try again later.";
+		$AssocReturn["errormessages"]["loginError"] = "Your connection is not secure and this request could not be processed. Please try again later.";
 	}
 }
 $mysqliConnection -> close();

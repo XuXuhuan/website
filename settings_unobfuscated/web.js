@@ -769,8 +769,8 @@ function twoFactorAuthSwitch() {
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.responseType = "json";
 			xhr.onerror = function() {
-				twoFactorAuthConfirmPasswordError = "An internal error occurred. Please refresh the page or try again later.";
-				refTwoFactorAuthConfirmPasswordError.innerHTML = "An internal error occurred. Please refresh the page or try again later";
+				twoFactorAuthConfirmPasswordError = "An internal error occurred. Please try again later.";
+				refTwoFactorAuthConfirmPasswordError.innerHTML = "An internal error occurred. Please try again later";
 			}
 			xhr.onload = function() {
 				const refTwoFactorAuthSwitchCont = document.querySelector("#twoFactorAuthSwitchCont");
@@ -844,7 +844,7 @@ refAccountButton.addEventListener("click", function(triggered) {
 			<div id="changeUserCont">
 				<div id="newUserCont" style="margin-bottom: 5px;">
 					<label for="newUsername" id="newUsernameLabel">New Username</label>
-					<input type="text" value="${newUsernameText}" onkeyup="validateChangeUserField(event)" onkeydown="cancelChangeUserFieldTimeout()" placeholder="New Username" autocomplete="off" id="newUsernameField">
+					<input type="text" value="${newUsernameText}" onkeyup="validateChangeUserField(Event)" onkeydown="cancelChangeUserFieldTimeout()" placeholder="New Username" autocomplete="off" id="newUsernameField">
 					<p id="newUsernameError" class="inputErrorText">${newUsernameChangeError}</p>
 				</div>
 				<div class="sendEmailButtonCont" style="height: 40px;">
@@ -867,7 +867,7 @@ refAccountButton.addEventListener("click", function(triggered) {
 			<div id="changePassCont">
 				<div id="newPassCont">
 					<label for="newPassword" id="newPasswordLabel">New Password</label>
-					<input type="password" value="${newPasswordText}" onkeyup="validateChangePassFields(event)" placeholder="New Password" autocomplete="off" id="newPasswordField">
+					<input type="password" value="${newPasswordText}" onkeyup="validateChangePassFields(Event)" placeholder="New Password" autocomplete="off" id="newPasswordField">
 					<button id="newPassShowButton" class="passwordShowButton notSelectable" onclick="newPassFieldShowToggle()">
 						<div class="showPassImage" id="newPassImage"></div>
 					</button>
@@ -876,7 +876,7 @@ refAccountButton.addEventListener("click", function(triggered) {
 				<div id="innerConfirmPassCont">
 					<div id="confirmPassCont">
 						<label for="confirmPassword" id="confirmPasswordLabel">Confirm Password</label>
-						<input type="password" value="${confirmPasswordText}" onkeyup="validateChangePassFields(event)" placeholder="Confirm Password" autocomplete="off" id="confirmPasswordField">
+						<input type="password" value="${confirmPasswordText}" onkeyup="validateChangePassFields(Event)" placeholder="Confirm Password" autocomplete="off" id="confirmPasswordField">
 						<button id="confirmPassShowButton" class="passwordShowButton notSelectable" onclick="confirmPassFieldShowToggle()">
 							<div class="showPassImage" id="confirmPassImage"></div>
 						</button>
@@ -903,12 +903,12 @@ refAccountButton.addEventListener("click", function(triggered) {
 			<div id="changeEmailCont">
 				<div id="newEmailCont" style="margin-bottom: 5px;">
 					<label for="newEmail" id="newEmailLabel">New Email</label>
-					<input type="text" value="${newEmailText}" onkeyup="validateChangeEmailField(event)" onkeydown="cancelChangeEmailFieldTimeout()" placeholder="New Email" autocomplete="off" id="newEmailField">
+					<input type="text" value="${newEmailText}" onkeyup="validateChangeEmailField(Event)" onkeydown="cancelChangeEmailFieldTimeout()" placeholder="New Email" autocomplete="off" id="newEmailField">
 					<p id="newEmailError" class="inputErrorText">${newEmailChangeError}</p>
 				</div>
 				<div id="confirmPasswordNewEmailCont">
 					<label for="newEmailConfirmPassword" id="newEmailConfirmPasswordLabel">Password</label>
-					<input type="password" value="${newEmailConfirmPasswordText}" placeholder="Password" autocomplete="off" id="confirmPasswordNewEmailField" onkeyup="validateNewEmailPasswordField(event)">
+					<input type="password" value="${newEmailConfirmPasswordText}" placeholder="Password" autocomplete="off" id="confirmPasswordNewEmailField" onkeyup="validateNewEmailPasswordField(Event)">
 					<button id="newEmailConfirmPassShowButton" class="passwordShowButton notSelectable" onclick="newEmailConfirmPassFieldShowToggle()">
 						<div class="showPassImage" id="newEmailConfirmPassImage"></div>
 					</button>
@@ -951,10 +951,10 @@ refAccountButton.addEventListener("click", function(triggered) {
 		xhr.open("GET", "fetchAccountTabDetails.php", true);
 		xhr.responseType = "json";
 		xhr.onerror = function() {
-			refUsernameInfo.innerHTML = "Username: [Error. Please refresh the page or try again later]";
-			refEmailInfo.innerHTML = "Email: [Error. Please refresh the page or try again later]";
-			refEmailVerifiedInfo.innerHTML = "Email Verified: [Error. Please refresh the page or try again later.]";
-			refBioInfo.innerHTML = "Biography (optional): [Error. Please refresh the page or try again later.]";
+			refUsernameInfo.innerHTML = "Username: [Error. Please try again later]";
+			refEmailInfo.innerHTML = "Email: [Error. Please try again later]";
+			refEmailVerifiedInfo.innerHTML = "Email Verified: [Error. Please try again later.]";
+			refBioInfo.innerHTML = "Biography (optional): [Error. Please try again later.]";
 		}
 		xhr.onload = function() {
 			refUsernameInfo.innerHTML = "Username: " + xhr.response["username"];
@@ -999,7 +999,7 @@ refSecurityButton.addEventListener("click", function(triggered) {
 			</div>
 			<div id="confirmPasswordChange2FACont">
 				<label for="change2FAConfirmPassword" id="change2FAConfirmPasswordLabel">Password</label>
-				<input value="${twoFactorAuthConfirmPasswordText}" type="password" placeholder="Password" autocomplete="off" id="confirmPasswordChange2FAField" onkeyup="validateChange2FAPasswordField(event)">
+				<input value="${twoFactorAuthConfirmPasswordText}" type="password" placeholder="Password" autocomplete="off" id="confirmPasswordChange2FAField" onkeyup="validateChange2FAPasswordField(Event)">
 				<button id="change2FAConfirmPassShowButton" class="passwordShowButton notSelectable" onclick="change2FAConfirmPassFieldShowToggle()">
 					<div class="showPassImage" id="change2FAConfirmPassImage"></div>
 				</button>
@@ -1013,8 +1013,8 @@ refSecurityButton.addEventListener("click", function(triggered) {
 		xhr.open("GET", "fetchSecurityTabDetails.php", true);
 		xhr.responseType = "json";
 		xhr.onerror = function() {
-			refTwoFactorAuthText.innerHTML = "Two Factor Authentication: [Error. Please refresh the page or try again later]";
-			refTwoFactorAuthMessage.innerHTML = "An internal error occurred. Please refresh the page or try again later.";
+			refTwoFactorAuthText.innerHTML = "Two Factor Authentication: [Error. Please try again later]";
+			refTwoFactorAuthMessage.innerHTML = "An internal error occurred. Please try again later.";
 		}
 		xhr.onload = function() {
 			refTwoFactorAuthText.innerHTML += xhr.response["concatText"];

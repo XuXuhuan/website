@@ -156,110 +156,106 @@ $emailDOM = '
 		</table>
 	</body>
 </html>';
-if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
-	if ($mysqliConnection -> connect_errno) {
-		$AssocReturn["errormessages"]["MySQLiError"] = "A connection error occurred. Please refresh the page or try again later.";
-	} else {
-		if (preg_match("/[^a-z0-9._]/i", $getUser) == true) {
-			$AssocReturn["errormessages"]["usernameError"] = "Username may only contain letters, numbers, . and _.";
-		}
-		else if (empty(trim($getUser))) {
-			$AssocReturn["errormessages"]["usernameError"] = "This field is required.";
-		}
-		else if (strlen($getUser) < 3 || strlen($getUser) > 20) {
-			$AssocReturn["errormessages"]["usernameError"] = "Username may only contain 3-20 characters.";
-		}
-		if (empty(preg_replace("/(strong(er)*)*(complex)*(password[0-9]{0,3})/i", "", $getPass))) {
-			$AssocReturn["errormessages"]["passwordError"] = "Please create a stronger password.";
-		}
-		else if (empty(trim($getPass))) {
-			$AssocReturn["errormessages"]["passwordError"] = "This field is required.";
-		}
-		else if (strlen($getPass) < 8) {
-			$AssocReturn["errormessages"]["passwordError"] = "Password must contain 8 or more characters.";
-		}
-		if (empty(trim($getfName))) {
-			$AssocReturn["errormessages"]["fNameError"] = "This field is required.";
-		}
-		else if (preg_match("/[0-9]/", $getfName) === 1) {
-			$AssocReturn["errormessages"]["fNameError"] = "This field cannot contain numbers.";
-		}
-		if (empty(trim($getlName))) {
-			$AssocReturn["errormessages"]["lNameError"] = "This field is required.";
-		}
-		else if (preg_match("/[0-9]/", $getlName) === 1) {
-			$AssocReturn["errormessages"]["lNameError"] = "This field cannot contain numbers.";
-		}
-		if (empty(filter_var($getEmail, FILTER_VALIDATE_EMAIL))) {
-			$AssocReturn["errormessages"]["emailError"] = "Please enter a valid email.";
-		}
-		else if (empty(trim($getEmail))) {
-			$AssocReturn["errormessages"]["emailError"] = "This field is required.";
-		}
-		if (empty($AssocReturn["errormessages"]["usernameError"]) &&
-			empty($AssocReturn["errormessages"]["passwordError"]) &&
-			empty($AssocReturn["errormessages"]["fNameError"]) &&
-			empty($AssocReturn["errormessages"]["lNameError"]) &&
-			empty($AssocReturn["errormessages"]["emailError"])) {
-			if ($mysqliConnection -> multi_query($fetchEmailAndUsernameQueries)) {
-				do {
-					if ($usernameAndEmailResults = $mysqliConnection -> store_result()) {
-						if ($usernameAndEmailResults -> num_rows > 0) {
-							if ($assocUsernameAndEmailResults = $usernameAndEmailResults -> fetch_assoc()) {
-								if (isset($assocUsernameAndEmailResults["username"])) {
-									$AssocReturn["errormessages"]["usernameError"] = "Username already used by another account.";
-								}
-								else if (isset($assocUsernameAndEmailResults["email"])) {
-									$AssocReturn["errormessages"]["emailError"] = "Email already used by another account.";
-								}
-							} else {
-								$AssocReturn["errormessages"]["MySQLiError"] = "An internals error occurred. Please refresh the page and try again later.";
+if ($mysqliConnection -> connect_errno) {
+	$AssocReturn["errormessages"]["MySQLiError"] = "A connection error occurred. Please try again later.";
+} else {
+	if (preg_match("/[^a-z0-9._]/i", $getUser) == true) {
+		$AssocReturn["errormessages"]["usernameError"] = "Username may only contain letters, numbers, . and _.";
+	}
+	else if (empty(trim($getUser))) {
+		$AssocReturn["errormessages"]["usernameError"] = "This field is required.";
+	}
+	else if (strlen($getUser) < 3 || strlen($getUser) > 20) {
+		$AssocReturn["errormessages"]["usernameError"] = "Username may only contain 3-20 characters.";
+	}
+	if (empty(preg_replace("/(strong(er)*)*(complex)*(password[0-9]{0,3})/i", "", $getPass))) {
+		$AssocReturn["errormessages"]["passwordError"] = "Please create a stronger password.";
+	}
+	else if (empty(trim($getPass))) {
+		$AssocReturn["errormessages"]["passwordError"] = "This field is required.";
+	}
+	else if (strlen($getPass) < 8) {
+		$AssocReturn["errormessages"]["passwordError"] = "Password must contain 8 or more characters.";
+	}
+	if (empty(trim($getfName))) {
+		$AssocReturn["errormessages"]["fNameError"] = "This field is required.";
+	}
+	else if (preg_match("/[0-9]/", $getfName) === 1) {
+		$AssocReturn["errormessages"]["fNameError"] = "This field cannot contain numbers.";
+	}
+	if (empty(trim($getlName))) {
+		$AssocReturn["errormessages"]["lNameError"] = "This field is required.";
+	}
+	else if (preg_match("/[0-9]/", $getlName) === 1) {
+		$AssocReturn["errormessages"]["lNameError"] = "This field cannot contain numbers.";
+	}
+	if (empty(filter_var($getEmail, FILTER_VALIDATE_EMAIL))) {
+		$AssocReturn["errormessages"]["emailError"] = "Please enter a valid email.";
+	}
+	else if (empty(trim($getEmail))) {
+		$AssocReturn["errormessages"]["emailError"] = "This field is required.";
+	}
+	if (empty($AssocReturn["errormessages"]["usernameError"]) &&
+		empty($AssocReturn["errormessages"]["passwordError"]) &&
+		empty($AssocReturn["errormessages"]["fNameError"]) &&
+		empty($AssocReturn["errormessages"]["lNameError"]) &&
+		empty($AssocReturn["errormessages"]["emailError"])) {
+		if ($mysqliConnection -> multi_query($fetchEmailAndUsernameQueries)) {
+			do {
+				if ($usernameAndEmailResults = $mysqliConnection -> store_result()) {
+					if ($usernameAndEmailResults -> num_rows > 0) {
+						if ($assocUsernameAndEmailResults = $usernameAndEmailResults -> fetch_assoc()) {
+							if (isset($assocUsernameAndEmailResults["username"])) {
+								$AssocReturn["errormessages"]["usernameError"] = "Username already used by another account.";
 							}
-						}
-						$usernameAndEmailResults -> free();
-					} else {
-						$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred. Please refresh the page and try again later.";
-					}
-				} while ($mysqliConnection -> next_result());
-				if (empty($AssocReturn["errormessages"]["usernameError"]) &&
-					empty($AssocReturn["errormessages"]["passwordError"]) &&
-					empty($AssocReturn["errormessages"]["fNameError"]) &&
-					empty($AssocReturn["errormessages"]["lNameError"]) &&
-					empty($AssocReturn["errormessages"]["emailError"])) {
-					$emailHeaders[] = "MIME-Version: 1.0";
-					$emailHeaders[] = "Content-type:text/html; charset=utf-8";
-					$emailHeaders[] = "From: <noreply@streetor.sg>";
-					$insertDataQuery = "
-					INSERT INTO accountdetails
-					(username, password, rememberID, firstName, lastName, email, emailVerificationToken, emailVerificationTime)
-					VALUES
-					('$getUser',
-					'" . password_hash(base64_encode(hash("sha512", $getPass, true)), PASSWORD_DEFAULT) . "',
-					'" . getRandomString(30) . "',
-					'$getfName',
-					'$getlName',
-					'$getEmail',
-					'$randomString',
-					'" . date("Y-m-j H:i:s", time()) . "')
-					ON DUPLICATE KEY UPDATE
-					rememberID = '" . getRandomString(30) . "'";
-					if ($insertedData = $mysqliConnection -> query($insertDataQuery)) {
-						if (mail($getEmail, "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
-							$AssocReturn["successmessage"] = "An email has been sent to your email address for verification.";
+							else if (isset($assocUsernameAndEmailResults["email"])) {
+								$AssocReturn["errormessages"]["emailError"] = "Email already used by another account.";
+							}
 						} else {
-							$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred and a verification email was not sent to the input email address. You can go to the <a href='https://www.streetor.sg/login/'>log in</a> page or settings page to re-send the email.";
+							$AssocReturn["errormessages"]["MySQLiError"] = "An internals error occurred. Please refresh the page and try again later.";
 						}
-					} else {
-						$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred. Please refresh the page and try again later.";
 					}
+					$usernameAndEmailResults -> free();
+				} else {
+					$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred. Please refresh the page and try again later.";
 				}
-			} else {
-				$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred. Please refresh the page and try again later.";
+			} while ($mysqliConnection -> next_result());
+			if (empty($AssocReturn["errormessages"]["usernameError"]) &&
+				empty($AssocReturn["errormessages"]["passwordError"]) &&
+				empty($AssocReturn["errormessages"]["fNameError"]) &&
+				empty($AssocReturn["errormessages"]["lNameError"]) &&
+				empty($AssocReturn["errormessages"]["emailError"])) {
+				$emailHeaders[] = "MIME-Version: 1.0";
+				$emailHeaders[] = "Content-type:text/html; charset=utf-8";
+				$emailHeaders[] = "From: <noreply@streetor.sg>";
+				$insertDataQuery = "
+				INSERT INTO accountdetails
+				(username, password, rememberID, firstName, lastName, email, emailVerificationToken, emailVerificationTime)
+				VALUES
+				('$getUser',
+				'" . password_hash(base64_encode(hash("sha512", $getPass, true)), PASSWORD_DEFAULT) . "',
+				'" . getRandomString(30) . "',
+				'$getfName',
+				'$getlName',
+				'$getEmail',
+				'$randomString',
+				'" . date("Y-m-j H:i:s", time()) . "')
+				ON DUPLICATE KEY UPDATE
+				rememberID = '" . getRandomString(30) . "'";
+				if ($insertedData = $mysqliConnection -> query($insertDataQuery)) {
+					if (mail($getEmail, "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
+						$AssocReturn["successmessage"] = "An email has been sent to your email address for verification.";
+					} else {
+						$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred and a verification email was not sent to the input email address. You can go to the <a href='https://www.streetor.sg/login/'>log in</a> page or settings page to re-send the email.";
+					}
+				} else {
+					$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred. Please refresh the page and try again later.";
+				}
 			}
+		} else {
+			$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred. Please refresh the page and try again later.";
 		}
 	}
-} else {
-	$AssocReturn["errormessages"]["MySQLiError"] = "Your connection is not secure and this request could not be processed. Please refresh the page or try again later.";
 }
 $mysqliConnection -> close();
 echo json_encode($AssocReturn);

@@ -12,7 +12,7 @@ if (isset($_COOKIE["darktheme"]) && $_COOKIE["darktheme"] === "false") {
 	$stylesheetLink = "signupDarkTheme.css";
 }
 if ($mysqliConnection -> connect_errno) {
-	echo "A connection error occurred. Please refresh the page or try again later.";
+	echo "A connection error occurred. Please try again later.";
 }
 else if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 	header("Location: https://www.streetor.sg/home/");
@@ -50,18 +50,18 @@ else if (isset($_COOKIE["logincookie"])) {
 							$_SESSION["email"] = $dbEmail;
 							header("Location: https://www.streetor.sg/home/");
 						} else {
-							echo "<p>An internal error occurred. Please refresh the page or try again later.</p>";
+							echo "<p>An internal error occurred. Please try again later.</p>";
 						}
 					}
 				} else {
-					echo "<p>An internal error occurred. Please refresh the page or try again later.</p>";
+					echo "<p>An internal error occurred. Please try again later.</p>";
 				}
 			} else {
 				header("Location: https://www.streetor.sg/login/");
 			}
 			$queriedDetails -> free();
 		} else {
-			echo "<p>An internal errors occurred. Please refresh the page or try again later.</p>";
+			echo "<p>An internal errors occurred. Please try again later.</p>";
 		}
 	}
 }

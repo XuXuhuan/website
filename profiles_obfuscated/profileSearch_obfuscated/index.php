@@ -22,7 +22,7 @@ if (isset($_COOKIE["darktheme"]) && $_COOKIE["darktheme"] === "false") {
 if ($mysqliConnection -> connect_errno) {
 	$loginAlert = '
 	<div id="alertCont">
-		<p id="alertText">A connection error occurred. Please refresh the page or try again later.</p>
+		<p id="alertText">A connection error occurred. Please try again later.</p>
 	</div>';
 } else {
 	if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
@@ -59,7 +59,7 @@ if ($mysqliConnection -> connect_errno) {
 									} else {
 										$loginAlert = '
 										<div id="alertCont">
-											<p id="alertText">An internal error occurred. Please refresh the page or try again later.</p>
+											<p id="alertText">An internal error occurred. Please try again later.</p>
 										</div>';
 									}
 								} else {
@@ -68,7 +68,7 @@ if ($mysqliConnection -> connect_errno) {
 							} else {
 								$loginAlert = '
 								<div id="alertCont">
-									<p id="alertText">An internal error occurred. Please refresh the page or try again later.</p>
+									<p id="alertText">An internal error occurred. Please try again later.</p>
 								</div>';
 							}
 						} else {
@@ -103,7 +103,7 @@ if ($mysqliConnection -> connect_errno) {
 							$profileRows .= '
 							<div class="infoColumnRow">
 								<a href="https://www.streetor.sg/profiles/?id=' . $assocProfilesDetails["accountID"] . '" class="userListName">' . $assocProfilesDetails["username"] . '</a>
-								<p class="bioPreview">' . (empty($assocProfilesDetails["biography"]) ? "<b>No description found.</b>" : preg_replace("/\n/", "<br>", htmlspecialchars($assocProfilesDetails["biography"], ENT_QUOTES))) . '</p>
+								<p class="bioPreview">' . (empty($assocProfilesDetails["biography"]) ? "<b>No description found.</b>" : nl2br(htmlspecialchars($assocProfilesDetails["biography"], ENT_QUOTES))) . '</p>
 							</div>';
 							$maxResults = $assocProfilesDetails["maxResults"];
 						} else {
@@ -116,14 +116,14 @@ if ($mysqliConnection -> connect_errno) {
 			} else {
 				$loginAlert = '
 				<div id="alertCont">
-					<p id="alertText">An internal server error occurred. Please refresh the page or try again later.</p>
+					<p id="alertText">An internal server error occurred. Please try again later.</p>
 				</div>';
 			}
 		}
 	} else {
 		$loginAlert = '
 		<div id="alertCont">
-			<p id="alertText">Your connection is not secure and this request could not be processed. Please refresh the page or try again later.</p>
+			<p id="alertText">Your connection is not secure and this request could not be processed. Please try again later.</p>
 		</div>';
 	}
 }
@@ -196,7 +196,7 @@ echo '
 								</button>
 							</div>
 						</form>
-						<p class="inputErrorText">' . $searchError . '</p>
+						<p class="inputErrorText" id="searchErrorText">' . $searchError . '</p>
 					</div>
 					' . (empty($searchQuery) ? "" : '<p id="resultCount">' . ($maxResults >= 10 ? "10" : $maxResults) . ' of ' . $maxResults . ' results</p>') . 
 					'<div id="profilesContainer">
@@ -204,14 +204,12 @@ echo '
 					</div>
 					' . (empty($profileRows) ? "" : '<div class="infoColumnRow" id="changePageWrapper">
 						<div id="changePageCont">
-							<button id="prevPageButton">
-								<div class="changePageArrowCont" id="leftArrowCont"></div>
-							</button>
-							<button id="nextPageButton">
+							' . ($maxResults <= 10 ? '' : '
+							<button id="nextPageButton" onmouseup="rightArrowProfileFetch()" onmousedown="cancelRightArrowIncrementTimeout()">
 								<div class="changePageArrowCont" id="rightArrowCont"></div>
-							</button>
+							</button>') . '
 						</div>
-						<p id="pageCount" class="notSelectable"><input type="number" value="1" max="' . ceil($maxResults / 10) . '" min="1" value="1" id="currentPageCount"> of <span id="maxPagesCount">' . ceil($maxResults / 10) . '</span> pages</p>
+						<p id="pageCount" class="notSelectable"><input type="number" value="1" max="' . ceil($maxResults / 10) . '" min="1" value="1" id="currentPageCount" onkeyup="countFieldProfileFetch(Event)" onkeydown="cancelCountFieldIncrementTimeout(Event)"> of <span id="maxPagesCount">' . ceil($maxResults / 10) . '</span> pages</p>
 					</div>') . '
 				</div>
 			</div>

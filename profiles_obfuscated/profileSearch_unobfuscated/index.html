@@ -64,7 +64,7 @@
 								</button>
 							</div>
 						</form>
-						<p class="inputErrorText">Invalid ID in the URL provided. A valid ID only contains numbers.</p>
+						<p class="inputErrorText" id="searchErrorText">Invalid ID in the URL provided. A valid ID only contains numbers.</p>
 					</div>
 					<p id="resultCount">10 of 10 results</p>
 					<div id="profilesContainer">
@@ -111,14 +111,14 @@
 					</div>
 					<div class="infoColumnRow" id="changePageWrapper">
 						<div id="changePageCont">
-							<button id="prevPageButton">
+							<button id="prevPageButton" onmouseup="leftArrowProfileFetch()" onmousedown="cancelLeftArrowDecrementTimeout()">
 								<div class="changePageArrowCont" id="leftArrowCont"></div>
 							</button>
-							<button id="nextPageButton">
+							<button id="nextPageButton" onmouseup="rightArrowProfileFetch()" onmousedown="cancelRightArrowIncrementTimeout()">
 								<div class="changePageArrowCont" id="rightArrowCont"></div>
 							</button>
 						</div>
-						<p id="pageCount" class="notSelectable"><input type="number" max="1" min="1" value="1" id="currentPageCount"> of <span id="maxPagesCount">1</span> pages</p>
+						<p id="pageCount" class="notSelectable"><input type="number" max="1" min="1" value="1" id="currentPageCount" onkeyup="countFieldProfileFetch(Event)" onkeydown="cancelCountFieldIncrementTimeout(Event)"> of <span id="maxPagesCount">1</span> pages</p>
 					</div>
 				</div>
 			</div>

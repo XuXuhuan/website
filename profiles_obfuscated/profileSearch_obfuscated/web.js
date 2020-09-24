@@ -1,76 +1,213 @@
-"use strict";
-const refMenuButton = document.querySelector("#menuToggle");
-const refSideNav = document.querySelector("#sidenav");
-const refCurrentPageCountField = document.querySelector("#currentPageCount");
-const refResultCount = document.querySelector("#resultCount");
-var currentPage = 1;
-var checkChangePage;
-refMenuButton.style.filter = "brightness(100%)";
-refMenuButton.style.cursor = "pointer";
-function fetchNewPage(newPage) {
-	const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-	const refProfilesContainer = document.querySelector("#profilesContainer");
-	const URLparameters = new URLSearchParams(window.location.search);
-	xhr.open("POST", "fetchProfilesDetails.php", true);
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.responseType = "json";
-	xhr.onload = function() {
-		xhr.response["profileDetails"].forEach(function(item) {
-			refProfilesContainer.innerHTML += `
-			<div class="infoColumnRow">
-				<a href="${item["profileLink"]}" class="userListName">${item["profileUsername"]}</a>
-				<p class="bioPreview">${item["profileBiography"]}</p>
-			</div>`;
-		});
-		refResultCount.innerHTML = xhr.response["currentResults"] + " of " + xhr.response["maxResults"];
-		refCurrentPageCountField.value = newPage;
-		if (Math.floor(xhr.response["maxResults"] / 10) === newPage) {
-			if (document.querySelector("#nextPageButton")) {
-				const refNextPageButton = document.querySelector("#nextPageButton");
-				refNextPageButton.parentNode.removeChild(refNextPageButton);
-			}
-		}
-		if (newPage === 1) {
-			if (document.querySelector("#prevPageButton")) {
-				const refPrevPageButton = document.querySelector("#prevPageButton");
-				refPrevPageButton.parentNode.removeChild(refPrevPageButton);
-			}
-		}
-	}
-	xhr.send("query=" + encodeURIComponent(URLparameters.get("query")) + "&page=" + encodeURIComponent(newPage));
+const _0x135a = [
+    'send',
+    'forEach',
+    'appendChild',
+    'addEventListener',
+    'test',
+    'ceil',
+    'POST',
+    'button',
+    'filter',
+    'querySelector',
+    'open',
+    '&page=',
+    '#currentPageCount',
+    'Content-type',
+    'location',
+    'changePageArrowCont',
+    '\x22\x20class=\x22userListName\x22>',
+    'innerHTML',
+    '\x20of\x20',
+    'prevPageButton',
+    'pointer',
+    'createElement',
+    'profileDetails',
+    'XMLHttpRequest',
+    'removeChild',
+    'query',
+    'onmouseup',
+    'style',
+    '#changePageCont',
+    'Microsoft.XMLHTTP',
+    'errormessage',
+    'maxResults',
+    '\x20results',
+    'onload',
+    'query=',
+    'leftArrowCont',
+    'rightArrowCont',
+    '#prevPageButton',
+    'json',
+    'profileUsername',
+    'value',
+    'left',
+    'application/x-www-form-urlencoded',
+    'classList',
+    '</a>\x0a\x09\x09\x09\x09<p\x20class=\x22bioPreview\x22>',
+    'profileID',
+    '#resultCount',
+    '#nextPageButton',
+    'cursor',
+    '</p>\x0a\x09\x09\x09</div>',
+    'nextPageButton',
+    'parentNode',
+    'onmousedown',
+    'menuAnimationOpen',
+    '#menuToggle',
+    'keyCode',
+    '\x0a\x09\x09\x09<div\x20class=\x22infoColumnRow\x22>\x0a\x09\x09\x09\x09<a\x20href=\x22https://www.streetor.sg/profiles/?id=',
+    'clientWidth',
+    'animationName',
+    'brightness(100%)',
+    '#sidenav',
+    '#searchErrorText',
+    'search',
+    'setRequestHeader',
+    'currentResults',
+    'get',
+    'responseType',
+    'response',
+    'add',
+    'profileBiography',
+    'menuAnimationClose',
+    'div',
+    'fetchProfilesDetails.php',
+    'mousedown',
+    '#profilesContainer'
+];
+(function (_0x57468d, _0x135a1c) {
+    const _0xb284 = function (_0x38c189) {
+        while (--_0x38c189) {
+            _0x57468d['push'](_0x57468d['shift']());
+        }
+    };
+    _0xb284(++_0x135a1c);
+}(_0x135a, 0xda));
+const _0xb284 = function (_0x57468d, _0x135a1c) {
+    _0x57468d = _0x57468d - 0x0;
+    let _0x38c189 = _0x135a[_0x57468d];
+    return _0x38c189;
+};
+const _0x2da801 = _0xb284;
+'use strict';
+const _0x38c189 = document[_0x2da801('0x10')](_0x2da801('0x3d'));
+const _0x350fef = document[_0x2da801('0x10')](_0x2da801('0x43'));
+const _0x40ba9a = document[_0x2da801('0x10')](_0x2da801('0x13'));
+const _0x557dc5 = document[_0x2da801('0x10')](_0x2da801('0x35'));
+var _0x4eb45d = 0x1;
+var _0x3b9f1a;
+_0x38c189[_0x2da801('0x22')][_0x2da801('0xf')] = _0x2da801('0x42');
+_0x38c189[_0x2da801('0x22')][_0x2da801('0x37')] = _0x2da801('0x1b');
+function _0x12157a(_0x251ca6) {
+    const _0x47332b = _0x2da801;
+    const _0x36cbb4 = document[_0x47332b('0x10')](_0x47332b('0x6'));
+    const _0x5aac81 = document[_0x47332b('0x10')](_0x47332b('0x44'));
+    const _0x50a4f4 = window[_0x47332b('0x1e')] ? new XMLHttpRequest() : new ActiveXObject(_0x47332b('0x24'));
+    const _0x14f00c = new URLSearchParams(window[_0x47332b('0x15')][_0x47332b('0x45')]);
+    _0x50a4f4[_0x47332b('0x11')](_0x47332b('0xd'), _0x47332b('0x4'), !![]);
+    _0x50a4f4[_0x47332b('0x46')](_0x47332b('0x14'), _0x47332b('0x31'));
+    _0x50a4f4[_0x47332b('0x49')] = _0x47332b('0x2d');
+    _0x50a4f4[_0x47332b('0x28')] = function () {
+        const _0x50c69a = _0x47332b;
+        _0x5aac81[_0x50c69a('0x18')] = _0x50a4f4[_0x50c69a('0x4a')][_0x50c69a('0x25')];
+        _0x50a4f4[_0x50c69a('0x4a')][_0x50c69a('0x1d')][_0x50c69a('0x8')](function (_0x97d219) {
+            const _0x20732d = _0x50c69a;
+            _0x36cbb4[_0x20732d('0x18')] += _0x20732d('0x3f') + _0x97d219[_0x20732d('0x34')] + _0x20732d('0x17') + _0x97d219[_0x20732d('0x2e')] + _0x20732d('0x33') + _0x97d219[_0x20732d('0x1')] + _0x20732d('0x38');
+        });
+        if (_0x50a4f4[_0x50c69a('0x4a')][_0x50c69a('0x47')] > 0x0 && _0x50a4f4[_0x50c69a('0x4a')][_0x50c69a('0x26')] > 0x0) {
+            _0x557dc5[_0x50c69a('0x18')] = _0x50a4f4[_0x50c69a('0x4a')][_0x50c69a('0x47')] + _0x50c69a('0x19') + _0x50a4f4[_0x50c69a('0x4a')][_0x50c69a('0x26')] + _0x50c69a('0x27');
+            _0x40ba9a[_0x50c69a('0x2f')] = Math[_0x50c69a('0xc')](_0x50a4f4[_0x50c69a('0x4a')][_0x50c69a('0x47')] / 0xa);
+            if (Math[_0x50c69a('0xc')](_0x50a4f4[_0x50c69a('0x4a')][_0x50c69a('0x26')] / 0xa) === _0x251ca6) {
+                if (document[_0x50c69a('0x10')](_0x50c69a('0x36'))) {
+                    const _0x3faa3c = document[_0x50c69a('0x10')](_0x50c69a('0x36'));
+                    _0x3faa3c[_0x50c69a('0x3a')][_0x50c69a('0x1f')](_0x3faa3c);
+                }
+            }
+            if (_0x251ca6 === 0x1) {
+                if (document[_0x50c69a('0x10')](_0x50c69a('0x2c'))) {
+                    const _0x233dba = document[_0x50c69a('0x10')](_0x50c69a('0x2c'));
+                    _0x233dba[_0x50c69a('0x3a')][_0x50c69a('0x1f')](_0x233dba);
+                }
+            }
+            if (_0x251ca6 > 0x1) {
+                const _0x26bbf0 = document[_0x50c69a('0x10')](_0x50c69a('0x23'));
+                const _0x56bf78 = document[_0x50c69a('0x1c')](_0x50c69a('0xe'));
+                const _0x5ae7b1 = document[_0x50c69a('0x1c')](_0x50c69a('0x3'));
+                _0x56bf78['id'] = _0x50c69a('0x1a');
+                _0x56bf78[_0x50c69a('0x21')] = function (_0x349bfc) {
+                    _0x24f689(_0x349bfc);
+                };
+                _0x56bf78[_0x50c69a('0x3b')] = function (_0x47741f) {
+                    cancelLeftArrowDecrementTimeout(_0x47741f);
+                };
+                _0x5ae7b1['id'] = _0x50c69a('0x2a');
+                _0x5ae7b1[_0x50c69a('0x32')][_0x50c69a('0x0')](_0x50c69a('0x16'));
+                _0x56bf78[_0x50c69a('0x9')](_0x5ae7b1);
+                _0x26bbf0[_0x50c69a('0x9')](_0x56bf78);
+            }
+            if (Math[_0x50c69a('0xc')](_0x50a4f4[_0x50c69a('0x4a')][_0x50c69a('0x26')] / 0xa) > _0x251ca6) {
+                const _0x5b6b93 = document[_0x50c69a('0x10')](_0x50c69a('0x23'));
+                const _0x364b87 = document[_0x50c69a('0x1c')](_0x50c69a('0xe'));
+                const _0x5ee9c5 = document[_0x50c69a('0x1c')](_0x50c69a('0x3'));
+                _0x364b87['id'] = _0x50c69a('0x39');
+                _0x364b87[_0x50c69a('0x21')] = function (_0x18552d) {
+                    _0x25598c(_0x18552d);
+                };
+                _0x364b87[_0x50c69a('0x3b')] = function (_0x23e6ea) {
+                    cancelRightArrowIncrementTimeout(_0x23e6ea);
+                };
+                _0x5ee9c5['id'] = _0x50c69a('0x2b');
+                _0x5ee9c5[_0x50c69a('0x32')][_0x50c69a('0x0')](_0x50c69a('0x16'));
+                _0x364b87[_0x50c69a('0x9')](_0x5ee9c5);
+                _0x5b6b93[_0x50c69a('0x9')](_0x364b87);
+            }
+        }
+    };
+    _0x50a4f4[_0x47332b('0x7')](_0x47332b('0x29') + encodeURIComponent(_0x14f00c[_0x47332b('0x48')](_0x47332b('0x20'))) + _0x47332b('0x12') + encodeURIComponent(_0x251ca6));
 }
-refMenuButton.addEventListener("mousedown", function(triggered) {
-	if (triggered.button === 0) {
-		refMenuButton.style.animationName = refMenuButton.style.animationName === "menuAnimationOpen" ? "menuAnimationClose" : "menuAnimationOpen";
-		refSideNav.style.left = refMenuButton.style.animationName === "menuAnimationOpen" ? 0 : refSideNav.clientWidth * -1 + "px"; 
-	}
+_0x38c189[_0x2da801('0xa')](_0x2da801('0x5'), function (_0x454a32) {
+    const _0x96effe = _0x2da801;
+    if (_0x454a32[_0x96effe('0xe')] === 0x0) {
+        _0x38c189[_0x96effe('0x22')][_0x96effe('0x41')] = _0x38c189[_0x96effe('0x22')][_0x96effe('0x41')] === _0x96effe('0x3c') ? _0x96effe('0x2') : _0x96effe('0x3c');
+        _0x350fef[_0x96effe('0x22')][_0x96effe('0x30')] = _0x38c189[_0x96effe('0x22')][_0x96effe('0x41')] === _0x96effe('0x3c') ? 0x0 : _0x350fef[_0x96effe('0x40')] * -0x1 + 'px';
+    }
 });
-function countFieldProfileFetch(event) {
-	if (/[^0-9]/.test(currentPage) === false && event.keyCode === 13) {
-		clearTimeout(checkChangePage);
-		checkChangePage = setTimeout(fetchNewPage(refCurrentPageCountField.value), 350);
-	}
+function _0x1aac87(_0x5eeba1) {
+    const _0x4d5ba5 = _0x2da801;
+    if (/[^0-9]/[_0x4d5ba5('0xb')](_0x4eb45d) === ![] && _0x5eeba1[_0x4d5ba5('0x3e')] === 0xd) {
+        clearTimeout(_0x3b9f1a);
+        _0x3b9f1a = setTimeout(_0x12157a(_0x40ba9a[_0x4d5ba5('0x2f')]), 0x15e);
+    }
 }
-function cancelCountFieldIncrementTimeout(event) {
-	if (event.keyCode === 13) {
-		clearTimeout(checkChangePage);
-	}
+function cancelCountFieldIncrementTimeout(_0x45d623) {
+    const _0x182af7 = _0x2da801;
+    if (_0x45d623[_0x182af7('0x3e')] === 0xd) {
+        clearTimeout(_0x3b9f1a);
+    }
 }
-function leftArrowProfileFetch() {
-	if (/[^0-9]/.test(currentPage) === false && currentPage > 1) {
-		clearTimeout(checkChangePage);
-		checkChangePage = setTimeout(fetchNewPage(currentPage - 1), 350);
-	}
+function _0x24f689(_0x53a5ad) {
+    const _0x550ce2 = _0x2da801;
+    if (/[^0-9]/[_0x550ce2('0xb')](_0x4eb45d) === ![] && _0x4eb45d > 0x1 && _0x53a5ad[_0x550ce2('0xe')] === 0x0) {
+        clearTimeout(_0x3b9f1a);
+        _0x3b9f1a = setTimeout(_0x12157a(_0x4eb45d - 0x1), 0x15e);
+    }
 }
-function cancelLeftArrowDecrementTimeout() {
-	clearTimeout(checkChangePage);
+function cancelLeftArrowDecrementTimeout(_0x112b83) {
+    const _0x2cec49 = _0x2da801;
+    if (_0x112b83[_0x2cec49('0xe')] === 0x0) {
+        clearTimeout(_0x3b9f1a);
+    }
 }
-function rightArrowProfileFetch() {
-	if (/[^0-9]/.test(currentPage) === false) {
-		clearTimeout(checkChangePage);
-		checkChangePage = setTimeout(fetchNewPage(currentPage + 1), 350);
-	}
+function _0x25598c(_0x22f018) {
+    const _0x1f9970 = _0x2da801;
+    if (/[^0-9]/[_0x1f9970('0xb')](_0x4eb45d) === ![] && _0x22f018[_0x1f9970('0xe')] === 0x0) {
+        clearTimeout(_0x3b9f1a);
+        _0x3b9f1a = setTimeout(_0x12157a(_0x4eb45d + 0x1), 0x15e);
+    }
 }
-function cancelRightArrowIncrementTimeout() {
-	clearTimeout(checkChangePage);
+function cancelRightArrowIncrementTimeout(_0x45dc6f) {
+    const _0x17d9b5 = _0x2da801;
+    if (_0x45dc6f[_0x17d9b5('0xe')] === 0x0) {
+        clearTimeout(_0x3b9f1a);
+    }
 }
