@@ -128,7 +128,7 @@ body {
 	display: -o-flex;
 	display: flex;
 	height: fit-content;
-		height: -moz-fit-content;
+	height: -moz-fit-content;
 	width: fit-content;
 	width: -moz-fit-content;
 	-webkit-flex-direction: column;
@@ -148,7 +148,7 @@ body {
 	margin-top: 5vh;
 }
 #alertText {
-	color: var(--UIdefaultTextColor);
+	color: #ffffff;
 	font-size: 20px;
 	margin: 10px;
 }
@@ -505,7 +505,7 @@ main {
 		margin-top: 30px;
 		margin-right: 2em;
 		height: fit-content;
-		height: -moz-fit-content;
+	height: -moz-fit-content;
 		width: calc(100% - 4em - 200px);
 	}
 	.topHeaderInfo {
@@ -682,6 +682,7 @@ main {
 	width: calc(100% - 50px);
 	padding-right: 40px;
 	padding-left: 10px;
+	font-size: 15px;
 	border-radius: 5px 0 0 5px;
 	background-color: var(--UIdefaultInputColor);
 	color: var(--UIdefaultTextColor);
@@ -695,6 +696,7 @@ main {
 	padding-right: 40px;
 	padding-left: 10px;
 	border-radius: 5px;
+	font-size: 15px;
 	background-color: var(--UIdefaultInputColor);
 	color: var(--UIdefaultTextColor);
 	vertical-align: top;

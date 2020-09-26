@@ -13,20 +13,19 @@ function getRandomString($stringLength) {
 }
 $randomString = isset($_SESSION["emailVerifToken"]) ? $_SESSION["emailVerifToken"] : getRandomString(20);
 $_SESSION["emailVerifToken"] = isset($_SESSION["emailVerifToken"]) ? $_SESSION["emailVerifToken"] : $randomString;
-$fetchEmailAndUsernameQueries = "SELECT username
+$fetchDuplicateUserAndEmailQuery = "SELECT username, email
 FROM accountdetails
-WHERE LOWER(username) = LOWER('$getUser');";
-$fetchEmailAndUsernameQueries .= "SELECT email
-FROM accountdetails
-WHERE LOWER(email) = LOWER('$getEmail')";
-$AssocReturn = array("errormessages" => array(
-	"usernameError" => "",
-	"passwordError" => "",
-	"fNameError" => "",
-	"lNameError" => "",
-	"emailError" => "",
-	"MySQLiError" => ""),
-"successmessage" => "");
+WHERE LOWER(username) = LOWER('$getUser')
+OR LOWER(email) = LOWER('$getEmail');";
+$assocReturn = array(
+	"errormessages" => array(
+		"usernameError" => "",
+		"passwordError" => "",
+		"fNameError" => "",
+		"lNameError" => "",
+		"emailError" => ""),
+	"message" => ""
+);
 $emailDOM = '
 <!DOCTYPE html>
 <html>
@@ -59,7 +58,7 @@ $emailDOM = '
 				width: 100%;
 				background-color: #0e0f2c;
 				text-align: center;
-        		color: #ffffff;
+				color: #ffffff;
 				font-family: "Montserrat", Verdana, sans-serif;
 				font-size: 30px;
 			}
@@ -69,12 +68,12 @@ $emailDOM = '
 			#helloText {
 				font-family: "Roboto", Helvetica, sans-serif;
 			}
-			#infoText, #deleteText {
+			#infoText {
 				text-indent: 2em;
 				font-family: "Baloo Da 2", Arial, sans-serif;
 				padding-bottom: 20px;
 			}
-			#verificationLink, #deleteLink {
+			#verificationLink {
 				color: #ffffff;
 				display: table-cell;
 				height: 50px;
@@ -87,13 +86,15 @@ $emailDOM = '
 				text-decoration: none;
 			}
 			#websiteLabel {
-				padding-top: 20px;
 				text-align: center;
 				font-family: "Montserrat", Verdana, sans-serif;
 			}
 			#footerContainer > tr > td {
 				color: #ffffff;
 				background-color: #0e0f2c;
+			}
+			#websiteLabel {
+				padding-top: 20px;
 			}
 			#contactCell {
 				text-align: center;
@@ -129,16 +130,6 @@ $emailDOM = '
 									</a>
 								</td>
 							</tr>
-							<tr>
-								<td>
-									<p id="deleteText">If this was not you or you decided not to keep this account, click the link shown below. This link is also valid for 10 minutes.</p>
-								</td>
-							</tr>
-							<tr>
-								<td align="center" style="padding-bottom: 20px;">
-									<a href="https://www.streetor.sg/accountDeletion/?email=' . $getEmail . '&token=' . $randomString . '" id="deleteLink">Delete your account</a>
-								</td>
-							</tr>
 						</tbody>
 						<tfoot id="footerContainer">
 							<tr>
@@ -157,74 +148,65 @@ $emailDOM = '
 	</body>
 </html>';
 if ($mysqliConnection -> connect_errno) {
-	$AssocReturn["errormessages"]["MySQLiError"] = "A connection error occurred. Please try again later.";
+	$assocReturn["message"] = "A connection error occurred. Please try again later.";
 } else {
 	if (preg_match("/[^a-z0-9._]/i", $getUser) == true) {
-		$AssocReturn["errormessages"]["usernameError"] = "Username may only contain letters, numbers, . and _.";
+		$assocReturn["errormessages"]["usernameError"] = "Username may only contain letters, numbers, . and _.";
 	}
 	else if (empty(trim($getUser))) {
-		$AssocReturn["errormessages"]["usernameError"] = "This field is required.";
+		$assocReturn["errormessages"]["usernameError"] = "This field is required.";
 	}
 	else if (strlen($getUser) < 3 || strlen($getUser) > 20) {
-		$AssocReturn["errormessages"]["usernameError"] = "Username may only contain 3-20 characters.";
+		$assocReturn["errormessages"]["usernameError"] = "Username may only contain 3-20 characters.";
 	}
 	if (empty(preg_replace("/(strong(er)*)*(complex)*(password[0-9]{0,3})/i", "", $getPass))) {
-		$AssocReturn["errormessages"]["passwordError"] = "Please create a stronger password.";
+		$assocReturn["errormessages"]["passwordError"] = "Please create a stronger password.";
 	}
 	else if (empty(trim($getPass))) {
-		$AssocReturn["errormessages"]["passwordError"] = "This field is required.";
+		$assocReturn["errormessages"]["passwordError"] = "This field is required.";
 	}
 	else if (strlen($getPass) < 8) {
-		$AssocReturn["errormessages"]["passwordError"] = "Password must contain 8 or more characters.";
+		$assocReturn["errormessages"]["passwordError"] = "Password must contain 8 or more characters.";
 	}
 	if (empty(trim($getfName))) {
-		$AssocReturn["errormessages"]["fNameError"] = "This field is required.";
+		$assocReturn["errormessages"]["fNameError"] = "This field is required.";
 	}
 	else if (preg_match("/[0-9]/", $getfName) === 1) {
-		$AssocReturn["errormessages"]["fNameError"] = "This field cannot contain numbers.";
+		$assocReturn["errormessages"]["fNameError"] = "This field cannot contain numbers.";
 	}
 	if (empty(trim($getlName))) {
-		$AssocReturn["errormessages"]["lNameError"] = "This field is required.";
+		$assocReturn["errormessages"]["lNameError"] = "This field is required.";
 	}
 	else if (preg_match("/[0-9]/", $getlName) === 1) {
-		$AssocReturn["errormessages"]["lNameError"] = "This field cannot contain numbers.";
+		$assocReturn["errormessages"]["lNameError"] = "This field cannot contain numbers.";
 	}
 	if (empty(filter_var($getEmail, FILTER_VALIDATE_EMAIL))) {
-		$AssocReturn["errormessages"]["emailError"] = "Please enter a valid email.";
+		$assocReturn["errormessages"]["emailError"] = "Please enter a valid email.";
 	}
 	else if (empty(trim($getEmail))) {
-		$AssocReturn["errormessages"]["emailError"] = "This field is required.";
+		$assocReturn["errormessages"]["emailError"] = "This field is required.";
 	}
-	if (empty($AssocReturn["errormessages"]["usernameError"]) &&
-		empty($AssocReturn["errormessages"]["passwordError"]) &&
-		empty($AssocReturn["errormessages"]["fNameError"]) &&
-		empty($AssocReturn["errormessages"]["lNameError"]) &&
-		empty($AssocReturn["errormessages"]["emailError"])) {
-		if ($mysqliConnection -> multi_query($fetchEmailAndUsernameQueries)) {
-			do {
-				if ($usernameAndEmailResults = $mysqliConnection -> store_result()) {
-					if ($usernameAndEmailResults -> num_rows > 0) {
-						if ($assocUsernameAndEmailResults = $usernameAndEmailResults -> fetch_assoc()) {
-							if (isset($assocUsernameAndEmailResults["username"])) {
-								$AssocReturn["errormessages"]["usernameError"] = "Username already used by another account.";
-							}
-							else if (isset($assocUsernameAndEmailResults["email"])) {
-								$AssocReturn["errormessages"]["emailError"] = "Email already used by another account.";
-							}
-						} else {
-							$AssocReturn["errormessages"]["MySQLiError"] = "An internals error occurred. Please refresh the page and try again later.";
-						}
+	if (empty($assocReturn["errormessages"]["usernameError"]) &&
+		empty($assocReturn["errormessages"]["passwordError"]) &&
+		empty($assocReturn["errormessages"]["fNameError"]) &&
+		empty($assocReturn["errormessages"]["lNameError"]) &&
+		empty($assocReturn["errormessages"]["emailError"])) {
+		if ($queriedDuplicates = $mysqliConnection -> query($fetchDuplicateUserAndEmailQuery)) {
+			if ($queriedDuplicates -> num_rows > 0) {
+				while ($assocUsernameAndEmailResults = $queriedDuplicates -> fetch_assoc()) {
+					if (isset($assocUsernameAndEmailResults["username"])) {
+						$assocReturn["errormessages"]["usernameError"] = "Username already used by another account.";
 					}
-					$usernameAndEmailResults -> free();
-				} else {
-					$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred. Please refresh the page and try again later.";
+					if (isset($assocUsernameAndEmailResults["email"])) {
+						$assocReturn["errormessages"]["emailError"] = "Email already used by another account.";
+					}
 				}
-			} while ($mysqliConnection -> next_result());
-			if (empty($AssocReturn["errormessages"]["usernameError"]) &&
-				empty($AssocReturn["errormessages"]["passwordError"]) &&
-				empty($AssocReturn["errormessages"]["fNameError"]) &&
-				empty($AssocReturn["errormessages"]["lNameError"]) &&
-				empty($AssocReturn["errormessages"]["emailError"])) {
+			}
+			if (empty($assocReturn["errormessages"]["usernameError"]) &&
+				empty($assocReturn["errormessages"]["passwordError"]) &&
+				empty($assocReturn["errormessages"]["fNameError"]) &&
+				empty($assocReturn["errormessages"]["lNameError"]) &&
+				empty($assocReturn["errormessages"]["emailError"])) {
 				$emailHeaders[] = "MIME-Version: 1.0";
 				$emailHeaders[] = "Content-type:text/html; charset=utf-8";
 				$emailHeaders[] = "From: <noreply@streetor.sg>";
@@ -244,19 +226,20 @@ if ($mysqliConnection -> connect_errno) {
 				rememberID = '" . getRandomString(30) . "'";
 				if ($insertedData = $mysqliConnection -> query($insertDataQuery)) {
 					if (mail($getEmail, "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
-						$AssocReturn["successmessage"] = "An email has been sent to your email address for verification.";
+						$assocReturn["message"] = "An email has been sent to your email address for verification.";
 					} else {
-						$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred and a verification email was not sent to the input email address. You can go to the <a href='https://www.streetor.sg/login/'>log in</a> page or settings page to re-send the email.";
+						$assocReturn["message"] = "An internal error occurred and a verification email was not sent to the input email address. You can go to the <a href='https://www.streetor.sg/login/'>log in</a> page or settings page to re-send the email.";
 					}
 				} else {
-					$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred. Please refresh the page and try again later.";
+					$assocReturn["message"] = "An internal error occurred. Please refresh the page and try again later.";
 				}
 			}
+			$queriedDuplicates -> free();
 		} else {
-			$AssocReturn["errormessages"]["MySQLiError"] = "An internal error occurred. Please refresh the page and try again later.";
+			$assocReturn["message"] = "An internal error occurred. Please refresh the page and try again later.";
 		}
 	}
 }
 $mysqliConnection -> close();
-echo json_encode($AssocReturn);
+echo json_encode($assocReturn);
 ?>

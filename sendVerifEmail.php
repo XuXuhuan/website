@@ -175,14 +175,14 @@ if ($mysqliConnection -> connect_errno) {
 						}
 					}
 				} else {
-					$assocReturn["message"] = "An internal error occurred. Please try again later";
+					$assocReturn["message"] = "An internal error occurred. Please try again later.";
 				}
 			} else {
 				$assocReturn["message"] = "No records were found in the database. This account may have been deleted.";
 			}
 			$neededDetails -> free();
 		} else {
-			$assocReturn["message"] = "An internal error occurred. Please try again later";
+			$assocReturn["message"] = "An internal error occurred. Please try again later.";
 		}
 	} else {
 		$assocReturn["message"] = "Please <a href='https://www.streetor.sg/login/' style='color: #4486f4;'>log in and try again.</a>";

@@ -172,7 +172,6 @@ function newPassFieldShowToggle() {
 			createdToggleFieldSheet.insertRule(`
 			#newPassImage {
 				background-image: var(--showPassLink) !important;
-				width: calc(1000 / 600 * 15px) !important;
 			}`);
 		}
 		newPassField.type = "text";
@@ -195,7 +194,6 @@ function confirmPassFieldShowToggle() {
 			createdToggleFieldSheet.insertRule(`
 			#confirmPassImage {
 				background-image: var(--showPassLink) !important;
-				width: calc(1000 / 600 * 15px);
 			}`);
 		}
 		confirmPassField.type = "text";
@@ -218,7 +216,6 @@ function newEmailConfirmPassFieldShowToggle() {
 			createdToggleFieldSheet.insertRule(`
 			#newEmailConfirmPassImage {
 				background-image: var(--showPassLink) !important;
-				width: calc(1000 / 600 * 15px);
 			}`);
 		}
 		refNewEmailConfirmPassField.type = "text";
@@ -241,7 +238,6 @@ function change2FAConfirmPassFieldShowToggle() {
 			createdToggleFieldSheet.insertRule(`
 			#change2FAConfirmPassImage {
 				background-image: var(--showPassLink) !important;
-				width: calc(1000 / 600 * 15px);
 			}`);
 		}
 		refChange2FAConfirmPassField.type = "text";
@@ -770,7 +766,7 @@ function twoFactorAuthSwitch() {
 			xhr.responseType = "json";
 			xhr.onerror = function() {
 				twoFactorAuthConfirmPasswordError = "An internal error occurred. Please try again later.";
-				refTwoFactorAuthConfirmPasswordError.innerHTML = "An internal error occurred. Please try again later";
+				refTwoFactorAuthConfirmPasswordError.innerHTML = "An internal error occurred. Please try again later.";
 			}
 			xhr.onload = function() {
 				const refTwoFactorAuthSwitchCont = document.querySelector("#twoFactorAuthSwitchCont");

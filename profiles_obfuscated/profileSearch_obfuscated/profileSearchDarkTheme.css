@@ -120,7 +120,7 @@ body {
 	display: -o-flex;
 	display: flex;
 	height: fit-content;
-		height: -moz-fit-content;
+	height: -moz-fit-content;
 	width: fit-content;
 	width: -moz-fit-content;
 	-webkit-flex-direction: column;

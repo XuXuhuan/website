@@ -14,8 +14,8 @@
 	--sideMenuTextTransform: scaleX(0);
 	--UIdefaultColor: #35363A;
 	--UIdefaultTextColor: #ffffff;
-	--profileSearchButtonBgColor: #2D2F31;
 	--textFieldColor: #141618;
+	--showPassLink: url("../Assets/darkTheme/PasswordVisible.png");
 }
 @font-face {
 	font-family: MontserratReg;
@@ -429,14 +429,6 @@ main {
 	top: 10vh;
 	z-index: -999;
 }
-@media only screen and (min-width: 427px) {
-	#topnav {
-		padding: 0 2em 0 2em;
-	}
-	#logLabel {
-		font-size: 150%;
-	}
-}
 @media only screen and (max-width: 1024px) {
 	#orgName {
 		font-size: 150%;
@@ -448,16 +440,13 @@ main {
 	}
 }
 @media only screen and (max-width: 767px) {
-	#topnav {
-		padding: 0 1em 0 1em;
-	}
-	#logLabel {
-		font-size: 125%;
-	}
 	#sidenav {
 		width: 100%;
 		height: 90vh;
 		left: -100%;
+	}
+	#signUpContainer {
+		width: 80% !important;
 	}
 }
 @media only screen and (min-width: 768px) {
@@ -466,41 +455,41 @@ main {
 		left: -25vw;
 	}
 }
-@media only screen and (min-width: 769px) {
-	#profileContents {
-		position: relative;
-		width: 80%;
-	}
-	#profileSearchField {
-		width: 300px;
+@media only screen and (max-width: 424px) {
+	#signUpContainer {
+		width: 100% !important;
+		margin-top: 0 !important;
 	}
 }
-@media only screen and (max-width: 720px) {
-	#alertCont {
-		margin-left: 10px;
-		margin-right: 10px;
-	}
-}
-#profileContents {
-	display: block;
-	margin: 30px auto 0 auto;
-}
-.infoRow {
+#usernameCont, #newPasswordCont, #confirmPasswordCont, #firstNameCont, #lastNameCont, #emailCont {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
-	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
-	font-size: 20px;
-	padding: 15px 1em 15px 1em;
-	align-items: center;
-	border-bottom: 1px solid #ffffff;
-    background-color: var(--UIdefaultColor);
+	flex-direction: column;
+	width: 100%;
 }
-.infoColumnRow {
+.signupInputField {
+	outline: none;
+	background-color: var(--textFieldColor);
+	color: var(--UIdefaultTextColor);
+	border: 0;
+	height: 40px;
+	font-size: 15px;
+	vertical-align: top;
+	border-radius: 5px;
+	padding-right: 40px;
+	padding-left: 10px;
+}
+#signupLabel {
+	display: block;
+	margin: 0 auto 5px auto;
+	width: fit-content;
+	width: -moz-fit-content;
+}
+#signUpContainer {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -509,80 +498,130 @@ main {
 	display: flex;
 	flex-direction: column;
 	color: var(--UIdefaultTextColor);
+	background-color: var(--UIdefaultColor);
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	padding: 15px 1em 15px 1em;
-	border-bottom: 1px solid #ffffff;
-	background-color: var(--UIdefaultColor);
-}
-.infoColumnRow:nth-last-child(1) {
-	border: 0 !important;
+	margin: 25px auto 0 auto;
+	height: fit-content;
+	height: -moz-fit-content;
+	justify-content: center;
+	width: 60%;
 }
 .inputErrorText {
+	height: 36.8px;
 	margin: 0;
 	font-size: 15px;
 	font-family: MontserratReg, Verdana, sans-serif;
 	color: #ff0000;
+	overflow: hidden;
 }
-#searchFormCont {
+#signUpMessage {
+	margin: 0;
+	height: 36.8px;
+	font-size: 15px;
+	font-family: MontserratReg, Verdana, sans-serif;
+	text-align: center;
+}
+#newPasswordField, #confirmPasswordField {
+	width: calc(100% - 50px);
+	border-radius: 5px 0 0 5px;
+}
+.passwordShowButton {
+	padding: 0;
+	float: right;
+	height: 40px;
+	width: 50px;
+	outline: none;
+	border-radius: 0 5px 5px 0;
+	border: 0;
+	cursor: pointer;
+	background-color: #2D2F31;
+}
+.showPassImage {
+	display: inline-block;
+	background-color: transparent;
+	vertical-align: middle;
+	border: 0;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-image: url("../Assets/darkTheme/PasswordInvisible.png");
+	height: 15px;
+	width: calc(1012 / 616 * 15px);
+}
+.showingPassImage {
+	background-image: var(--showPassLink) !important;
+	width: calc(1000 / 600 * 15px) !important;
+}
+#signUpButton {
+	display: block;
+	background-color: #000000;
+	color: var(--UIdefaultTextColor);
+	font-family: RobotoReg, Helvetica, sans-serif;
+	font-size: 18px;
+	width: 200px;
+	height: 40px;
+	margin: 0 auto;
+	cursor: pointer;
+	outline: none;
+	border-radius: 7px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #000000;
+	-webkit-transition: border-color 0.3s ease;
+	-o-transition: border-color 0.3s ease;
+	transition: border-color 0.3s ease;
+}
+#signUpButton:hover {
+	border-color: #ffffff;
+}
+#loginLink {
+	color: #4486f4;
+	text-align: center;
+	font-size: 15px;
+}
+#signUpButtonCont {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
-	flex-direction: column;
-	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
-	font-size: 20px;
 	align-items: center;
-	margin-bottom: 20px;
+	justify-content: center;
+	width: 100%;
+	height: 40px;
 }
-#profileSearchForm {
+#loadingImageCont {
 	position: relative;
-	display: block;
-	margin: 0 auto;
-}
-#profileSearchField {
-	outline: none;
-	height: 30px;
-	vertical-align: top;
-	background-color: var(--textFieldColor);
-	border: 0;
-	color: var(--UIdefaultTextColor);
-	font-size: 16px;
-	border-radius: 4px 0 0 4px;
-	height: 35px;
-	min-width: 238px;
-	padding: 0 0 0 5px;
-}
-#profileSearchButton {
-	outline: none;
-	float: right;
-	border: 0;
-	padding: 10px 12.5px;
-	background-color: var(--profileSearchButtonBgColor);
-	cursor: pointer;
-	border-radius: 0 4px 4px 0;
-}
-#profileSearchImage {
-	background-image: url("../Assets/darkTheme/search_magnifying_glass.png");
-	background-size: cover;
+	background-image: url("../Assets/darkTheme/loading.png");
 	background-repeat: no-repeat;
-	height: 15px;
-	width: calc(733 / 680 * 15px);
+	background-size: contain;
+	height: 30px;
+	width: 30px;
+	animation-name: loadingSpin;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: normal;
 }
-#userProfileName {
-	position: relative;
-	display: block;
-	margin: 0 auto 15px auto;
+@keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
 }
-#biographyText {
-	font-size: 18px;
-	margin: 0;
+@-o-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
 }
-#storeSubscriptionsLabel {
-	display: block;
-	margin: 0 auto;
-	text-decoration: underline;
+@-moz-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
 }
