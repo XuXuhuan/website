@@ -254,8 +254,8 @@ body {
 	height: 3.5vh;
 	opacity: var(--sideMenuImageOpacity);
 }
-#exploreImage {
-	background-image: url("../Assets/lightTheme/compass.png");
+#marketplaceImage {
+	background-image: url("../Assets/global/market.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
