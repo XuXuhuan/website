@@ -1,51 +1,73 @@
 "use strict";
-const usernameField = document.querySelector("#usernameField");
-const usernameError = document.querySelector("#usernameError");
-const passField = document.querySelector("#passwordField");
-const passError = document.querySelector("#passwordError");
-const loginButton = document.querySelector("#loginButton");
-const loginError = document.querySelector("#loginError");
+const refUsernameField = document.querySelector("#usernameField");
+const refUsernameError = document.querySelector("#usernameError");
+const refPasswordField = document.querySelector("#passwordField");
+const refPasswordToggleButton = document.querySelector("#passwordShowButton");
+const refPasswordToggleImageCont = document.querySelector("#passwordShowImageCont");
+const refPasswordError = document.querySelector("#passwordError");
+const refLoginButtonCont = document.querySelector("#logInButtonCont");
+const refLoginButton = document.querySelector("#logInButton");
+const refLoginMessage = document.querySelector("#logInMessage");
 const userDirtRegexp = /[^a-z0-9._]/gi;
 var checkLogin;
-usernameField.addEventListener("keyup", function() {
-	if (usernameField.value.trim().length === 0) {
-		usernameError.innerHTML = "This field is required.";
+refUsernameField.addEventListener("keyup", function() {
+	if (refUsernameField.value.trim().length === 0) {
+		refUsernameError.innerHTML = "This field is required.";
 	}
-	else if (userDirtRegexp.test(usernameField.value) === true) {
-		usernameError.innerHTML = "Please enter a valid username.";
+	else if (userDirtRegexp.test(refUsernameField.value) === true) {
+		refUsernameError.innerHTML = "Please enter a valid username.";
 	} else {
-		usernameError.innerHTML = "";
+		refUsernameError.innerHTML = "";
 	}
 });
-passField.addEventListener("keyup", function() {
-	if (passField.value.trim().length === 0) {
-		passError.innerHTML = "This field is required.";
+refPasswordField.addEventListener("keyup", function() {
+	if (refPasswordField.value.trim().length === 0) {
+		refPasswordError.innerHTML = "This field is required.";
 	} else {
-		passError.innerHTML = "";
+		refPasswordError.innerHTML = "";
 	}
 });
-loginButton.addEventListener("mouseup", function() {
-	clearTimeout(checkLogin);
-	checkLogin = setTimeout(function() {
-		if (usernameField.value.length !== 0 && passField.value.length !== 0) {
-			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-			xhr.open("POST", "login.php", true);
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.responseType = "json";
-			xhr.onload = function() {
-				usernameError.innerHTML = xhr.response["errormessages"]["usernameError"];
-				passError.innerHTML = xhr.response["errormessages"]["passwordError"];
-				loginError.innerHTML = xhr.response["errormessages"]["loginError"];
-				if (xhr.response["successURL"].length > 0) {
-					window.location = xhr.response["successURL"];
-					document.cookie = "darktheme=true; expires=31 Dec 10000 12:00:00 UTC; path=/; samesite=strict;";
-				}
-			}
-			xhr.send("username=" + encodeURIComponent(usernameField.value) + "&password=" + encodeURIComponent(passField.value));
-			loginButton.style.display = "none";
+refPasswordToggleButton.addEventListener("click", function() {
+	if (refPasswordField.type === "password") {
+		refPasswordField.type = "text";
+		if (refPasswordToggleImageCont.classList.contains("showingPassImage") === false) {
+			refPasswordToggleImageCont.classList.add("showingPassImage");
 		}
-	}, 500);
+	} else {
+		if (refPasswordToggleImageCont.classList.contains("showingPassImage") === true) {
+			refPasswordToggleImageCont.classList.remove("showingPassImage");
+		}
+		refPasswordField.type = "password";
+	}
 });
-loginButton.addEventListener("mousedown", function() {
-	clearTimeout(checkLogin);
-})
+function submitLogin(event) {
+	if (event.button === 0) {
+		clearTimeout(checkLogin);
+		checkLogin = setTimeout(function() {
+			if (refUsernameField.value.length > 0 && refPasswordField.value.length > 0) {
+				const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+				xhr.open("POST", "login.php", true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.responseType = "json";
+				refLoginButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
+				xhr.onload = function() {
+					refUsernameError.innerHTML = xhr.response["errormessages"]["usernameError"];
+					refPasswordError.innerHTML = xhr.response["errormessages"]["passwordError"];
+					refLoginMessage.innerHTML = xhr.response["errormessages"]["loginError"];
+					if (xhr.response["successURL"].length > 0) {
+						window.location = xhr.response["successURL"];
+					} else {
+						refLoginButtonCont.innerHTML = '<button id="logInButton" onmouseup="submitLogin(event)" onmousedown="cancelSubmitLoginTimeout(event)">Login</button>';
+					}
+				}
+				xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refPasswordField.value));
+				refLoginButton.style.display = "none";
+			}
+		}, 500);
+	}
+}
+function cancelSubmitLoginTimeout(event) {
+	if (event.button === 0) {
+		clearTimeout(checkLogin);
+	}
+}

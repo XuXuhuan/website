@@ -445,7 +445,7 @@ main {
 		height: 90vh;
 		left: -100%;
 	}
-	#signUpContainer {
+	#logInContainer {
 		width: 80% !important;
 	}
 }
@@ -456,12 +456,12 @@ main {
 	}
 }
 @media only screen and (max-width: 424px) {
-	#signUpContainer {
+	#logInContainer {
 		width: 100% !important;
 		margin-top: 0 !important;
 	}
 }
-#usernameCont, #newPasswordCont, #confirmPasswordCont, #firstNameCont, #lastNameCont, #emailCont {
+#usernameCont, #passwordCont {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -471,7 +471,7 @@ main {
 	flex-direction: column;
 	width: 100%;
 }
-.signupInputField {
+.logInInputField {
 	outline: none;
 	background-color: var(--textFieldColor);
 	color: var(--UIdefaultTextColor);
@@ -483,13 +483,13 @@ main {
 	padding-right: 40px;
 	padding-left: 10px;
 }
-#signupLabel {
+#logInLabel {
 	display: block;
 	margin: 0 auto 5px auto;
 	width: fit-content;
 	width: -moz-fit-content;
 }
-#signUpContainer {
+#logInContainer {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -516,18 +516,18 @@ main {
 	color: #ff0000;
 	overflow: hidden;
 }
-#signUpMessage {
+#logInMessage {
 	margin: 0;
 	height: 36.8px;
 	font-size: 15px;
 	font-family: MontserratReg, Verdana, sans-serif;
 	text-align: center;
 }
-#newPasswordField, #confirmPasswordField {
+#passwordField {
 	width: calc(100% - 50px);
 	border-radius: 5px 0 0 5px;
 }
-.passwordShowButton {
+#passwordShowButton {
 	padding: 0;
 	float: right;
 	height: 40px;
@@ -538,7 +538,7 @@ main {
 	cursor: pointer;
 	background-color: #2D2F31;
 }
-.showPassImage {
+#passwordShowImageCont {
 	display: inline-block;
 	background-color: transparent;
 	vertical-align: middle;
@@ -553,7 +553,7 @@ main {
 	background-image: var(--showPassLink) !important;
 	width: calc(1000 / 600 * 15px) !important;
 }
-#signUpButton {
+#logInButton {
 	display: block;
 	background-color: #000000;
 	color: var(--UIdefaultTextColor);
@@ -572,10 +572,10 @@ main {
 	-o-transition: border-color 0.3s ease;
 	transition: border-color 0.3s ease;
 }
-#signUpButton:hover {
+#logInButton:hover {
 	border-color: #ffffff;
 }
-#loginLink {
+#signUpLink {
 	display: block;
 	margin: 0 auto;
 	color: #4486f4;
@@ -584,7 +584,7 @@ main {
 	width: fit-content;
 	width: -moz-fit-content;
 }
-#signUpButtonCont {
+#logInButtonCont {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;

@@ -574,9 +574,13 @@ main {
 	border-color: #ffffff;
 }
 #loginLink {
+	display: block;
+	margin: 0 auto;
 	color: #4486f4;
 	text-align: center;
 	font-size: 15px;
+	width: fit-content;
+	width: -moz-fit-content;
 }
 #signUpButtonCont {
 	position: relative;

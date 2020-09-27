@@ -1,21 +1,13 @@
 * {
 	box-sizing: border-box;
 }
-.notSelectable {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
 :root {
 	--sideMenuImageOpacity: 1;
 	--sideMenuTextTransform: scaleX(0);
-	--UIdefaultColor: #35363A;
-	--UIdefaultTextColor: #ffffff;
-	--textFieldColor: #141618;
-	--showPassLink: url("../Assets/darkTheme/PasswordVisible.png");
+	--UIdefaultColor: #ffffff;
+	--UIdefaultTextColor: #000000;
+	--textFieldColor: #D7D7D7;
+	--showPassLink: url("../Assets/lightTheme/PasswordVisible.png");
 }
 @font-face {
 	font-family: MontserratReg;
@@ -35,7 +27,7 @@
 }
 body {
 	margin: 0;
-	background-color: #232527;
+	background-color: #DDDDDD;
 }
 #topnav {
 	position: fixed;
@@ -50,7 +42,11 @@ body {
 	flex: 1;
 	width: 100%;
 	height: 10vh;
-	background-color: rgb(25, 25, 25);
+	background-color: rgb(20,0,36);
+	background: -moz-linear-gradient(135deg, rgba(20,0,36,1) 51%, rgba(44,0,59,1) 84%);
+	background: -webkit-linear-gradient(135deg, rgba(20,0,36,1) 51%, rgba(44,0,59,1) 84%);
+	background: linear-gradient(135deg, rgba(20,0,36,1) 51%, rgba(44,0,59,1) 84%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#140024",endColorstr="#2c003b",GradientType=1);
 }
 #orgName {
 	position: absolute;
@@ -58,7 +54,7 @@ body {
 	transform: translateX(-50%);
 	display: inline-flex;
 	text-align: center;
-	color: var(--UIdefaultTextColor);
+	color: #ffffff;
 	font-family: MontserratMed, Verdana, sans-serif;
 	margin: 0;
 }
@@ -78,7 +74,7 @@ body {
 #menuImageCont {
 	background-size: contain;
 	background-repeat: no-repeat;
-	background-image: var(--menuImage, url("../Assets/darkTheme/menu.png"));
+	background-image: var(--menuImage, url("../Assets/lightTheme/menu.png"));
 	height: 100%;
 	width: 100%;
 }
@@ -88,7 +84,7 @@ body {
 	position: relative;
 	display: inline-block;
 	font-family: LatoReg, Arial, sans-serif;
-	color: var(--UIdefaultTextColor);
+	color: #ffffff;
 	cursor: pointer;
 }
 #logLabel::before {
@@ -133,7 +129,7 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 700px;
-	background-color: var(--UIdefaultColor);
+	background-color: var(--alertUIcolor);
 	border-radius: 10px;
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
@@ -179,7 +175,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	height: 90vh;
-	background-color: #292A2D;
+	background-color: #EBEBEB;
 	top: 10vh;
 	-webkit-transition: left 0.4s linear;
 	-o-transition: left 0.4s linear;
@@ -191,16 +187,17 @@ body {
 	min-width: 190px;
 	height: 8vh;
 	text-decoration: none;
+	color: var(--sideMenuTextColor);
 }
 #sidenav > a:hover {
 	--sideMenuImageOpacity: 0.5;
 	--sideMenuTextTransform: scaleX(1);
 }
 #sidenav > a:nth-child(odd) {
-	background-color: #292A2D;
+	background-color: #EBEBEB;
 }
 #sidenav > a:nth-child(even) {
-	background-color: #191B1D;
+	background-color: #ffffff;
 }
 .innerLinksCont {
 	display: -webkit-flex;
@@ -216,7 +213,6 @@ body {
 .innerLinksCont > p {
 	position: relative;
 	display: inline-block;
-	color: var(--UIdefaultTextColor);
 	margin: 0;
 	font-family: RobotoReg, Helvetica, sans-serif;
 	font-size: 22px;
@@ -227,7 +223,7 @@ body {
 	bottom: 3px;
 	width: 100%;
 	height: 0;
-	border-bottom: 1.5px solid #ffffff;
+	border-bottom: 1.5px solid var(--sideMenuTextColor);
 	-webkit-transition: -webkit-transform 0.15s ease-in;
 	-o-transition: -o-transform 0.15s ease-in;
 	transition: 0.15s ease-in;
@@ -248,166 +244,166 @@ body {
 	width: 4vh;
 }
 #homeImage {
-	background-image: url("../Assets/darkTheme/homeIcon.png");
+	background-image: url("../Assets/lightTheme/homeIcon.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #profilesImage {
-	background-image: url("../Assets/darkTheme/person.png");
+	background-image: url("../Assets/lightTheme/person.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #settingsImage {
-	background-image: url("../Assets/darkTheme/CogWheel.png");
+	background-image: url("../Assets/lightTheme/CogWheel.png");
 	height: 3.5vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #postsImage {
-	background-image: url("../Assets/darkTheme/notepad.png");
+	background-image: url("../Assets/lightTheme/notepad.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #addPostImage {
-	background-image: url("../Assets/darkTheme/plusSign.png");
+	background-image: url("../Assets/lightTheme/plusSign.png");
 	height: 3.5vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #exploreImage {
-	background-image: url("../Assets/darkTheme/compass.png");
+	background-image: url("../Assets/lightTheme/compass.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #privacyImage {
-	background-image: url("../Assets/darkTheme/privacyLock.png");
+	background-image: url("../Assets/lightTheme/privacyLock.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 @-webkit-keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 }
 @-webkit-keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 }
 @-moz-keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 }
 @-moz-keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 }
 @-o-keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 }
 @-o-keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 }
 @keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 }
 @keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/darkTheme/close.png");
+		--menuImage: url("../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/darkTheme/menu.png");
+		--menuImage: url("../Assets/lightTheme/menu.png");
 	}
 }
 #mainCont {
@@ -445,7 +441,7 @@ main {
 		height: 90vh;
 		left: -100%;
 	}
-	#signUpContainer {
+	#logInContainer {
 		width: 80% !important;
 	}
 }
@@ -456,12 +452,12 @@ main {
 	}
 }
 @media only screen and (max-width: 424px) {
-	#signUpContainer {
+	#logInContainer {
 		width: 100% !important;
 		margin-top: 0 !important;
 	}
 }
-#usernameCont, #newPasswordCont, #confirmPasswordCont, #firstNameCont, #lastNameCont, #emailCont {
+#usernameCont, #passwordCont {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -471,7 +467,7 @@ main {
 	flex-direction: column;
 	width: 100%;
 }
-.signupInputField {
+.logInInputField {
 	outline: none;
 	background-color: var(--textFieldColor);
 	color: var(--UIdefaultTextColor);
@@ -483,13 +479,13 @@ main {
 	padding-right: 40px;
 	padding-left: 10px;
 }
-#signupLabel {
+#logInLabel {
 	display: block;
 	margin: 0 auto 5px auto;
 	width: fit-content;
 	width: -moz-fit-content;
 }
-#signUpContainer {
+#logInContainer {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -516,18 +512,18 @@ main {
 	color: #ff0000;
 	overflow: hidden;
 }
-#signUpMessage {
+#logInMessage {
 	margin: 0;
 	height: 36.8px;
 	font-size: 15px;
 	font-family: MontserratReg, Verdana, sans-serif;
 	text-align: center;
 }
-#newPasswordField, #confirmPasswordField {
+#passwordField {
 	width: calc(100% - 50px);
 	border-radius: 5px 0 0 5px;
 }
-.passwordShowButton {
+#passwordShowButton {
 	padding: 0;
 	float: right;
 	height: 40px;
@@ -536,27 +532,26 @@ main {
 	border-radius: 0 5px 5px 0;
 	border: 0;
 	cursor: pointer;
-	background-color: #2D2F31;
+	background-color: #E1E1E1;
 }
-.showPassImage {
+#passwordShowImageCont {
 	display: inline-block;
 	background-color: transparent;
 	vertical-align: middle;
 	border: 0;
 	background-repeat: no-repeat;
 	background-size: contain;
-	background-image: url("../Assets/darkTheme/PasswordInvisible.png");
+	background-image: url("../Assets/lightTheme/PasswordInvisible.png");
 	height: 15px;
 	width: calc(1012 / 616 * 15px);
 }
 .showingPassImage {
 	background-image: var(--showPassLink) !important;
-	width: calc(1000 / 600 * 15px) !important;
 }
-#signUpButton {
+#logInButton {
 	display: block;
 	background-color: #000000;
-	color: var(--UIdefaultTextColor);
+	color: #ffffff;
 	font-family: RobotoReg, Helvetica, sans-serif;
 	font-size: 18px;
 	width: 200px;
@@ -572,10 +567,10 @@ main {
 	-o-transition: border-color 0.3s ease;
 	transition: border-color 0.3s ease;
 }
-#signUpButton:hover {
+#logInButton:hover {
 	border-color: #ffffff;
 }
-#loginLink {
+#signUpLink {
 	display: block;
 	margin: 0 auto;
 	color: #4486f4;
@@ -584,7 +579,7 @@ main {
 	width: fit-content;
 	width: -moz-fit-content;
 }
-#signUpButtonCont {
+#logInButtonCont {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -598,7 +593,7 @@ main {
 }
 #loadingImageCont {
 	position: relative;
-	background-image: url("../Assets/darkTheme/loading.png");
+	background-image: url("../Assets/lightTheme/loading.png");
 	background-repeat: no-repeat;
 	background-size: contain;
 	height: 30px;
