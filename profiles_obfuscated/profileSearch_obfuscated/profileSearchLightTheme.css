@@ -1,32 +1,43 @@
 * {
 	box-sizing: border-box;
 }
+.notSelectable {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 :root {
 	--sideMenuImageOpacity: 1;
 	--sideMenuTextTransform: scaleX(0);
 	--sideMenuTextColor: #000000;
-	--UIdefaultTextColor: #ffffff;
+	--UIdefaultTextColor: #000000;
 	--alertUIcolor: #3390FF;
+	--UIdefaultColor: #ffffff;
+	--profileSearchButtonBgColor: #E6E6E6;
+	--textFieldColor: #FFFFFF;
 }
 @font-face {
 	font-family: MontserratReg;
-	src: url("../Assets/Font-Import/Montserrat/Montserrat-Regular.ttf");
+	src: url("../../Assets/Font-Import/Montserrat/Montserrat-Regular.ttf");
 }
 @font-face {
 	font-family: MontserratMed;
-	src: url("../Assets/Font-Import/Montserrat/Montserrat-Medium.ttf");
+	src: url("../../Assets/Font-Import/Montserrat/Montserrat-Medium.ttf");
 }
 @font-face {
 	font-family: LatoReg;
-	src: url("../Assets/Font-Import/Lato/Lato-Regular.ttf");
+	src: url("../../Assets/Font-Import/Lato/Lato-Regular.ttf");
 }
 @font-face {
 	font-family: RobotoReg;
-	src: url("../Assets/Font-Import/Roboto/Roboto-Regular.ttf");
+	src: url("../../Assets/Font-Import/Roboto/Roboto-Regular.ttf");
 }
 body {
 	margin: 0;
-	background-color: #ffffff;
+	background-color: #DDDDDD;
 }
 #topnav {
 	position: fixed;
@@ -73,7 +84,7 @@ body {
 #menuImageCont {
 	background-size: contain;
 	background-repeat: no-repeat;
-	background-image: var(--menuImage, url("../Assets/lightTheme/menu.png"));
+	background-image: var(--menuImage, url("../../Assets/lightTheme/menu.png"));
 	height: 100%;
 	width: 100%;
 }
@@ -243,166 +254,166 @@ body {
 	width: 4vh;
 }
 #homeImage {
-	background-image: url("../Assets/lightTheme/homeIcon.png");
+	background-image: url("../../Assets/lightTheme/homeIcon.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #profilesImage {
-	background-image: url("../Assets/lightTheme/person.png");
+	background-image: url("../../Assets/lightTheme/person.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #settingsImage {
-	background-image: url("../Assets/lightTheme/CogWheel.png");
+	background-image: url("../../Assets/lightTheme/CogWheel.png");
 	height: 3.5vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #postsImage {
-	background-image: url("../Assets/lightTheme/notepad.png");
+	background-image: url("../../Assets/lightTheme/notepad.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #addPostImage {
-	background-image: url("../Assets/lightTheme/plusSign.png");
+	background-image: url("../../Assets/lightTheme/plusSign.png");
 	height: 3.5vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #exploreImage {
-	background-image: url("../Assets/lightTheme/compass.png");
+	background-image: url("../../Assets/lightTheme/compass.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #privacyImage {
-	background-image: url("../Assets/lightTheme/privacyLock.png");
+	background-image: url("../../Assets/lightTheme/privacyLock.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 @-webkit-keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 }
 @-webkit-keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 }
 @-moz-keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 }
 @-moz-keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 }
 @-o-keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 }
 @-o-keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 }
 @keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 }
 @keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 }
 #mainCont {
@@ -432,18 +443,6 @@ main {
 		font-size: 150%;
 	}
 }
-@media only screen and (min-width: 768px) {
-	#sidenav {
-		width: 25vw;
-		left: -25vw;
-	}
-}
-@media only screen and (max-width: 720px) {
-	#alertCont {
-		margin-left: 10px;
-		margin-right: 10px;
-	}
-}
 @media only screen and (max-width: 1024px) {
 	#orgName {
 		font-size: 150%;
@@ -466,4 +465,198 @@ main {
 		height: 90vh;
 		left: -100%;
 	}
+}
+@media only screen and (min-width: 768px) {
+	#sidenav {
+		width: 25vw;
+		left: -25vw;
+	}
+}
+@media only screen and (min-width: 769px) {
+	#profileContents {
+		position: relative;
+		width: 80%;
+	}
+	#profileSearchField {
+		width: 300px;
+	}
+}
+@media only screen and (max-width: 720px) {
+	#alertCont {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+#profileContents {
+	display: block;
+	margin: 30px auto 0 auto;
+}
+.infoRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	align-items: center;
+	border-bottom: 1px solid #ffffff;
+    background-color: var(--UIdefaultColor);
+}
+.infoColumnRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	background-color: var(--UIdefaultColor);
+	margin-bottom: 10px;
+}
+.infoColumnRow:nth-last-child(2) {
+	border: 0 !important;
+	margin-bottom: 20px !important;
+}
+.inputErrorText {
+	margin: 0;
+	font-size: 15px;
+	font-family: MontserratReg, Verdana, sans-serif;
+	color: #ff0000;
+}
+#searchFormCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	align-items: center;
+	margin-bottom: 20px;
+}
+#profileSearchForm {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+}
+#profileSearchField {
+	outline: none;
+	height: 30px;
+	vertical-align: top;
+	background-color: var(--textFieldColor);
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	font-size: 16px;
+	border-radius: 4px 0 0 4px;
+	height: 35px;
+	min-width: 238px;
+	padding: 0 0 0 5px;
+}
+#profileSearchButton {
+	outline: none;
+	float: right;
+	border: 0;
+	padding: 10px 12.5px;
+	background-color: var(--profileSearchButtonBgColor);
+	cursor: pointer;
+	border-radius: 0 4px 4px 0;
+}
+#profileSearchImage {
+	background-image: url("../../Assets/lightTheme/search_magnifying_glass.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 15px;
+	width: calc(733 / 680 * 15px);
+}
+.userListName {
+	margin: 0;
+	text-decoration: underline;
+	width: fit-content;
+	width: -moz-fit-content;
+	font-weight: bold;
+	font-size: 1.17em;
+	color: var(--UIdefaultTextColor);
+}
+.bioPreview {
+	margin: 10px 0 0 0;
+	font-size: 15px;
+	word-break: break-all;
+	max-height: 55.2px;
+	height: 55.2px;
+	overflow: hidden;
+}
+#changePageWrapper {
+	background-color: transparent;
+	align-items: center;
+}
+#changePageCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+#nextPageButton, #prevPageButton {
+	cursor: pointer;
+	background-color: var(--UIdefaultColor);
+	outline: none;
+	border: 0;
+	padding: 9px 10px;
+	border-radius: 3px;
+}
+#nextPageButton {
+	margin-left: 10px;
+}
+#prevPageButton {
+	margin-right: 10px;
+}
+.changePageArrowCont {
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 15px;
+	width: calc(354 / 566 * 15px);
+	cursor: pointer;
+}
+#leftArrowCont {
+	background-image: url("../../Assets/lightTheme/leftArrow.png");
+}
+#rightArrowCont {
+	background-image: url("../../Assets/lightTheme/rightArrow.png");
+}
+#pageCount {
+	font-size: 15px;
+	margin-top: 15px;
+}
+#currentPageCount {
+	-moz-appearance: textfield;
+	width: 30px;
+	outline: none;
+	font-family: LatoReg, Arial, sans-serif;
+	background-color: var(--UIdefaultColor);
+	color: var(--UIdefaultTextColor);
+	border: 0;
+	padding-left: 5px;
+	border-radius: 3px;
+}
+#currentPageCount::-webkit-outer-spin-button, #currentPageCount::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+#resultCount {
+	font-size: 15px;
+	margin: 0;
+	font-family: LatoReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
 }
