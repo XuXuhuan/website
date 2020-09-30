@@ -4,11 +4,8 @@ error_reporting(0);
 date_default_timezone_set("MST");
 $stylesheetLink;
 $infoText;
-function getRandomString($stringLength) {
-	return bin2hex(random_bytes($stringLength / 2));
-}
 if (isset($_COOKIE["darktheme"]) && $_COOKIE["darktheme"] === "false") {
-	$stylesheetLink = "https://www.streetor.sg/errors/errorsDarkTheme.css";
+	$stylesheetLink = "https://www.streetor.sg/errors/errorsLightTheme.css";
 } else {
 	$stylesheetLink = "https://www.streetor.sg/errors/errorsDarkTheme.css";
 }
