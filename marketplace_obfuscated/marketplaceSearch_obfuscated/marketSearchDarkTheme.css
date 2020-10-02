@@ -459,16 +459,16 @@ main {
 		height: 90vh;
 		left: -100%;
 	}
+	#marketplaceContents {
+		width: 100%;
+	}
 }
 @media only screen and (min-width: 768px) {
 	#sidenav {
 		width: 25vw;
 		left: -25vw;
 	}
-}
-@media only screen and (min-width: 769px) {
 	#marketplaceContents {
-		position: relative;
 		width: 80%;
 	}
 	#marketplaceSearchField {
@@ -514,10 +514,6 @@ main {
 	padding: 15px 1em 15px 1em;
 	background-color: var(--UIdefaultColor);
 }
-.infoColumnRow:nth-last-child(2) {
-	border: 0 !important;
-	margin-bottom: 20px !important;
-}
 .inputErrorText {
 	margin: 0;
 	font-size: 15px;
@@ -544,7 +540,7 @@ main {
 	cursor: pointer;
 }
 #registerMarketplaceImageCont {
-	background-image: url("../../Assets/darkTheme/plusSign.png");
+	background-image: url("../../Assets/global/plusSign.png");
 	background-repeat: no-repeat;
 	background-size: contain;
 	height: 0.8em;

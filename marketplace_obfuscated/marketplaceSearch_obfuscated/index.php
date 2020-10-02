@@ -100,7 +100,7 @@ if ($mysqliConnection -> connect_errno) {
 				if ($queriedMarketsDetails -> num_rows > 0) {
 					while ($assocMarketsDetails = $queriedMarketsDetails -> fetch_assoc()) {
 						if (!empty($assocMarketsDetails["marketID"])) {
-							$findMarketLogo = glob('/uploads/' . $assocMarketsDetails["marketID"] . '.*');
+							$findMarketLogo = glob('/uploads/marketLogos/' . $assocMarketsDetails["marketID"] . '.*');
 							$imageFileName = "../../Assets/global/imageNotFound.png";
 							if (!empty($findMarketLogo)) {
 								$imageFileName = $findMarketLogo[0];

@@ -16,7 +16,7 @@
 	--UIdefaultTextColor: #000000;
 	--alertUIcolor: #3390FF;
 	--UIdefaultColor: #ffffff;
-	--profileSearchButtonBgColor: #E6E6E6;
+	--marketplaceSearchButtonBgColor: #E6E6E6;
 	--textFieldColor: #FFFFFF;
 }
 @font-face {
@@ -465,19 +465,19 @@ main {
 		height: 90vh;
 		left: -100%;
 	}
+	#marketplaceContents {
+		width: 100%;
+	}
 }
 @media only screen and (min-width: 768px) {
 	#sidenav {
 		width: 25vw;
 		left: -25vw;
 	}
-}
-@media only screen and (min-width: 769px) {
-	#profileContents {
-		position: relative;
+	#marketplaceContents {
 		width: 80%;
 	}
-	#profileSearchField {
+	#marketplaceSearchField {
 		width: 300px;
 	}
 }
@@ -487,7 +487,8 @@ main {
 		margin-right: 10px;
 	}
 }
-#profileContents {
+#marketplaceContents {
+	position: relative;
 	display: block;
 	margin: 30px auto 0 auto;
 }
@@ -521,15 +522,38 @@ main {
 	background-color: var(--UIdefaultColor);
 	margin-bottom: 10px;
 }
-.infoColumnRow:nth-last-child(2) {
-	border: 0 !important;
-	margin-bottom: 20px !important;
-}
 .inputErrorText {
 	margin: 0;
 	font-size: 15px;
 	font-family: MontserratReg, Verdana, sans-serif;
 	color: #ff0000;
+}
+#registerMarketplaceLink {
+	position: absolute;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 5px;
+	right: 10px;
+	color: #ffffff;
+	font-family: MontserratReg, Verdana, sans-serif;
+	background-color: #40AF00;
+	text-decoration: none;
+	padding: 9px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+#registerMarketplaceImageCont {
+	background-image: url("../../Assets/global/plusSign.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 0.8em;
+	width: 0.8em;
+	margin-right: 3px;
 }
 #searchFormCont {
 	position: relative;
@@ -545,12 +569,12 @@ main {
 	align-items: center;
 	margin-bottom: 20px;
 }
-#profileSearchForm {
+#marketplaceSearchForm {
 	position: relative;
 	display: block;
 	margin: 0 auto;
 }
-#profileSearchField {
+#marketplaceSearchField {
 	outline: none;
 	height: 30px;
 	vertical-align: top;
@@ -563,33 +587,57 @@ main {
 	min-width: 238px;
 	padding: 0 0 0 5px;
 }
-#profileSearchButton {
+#marketplaceSearchButton {
 	outline: none;
 	float: right;
 	border: 0;
 	padding: 10px 12.5px;
-	background-color: var(--profileSearchButtonBgColor);
+	background-color: var(--marketplaceSearchButtonBgColor);
 	cursor: pointer;
 	border-radius: 0 4px 4px 0;
 }
-#profileSearchImage {
+#marketplaceSearchImage {
 	background-image: url("../../Assets/lightTheme/search_magnifying_glass.png");
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 15px;
 	width: calc(733 / 680 * 15px);
 }
-.userListName {
+.marketContentsRow {
+	position: relative;
+	height: 130px;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	background-color: var(--UIdefaultColor);
+	margin-bottom: 10px;
+}
+.marketContentsRow:nth-last-child(1) {
+	margin-bottom: 0 !important;
+}
+.marketNameAndBioCont {
+	position: relative;
+	padding: 0 0 0 10px !important;
+	height: 100%;
+}
+.marketName {
+	position: relative;
 	margin: 0;
-	text-decoration: underline;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	font-size: 25px;
 	width: fit-content;
 	width: -moz-fit-content;
-	font-weight: bold;
-	font-size: 1.17em;
-	color: var(--UIdefaultTextColor);
 }
-.bioPreview {
-	margin: 10px 0 0 0;
+.marketLogoImage {
+	height: 100px;
+	min-height: 100px;
+	max-width: 200px;
+}
+.biographyText {
+	font-size: 18px;
+	margin: 0;
 	font-size: 15px;
 	word-break: break-all;
 	max-height: 55.2px;

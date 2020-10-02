@@ -1,108 +1,215 @@
-"use strict";
-const refMenuButton = document.querySelector("#menuToggle");
-const refSideNav = document.querySelector("#sidenav");
-const refCurrentPageCountField = document.querySelector("#currentPageCount");
-const refResultCount = document.querySelector("#resultCount");
-var currentPage = 1;
-var checkChangePage;
-refMenuButton.style.filter = "brightness(100%)";
-refMenuButton.style.cursor = "pointer";
-function fetchNewPage(newPage) {
-	const refMarketsContainer = document.querySelector("#marketsContainer");
-	const refSearchErrorText = document.querySelector("#searchErrorText");
-	const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-	const URLparameters = new URLSearchParams(window.location.search);
-	xhr.open("POST", "fetchMarketsDetails.php", true);
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.responseType = "json";
-	xhr.onload = function() {
-		refSearchErrorText.innerHTML = xhr.response["errormessage"];
-		xhr.response["marketDetails"].forEach(function(item) {
-			refMarketsContainer.innerHTML += `
-			<div class="infoColumnRow">
-				<a href="https://www.streetor.sg/marketplace/?id=${item["marketID"]}" class="userListName">${item["marketName"]}</a>
-				<p class="bioPreview">${item["marketBiography"]}</p>
-			</div>`;
-		});
-		if (xhr.response["currentResults"] > 0 && xhr.response["maxResults"] > 0) {
-			refResultCount.innerHTML = xhr.response["currentResults"] + " of " + xhr.response["maxResults"] + " results";
-			refCurrentPageCountField.value = Math.ceil(xhr.response["currentResults"] / 10);
-			if (Math.ceil(xhr.response["maxResults"] / 10) === newPage) {
-				if (document.querySelector("#nextPageButton")) {
-					const refNextPageButton = document.querySelector("#nextPageButton");
-					refNextPageButton.parentNode.removeChild(refNextPageButton);
-				}
-			}
-			if (newPage === 1) {
-				if (document.querySelector("#prevPageButton")) {
-					const refPrevPageButton = document.querySelector("#prevPageButton");
-					refPrevPageButton.parentNode.removeChild(refPrevPageButton);
-				}
-			}
-			if (newPage > 1) {
-				const refChangePageCont = document.querySelector("#changePageCont");
-				const refCreatePrevPageButton = document.createElement("button");
-				const refCreatePrevPageImage = document.createElement("div");
-				refCreatePrevPageButton.id = "prevPageButton";
-				refCreatePrevPageButton.onmouseup = function(triggered) {leftArrowMarketFetch(triggered)};
-				refCreatePrevPageButton.onmousedown = function(triggered) {cancelLeftArrowDecrementTimeout(triggered)};
-				refCreatePrevPageImage.id = "leftArrowCont";
-				refCreatePrevPageImage.classList.add("changePageArrowCont");
-				refCreatePrevPageButton.appendChild(refCreatePrevPageImage);
-				refChangePageCont.appendChild(refCreatePrevPageButton);
-			}
-			if (Math.ceil(xhr.response["maxResults"] / 10) > newPage) {
-				const refChangePageCont = document.querySelector("#changePageCont");
-				const refCreateNextPageButton = document.createElement("button");
-				const refCreateNextPageImage = document.createElement("div");
-				refCreateNextPageButton.id = "nextPageButton";
-				refCreateNextPageButton.onmouseup = function(triggered) {rightArrowMarketFetch(triggered)};
-				refCreateNextPageButton.onmousedown = function(triggered) {cancelRightArrowIncrementTimeout(triggered)};
-				refCreateNextPageImage.id = "rightArrowCont";
-				refCreateNextPageImage.classList.add("changePageArrowCont");
-				refCreateNextPageButton.appendChild(refCreateNextPageImage);
-				refChangePageCont.appendChild(refCreateNextPageButton);
-			}
-		}
-	}
-	xhr.send("query=" + encodeURIComponent(URLparameters.get("query")) + "&page=" + encodeURIComponent(newPage));
+const _0x2d7a = [
+    'button',
+    '#marketsContainer',
+    'fetchMarketsDetails.php',
+    '#prevPageButton',
+    'left',
+    'prevPageButton',
+    'value',
+    'add',
+    '\x22\x20class=\x22marketName\x22>',
+    'keyCode',
+    '#changePageCont',
+    'json',
+    'onmousedown',
+    'cursor',
+    'clientWidth',
+    'response',
+    'pointer',
+    'brightness(100%)',
+    'style',
+    'menuAnimationOpen',
+    'animationName',
+    'location',
+    'filter',
+    '#searchErrorText',
+    '#nextPageButton',
+    'marketID',
+    'onload',
+    'get',
+    'createElement',
+    '#resultCount',
+    'classList',
+    'Microsoft.XMLHTTP',
+    'query=',
+    '\x20of\x20',
+    '#sidenav',
+    'marketDetails',
+    '#menuToggle',
+    '\x0a\x09\x09\x09<div\x20class=\x22marketContentsRow\x20infoRow\x22>\x0a\x09\x09\x09\x09<img\x20src=\x22',
+    'XMLHttpRequest',
+    'POST',
+    'leftArrowCont',
+    'setRequestHeader',
+    'removeChild',
+    'send',
+    'forEach',
+    'nextPageButton',
+    'appendChild',
+    'ceil',
+    'Content-type',
+    'addEventListener',
+    '</p>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09</div>',
+    'marketName',
+    '</a>\x0a\x09\x09\x09\x09\x09<p\x20class=\x22biographyText\x22>',
+    'querySelector',
+    'rightArrowCont',
+    'test',
+    '&page=',
+    'menuAnimationClose',
+    'query',
+    'responseType',
+    '\x20results',
+    'marketLogoURL',
+    'marketBiography',
+    'currentResults',
+    '\x22\x20alt=\x22Market\x20Logo\x22\x20class=\x22marketLogoImage\x22>\x0a\x09\x09\x09\x09<div\x20class=\x22marketNameAndBioCont\x20infoColumnRow\x22>\x0a\x09\x09\x09\x09\x09<a\x20href=\x22https://www.streetor.sg/marketplace/?id=',
+    'maxResults',
+    'open',
+    'mousedown',
+    'search',
+    'application/x-www-form-urlencoded',
+    'errormessage',
+    'parentNode',
+    'innerHTML',
+    'changePageArrowCont',
+    'div',
+    'onmouseup',
+    '#currentPageCount'
+];
+(function (_0x2cce6a, _0x2d7ac1) {
+    const _0x553ee9 = function (_0x32980f) {
+        while (--_0x32980f) {
+            _0x2cce6a['push'](_0x2cce6a['shift']());
+        }
+    };
+    _0x553ee9(++_0x2d7ac1);
+}(_0x2d7a, 0x17e));
+const _0x553e = function (_0x2cce6a, _0x2d7ac1) {
+    _0x2cce6a = _0x2cce6a - 0x0;
+    let _0x553ee9 = _0x2d7a[_0x2cce6a];
+    return _0x553ee9;
+};
+const _0x3b13ad = _0x553e;
+'use strict';
+const _0x32980f = document[_0x3b13ad('0x38')](_0x3b13ad('0x27'));
+const _0x3063ac = document[_0x3b13ad('0x38')](_0x3b13ad('0x25'));
+const _0x562586 = document[_0x3b13ad('0x38')](_0x3b13ad('0x2'));
+const _0x3f465d = document[_0x3b13ad('0x38')](_0x3b13ad('0x20'));
+var _0x5810e5 = 0x1;
+var _0x5df66f;
+_0x32980f[_0x3b13ad('0x15')][_0x3b13ad('0x19')] = _0x3b13ad('0x14');
+_0x32980f[_0x3b13ad('0x15')][_0x3b13ad('0x10')] = _0x3b13ad('0x13');
+function _0x54e4ad(_0x3e3df3) {
+    const _0x2404f0 = _0x3b13ad;
+    const _0x288e19 = document[_0x2404f0('0x38')](_0x2404f0('0x4'));
+    const _0x36dcee = document[_0x2404f0('0x38')](_0x2404f0('0x1a'));
+    const _0x3654e3 = window[_0x2404f0('0x29')] ? new XMLHttpRequest() : new ActiveXObject(_0x2404f0('0x22'));
+    const _0x355515 = new URLSearchParams(window[_0x2404f0('0x18')][_0x2404f0('0x47')]);
+    _0x3654e3[_0x2404f0('0x45')](_0x2404f0('0x2a'), _0x2404f0('0x5'), !![]);
+    _0x3654e3[_0x2404f0('0x2c')](_0x2404f0('0x33'), _0x2404f0('0x48'));
+    _0x3654e3[_0x2404f0('0x3e')] = _0x2404f0('0xe');
+    _0x3654e3[_0x2404f0('0x1d')] = function () {
+        const _0x4d2efa = _0x2404f0;
+        _0x36dcee[_0x4d2efa('0x4b')] = _0x3654e3[_0x4d2efa('0x12')][_0x4d2efa('0x49')];
+        _0x3654e3[_0x4d2efa('0x12')][_0x4d2efa('0x26')][_0x4d2efa('0x2f')](function (_0x1714fe) {
+            const _0x360af2 = _0x4d2efa;
+            _0x288e19[_0x360af2('0x4b')] += _0x360af2('0x28') + _0x1714fe[_0x360af2('0x40')] + _0x360af2('0x43') + _0x1714fe[_0x360af2('0x1c')] + _0x360af2('0xb') + _0x1714fe[_0x360af2('0x36')] + _0x360af2('0x37') + _0x1714fe[_0x360af2('0x41')] + _0x360af2('0x35');
+        });
+        if (_0x3654e3[_0x4d2efa('0x12')][_0x4d2efa('0x42')] > 0x0 && _0x3654e3[_0x4d2efa('0x12')][_0x4d2efa('0x44')] > 0x0) {
+            _0x3f465d[_0x4d2efa('0x4b')] = _0x3654e3[_0x4d2efa('0x12')][_0x4d2efa('0x42')] + _0x4d2efa('0x24') + _0x3654e3[_0x4d2efa('0x12')][_0x4d2efa('0x44')] + _0x4d2efa('0x3f');
+            _0x562586[_0x4d2efa('0x9')] = Math[_0x4d2efa('0x32')](_0x3654e3[_0x4d2efa('0x12')][_0x4d2efa('0x42')] / 0xa);
+            if (Math[_0x4d2efa('0x32')](_0x3654e3[_0x4d2efa('0x12')][_0x4d2efa('0x44')] / 0xa) === _0x3e3df3) {
+                if (document[_0x4d2efa('0x38')](_0x4d2efa('0x1b'))) {
+                    const _0x99f401 = document[_0x4d2efa('0x38')](_0x4d2efa('0x1b'));
+                    _0x99f401[_0x4d2efa('0x4a')][_0x4d2efa('0x2d')](_0x99f401);
+                }
+            }
+            if (_0x3e3df3 === 0x1) {
+                if (document[_0x4d2efa('0x38')](_0x4d2efa('0x6'))) {
+                    const _0x2f26b9 = document[_0x4d2efa('0x38')](_0x4d2efa('0x6'));
+                    _0x2f26b9[_0x4d2efa('0x4a')][_0x4d2efa('0x2d')](_0x2f26b9);
+                }
+            }
+            if (_0x3e3df3 > 0x1) {
+                const _0x31c288 = document[_0x4d2efa('0x38')](_0x4d2efa('0xd'));
+                const _0x53ed61 = document[_0x4d2efa('0x1f')](_0x4d2efa('0x3'));
+                const _0x5b382a = document[_0x4d2efa('0x1f')](_0x4d2efa('0x0'));
+                _0x53ed61['id'] = _0x4d2efa('0x8');
+                _0x53ed61[_0x4d2efa('0x1')] = function (_0x1d3c7d) {
+                    leftArrowMarketFetch(_0x1d3c7d);
+                };
+                _0x53ed61[_0x4d2efa('0xf')] = function (_0xe789f2) {
+                    cancelLeftArrowDecrementTimeout(_0xe789f2);
+                };
+                _0x5b382a['id'] = _0x4d2efa('0x2b');
+                _0x5b382a[_0x4d2efa('0x21')][_0x4d2efa('0xa')](_0x4d2efa('0x4c'));
+                _0x53ed61[_0x4d2efa('0x31')](_0x5b382a);
+                _0x31c288[_0x4d2efa('0x31')](_0x53ed61);
+            }
+            if (Math[_0x4d2efa('0x32')](_0x3654e3[_0x4d2efa('0x12')][_0x4d2efa('0x44')] / 0xa) > _0x3e3df3) {
+                const _0x514e92 = document[_0x4d2efa('0x38')](_0x4d2efa('0xd'));
+                const _0x5b8b3a = document[_0x4d2efa('0x1f')](_0x4d2efa('0x3'));
+                const _0x2a1a51 = document[_0x4d2efa('0x1f')](_0x4d2efa('0x0'));
+                _0x5b8b3a['id'] = _0x4d2efa('0x30');
+                _0x5b8b3a[_0x4d2efa('0x1')] = function (_0xd714c0) {
+                    rightArrowMarketFetch(_0xd714c0);
+                };
+                _0x5b8b3a[_0x4d2efa('0xf')] = function (_0x3ef98b) {
+                    cancelRightArrowIncrementTimeout(_0x3ef98b);
+                };
+                _0x2a1a51['id'] = _0x4d2efa('0x39');
+                _0x2a1a51[_0x4d2efa('0x21')][_0x4d2efa('0xa')](_0x4d2efa('0x4c'));
+                _0x5b8b3a[_0x4d2efa('0x31')](_0x2a1a51);
+                _0x514e92[_0x4d2efa('0x31')](_0x5b8b3a);
+            }
+        }
+    };
+    _0x3654e3[_0x2404f0('0x2e')](_0x2404f0('0x23') + encodeURIComponent(_0x355515[_0x2404f0('0x1e')](_0x2404f0('0x3d'))) + _0x2404f0('0x3b') + encodeURIComponent(_0x3e3df3));
 }
-refMenuButton.addEventListener("mousedown", function(triggered) {
-	if (triggered.button === 0) {
-		refMenuButton.style.animationName = refMenuButton.style.animationName === "menuAnimationOpen" ? "menuAnimationClose" : "menuAnimationOpen";
-		refSideNav.style.left = refMenuButton.style.animationName === "menuAnimationOpen" ? 0 : refSideNav.clientWidth * -1 + "px"; 
-	}
+_0x32980f[_0x3b13ad('0x34')](_0x3b13ad('0x46'), function (_0x2128ca) {
+    const _0x36fb1a = _0x3b13ad;
+    if (_0x2128ca[_0x36fb1a('0x3')] === 0x0) {
+        _0x32980f[_0x36fb1a('0x15')][_0x36fb1a('0x17')] = _0x32980f[_0x36fb1a('0x15')][_0x36fb1a('0x17')] === _0x36fb1a('0x16') ? _0x36fb1a('0x3c') : _0x36fb1a('0x16');
+        _0x3063ac[_0x36fb1a('0x15')][_0x36fb1a('0x7')] = _0x32980f[_0x36fb1a('0x15')][_0x36fb1a('0x17')] === _0x36fb1a('0x16') ? 0x0 : _0x3063ac[_0x36fb1a('0x11')] * -0x1 + 'px';
+    }
 });
-function countFieldMarketFetch(event) {
-	if (/[^0-9]/.test(currentPage) === false && event.keyCode === 13) {
-		clearTimeout(checkChangePage);
-		checkChangePage = setTimeout(fetchNewPage(refCurrentPageCountField.value), 350);
-	}
+function countFieldMarketFetch(_0x4352f2) {
+    const _0x1139f8 = _0x3b13ad;
+    if (/[^0-9]/[_0x1139f8('0x3a')](_0x5810e5) === ![] && _0x4352f2[_0x1139f8('0xc')] === 0xd) {
+        clearTimeout(_0x5df66f);
+        _0x5df66f = setTimeout(_0x54e4ad(_0x562586[_0x1139f8('0x9')]), 0x15e);
+    }
 }
-function cancelCountFieldIncrementTimeout(event) {
-	if (event.keyCode === 13) {
-		clearTimeout(checkChangePage);
-	}
+function cancelCountFieldIncrementTimeout(_0x3dfce1) {
+    const _0x52c9e6 = _0x3b13ad;
+    if (_0x3dfce1[_0x52c9e6('0xc')] === 0xd) {
+        clearTimeout(_0x5df66f);
+    }
 }
-function leftArrowMarketFetch(event) {
-	if (/[^0-9]/.test(currentPage) === false && currentPage > 1 && event.button === 0) {
-		clearTimeout(checkChangePage);
-		checkChangePage = setTimeout(fetchNewPage(currentPage - 1), 350);
-	}
+function leftArrowMarketFetch(_0x163cb7) {
+    const _0x300bb5 = _0x3b13ad;
+    if (/[^0-9]/[_0x300bb5('0x3a')](_0x5810e5) === ![] && _0x5810e5 > 0x1 && _0x163cb7[_0x300bb5('0x3')] === 0x0) {
+        clearTimeout(_0x5df66f);
+        _0x5df66f = setTimeout(_0x54e4ad(_0x5810e5 - 0x1), 0x15e);
+    }
 }
-function cancelLeftArrowDecrementTimeout(event) {
-	if (event.button === 0) {
-		clearTimeout(checkChangePage);
-	}
+function cancelLeftArrowDecrementTimeout(_0x2a9f97) {
+    const _0x1471e0 = _0x3b13ad;
+    if (_0x2a9f97[_0x1471e0('0x3')] === 0x0) {
+        clearTimeout(_0x5df66f);
+    }
 }
-function rightArrowMarketFetch(event) {
-	if (/[^0-9]/.test(currentPage) === false && event.button === 0) {
-		clearTimeout(checkChangePage);
-		checkChangePage = setTimeout(fetchNewPage(currentPage + 1), 350);
-	}
+function rightArrowMarketFetch(_0x48e009) {
+    const _0x1d4e14 = _0x3b13ad;
+    if (/[^0-9]/[_0x1d4e14('0x3a')](_0x5810e5) === ![] && _0x48e009[_0x1d4e14('0x3')] === 0x0) {
+        clearTimeout(_0x5df66f);
+        _0x5df66f = setTimeout(_0x54e4ad(_0x5810e5 + 0x1), 0x15e);
+    }
 }
-function cancelRightArrowIncrementTimeout(event) {
-	if (event.button === 0) {
-		clearTimeout(checkChangePage);
-	}
+function cancelRightArrowIncrementTimeout(_0x39f7ab) {
+    const _0x14c741 = _0x3b13ad;
+    if (_0x39f7ab[_0x14c741('0x3')] === 0x0) {
+        clearTimeout(_0x5df66f);
+    }
 }
