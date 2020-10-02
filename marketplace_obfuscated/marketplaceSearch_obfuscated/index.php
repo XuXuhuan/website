@@ -8,16 +8,16 @@ $logoutOrLoginScript = '
 $searchQuery = $_GET["query"];
 $maxResults = 0;
 $resultCount = "";
-$profileRows = "";
+$marketRows = "";
 $searchError = "";
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
 function getRandomString($stringLength) {
 	return bin2hex(random_bytes($stringLength / 2));
 }
 if (isset($_COOKIE["darktheme"]) && $_COOKIE["darktheme"] === "false") {
-	$stylesheetLink = "profileSearchLightTheme.css";
+	$stylesheetLink = "marketSearchLightTheme.css";
 } else {
-	$stylesheetLink = "profileSearchDarkTheme.css";
+	$stylesheetLink = "marketSearchDarkTheme.css";
 }
 if ($mysqliConnection -> connect_errno) {
 	$loginAlert = '
@@ -92,20 +92,28 @@ if ($mysqliConnection -> connect_errno) {
 		}
 		if (!empty($searchQuery)) {
 			$escapedSearchQuery = $mysqliConnection -> real_escape_string($searchQuery);
-			$selectProfilesDetailsQuery = "SELECT accountID, username, biography, COUNT(username REGEXP '^($escapedSearchQuery)') AS maxResults
-			FROM accountdetails
-			WHERE username REGEXP '^($escapedSearchQuery)'
+			$selectMarketsDetailsQuery = "SELECT marketID, marketName, biography, COUNT(marketName REGEXP '^($escapedSearchQuery)') AS maxResults
+			FROM marketdetails
+			WHERE marketName REGEXP '^($escapedSearchQuery)'
 			LIMIT 10";
-			if ($queriedProfilesDetails = $mysqliConnection -> query($selectProfilesDetailsQuery)) {
-				if ($queriedProfilesDetails -> num_rows > 0) {
-					while ($assocProfilesDetails = $queriedProfilesDetails -> fetch_assoc()) {
-						if (!empty($assocProfilesDetails["accountID"])) {
-							$profileRows .= '
-							<div class="infoColumnRow">
-								<a href="https://www.streetor.sg/profiles/?id=' . $assocProfilesDetails["accountID"] . '" class="userListName">' . $assocProfilesDetails["username"] . '</a>
-								<p class="bioPreview">' . (empty($assocProfilesDetails["biography"]) ? "<b>No description found.</b>" : nl2br(htmlspecialchars($assocProfilesDetails["biography"], ENT_QUOTES))) . '</p>
+			if ($queriedMarketsDetails = $mysqliConnection -> query($selectMarketsDetailsQuery)) {
+				if ($queriedMarketsDetails -> num_rows > 0) {
+					while ($assocMarketsDetails = $queriedMarketsDetails -> fetch_assoc()) {
+						if (!empty($assocMarketsDetails["marketID"])) {
+							$findMarketLogo = glob('/uploads/' . $assocMarketsDetails["marketID"] . '.*');
+							$imageFileName = "../../Assets/global/imageNotFound.png";
+							if (!empty($findMarketLogo)) {
+								$imageFileName = $findMarketLogo[0];
+							}
+							$marketRows .= '
+							<div class="marketContentsRow infoRow">
+								<img src="' . $imageFileName . '" alt="Market Logo" class="marketLogoImage">
+								<div class="marketNameAndBioCont infoColumnRow">
+									<a href="https://www.streetor.sg/marketplace/?id=' . $assocMarketsDetails["marketID"] . '" class="marketName">' . $assocMarketsDetails["marketName"] . '</a>
+									<p class="biographyText">' . (empty($assocMarketsDetails["biography"]) ? "<b>No description found.</b>" : nl2br(htmlspecialchars($assocMarketsDetails["biography"], ENT_QUOTES))) . '</p>
+								</div>
 							</div>';
-							$maxResults = $assocProfilesDetails["maxResults"];
+							$maxResults = $assocMarketsDetails["maxResults"];
 						} else {
 							$searchError = "No results found.";
 						}
@@ -139,7 +147,7 @@ if (empty($loginAlert)) {
 			<meta name="description" content="Share about your lifestyle or lifestyle tips!">
 			<link rel="stylesheet" href="' . $stylesheetLink . '">
 			<script src="web.js" defer></script>
-			<title>Profile Search · Streetor</title>
+			<title>Market Search · Streetor</title>
 		</head>
 		<body>
 			<header>
@@ -185,31 +193,35 @@ if (empty($loginAlert)) {
 			</header>
 			<main>
 				<div id="mainCont">
-					<div id="profileContents">
+					<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
+						<div id="registerMarketplaceImageCont"></div>
+						Register
+					</a>
+					<div id="marketplaceContents">
 						<div id="searchFormCont">
-							<form action="index.php" id="profileSearchForm" method="GET" autocomplete="off">
-								<label for="profileSearchField" id="profileSearchLabel">Search</label>
+							<form action="index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
+								<label for="marketplaceSearchField" id="marketplaceSearchLabel">Search</label>
 								<div id="searchBarCont">
-									<input type="text" value="' . htmlspecialchars($searchQuery, ENT_QUOTES) . '" name="query" id="profileSearchField" placeholder="Search Profiles" spellcheck="false">
-									<button id="profileSearchButton" type="submit">
-										<div id="profileSearchImage"></div>
+									<input type="text" value="' . htmlspecialchars($searchQuery, ENT_QUOTES) . '" name="query" id="marketplaceSearchField" placeholder="Search Marketplace">
+									<button id="marketplaceSearchButton" type="submit">
+										<div id="marketplaceSearchImage"></div>
 									</button>
 								</div>
+								<p class="inputErrorText" id="searchErrorText">' . $searchError . '</p>
 							</form>
-							<p class="inputErrorText" id="searchErrorText">' . $searchError . '</p>
 						</div>
-						' . (empty($searchQuery) ? "" : '<p id="resultCount">' . ($maxResults >= 10 ? "10" : $maxResults) . ' of ' . $maxResults . ' results</p>') . 
-						'<div id="profilesContainer">
-							' . $profileRows . '
+						' . (empty($searchQuery) ? "" : '<p id="resultCount">' . ($maxResults >= 10 ? "10" : $maxResults) . ' of ' . $maxResults . ' results</p>') . '
+						<div id="marketsContainer">
+						' . $marketRows . '
 						</div>
-						' . (empty($profileRows) ? "" : '<div class="infoColumnRow" id="changePageWrapper">
+						' . (empty($marketRows) ? "" : '<div class="infoColumnRow" id="changePageWrapper">
 							<div id="changePageCont">
 								' . ($maxResults <= 10 ? '' : '
-								<button id="nextPageButton" onmouseup="rightArrowProfileFetch(event)" onmousedown="cancelRightArrowIncrementTimeout(event)">
+								<button id="nextPageButton" onmouseup="rightArrowMarketFetch(event)" onmousedown="cancelRightArrowIncrementTimeout(event)">
 									<div class="changePageArrowCont" id="rightArrowCont"></div>
 								</button>') . '
 							</div>
-							<p id="pageCount" class="notSelectable"><input type="number" value="1" max="' . ceil($maxResults / 10) . '" min="1" value="1" id="currentPageCount" onkeyup="countFieldProfileFetch(Event)" onkeydown="cancelCountFieldIncrementTimeout(Event)"> of <span id="maxPagesCount">' . ceil($maxResults / 10) . '</span> pages</p>
+							<p id="pageCount" class="notSelectable"><input type="number" value="1" max="' . ceil($maxResults / 10) . '" min="1" value="1" id="currentPageCount" onkeyup="countFieldMarketFetch(Event)" onkeydown="cancelCountFieldIncrementTimeout(Event)"> of <span id="maxPagesCount">' . ceil($maxResults / 10) . '</span> pages</p>
 						</div>') . '
 					</div>
 				</div>
@@ -229,7 +241,7 @@ if (empty($loginAlert)) {
 			<meta name="description" content="Share about your lifestyle or lifestyle tips!">
 			<link rel="stylesheet" href="' . $stylesheetLink . '">
 			<script src="web.js" defer></script>
-			<title>Profile Search · Streetor</title>
+			<title>Market Search · Streetor</title>
 		</head>
 		<body>
 			<header>
@@ -282,6 +294,5 @@ if (empty($loginAlert)) {
 			</footer>
 		</body>
 	</html>';
-
 }
 ?>

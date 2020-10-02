@@ -111,10 +111,10 @@
 					</div>
 					<div class="infoColumnRow" id="changePageWrapper">
 						<div id="changePageCont">
-							<button id="prevPageButton" onmouseup="leftArrowProfileFetch()" onmousedown="cancelLeftArrowDecrementTimeout()">
+							<button id="prevPageButton" onmouseup="leftArrowProfileFetch(event)" onmousedown="cancelLeftArrowDecrementTimeout(event)">
 								<div class="changePageArrowCont" id="leftArrowCont"></div>
 							</button>
-							<button id="nextPageButton" onmouseup="rightArrowProfileFetch()" onmousedown="cancelRightArrowIncrementTimeout()">
+							<button id="nextPageButton" onmouseup="rightArrowProfileFetch(event)" onmousedown="cancelRightArrowIncrementTimeout(event)">
 								<div class="changePageArrowCont" id="rightArrowCont"></div>
 							</button>
 						</div>

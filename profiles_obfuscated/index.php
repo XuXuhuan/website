@@ -250,7 +250,7 @@ echo '
 		' . $logoutOrLoginScript . '
 		<div id="mainCont">
 			' . $loginAlert . '
-			' . $profilesPageHTML . '
+			' . (empty($loginAlert) ? $profilesPageHTML : '') . '
 		</div>
 	</main>
 	<footer>
