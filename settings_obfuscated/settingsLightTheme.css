@@ -4,7 +4,6 @@
 :root {
 	--sideMenuImageOpacity: 1;
 	--sideMenuTextTransform: scaleX(0);
-	--sideMenuTextColor: #000000;
 	--UIdefaultColor: #ffffff;
 	--UIdefaultTextColor: #000000;
 	--alertUIcolor: #3390FF;
@@ -54,11 +53,7 @@ body {
 	flex: 1;
 	width: 100%;
 	height: 10vh;
-	background-color: rgb(20,0,36);
-	background: -moz-linear-gradient(135deg, rgba(20,0,36,1) 51%, rgba(44,0,59,1) 84%);
-	background: -webkit-linear-gradient(135deg, rgba(20,0,36,1) 51%, rgba(44,0,59,1) 84%);
-	background: linear-gradient(135deg, rgba(20,0,36,1) 51%, rgba(44,0,59,1) 84%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#140024",endColorstr="#2c003b",GradientType=1);
+	background-color: #ffffff;
 }
 #orgName {
 	position: absolute;
@@ -66,7 +61,7 @@ body {
 	transform: translateX(-50%);
 	display: inline-flex;
 	text-align: center;
-	color: #ffffff;
+	color: var(--UIdefaultTextColor);
 	font-family: MontserratMed, Verdana, sans-serif;
 	margin: 0;
 }
@@ -96,7 +91,7 @@ body {
 	position: relative;
 	display: inline-block;
 	font-family: LatoReg, Arial, sans-serif;
-	color: #ffffff;
+	color: var(--UIdefaultTextColor);
 	cursor: pointer;
 }
 #logLabel::before {
@@ -105,7 +100,7 @@ body {
 	bottom: 3px;
 	width: 100%;
 	height: 0;
-	border-bottom: 1.5px solid #ffffff;
+	border-bottom: 1.5px solid var(--UIdefaultTextColor);
 	-webkit-transform: scaleX(0);
 	-ms-transform: scaleX(0);
 	-o-transform: scaleX(0);
@@ -209,7 +204,7 @@ body {
 	bottom: 3px;
 	width: 100%;
 	height: 0;
-	border-bottom: 1.5px solid var(--sideMenuTextColor);
+	border-bottom: 1.5px solid var(--UIdefaultTextColor);
 	-webkit-transition: -webkit-transform 0.15s ease-in;
 	-o-transition: -o-transform 0.15s ease-in;
 	transition: 0.15s ease-in;

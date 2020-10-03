@@ -16,6 +16,7 @@ function fetchNewPage(newPage) {
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.responseType = "json";
 	xhr.onload = function() {
+		refMarketsContainer.innerHTML = "";
 		refSearchErrorText.innerHTML = xhr.response["errormessage"];
 		xhr.response["marketDetails"].forEach(function(item) {
 			refMarketsContainer.innerHTML += `
