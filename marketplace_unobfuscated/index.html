@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="keywords" content="lifestyle, life, tips, share, social media">
         <meta name="description" content="Share about your lifestyle or lifestyle tips!">
-        <link rel="stylesheet" href="../profiles_obfuscated/profilesDarkTheme.css">
+        <link rel="stylesheet" href="../marketplace_obfuscated/marketplaceDarkTheme.css">
 		<script src="web.js" defer></script>
         <title>Marketplace · Streetor</title>
     </head>
@@ -53,24 +53,50 @@
 		</header>
 		<main>
 			<div id="mainCont">
-				<div id="profileContents">
+				<div id="marketContents">
 					<div id="searchFormCont">
-						<form action="profileSearch/index.php" id="profileSearchForm" method="GET" autocomplete="off">
-							<label for="profileSearchField" id="profileSearchLabel">Search</label>
+						<form action="index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
+							<label for="marketplaceSearchField" id="marketplaceSearchLabel">Search</label>
 							<div id="searchBarCont">
-								<input type="text" id="profileSearchField" placeholder="Search Profiles">
-								<button id="profileSearchButton" type="submit">
-									<div id="profileSearchImage"></div>
+								<input type="text" name="query" id="marketplaceSearchField" placeholder="Search Marketplace">
+								<button id="marketplaceSearchButton" type="submit">
+									<div id="marketplaceSearchImage"></div>
 								</button>
 							</div>
+							<p class="inputErrorText" id="searchErrorText"></p>
 						</form>
 					</div>
-					<div class="infoColumnRow" id="nameAndBioRow">
-						<h2 id="userProfileName">Lorem Ipsum</h2>
-						<p id="biographyText">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum quae ea quidem, sit velit voluptatem soluta dolore totam a asperiores. Quos iure vero illo eveniet provident ad at aut? Deleniti?</p>
-					</div>
-					<div class="infoColumnRow">
-						<h3 id="storeSubscriptionsLabel">Store Subscriptions</h3>
+					<div id="suggestedMarkets">
+						<div id="popMarketsCont" class="infoColumnRow">
+							<h1 id="popMarketHeader">Most Popular</h1>
+							<div id="popMarketsWrapper" class="infoRow">
+								<a href="index.php?id=1" class="popMarketLink">
+									<div class="popMarket">
+										<h2 id="popMarketName" class="notSelectable">test</h2>
+									</div>
+								</a>
+								<a href="index.php?id=1" class="popMarketLink">
+									<div class="popMarket">
+										<h2 id="popMarketName" class="notSelectable">test</h2>
+									</div>
+								</a>
+								<a href="index.php?id=1" class="popMarketLink">
+									<div class="popMarket">
+										<h2 id="popMarketName" class="notSelectable">test</h2>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div id="recommendedMarketsCont" class="infoColumnRow">
+							<h1 id="recommendedMarketHeader">Recommended</h1>
+							<div id="recommendedMarketsWrapper" class="infoRow">
+								<a href="index.php?id=1" class="recommendedMarketLink">
+									<div class="recommendedMarket">
+										<h2 id="recommendedMarketName" class="notSelectable">test</h2>
+									</div>
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

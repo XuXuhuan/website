@@ -178,6 +178,9 @@ body {
 	-o-transition: left 0.4s linear;
 	transition: left 0.4s linear;
 }
+.openedSideNav {
+	left: 0 !important;
+}
 #sidenav > a {
 	display: inline-block;
 	width: 100%;
@@ -436,7 +439,7 @@ main {
 		margin-right: 10px;
 	}
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
 	#topnav {
 		padding: 0 1em 0 1em;
 	}
@@ -451,13 +454,11 @@ main {
 }
 @media only screen and (min-width: 768px) {
 	#sidenav {
-		width: 25vw;
-		left: -25vw;
+		width: 30vw;
+		left: -30vw;
+		max-width: 350px;
 	}
-}
-@media only screen and (min-width: 769px) {
 	#profileContents {
-		position: relative;
 		width: 80%;
 	}
 	#profileSearchField {
@@ -475,6 +476,7 @@ main {
 	}
 }
 #profileContents {
+	position: relative;
 	display: block;
 	margin: 30px auto 0 auto;
 }
