@@ -109,11 +109,45 @@ if ($mysqliConnection -> connect_errno) {
 							<div class="marketContentsRow infoRow">
 								<img src="' . $imageFileName . '" alt="Market Logo" class="marketLogoImage">
 								<div class="marketNameAndBioCont infoColumnRow">
-									<a href="https://www.streetor.sg/marketplace/?id=' . $assocMarketsDetails["marketID"] . '" class="marketName">' . $assocMarketsDetails["marketName"] . '</a>
+									<a href="https://www.streetor.sg/marketplace/?id=' . $assocMarketsDetails["marketID"] . '" class="marketName">' . htmlspecialchars($assocMarketsDetails["marketName"], ENT_QUOTES) . '</a>
 									<p class="biographyText">' . (empty($assocMarketsDetails["biography"]) ? "<b>No description found.</b>" : nl2br(htmlspecialchars($assocMarketsDetails["biography"], ENT_QUOTES))) . '</p>
 								</div>
 							</div>';
 							$maxResults = $assocMarketsDetails["maxResults"];
+							$marketplacePageHTML = '
+							<div id="mainCont">
+								<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
+									<div id="registerMarketplaceImageCont"></div>
+									Register
+								</a>
+								<div id="marketplaceContents">
+									<div id="searchFormCont">
+										<form action="index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
+											<label for="marketplaceSearchField" id="marketplaceSearchLabel">Search</label>
+											<div id="searchBarCont">
+												<input type="text" value="' . htmlspecialchars($searchQuery, ENT_QUOTES) . '" name="query" id="marketplaceSearchField" placeholder="Search Marketplace">
+												<button id="marketplaceSearchButton" type="submit">
+													<div id="marketplaceSearchImage"></div>
+												</button>
+											</div>
+											<p class="inputErrorText" id="searchErrorText">' . $searchError . '</p>
+										</form>
+									</div>
+									' . (empty($searchQuery) ? "" : '<p id="resultCount">' . ($maxResults >= 10 ? "10" : $maxResults) . ' of ' . $maxResults . ' results</p>') . '
+									<div id="marketsContainer">
+									' . $marketRows . '
+									</div>
+									' . (empty($marketRows) ? "" : '<div class="infoColumnRow" id="changePageWrapper">
+										<div id="changePageCont">
+											' . ($maxResults <= 10 ? '' : '
+											<button id="nextPageButton" onmouseup="rightArrowMarketFetch(event)" onmousedown="cancelRightArrowIncrementTimeout(event)">
+												<div class="changePageArrowCont" id="rightArrowCont"></div>
+											</button>') . '
+										</div>
+										<p id="pageCount" class="notSelectable"><input type="number" value="1" max="' . ceil($maxResults / 10) . '" min="1" value="1" id="currentPageCount" onkeyup="countFieldMarketFetch(Event)" onkeydown="cancelCountFieldIncrementTimeout(Event)"> of <span id="maxPagesCount">' . ceil($maxResults / 10) . '</span> pages</p>
+									</div>') . '
+								</div>
+							</div>';
 						} else {
 							$searchError = "No results found.";
 						}
@@ -127,6 +161,8 @@ if ($mysqliConnection -> connect_errno) {
 					<p id="alertText">An internal server error occurred. Please try again later.</p>
 				</div>';
 			}
+		} else {
+			header("Location: https://www.streetor.sg/marketplace/");
 		}
 	} else {
 		$loginAlert = '
@@ -192,39 +228,7 @@ if (empty($loginAlert)) {
 				</nav>
 			</header>
 			<main>
-				<div id="mainCont">
-					<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
-						<div id="registerMarketplaceImageCont"></div>
-						Register
-					</a>
-					<div id="marketplaceContents">
-						<div id="searchFormCont">
-							<form action="index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
-								<label for="marketplaceSearchField" id="marketplaceSearchLabel">Search</label>
-								<div id="searchBarCont">
-									<input type="text" value="' . htmlspecialchars($searchQuery, ENT_QUOTES) . '" name="query" id="marketplaceSearchField" placeholder="Search Marketplace">
-									<button id="marketplaceSearchButton" type="submit">
-										<div id="marketplaceSearchImage"></div>
-									</button>
-								</div>
-								<p class="inputErrorText" id="searchErrorText">' . $searchError . '</p>
-							</form>
-						</div>
-						' . (empty($searchQuery) ? "" : '<p id="resultCount">' . ($maxResults >= 10 ? "10" : $maxResults) . ' of ' . $maxResults . ' results</p>') . '
-						<div id="marketsContainer">
-						' . $marketRows . '
-						</div>
-						' . (empty($marketRows) ? "" : '<div class="infoColumnRow" id="changePageWrapper">
-							<div id="changePageCont">
-								' . ($maxResults <= 10 ? '' : '
-								<button id="nextPageButton" onmouseup="rightArrowMarketFetch(event)" onmousedown="cancelRightArrowIncrementTimeout(event)">
-									<div class="changePageArrowCont" id="rightArrowCont"></div>
-								</button>') . '
-							</div>
-							<p id="pageCount" class="notSelectable"><input type="number" value="1" max="' . ceil($maxResults / 10) . '" min="1" value="1" id="currentPageCount" onkeyup="countFieldMarketFetch(Event)" onkeydown="cancelCountFieldIncrementTimeout(Event)"> of <span id="maxPagesCount">' . ceil($maxResults / 10) . '</span> pages</p>
-						</div>') . '
-					</div>
-				</div>
+				' . $marketplacePageHTML . '
 			</main>
 			<footer>
 			</footer>

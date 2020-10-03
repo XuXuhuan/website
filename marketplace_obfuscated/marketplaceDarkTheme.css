@@ -432,6 +432,25 @@ main {
 	top: 10vh;
 	z-index: -999;
 }
+@media only screen and (max-width: 351px) {
+	#marketLogo {
+		width: 100% !important;
+		height: auto !important;
+		grid-row-start: 1;
+		grid-row-end: 2;
+	}
+	#nameAndBioRow {
+		flex-direction: column;
+		grid-row-start: 2;
+		grid-row-end: 3;
+	}
+	#nameAndBioCont {
+		margin: 0;
+	}
+	#marketName {
+		margin-top: 10px !important;
+	}
+}
 @media only screen and (min-width: 425px) {
 	#topnav {
 		padding: 0 2em 0 2em;
@@ -473,10 +492,9 @@ main {
 		margin: 0 0 15px 0 !important;
 	}
 }
-@media only screen and (min-width: 580px) and (max-width: 769px) {
+@media only screen and (min-width: 580px) {
 	#marketContents {
-		width: 80%;
-		margin: 0;
+		width: 80% !important;
 	}
 }
 @media only screen and (min-width: 768px) {
@@ -487,6 +505,12 @@ main {
 	}
 	#marketplaceSearchField {
 		width: 300px;
+	}
+}
+@media only screen and (min-width: 769px) {
+	#marketDetailsCont {
+		display: block;
+		margin: 0 auto;
 	}
 }
 @media only screen and (max-width: 720px) {
@@ -525,6 +549,34 @@ main {
 	font-size: 15px;
 	font-family: MontserratReg, Verdana, sans-serif;
 	color: #ff0000;
+}
+#registerMarketplaceLink {
+	position: absolute;
+	z-index: 999;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 5px;
+	right: 10px;
+	color: var(--UIdefaultTextColor);
+	font-family: MontserratReg, Verdana, sans-serif;
+	background-color: #40AF00;
+	text-decoration: none;
+	padding: 9px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+#registerMarketplaceImageCont {
+	background-image: url("../Assets/global/plusSign.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 0.8em;
+	width: 0.8em;
+	margin-right: 3px;
 }
 #searchFormCont {
 	position: relative;
@@ -580,7 +632,18 @@ main {
 	font-family: LatoReg, Arial, sans-serif;
 	color: var(--UIdefaultTextColor);
 	margin-bottom: 15px;
-	margin-right: 15px;
+	margin-right: var(--rightMargin, 15px);
+	-webkit-transition: border-width 0.2s linear;
+	-o-transition: border-width 0.2s linear;
+	transition: border-width 0.2s linear;
+	border: 0 solid var(--UIdefaultTextColor);
+}
+.popMarketLink:nth-last-child(1) {
+	--rightMargin: 0 !important;
+}
+.popMarket:hover {
+	border-width: 4px;
+	--textTransparency: 0.9;
 }
 .recommendedMarket {
 	position: relative;
@@ -596,14 +659,23 @@ main {
 	color: var(--UIdefaultTextColor);
 	margin-bottom: 15px;
 	margin-right: 15px;
+	-webkit-transition: border 0.2s linear;
+	-o-transition: border 0.2s linear;
+	transition: border 0.2s linear;
+	border: 0 solid var(--UIdefaultTextColor);
 }
-#popMarketName, #recommendedMarketName {
+.recommendedMarket:hover {
+	border-width: 4px;
+	--textTransparency: 0.9;
+}
+.popMarketName, .recommendedMarketName {
 	position: absolute;
 	margin: 0;
 	width: fit-content;
 	width: -moz-fit-content;
 	bottom: 8px;
 	right: 8px;
+	color: rgba(255, 255, 255, var(--textTransparency));
 }
 #marketplaceSearchButton {
 	outline: none;
@@ -621,17 +693,100 @@ main {
 	height: 15px;
 	width: calc(733 / 680 * 15px);
 }
+#marketDetailsCont {
+	display: grid;
+	display: -moz-grid;
+	grid-template-rows: auto auto;
+	row-gap: 20px;
+	width: 100%;
+	background-color: var(--UIdefaultColor);
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+}
+#nameAndBioRow {
+	grid-row-end: 2;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	grid-row-start: 1;
+}
+#marketStatsRow {
+	grid-row-start: 2;
+	grid-row-end: 3;
+}
+#subscribeOrViewProductsRow {
+	grid-row-start: 3;
+	grid-row-end: 4;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+#marketLogo {
+	display: block;
+	height: 150px;
+	width: auto;
+}
+#nameAndBioCont {
+	margin-left: 15px;
+}
 #marketName {
 	position: relative;
 	display: block;
-	margin: 0 auto 15px auto;
+	margin: 0 0 15px 0;
 }
 #biographyText {
 	font-size: 18px;
 	margin: 0;
 }
-#storeSubscriptionsLabel {
-	display: block;
-	margin: 0 auto;
-	text-decoration: underline;
+#marketStatsRow {
+	justify-content: space-around;
+}
+.marketStatColumn {
+	align-items: center;
+}
+.statLabel {
+	margin: 0;
+}
+.statText {
+	margin: 5px 0 0 0;
+}
+#subscribeButtonCont, #viewProductsLinkCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+	margin-top: 10px;
+	width: 130px;
+	height: 45px;
+}
+#subscribeButton {
+	font-family: RobotoReg, Helvetica, sans-serif;
+	background-color: #40AF00;
+	color: var(--UIdefaultTextColor);
+	border: 0;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	border-radius: 8px;
+	font-size: 1em;
+}
+#viewProductsLink {
+	display: inline-block;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	color: var(--UIdefaultTextColor);
+	background-color: transparent;
+	text-decoration: none;
+	width: 100%;
+	height: 100%;
+	border-radius: 8px;
+	border: 2px solid var(--UIdefaultTextColor);
+	line-height: 41px;
+	text-align: center;
 }

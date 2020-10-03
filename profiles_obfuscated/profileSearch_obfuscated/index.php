@@ -119,6 +119,8 @@ if ($mysqliConnection -> connect_errno) {
 					<p id="alertText">An internal server error occurred. Please try again later.</p>
 				</div>';
 			}
+		} else {
+			header("Location: https://www.streetor.sg/profiles/");
 		}
 	} else {
 		$loginAlert = '

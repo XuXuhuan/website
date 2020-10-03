@@ -7,7 +7,7 @@
         <meta name="description" content="Share about your lifestyle or lifestyle tips!">
         <link rel="stylesheet" href="../marketplace_obfuscated/marketplaceDarkTheme.css">
 		<script src="web.js" defer></script>
-        <title>Marketplace · Streetor</title>
+        <title>Search Marketplace · Streetor</title>
     </head>
     <body>
 		<header>
@@ -53,9 +53,13 @@
 		</header>
 		<main>
 			<div id="mainCont">
+				<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
+					<div id="registerMarketplaceImageCont"></div>
+					Register
+				</a>
 				<div id="marketContents">
 					<div id="searchFormCont">
-						<form action="index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
+						<form action="marketplaceSearch/index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
 							<label for="marketplaceSearchField" id="marketplaceSearchLabel">Search</label>
 							<div id="searchBarCont">
 								<input type="text" name="query" id="marketplaceSearchField" placeholder="Search Marketplace">
@@ -72,17 +76,17 @@
 							<div id="popMarketsWrapper" class="infoRow">
 								<a href="index.php?id=1" class="popMarketLink">
 									<div class="popMarket">
-										<h2 id="popMarketName" class="notSelectable">test</h2>
+										<h2 class="popMarketName notSelectable">test</h2>
 									</div>
 								</a>
 								<a href="index.php?id=1" class="popMarketLink">
 									<div class="popMarket">
-										<h2 id="popMarketName" class="notSelectable">test</h2>
+										<h2 class="popMarketName notSelectable">test</h2>
 									</div>
 								</a>
 								<a href="index.php?id=1" class="popMarketLink">
 									<div class="popMarket">
-										<h2 id="popMarketName" class="notSelectable">test</h2>
+										<h2 class="popMarketName notSelectable">test</h2>
 									</div>
 								</a>
 							</div>
@@ -90,11 +94,7 @@
 						<div id="recommendedMarketsCont" class="infoColumnRow">
 							<h1 id="recommendedMarketHeader">Recommended</h1>
 							<div id="recommendedMarketsWrapper" class="infoRow">
-								<a href="index.php?id=1" class="recommendedMarketLink">
-									<div class="recommendedMarket">
-										<h2 id="recommendedMarketName" class="notSelectable">test</h2>
-									</div>
-								</a>
+								<p class="inputErrorText">No recommended markets.</p>
 							</div>
 						</div>
 					</div>
