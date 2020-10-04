@@ -125,7 +125,7 @@ if ($mysqliConnection -> connect_errno) {
 														</td>
 													</tr>
 													<tr>
-														<td id="infoText">Your account, under the name of ' . $dbUsername . ', has requested to be deleted. To verify that you want this account to be deleted, click the link shown below. This link is valid for 10 minutes.</td>
+														<td id="infoText">Your account, under the name of ' . $dbUsername . ', has requested to be deleted. To verify that you want this account to be deleted, click the link shown below. This link is valid for 10 minutes. This process is irreversible and your markets will also be deleted.</td>
 													</tr>
 													<tr>
 														<td align="center" style="padding-bottom: 20px;">

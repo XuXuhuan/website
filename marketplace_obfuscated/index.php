@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 date_default_timezone_set("MST");
 $marketProfile;
-$marketplacePageHTML = '';
+$marketplacePageHTML;
 $stylesheetLink;
 $loginAlert;
 $popMarketError;
@@ -103,6 +103,10 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					</a>';
 				}
 				$marketplacePageHTML = '
+				<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
+					<div id="registerMarketplaceImageCont"></div>
+					Register
+				</a>
 				<div id="marketContents">
 					<div id="searchFormCont">
 						<form action="marketplaceSearch/index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
@@ -171,11 +175,20 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					$marketProfile = $assocMarketDetails["marketName"];
 					$findMarketLogo = glob('/uploads/marketLogos/' . $assocMarketDetails["marketID"] . '.*');
 					$imageFileName = "../../Assets/global/imageNotFound.png";
-					if (!empty($findMarketLogo)) {
-						$imageFileName = $findMarketLogo[0];
-					}
-					$marketplacePageHTML = '
-					<div id="mainCont">
+					$selectSubscriptionQuery = "SELECT subscribingUser
+					FROM subscriptions
+					WHERE subscribingUser = '" . $_SESSION["userID"] . "'";
+					if ($queriedSubscriptions = $mysqliConnection -> query($selectSubscriptionQuery)) {
+						$subscribeButtonClass;
+						$subscribeButtonText = "Subscribe";
+						if ($queriedSubscriptions -> num_rows > 0) {
+							if (!empty($findMarketLogo)) {
+								$imageFileName = $findMarketLogo[0];
+							}
+							$subscribeButtonClass = ' class="unsubscribeButton"';
+							$subscribeButtonText = "Unsubscribe";
+						}
+						$marketplacePageHTML = '
 						<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
 							<div id="registerMarketplaceImageCont"></div>
 							Register
@@ -204,22 +217,28 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 								<div class="infoRow" id="marketStatsRow">
 									<div class="infoColumnRow marketStatColumn">
 										<h3 class="statLabel">Subscribers</h3>
-										<p class="statText">' . $assocMarketDetails["subscribers"] . '</p>
+										<p class="statText" id="subscriberCount">' . $assocMarketDetails["subscribers"] . '</p>
 										<div id="subscribeButtonCont">
-											<button id="subscribeButton">Subscribe</button>
+											<button id="subscribeButton"' . $subscribeButtonClass . ' onmousedown="cancelToggleSubscribeTimeout(event)" onmouseup="toggleSubscribe(event)">' . $subscribeButtonText . '</button>
 										</div>
 									</div>
 									<div class="infoColumnRow marketStatColumn">
 										<h3 class="statLabel">Products</h3>
-										<p class="statText">' . $assocMarketDetails["productCount"] . '</p>
+										<p class="statText" id="productCount">' . $assocMarketDetails["productCount"] . '</p>
 										<div id="viewProductsLinkCont">
 											<a href="https://www.streetor.sg/marketplace/products/?id=1" id="viewProductsLink">View Products</a>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>';
+						</div>';
+						$queriedSubscriptions -> free();
+					} else {
+						$loginAlert = '
+						<div id="alertCont">
+							<p id="alertText">An internal error occurred. Please try again later.</p>
+						</div>';
+					}
 				} else {
 					$loginAlert = '
 					<div id="alertCont">
@@ -228,6 +247,10 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				}
 			} else {
 				$marketplacePageHTML = '
+				<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
+					<div id="registerMarketplaceImageCont"></div>
+					Register
+				</a>
 				<div id="marketContents">
 					<div id="searchFormCont">
 						<form action="marketplaceSearch/index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
@@ -312,6 +335,9 @@ echo '
 				</div>
 			</a>
 		</nav>
+		<div id="notificationCont">
+			<p id="notificationText"></p>
+		</div>
 	</header>
 	<main>
 		' . $logoutOrLoginScript . '

@@ -519,6 +519,30 @@ main {
 		margin-right: 10px;
 	}
 }
+#notificationCont {
+	position: fixed;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 10vh;
+	z-index: 999999;
+	top: -10vh;
+	-webkit-transition: top 0.2s linear;
+	-o-transition: top 0.2s linear;
+	transition: top 0.2s linear;
+	overflow: hidden;
+}
+#notificationText {
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 25px;
+	margin: 0;
+	color: var(--UIdefaultTextColor);
+}
 #marketContents {
 	position: relative;
 	display: block;
@@ -642,7 +666,7 @@ main {
 	--rightMargin: 0 !important;
 }
 .popMarket:hover {
-	border-width: 4px;
+	border-width: 3px;
 	--textTransparency: 0.9;
 }
 .recommendedMarket {
@@ -665,7 +689,7 @@ main {
 	border: 0 solid var(--UIdefaultTextColor);
 }
 .recommendedMarket:hover {
-	border-width: 4px;
+	border-width: 3px;
 	--textTransparency: 0.9;
 }
 .popMarketName, .recommendedMarketName {
@@ -763,30 +787,85 @@ main {
 	align-items: center;
 	font-size: 18px;
 	margin-top: 10px;
-	width: 130px;
-	height: 45px;
+	width: 145px;
+	height: 40px;
 }
 #subscribeButton {
 	font-family: RobotoReg, Helvetica, sans-serif;
-	background-color: #40AF00;
-	color: var(--UIdefaultTextColor);
+	--subscribeButtonBgColor: #40AF00;
+	background-color: var(--subscribeButtonBgColor);
+	color: var(--buttonDefaultTextColor);
 	border: 0;
 	cursor: pointer;
 	width: 100%;
 	height: 100%;
-	border-radius: 8px;
-	font-size: 1em;
+	border-radius: 5px;
+	font-size: 18px;
+	text-decoration: underline;
+	text-decoration-color: var(--subscribeButtonBgColor);
+	-webkit-transition: text-decoration-color 0.3s ease-out;
+	-o-transition: text-decoration-color 0.3s ease-out;
+	transition: text-decoration-color 0.3s ease-out;
+	outline: none;
+}
+#subscribeButton:hover {
+	text-decoration-color: var(--buttonDefaultTextColor);
+}
+.unsubscribeButton {
+	background-color: #E60505 !important;
+	text-decoration-color: #E60505;
+	--subscribeButtonBgColor: #E60505 !important;
 }
 #viewProductsLink {
 	display: inline-block;
 	font-family: RobotoReg, Helvetica, sans-serif;
 	color: var(--UIdefaultTextColor);
-	background-color: transparent;
-	text-decoration: none;
+	background-color: #202124;
 	width: 100%;
 	height: 100%;
-	border-radius: 8px;
-	border: 2px solid var(--UIdefaultTextColor);
-	line-height: 41px;
+	border-radius: 5px;
+	line-height: 40px;
 	text-align: center;
+	text-decoration: underline;
+	text-decoration-color: #202124;
+	-webkit-transition: text-decoration-color 0.3s ease-out;
+	-o-transition: text-decoration-color 0.3s ease-out;
+	transition: text-decoration-color 0.3s ease-out;
+	outline: none;
+}
+#viewProductsLink:hover {
+	text-decoration-color: var(--UIdefaultTextColor);
+}
+#loadingImageCont {
+	position: relative;
+	background-image: url("../Assets/darkTheme/loading.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 20px;
+	width: 20px;
+	animation-name: loadingSpin;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: normal;
+}
+@keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@-o-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@-moz-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
 }

@@ -8,7 +8,8 @@
 	--UIdefaultTextColor: #000000;
 	--alertUIcolor: #3390FF;
 	--textFieldColor: #FFFFFF;
-	--profileSearchButtonBgColor: #E6E6E6;
+	--marketplaceSearchButtonBgColor: #E6E6E6;
+	--buttonDefaultTextColor: #ffffff;
 }
 @font-face {
 	font-family: MontserratReg;
@@ -425,7 +426,7 @@ main {
 	top: 10vh;
 	z-index: -999;
 }
-@media only screen and (min-width: 427px) {
+@media only screen and (min-width: 425px) {
 	#topnav {
 		padding: 0 2em 0 2em;
 	}
@@ -433,10 +434,14 @@ main {
 		font-size: 150%;
 	}
 }
-@media only screen and (max-width: 720px) {
-	#alertCont {
-		margin-left: 10px;
-		margin-right: 10px;
+@media only screen and (max-width: 1024px) {
+	#orgName {
+		font-size: 150%;
+	}
+}
+@media only screen and (min-width: 1025px) {
+	#orgName {
+		font-size: 200%;
 	}
 }
 @media only screen and (max-width: 768px) {
@@ -451,6 +456,21 @@ main {
 		height: 90vh;
 		left: -100%;
 	}
+	#marketContents {
+		width: 100%;
+	}
+	.popMarketLink, .recommendedMarketLink, .popMarket, .recommendedMarket, #popMarketsWrapper, #recommendedMarketsWrapper {
+		display: inline-block;
+		width: 100% !important;
+	}
+	.popMarket, .recommendedMarket {
+		margin: 0 0 15px 0 !important;
+	}
+}
+@media only screen and (min-width: 580px) {
+	#marketContents {
+		width: 80% !important;
+	}
 }
 @media only screen and (min-width: 768px) {
 	#sidenav {
@@ -458,27 +478,48 @@ main {
 		left: -30vw;
 		max-width: 350px;
 	}
-}
-@media only screen and (min-width: 769px) {
-	#profileContents {
-		position: relative;
-		width: 80%;
-	}
-	#profileSearchField {
+	#marketplaceSearchField {
 		width: 300px;
 	}
 }
-@media only screen and (max-width: 1024px) {
-	#orgName {
-		font-size: 150%;
+@media only screen and (min-width: 769px) {
+	#marketDetailsCont {
+		display: block;
+		margin: 0 auto;
 	}
 }
-@media only screen and (min-width: 1025px) {
-	#orgName {
-		font-size: 200%;
+@media only screen and (max-width: 720px) {
+	#alertCont {
+		margin-left: 10px;
+		margin-right: 10px;
 	}
 }
-#profileContents {
+#notificationCont {
+	position: fixed;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 10vh;
+	z-index: 999999;
+	top: -10vh;
+	-webkit-transition: top 0.2s linear;
+	-o-transition: top 0.2s linear;
+	transition: top 0.2s linear;
+	overflow: hidden;
+}
+#notificationText {
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 25px;
+	margin: 0;
+	color: #ffffff;
+}
+#marketContents {
+	position: relative;
 	display: block;
 	margin: 30px auto 0 auto;
 }
@@ -489,13 +530,6 @@ main {
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
-	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
-	font-size: 20px;
-	padding: 15px 1em 15px 1em;
-	align-items: center;
-	border-bottom: 1px solid #000000;
-    background-color: var(--UIdefaultColor);
 }
 .infoColumnRow {
 	position: relative;
@@ -505,12 +539,6 @@ main {
 	display: -o-flex;
 	display: flex;
 	flex-direction: column;
-	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
-	font-size: 20px;
-	padding: 15px 1em 15px 1em;
-	border-bottom: 1px solid #000000;
-	background-color: var(--UIdefaultColor);
 }
 .infoColumnRow:nth-last-child(1) {
 	border: 0 !important;
@@ -520,6 +548,35 @@ main {
 	font-size: 15px;
 	font-family: MontserratReg, Verdana, sans-serif;
 	color: #ff0000;
+}
+#registerMarketplaceLink {
+	position: absolute;
+	z-index: 999;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 5px;
+	right: 10px;
+	color: #ffffff;
+	font-family: MontserratReg, Verdana, sans-serif;
+	background-color: #40AF00;
+	text-decoration: none;
+	padding: 9px;
+	border-radius: 5px;
+	cursor: pointer;
+	outline: none;
+}
+#registerMarketplaceImageCont {
+	background-image: url("../Assets/global/plusSign.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 0.8em;
+	width: 0.8em;
+	margin-right: 3px;
 }
 #searchFormCont {
 	position: relative;
@@ -535,12 +592,12 @@ main {
 	align-items: center;
 	margin-bottom: 20px;
 }
-#profileSearchForm {
+#marketplaceSearchForm {
 	position: relative;
 	display: block;
 	margin: 0 auto;
 }
-#profileSearchField {
+#marketplaceSearchField {
 	outline: none;
 	height: 30px;
 	vertical-align: top;
@@ -553,33 +610,238 @@ main {
 	min-width: 238px;
 	padding: 0 0 0 5px;
 }
-#profileSearchButton {
+#popMarketHeader, #recommendedMarketHeader {
+	position: relative;
+	margin: 0;
+	font-family: LatoReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
+}
+#popMarketsWrapper, #recommendedMarketsWrapper {
+	flex-wrap: wrap;
+}
+.popMarket {
+	position: relative;
+	background: rgb(255,119,0);
+	background: -moz-linear-gradient(135deg, rgba(255,119,0,1) 51%, rgba(255,166,0,1) 84%);
+	background: -webkit-linear-gradient(135deg, rgba(255,119,0,1) 51%, rgba(255,166,0,1) 84%);
+	background: linear-gradient(135deg, rgba(255,119,0,1) 51%, rgba(255,166,0,1) 84%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7700",endColorstr="#ffa600",GradientType=1);
+	height: 150px;
+	width: 350px;
+	border-radius: 8px;
+	font-family: LatoReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
+	margin-bottom: 15px;
+	margin-right: var(--rightMargin, 15px);
+	-webkit-transition: border-width 0.2s linear;
+	-o-transition: border-width 0.2s linear;
+	transition: border-width 0.2s linear;
+	border: 0 solid var(--UIdefaultTextColor);
+}
+.popMarketLink:nth-last-child(1) {
+	--rightMargin: 0 !important;
+}
+.popMarket:hover {
+	border-width: 3px;
+	--textTransparency: 0.9;
+}
+.recommendedMarket {
+	position: relative;
+	background: rgb(0,61,255);
+	background: -moz-linear-gradient(135deg, rgba(0,61,255,1) 51%, rgba(0,194,255,1) 84%);
+	background: -webkit-linear-gradient(135deg, rgba(0,61,255,1) 51%, rgba(0,194,255,1) 84%);
+	background: linear-gradient(135deg, rgba(0,61,255,1) 51%, rgba(0,194,255,1) 84%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#003dff",endColorstr="#00c2ff",GradientType=1);
+	height: 150px;
+	width: 350px;
+	border-radius: 8px;
+	font-family: LatoReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
+	margin-bottom: 15px;
+	margin-right: 15px;
+	-webkit-transition: border 0.2s linear;
+	-o-transition: border 0.2s linear;
+	transition: border 0.2s linear;
+	border: 0 solid var(--UIdefaultTextColor);
+}
+.recommendedMarket:hover {
+	border-width: 3px;
+	--textTransparency: 0.9;
+}
+.popMarketName, .recommendedMarketName {
+	position: absolute;
+	margin: 0;
+	width: fit-content;
+	width: -moz-fit-content;
+	bottom: 8px;
+	right: 8px;
+	color: rgba(255, 255, 255, var(--textTransparency));
+}
+#marketplaceSearchButton {
 	outline: none;
 	float: right;
 	border: 0;
 	padding: 10px 12.5px;
-	background-color: var(--profileSearchButtonBgColor);
+	background-color: var(--marketplaceSearchButtonBgColor);
 	cursor: pointer;
 	border-radius: 0 4px 4px 0;
 }
-#profileSearchImage {
+#marketplaceSearchImage {
 	background-image: url("../Assets/lightTheme/search_magnifying_glass.png");
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 15px;
 	width: calc(733 / 680 * 15px);
 }
-#userProfileName {
+#marketDetailsCont {
+	display: grid;
+	display: -moz-grid;
+	grid-template-rows: auto auto;
+	row-gap: 20px;
+	width: 100%;
+	background-color: var(--UIdefaultColor);
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+}
+#nameAndBioRow {
+	grid-row-end: 2;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	grid-row-start: 1;
+}
+#marketStatsRow {
+	grid-row-start: 2;
+	grid-row-end: 3;
+}
+#subscribeOrViewProductsRow {
+	grid-row-start: 3;
+	grid-row-end: 4;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+#marketLogo {
+	display: block;
+	height: 150px;
+	width: auto;
+}
+#nameAndBioCont {
+	margin-left: 15px;
+}
+#marketName {
 	position: relative;
 	display: block;
-	margin: 0 auto 15px auto;
+	margin: 0 0 15px 0;
 }
 #biographyText {
 	font-size: 18px;
 	margin: 0;
 }
-#storeSubscriptionsLabel {
-	display: block;
-	margin: 0 auto;
+#marketStatsRow {
+	justify-content: space-around;
+}
+.marketStatColumn {
+	align-items: center;
+}
+.statLabel {
+	margin: 0;
+}
+.statText {
+	margin: 5px 0 0 0;
+}
+#subscribeButtonCont, #viewProductsLinkCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+	margin-top: 10px;
+	width: 145px;
+	height: 40px;
+}
+#subscribeButton {
+	font-family: RobotoReg, Helvetica, sans-serif;
+	--subscribeButtonBgColor: #40AF00;
+	background-color: var(--subscribeButtonBgColor);
+	color: var(--buttonDefaultTextColor);
+	border: 0;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	font-size: 18px;
 	text-decoration: underline;
+	text-decoration-color: var(--subscribeButtonBgColor);
+	-webkit-transition: text-decoration-color 0.3s ease-out;
+	-o-transition: text-decoration-color 0.3s ease-out;
+	transition: text-decoration-color 0.3s ease-out;
+	outline: none;
+}
+#subscribeButton:hover {
+	text-decoration-color: var(--buttonDefaultTextColor);
+}
+.unsubscribeButton {
+	background-color: #E60505 !important;
+	text-decoration-color: #E60505;
+	--subscribeButtonBgColor: #E60505 !important;
+}
+#viewProductsLink {
+	display: inline-block;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	color: var(--buttonDefaultTextColor);
+	background-color: #202124;
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	line-height: 40px;
+	text-align: center;
+	text-decoration: underline;
+	text-decoration-color: #202124;
+	-webkit-transition: text-decoration-color 0.3s ease-out;
+	-o-transition: text-decoration-color 0.3s ease-out;
+	transition: text-decoration-color 0.3s ease-out;
+	outline: none;
+}
+#viewProductsLink:hover {
+	text-decoration-color: var(--buttonDefaultTextColor) !important;
+}
+#loadingImageCont {
+	position: relative;
+	background-image: url("../Assets/lightTheme/loading.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 20px;
+	width: 20px;
+	animation-name: loadingSpin;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: normal;
+}
+@keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@-o-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@-moz-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
 }
