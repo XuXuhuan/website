@@ -24,11 +24,13 @@ function toggleSubscribe(event) {
 		checkSubscribe = setTimeout(function() {
 			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 			const URLparameters = new URLSearchParams(window.location.search);
+			const defaultButtonText = document.querySelector("#subscribeButton").innerHTML;
+			refSubscribeButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
 			xhr.open("POST", "subscribe.php", true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhr.responseType = "json";
-			refSubscribeButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
 			xhr.onerror = function() {
+				refNotificationCont.style.top = 0;
 				refNotificationCont.style.backgroundColor = "#E60505";
 				refNotificationText.innerHTML = "An error occurred.";
 				setTimeout(function() {
@@ -42,7 +44,9 @@ function toggleSubscribe(event) {
                     refNotificationCont.style.top = 0;
 					refNotificationCont.style.backgroundColor = notificationColor;
 					refNotificationText.innerHTML = notificationText;
-					refSubscribeButtonCont.innerHTML = '<button id="subscribeButton" class="' + xhr.response["buttonClass"] + '" onmouseup="toggleSubscribe(event)" onmousedown="cancelToggleSubscribeTimeout(event)">' + xhr.response["buttonText"] + '</button>';
+					refSubscribeButtonCont.innerHTML = `<button id="subscribeButton" class="${xhr.response["buttonClass"]}" onmouseup="toggleSubscribe(event)" onmousedown="cancelToggleSubscribeTimeout(event)">
+															${xhr.response["buttonText"].length === 0 ? defaultButtonText : xhr.response["buttonText"]}
+														</button>`;
 					setTimeout(function() {
 						refNotificationCont.style.top = "-10vh";
 					},1000);

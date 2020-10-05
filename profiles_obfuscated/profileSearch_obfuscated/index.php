@@ -184,6 +184,9 @@ if (empty($loginAlert)) {
 						</div>
 					</a>
 				</nav>
+				<div id="notificationCont">
+					<p id="notificationText">An error occurred.</p>
+				</div>
 			</header>
 			<main>
 				<div id="mainCont">
@@ -274,6 +277,9 @@ if (empty($loginAlert)) {
 						</div>
 					</a>
 				</nav>
+				<div id="notificationCont">
+					<p id="notificationText">An error occurred.</p>
+				</div>
 			</header>
 			<main>
 				<div id="mainCont">

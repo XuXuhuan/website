@@ -1,22 +1,13 @@
 * {
 	box-sizing: border-box;
 }
-.notSelectable {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
 :root {
 	--sideMenuImageOpacity: 1;
 	--sideMenuTextTransform: scaleX(0);
-	--UIdefaultTextColor: #000000;
-	--alertUIcolor: #3390FF;
 	--UIdefaultColor: #ffffff;
-	--marketplaceSearchButtonBgColor: #E6E6E6;
-	--textFieldColor: #FFFFFF;
+	--UIdefaultTextColor: #000000;
+	--textFieldColor: #D7D7D7;
+	--showPassLink: url("../../Assets/lightTheme/PasswordVisible.png");
 }
 @font-face {
 	font-family: MontserratReg;
@@ -441,6 +432,19 @@ main {
 		font-size: 150%;
 	}
 }
+@media only screen and (min-width: 768px) {
+	#sidenav {
+		width: 30vw;
+		left: -30vw;
+		max-width: 350px;
+	}
+}
+@media only screen and (max-width: 720px) {
+	#alertCont {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
 @media only screen and (max-width: 1024px) {
 	#orgName {
 		font-size: 150%;
@@ -463,74 +467,45 @@ main {
 		height: 90vh;
 		left: -100%;
 	}
-	#marketplaceContents {
-		width: 100%;
+	#signUpContainer {
+		width: 80% !important;
 	}
 }
-@media only screen and (min-width: 768px) {
-	#sidenav {
-		width: 30vw;
-		left: -30vw;
-		max-width: 350px;
-	}
-	#marketplaceContents {
-		width: 80%;
-	}
-	#marketplaceSearchField {
-		width: 300px;
+@media only screen and (max-width: 424px) {
+	#signUpContainer {
+		width: 100% !important;
+		margin-top: 0 !important;
 	}
 }
-@media only screen and (max-width: 720px) {
-	#alertCont {
-		margin-left: 10px;
-		margin-right: 10px;
-	}
-}
-#notificationCont {
-	position: fixed;
+#usernameCont, #newPasswordCont, #confirmPasswordCont, #firstNameCont, #lastNameCont, #emailCont {
+	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-direction: column;
 	width: 100%;
-	height: 10vh;
-	z-index: 999999;
-	top: -10vh;
-	-webkit-transition: top 0.2s linear;
-	-o-transition: top 0.2s linear;
-	transition: top 0.2s linear;
-	overflow: hidden;
 }
-#notificationText {
-	font-family: LatoReg, Arial, sans-serif;
-	font-size: 25px;
-	margin: 0;
-	color: #ffffff;
-}
-#marketplaceContents {
-	position: relative;
-	display: block;
-	margin: 30px auto 0 auto;
-}
-.infoRow {
-	position: relative;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
+.signupInputField {
+	outline: none;
+	background-color: var(--textFieldColor);
 	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
-	font-size: 20px;
-	padding: 15px 1em 15px 1em;
-	align-items: center;
-	border-bottom: 1px solid #ffffff;
-    background-color: var(--UIdefaultColor);
+	border: 0;
+	height: 40px;
+	font-size: 15px;
+	vertical-align: top;
+	border-radius: 5px;
+	padding-right: 40px;
+	padding-left: 10px;
 }
-.infoColumnRow {
+#signUpLabel {
+	display: block;
+	margin: 0 auto 5px auto;
+	width: fit-content;
+	width: -moz-fit-content;
+}
+#signUpContainer {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -539,195 +514,133 @@ main {
 	display: flex;
 	flex-direction: column;
 	color: var(--UIdefaultTextColor);
+	background-color: var(--UIdefaultColor);
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	padding: 15px 1em 15px 1em;
-	background-color: var(--UIdefaultColor);
-	margin-bottom: 10px;
+	margin: 25px auto 0 auto;
+	height: fit-content;
+	height: -moz-fit-content;
+	justify-content: center;
+	width: 60%;
 }
 .inputErrorText {
+	height: 36.8px;
 	margin: 0;
 	font-size: 15px;
 	font-family: MontserratReg, Verdana, sans-serif;
 	color: #ff0000;
+	overflow: hidden;
 }
-#registerMarketplaceLink {
-	position: absolute;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	top: 5px;
-	right: 10px;
-	color: #ffffff;
+#signUpMessage {
+	margin: 0;
+	height: 36.8px;
+	font-size: 15px;
 	font-family: MontserratReg, Verdana, sans-serif;
-	background-color: #40AF00;
-	text-decoration: none;
-	padding: 9px;
-	border-radius: 5px;
-	cursor: pointer;
+	text-align: center;
 }
-#registerMarketplaceImageCont {
-	background-image: url("../../Assets/global/plusSign.png");
+#newPasswordField, #confirmPasswordField {
+	width: calc(100% - 50px);
+	border-radius: 5px 0 0 5px;
+}
+.passwordShowButton {
+	padding: 0;
+	float: right;
+	height: 40px;
+	width: 50px;
+	outline: none;
+	border-radius: 0 5px 5px 0;
+	border: 0;
+	cursor: pointer;
+	background-color: #E1E1E1;
+}
+.showPassImage {
+	display: inline-block;
+	background-color: transparent;
+	vertical-align: middle;
+	border: 0;
 	background-repeat: no-repeat;
 	background-size: contain;
-	height: 0.8em;
-	width: 0.8em;
-	margin-right: 3px;
+	background-image: url("../../Assets/lightTheme/PasswordInvisible.png");
+	height: 15px;
+	width: calc(1012 / 616 * 15px);
 }
-#searchFormCont {
-	position: relative;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	flex-direction: column;
-	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
-	font-size: 20px;
-	align-items: center;
-	margin-bottom: 20px;
+.showingPassImage {
+	background-image: var(--showPassLink) !important;
 }
-#marketplaceSearchForm {
-	position: relative;
+#signUpButton {
+	display: block;
+	background-color: #000000;
+	color: #ffffff;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	font-size: 18px;
+	width: 200px;
+	height: 40px;
+	margin: 0 auto;
+	cursor: pointer;
+	outline: none;
+	border-radius: 7px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #000000;
+	-webkit-transition: border-color 0.3s ease;
+	-o-transition: border-color 0.3s ease;
+	transition: border-color 0.3s ease;
+}
+#signUpButton:hover {
+	border-color: #ffffff;
+}
+#loginLink {
 	display: block;
 	margin: 0 auto;
-}
-#marketplaceSearchField {
-	outline: none;
-	height: 30px;
-	vertical-align: top;
-	background-color: var(--textFieldColor);
-	border: 0;
-	color: var(--UIdefaultTextColor);
-	font-size: 16px;
-	border-radius: 4px 0 0 4px;
-	height: 35px;
-	min-width: 238px;
-	padding: 0 0 0 5px;
-}
-#marketplaceSearchButton {
-	outline: none;
-	float: right;
-	border: 0;
-	padding: 10px 12.5px;
-	background-color: var(--marketplaceSearchButtonBgColor);
-	cursor: pointer;
-	border-radius: 0 4px 4px 0;
-}
-#marketplaceSearchImage {
-	background-image: url("../../Assets/lightTheme/search_magnifying_glass.png");
-	background-size: cover;
-	background-repeat: no-repeat;
-	height: 15px;
-	width: calc(733 / 680 * 15px);
-}
-.marketContentsRow {
-	position: relative;
-	height: 130px;
-	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
-	font-size: 20px;
-	padding: 15px 1em 15px 1em;
-	background-color: var(--UIdefaultColor);
-	margin-bottom: 10px;
-}
-.marketContentsRow:nth-last-child(1) {
-	margin-bottom: 0 !important;
-}
-.marketNameAndBioCont {
-	position: relative;
-	padding: 0 0 0 10px !important;
-	height: 100%;
-}
-.marketName {
-	position: relative;
-	margin: 0;
-	color: var(--UIdefaultTextColor);
-	text-decoration: none;
-	font-size: 25px;
+	color: #4486f4;
+	text-align: center;
+	font-size: 15px;
 	width: fit-content;
 	width: -moz-fit-content;
 }
-.marketLogoImage {
-	height: 100px;
-	min-height: 100px;
-	max-width: 200px;
-}
-.biographyText {
-	font-size: 18px;
-	margin: 0;
-	font-size: 15px;
-	word-break: break-all;
-	max-height: 55.2px;
-	height: 55.2px;
-	overflow: hidden;
-}
-#changePageWrapper {
-	background-color: transparent;
-	align-items: center;
-}
-#changePageCont {
+#signUpButtonCont {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 40px;
 }
-#nextPageButton, #prevPageButton {
-	cursor: pointer;
-	background-color: var(--UIdefaultColor);
-	outline: none;
-	border: 0;
-	padding: 9px 10px;
-	border-radius: 3px;
-}
-#nextPageButton {
-	margin-left: 10px;
-}
-#prevPageButton {
-	margin-right: 10px;
-}
-.changePageArrowCont {
+#loadingImageCont {
+	position: relative;
+	background-image: url("../../Assets/lightTheme/loading.png");
 	background-repeat: no-repeat;
 	background-size: contain;
-	height: 15px;
-	width: calc(354 / 566 * 15px);
-	cursor: pointer;
-}
-#leftArrowCont {
-	background-image: url("../../Assets/lightTheme/leftArrow.png");
-}
-#rightArrowCont {
-	background-image: url("../../Assets/lightTheme/rightArrow.png");
-}
-#pageCount {
-	font-size: 15px;
-	margin-top: 15px;
-}
-#currentPageCount {
-	-moz-appearance: textfield;
+	height: 30px;
 	width: 30px;
-	outline: none;
-	font-family: LatoReg, Arial, sans-serif;
-	background-color: var(--UIdefaultColor);
-	color: var(--UIdefaultTextColor);
-	border: 0;
-	padding-left: 5px;
-	border-radius: 3px;
+	animation-name: loadingSpin;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: normal;
 }
-#currentPageCount::-webkit-outer-spin-button, #currentPageCount::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+@keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
 }
-#resultCount {
-	font-size: 15px;
-	margin: 0;
-	font-family: LatoReg, Arial, sans-serif;
-	color: var(--UIdefaultTextColor);
+@-o-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@-moz-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@-webkit-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
 }

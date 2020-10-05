@@ -4,7 +4,7 @@ error_reporting(0);
 date_default_timezone_set("MST");
 $assocReturn = array("notificationColor" => "#E60505",
 					"notificationText" => "An internal error occurred.",
-					"buttonClass" => "unsubscribeButton",
+					"buttonClass" => "",
 					"buttonText" => "",
 					"subscriberCount" => 0);
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
@@ -24,7 +24,6 @@ if (!$mysqliConnection -> connect_errno) {
 					if ($mysqliConnection -> query($unsubscribeFromMarketQuery)) {
 						$assocReturn["notificationText"] = "Unsubscribed!";
 						$assocReturn["notificationColor"] = "#40AF00";
-						$assocReturn["buttonClass"] = "";
 						$assocReturn["buttonText"] = "Subscribe";
 						$assocReturn["subscriberCount"] = $assocQueriedSubscriptions["subscriptionCount"] - 1;
 					}
@@ -34,6 +33,7 @@ if (!$mysqliConnection -> connect_errno) {
 					if ($mysqliConnection -> query($subscribeToMarketQuery)) {
 						$assocReturn["notificationText"] = "Subscribed!";
 						$assocReturn["notificationColor"] = "#40AF00";
+						$assocReturn["buttonClass"] = "unsubscribeButton";
 						$assocReturn["buttonText"] = "Unsubscribe";
 						$assocReturn["subscriberCount"] = $assocQueriedSubscriptions["subscriberCount"] + 1;
 					}

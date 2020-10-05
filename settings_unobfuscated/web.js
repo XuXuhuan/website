@@ -277,8 +277,13 @@ function validateChangeUserField(event) {
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.responseType = "text";
 			xhr.onload = function() {
-				newUsernameChangeError = xhr.responseText
-				refNewUserError.innerHTML = xhr.responseText;
+				if (xhr.status === 200) {
+					newUsernameChangeError = xhr.responseText;
+					refNewUserError.innerHTML = xhr.responseText;
+				} else {
+					newUsernameChangeError = "An internal server error occurred. Please try again later.";
+					refNewUserError.innerHTML = "An internal server error occurred. Please try again later.";
+				}
 			}
 			xhr.send("username=" + encodeURIComponent(refNewUserField.value));
 		}, 350);
@@ -355,8 +360,13 @@ function validateChangeEmailField(event) {
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.responseType = "text";
 			xhr.onload = function() {
-				newEmailChangeError = xhr.responseText;
-				refEmailError.innerHTML = xhr.responseText;
+				if (xhr.status === 200) {
+					newEmailChangeError = xhr.responseText;
+					refEmailError.innerHTML = xhr.responseText;
+				} else {
+					newEmailChangeError = "An internal server error occurred. Please try again later.";
+					refEmailError.innerHTML = "An internal server error occurred. Please try again later.";
+				}
 			}
 			xhr.send("email=" + encodeURIComponent(refEmailField.value));
 		}, 350);
@@ -403,47 +413,53 @@ function sendEmailVerification() {
 			xhr.open("POST", "../sendVerifEmail.php", true);
 			xhr.responseType = "json";
 			xhr.onload = function() {
-				emailVerificationError = xhr.response["message"];
-				if (document.querySelector("#verifyEmailError")) {
-					const refVerifyEmailError = document.querySelector("#verifyEmailError");
-					refVerifyEmailError.innerHTML = emailVerificationError;
-				}
-				var leftCooldown = xhr.response["leftoverCooldown"];
-				if (leftCooldown <= 1) {
-					emailVerificationButtonText = "Re-send Email";
-					if (document.querySelector("#verifyEmailButton")) {
-						const refVerifyEmailButton = document.querySelector("#verifyEmailButton");
-						refVerifyEmailButton.innerHTML = emailVerificationButtonText;
+				if (xhr.status === 200) {
+					emailVerificationError = xhr.response["message"];
+					if (document.querySelector("#verifyEmailError")) {
+						const refVerifyEmailError = document.querySelector("#verifyEmailError");
+						refVerifyEmailError.innerHTML = emailVerificationError;
+					}
+					var leftCooldown = xhr.response["leftoverCooldown"];
+					if (leftCooldown <= 1) {
+						emailVerificationButtonText = "Re-send Email";
+						if (document.querySelector("#verifyEmailButton")) {
+							const refVerifyEmailButton = document.querySelector("#verifyEmailButton");
+							refVerifyEmailButton.innerHTML = emailVerificationButtonText;
+						}
+					} else {
+						emailVerificationButtonText = "Re-send Email (" + leftCooldown + ")";
+						leftCooldown--;
+						if (document.querySelector("#verifyEmailButton")) {
+							const refVerifyEmailButton = document.querySelector("#verifyEmailButton");
+							refVerifyEmailButton.innerHTML = emailVerificationButtonText;
+						}
+						for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
+							setTimeout(function() {
+								if (leftCooldown === 0) {
+									emailVerificationButtonText = "Re-send Email";
+									emailVerificationEmailSent = false;
+								} else {
+									emailVerificationButtonText = "Re-send Email (" + leftCooldown + ")";
+									leftCooldown--;
+								}
+								if (leftCooldown === xhr.response["leftoverCooldown"] - 3) {
+									emailVerificationError = "";
+								}
+								if (document.querySelector("#verifyEmailButton")) {
+									const refVerifyEmailButton = document.querySelector("#verifyEmailButton");
+									refVerifyEmailButton.innerHTML = emailVerificationButtonText;
+								}
+								if (document.querySelector("#verifyEmailError")) {
+									const refVerifyEmailError = document.querySelector("#verifyEmailError");
+									refVerifyEmailError.innerHTML = emailVerificationError;
+								}
+							}, 1000 * i);
+						}
 					}
 				} else {
-					emailVerificationButtonText = "Re-send Email (" + leftCooldown + ")";
-					leftCooldown--;
-					if (document.querySelector("#verifyEmailButton")) {
-						const refVerifyEmailButton = document.querySelector("#verifyEmailButton");
-						refVerifyEmailButton.innerHTML = emailVerificationButtonText;
-					}
-					for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
-						setTimeout(function() {
-							if (leftCooldown === 0) {
-								emailVerificationButtonText = "Re-send Email";
-								emailVerificationEmailSent = false;
-							} else {
-								emailVerificationButtonText = "Re-send Email (" + leftCooldown + ")";
-								leftCooldown--;
-							}
-							if (leftCooldown === xhr.response["leftoverCooldown"] - 3) {
-								emailVerificationError = "";
-							}
-							if (document.querySelector("#verifyEmailButton")) {
-								const refVerifyEmailButton = document.querySelector("#verifyEmailButton");
-								refVerifyEmailButton.innerHTML = emailVerificationButtonText;
-							}
-							if (document.querySelector("#verifyEmailError")) {
-								const refVerifyEmailError = document.querySelector("#verifyEmailError");
-								refVerifyEmailError.innerHTML = emailVerificationError;
-							}
-						}, 1000 * i);
-					}
+					const refVerifyEmailError = document.querySelector("#verifyEmailError");
+					emailVerificationError = "An internal server error occurred. Please try again later.";
+					refVerifyEmailError.innerHTML = "An internal server error occurred. Please try again later.";
 				}
 			}
 			xhr.send();
@@ -463,47 +479,53 @@ function updateUsername() {
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.responseType = "json";
 			xhr.onload = function() {
-				newUsernameChangeError = xhr.response["message"];
-				var leftCooldown = xhr.response["leftoverCooldown"];
-				if (document.querySelector("#newUsernameError")) {
-					const refNewUsernameError = document.querySelector("#newUsernameError");
-					refNewUsernameError.innerHTML = newUsernameChangeError;
-				}
-				if (leftCooldown <= 1) {
-					changeUserButtonText = "Re-send Email";
-					if (document.querySelector("#sendChangeUsernameEmailButton")) {
-						const refChangeUserButton = document.querySelector("#sendChangeUsernameEmailButton");
-						refChangeUserButton.innerHTML = changeUserButtonText;
+				if (xhr.status === 200) {
+					newUsernameChangeError = xhr.response["message"];
+					var leftCooldown = xhr.response["leftoverCooldown"];
+					if (document.querySelector("#newUsernameError")) {
+						const refNewUsernameError = document.querySelector("#newUsernameError");
+						refNewUsernameError.innerHTML = newUsernameChangeError;
+					}
+					if (leftCooldown <= 1) {
+						changeUserButtonText = "Re-send Email";
+						if (document.querySelector("#sendChangeUsernameEmailButton")) {
+							const refChangeUserButton = document.querySelector("#sendChangeUsernameEmailButton");
+							refChangeUserButton.innerHTML = changeUserButtonText;
+						}
+					} else {
+						changeUserButtonText = "Re-send Email (" + leftCooldown + ")";
+						if (document.querySelector("#sendChangeUsernameEmailButton")) {
+							const refChangeUserButton = document.querySelector("#sendChangeUsernameEmailButton");
+							refChangeUserButton.innerHTML = changeUserButtonText;
+						}
+						leftCooldown--;
+						for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
+							setTimeout(function() {
+								if (leftCooldown === 0) {
+									changeUserButtonText = "Re-send Email";
+									changeUserEmailSent = false;
+								} else {
+									changeUserButtonText = "Re-send Email (" + leftCooldown + ")";
+									leftCooldown--;
+								}
+								if (leftCooldown === xhr.response["leftoverCooldown"] - 3) {
+									newUsernameChangeError = "";
+								}
+								if (document.querySelector("#sendChangeUsernameEmailButton")) {
+									const refChangeUserButton = document.querySelector("#sendChangeUsernameEmailButton");
+									refChangeUserButton.innerHTML = changeUserButtonText;
+								}
+								if (document.querySelector("#newUsernameError")) {
+									const refNewUsernameError = document.querySelector("#newUsernameError");
+									refNewUsernameError.innerHTML = newUsernameChangeError;
+								}
+							}, 1000 * i);
+						}
 					}
 				} else {
-					changeUserButtonText = "Re-send Email (" + leftCooldown + ")";
-					if (document.querySelector("#sendChangeUsernameEmailButton")) {
-						const refChangeUserButton = document.querySelector("#sendChangeUsernameEmailButton");
-						refChangeUserButton.innerHTML = changeUserButtonText;
-					}
-					leftCooldown--;
-					for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
-						setTimeout(function() {
-							if (leftCooldown === 0) {
-								changeUserButtonText = "Re-send Email";
-								changeUserEmailSent = false;
-							} else {
-								changeUserButtonText = "Re-send Email (" + leftCooldown + ")";
-								leftCooldown--;
-							}
-							if (leftCooldown === xhr.response["leftoverCooldown"] - 3) {
-								newUsernameChangeError = "";
-							}
-							if (document.querySelector("#sendChangeUsernameEmailButton")) {
-								const refChangeUserButton = document.querySelector("#sendChangeUsernameEmailButton");
-								refChangeUserButton.innerHTML = changeUserButtonText;
-							}
-							if (document.querySelector("#newUsernameError")) {
-								const refNewUsernameError = document.querySelector("#newUsernameError");
-								refNewUsernameError.innerHTML = newUsernameChangeError;
-							}
-						}, 1000 * i);
-					}
+					const refNewUsernameError = document.querySelector("#newUsernameError");
+					newUsernameChangeError = "An internal server error occurred. Please try again later.";
+					refNewUsernameError.innerHTML = "An internal server error occurred. Please try again later.";
 				}
 			}
 			xhr.send("type=1&content=" + encodeURIComponent(refNewUserField.value));
@@ -524,56 +546,62 @@ function updatePassword() {
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.responseType = "json";
 			xhr.onload = function() {
-				newPasswordChangeError = xhr.response["newPassError"] ? xhr.response["newPassError"] : "";
-				confirmPasswordChangeError = xhr.response["message"];
-				var leftCooldown = xhr.response["leftoverCooldown"];
-				if (document.querySelector("#newPasswordError")) {
-					const refNewPasswordError = document.querySelector("#newPasswordError");
-					refNewPasswordError.innerHTML = newPasswordChangeError;
-				}
-				if (document.querySelector("#confirmPasswordError")) {
-					const refConfirmPassError = document.querySelector("#confirmPasswordError");
-					refConfirmPassError.innerHTML = confirmPasswordChangeError;
-				}
-				if (leftCooldown <= 1) {
-					changePassButtonText = "Re-send Email";
-					if (document.querySelector("#sendChangePasswordEmailButton")) {
-						const refChangePassButton = document.querySelector("#sendChangePasswordEmailButton");
-						refChangePassButton.innerHTML = changePassButtonText;
+				if (xhr.status === 200) {
+					newPasswordChangeError = xhr.response["newPassError"] ? xhr.response["newPassError"] : "";
+					confirmPasswordChangeError = xhr.response["message"];
+					var leftCooldown = xhr.response["leftoverCooldown"];
+					if (document.querySelector("#newPasswordError")) {
+						const refNewPasswordError = document.querySelector("#newPasswordError");
+						refNewPasswordError.innerHTML = newPasswordChangeError;
+					}
+					if (document.querySelector("#confirmPasswordError")) {
+						const refConfirmPassError = document.querySelector("#confirmPasswordError");
+						refConfirmPassError.innerHTML = confirmPasswordChangeError;
+					}
+					if (leftCooldown <= 1) {
+						changePassButtonText = "Re-send Email";
+						if (document.querySelector("#sendChangePasswordEmailButton")) {
+							const refChangePassButton = document.querySelector("#sendChangePasswordEmailButton");
+							refChangePassButton.innerHTML = changePassButtonText;
+						}
+					} else {
+						changePassButtonText = "Re-send Email (" + leftCooldown + ")";
+						if (document.querySelector("#sendChangePasswordEmailButton")) {
+							const refChangePassButton = document.querySelector("#sendChangePasswordEmailButton");
+							refChangePassButton.innerHTML = changePassButtonText;
+						}
+						leftCooldown--;
+						for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
+							setTimeout(function() {
+								if (leftCooldown === 0) {
+									changePassButtonText = "Re-send Email";
+									changePassEmailSent = false;
+								} else {
+									changePassButtonText = "Re-send Email (" + leftCooldown + ")";
+									leftCooldown--;
+								}
+								if (leftCooldown === xhr.response["leftoverCooldown"] - 3) {
+									confirmPasswordChangeError = "";
+								}
+								if (document.querySelector("#sendChangePasswordEmailButton")) {
+									const refChangePassButton = document.querySelector("#sendChangePasswordEmailButton");
+									refChangePassButton.innerHTML = changePassButtonText;
+								}
+								if (document.querySelector("#newPasswordError")) {
+									const refNewPasswordError = document.querySelector("#newPasswordError");
+									refNewPasswordError.innerHTML = newPasswordChangeError;
+								}
+								if (document.querySelector("#confirmPasswordError")) {
+									const refConfirmPassError = document.querySelector("#confirmPasswordError");
+									refConfirmPassError.innerHTML = confirmPasswordChangeError;
+								}
+							}, 1000 * i);
+						}
 					}
 				} else {
-					changePassButtonText = "Re-send Email (" + leftCooldown + ")";
-					if (document.querySelector("#sendChangePasswordEmailButton")) {
-						const refChangePassButton = document.querySelector("#sendChangePasswordEmailButton");
-						refChangePassButton.innerHTML = changePassButtonText;
-					}
-					leftCooldown--;
-					for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
-						setTimeout(function() {
-							if (leftCooldown === 0) {
-								changePassButtonText = "Re-send Email";
-								changePassEmailSent = false;
-							} else {
-								changePassButtonText = "Re-send Email (" + leftCooldown + ")";
-								leftCooldown--;
-							}
-							if (leftCooldown === xhr.response["leftoverCooldown"] - 3) {
-								confirmPasswordChangeError = "";
-							}
-							if (document.querySelector("#sendChangePasswordEmailButton")) {
-								const refChangePassButton = document.querySelector("#sendChangePasswordEmailButton");
-								refChangePassButton.innerHTML = changePassButtonText;
-							}
-							if (document.querySelector("#newPasswordError")) {
-								const refNewPasswordError = document.querySelector("#newPasswordError");
-								refNewPasswordError.innerHTML = newPasswordChangeError;
-							}
-							if (document.querySelector("#confirmPasswordError")) {
-								const refConfirmPassError = document.querySelector("#confirmPasswordError");
-								refConfirmPassError.innerHTML = confirmPasswordChangeError;
-							}
-						}, 1000 * i);
-					}
+					const refConfirmPassError = document.querySelector("#confirmPasswordError");
+					confirmPasswordChangeError = "An internal server error occurred. Please try again later.";
+					refConfirmPassError.innerHTML = "An internal server error occurred. Please try again later.";
 				}
 			}
 			xhr.send("type=2&content=" + encodeURIComponent(refNewPassField.value));
@@ -595,58 +623,64 @@ function updateEmail() {
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xhr.responseType = "json";
 				xhr.onload = function() {
-					newEmailChangeError = xhr.response["newEmailError"] ? xhr.response["newEmailError"] : "";
-					newEmailConfirmPasswordChangeError = xhr.response["message"];
-					var leftCooldown = xhr.response["leftoverCooldown"];
-					newEmailConfirmPasswordText = "";
-					refNewEmailConfirmPassField.value = "";
-					if (document.querySelector("#newEmailError")) {
-						const refNewEmailError = document.querySelector("#newEmailError");
-						refNewEmailError.innerHTML = newEmailChangeError;
-					}
-					if (document.querySelector("#confirmPasswordNewEmailError")) {
-						const refNewEmailConfirmPassError = document.querySelector("#confirmPasswordNewEmailError");
-						refNewEmailConfirmPassError.innerHTML = newEmailConfirmPasswordChangeError;
-					}
-					if (leftCooldown <= 1) {
-						changeEmailButtonText = "Re-send Email";
-						if (document.querySelector("#sendChangeEmailEmailButton")) {
-							const refChangeEmailButton = document.querySelector("#sendChangeEmailEmailButton");
-							refChangeEmailButton.innerHTML = changeEmailButtonText;
+					if (xhr.status === 200) {
+						newEmailChangeError = xhr.response["newEmailError"] ? xhr.response["newEmailError"] : "";
+						newEmailConfirmPasswordChangeError = xhr.response["message"];
+						var leftCooldown = xhr.response["leftoverCooldown"];
+						newEmailConfirmPasswordText = "";
+						refNewEmailConfirmPassField.value = "";
+						if (document.querySelector("#newEmailError")) {
+							const refNewEmailError = document.querySelector("#newEmailError");
+							refNewEmailError.innerHTML = newEmailChangeError;
+						}
+						if (document.querySelector("#confirmPasswordNewEmailError")) {
+							const refNewEmailConfirmPassError = document.querySelector("#confirmPasswordNewEmailError");
+							refNewEmailConfirmPassError.innerHTML = newEmailConfirmPasswordChangeError;
+						}
+						if (leftCooldown <= 1) {
+							changeEmailButtonText = "Re-send Email";
+							if (document.querySelector("#sendChangeEmailEmailButton")) {
+								const refChangeEmailButton = document.querySelector("#sendChangeEmailEmailButton");
+								refChangeEmailButton.innerHTML = changeEmailButtonText;
+							}
+						} else {
+							changeEmailButtonText = "Re-send Email (" + leftCooldown + ")";
+							if (document.querySelector("#sendChangeEmailEmailButton")) {
+								const refChangeEmailButton = document.querySelector("#sendChangeEmailEmailButton");
+								refChangeEmailButton.innerHTML = changeEmailButtonText;
+							}
+							leftCooldown--;
+							for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
+								setTimeout(function() {
+									if (leftCooldown === 0) {
+										changeEmailButtonText = "Re-send Email";
+										changeEmailEmailSent = false;
+									} else {
+										changeEmailButtonText = "Re-send Email (" + leftCooldown + ")";
+										leftCooldown--;
+									}
+									if (leftCooldown === xhr.response["leftoverCooldown"] - 3) {
+										newEmailConfirmPasswordChangeError = "";
+									}
+									if (document.querySelector("#sendChangeEmailEmailButton")) {
+										const refChangeEmailButton = document.querySelector("#sendChangeEmailEmailButton");
+										refChangeEmailButton.innerHTML = changeEmailButtonText;
+									}
+									if (document.querySelector("#newEmailError")) {
+										const refNewEmailError = document.querySelector("#newEmailError");
+										refNewEmailError.innerHTML = newEmailChangeError;
+									}
+									if (document.querySelector("#confirmPasswordNewEmailError")) {
+										const refNewEmailConfirmPassError = document.querySelector("#confirmPasswordNewEmailError");
+										refNewEmailConfirmPassError.innerHTML = newEmailConfirmPasswordChangeError;
+									}
+								}, 1000 * i);
+							}
 						}
 					} else {
-						changeEmailButtonText = "Re-send Email (" + leftCooldown + ")";
-						if (document.querySelector("#sendChangeEmailEmailButton")) {
-							const refChangeEmailButton = document.querySelector("#sendChangeEmailEmailButton");
-							refChangeEmailButton.innerHTML = changeEmailButtonText;
-						}
-						leftCooldown--;
-						for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
-							setTimeout(function() {
-								if (leftCooldown === 0) {
-									changeEmailButtonText = "Re-send Email";
-									changeEmailEmailSent = false;
-								} else {
-									changeEmailButtonText = "Re-send Email (" + leftCooldown + ")";
-									leftCooldown--;
-								}
-								if (leftCooldown === xhr.response["leftoverCooldown"] - 3) {
-									newEmailConfirmPasswordChangeError = "";
-								}
-								if (document.querySelector("#sendChangeEmailEmailButton")) {
-									const refChangeEmailButton = document.querySelector("#sendChangeEmailEmailButton");
-									refChangeEmailButton.innerHTML = changeEmailButtonText;
-								}
-								if (document.querySelector("#newEmailError")) {
-									const refNewEmailError = document.querySelector("#newEmailError");
-									refNewEmailError.innerHTML = newEmailChangeError;
-								}
-								if (document.querySelector("#confirmPasswordNewEmailError")) {
-									const refNewEmailConfirmPassError = document.querySelector("#confirmPasswordNewEmailError");
-									refNewEmailConfirmPassError.innerHTML = newEmailConfirmPasswordChangeError;
-								}
-							}, 1000 * i);
-						}
+						const refNewEmailConfirmPassError = document.querySelector("#confirmPasswordNewEmailError");
+						newEmailConfirmPasswordChangeError = "An internal server error occurred. Please try again later.";
+						refNewEmailConfirmPassError.innerHTML = "An internal server error occurred. Please try again later.";
 					}
 				}
 				xhr.send("type=3&content=" + encodeURIComponent(refNewEmailField.value) + "&content2=" + encodeURIComponent(refNewEmailConfirmPassField.value));
@@ -673,8 +707,13 @@ function updateBio() {
 		xhr.setRequestHeader("Content-type", "application/json");
 		xhr.responseType = "json";
 		xhr.onload = function() {
-			bioInputError = xhr.response["message"];
-			refBioError.innerHTML = xhr.response["message"];
+			if (xhr.status === 200) {
+				bioInputError = xhr.response["message"];
+				refBioError.innerHTML = xhr.response["message"];
+			} else {
+				bioInputError = "An internal server error occurred. Please try again later.";
+				refBioError.innerHTML = "An internal server error occurred. Please try again later.";
+			}
 		}
 		xhr.send(JSON.stringify({type : 4, content : refBioInput.value}));
 	}, 350);
@@ -691,47 +730,53 @@ function deleteAccount() {
 			xhr.open("POST", "../sendDeletionEmail.php", true);
 			xhr.responseType = "json";
 			xhr.onload = function() {
-				accountDeletionError = xhr.response["message"];
-				var leftCooldown = xhr.response["leftoverCooldown"];
-				if (document.querySelector("#deleteAccountError")) {
-					const refDeleteAccountError = document.querySelector("#deleteAccountError");
-					refDeleteAccountError.innerHTML = accountDeletionError;
-				}
-				if (leftCooldown <= 1) {
-					accountDeletionButtonText = "Re-send Email";
-					if (document.querySelector("#deleteAccountButton")) {
-						const refDeleteAccountButton = document.querySelector("#deleteAccountButton");
-						refDeleteAccountButton.innerHTML = accountDeletionButtonText;
+				if (xhr.status === 200) {
+					accountDeletionError = xhr.response["message"];
+					var leftCooldown = xhr.response["leftoverCooldown"];
+					if (document.querySelector("#deleteAccountError")) {
+						const refDeleteAccountError = document.querySelector("#deleteAccountError");
+						refDeleteAccountError.innerHTML = accountDeletionError;
+					}
+					if (leftCooldown <= 1) {
+						accountDeletionButtonText = "Re-send Email";
+						if (document.querySelector("#deleteAccountButton")) {
+							const refDeleteAccountButton = document.querySelector("#deleteAccountButton");
+							refDeleteAccountButton.innerHTML = accountDeletionButtonText;
+						}
+					} else {
+						accountDeletionButtonText = "Re-send Email (" + leftCooldown + ")";
+						if (document.querySelector("#deleteAccountButton")) {
+							const refDeleteAccountButton = document.querySelector("#deleteAccountButton");
+							refDeleteAccountButton.innerHTML = accountDeletionButtonText;
+						}
+						leftCooldown--;
+						for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
+							setTimeout(function() {
+								if (leftCooldown === 0) {
+									accountDeletionButtonText = "Re-send Email";
+									accountDeletionEmailSent = false;
+								} else {
+									accountDeletionButtonText = "Re-send Email (" + leftCooldown + ")";
+									leftCooldown--;
+								}
+								if (leftCooldown === xhr.response["leftoverCooldown"] - 3) {
+									accountDeletionError = "";
+								}
+								if (document.querySelector("#deleteAccountButton")) {
+									const refDeleteAccountButton = document.querySelector("#deleteAccountButton");
+									refDeleteAccountButton.innerHTML = accountDeletionButtonText;
+								}
+								if (document.querySelector("#deleteAccountError")) {
+									const refDeleteAccountError = document.querySelector("#deleteAccountError");
+									refDeleteAccountError.innerHTML = accountDeletionError;
+								}
+							}, 1000 * i);
+						}
 					}
 				} else {
-					accountDeletionButtonText = "Re-send Email (" + leftCooldown + ")";
-					if (document.querySelector("#deleteAccountButton")) {
-						const refDeleteAccountButton = document.querySelector("#deleteAccountButton");
-						refDeleteAccountButton.innerHTML = accountDeletionButtonText;
-					}
-					leftCooldown--;
-					for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
-						setTimeout(function() {
-							if (leftCooldown === 0) {
-								accountDeletionButtonText = "Re-send Email";
-								accountDeletionEmailSent = false;
-							} else {
-								accountDeletionButtonText = "Re-send Email (" + leftCooldown + ")";
-								leftCooldown--;
-							}
-							if (leftCooldown === xhr.response["leftoverCooldown"] - 3) {
-								accountDeletionError = "";
-							}
-							if (document.querySelector("#deleteAccountButton")) {
-								const refDeleteAccountButton = document.querySelector("#deleteAccountButton");
-								refDeleteAccountButton.innerHTML = accountDeletionButtonText;
-							}
-							if (document.querySelector("#deleteAccountError")) {
-								const refDeleteAccountError = document.querySelector("#deleteAccountError");
-								refDeleteAccountError.innerHTML = accountDeletionError;
-							}
-						}, 1000 * i);
-					}
+					const refDeleteAccountError = document.querySelector("#deleteAccountError");
+					accountDeletionError = "An internal server error occurred. Please try again later.";
+					refDeleteAccountError.innerHTML = "An internal server error occurred. Please try again later.";
 				}
 			}
 			xhr.send();
@@ -769,26 +814,31 @@ function twoFactorAuthSwitch() {
 				refTwoFactorAuthConfirmPasswordError.innerHTML = "An internal error occurred. Please try again later.";
 			}
 			xhr.onload = function() {
-				const refTwoFactorAuthSwitchCont = document.querySelector("#twoFactorAuthSwitchCont");
-				const refTwoFactorAuthSwitch = document.querySelector("#twoFactorAuthSwitch");
-				twoFactorAuthConfirmPasswordError = xhr.response["message"];
-				refTwoFactorAuthConfirmPasswordError.innerHTML = xhr.response["message"];
-				twoFactorAuthConfirmPasswordText = "";
-				refTwoFactorAuthConfirmPasswordField.value = "";
-				if (xhr.response["switch"] === true) {
-					 if (!refTwoFactorAuthSwitchCont.classList.contains("switchedOnSwitchCont")) {
-						refTwoFactorAuthSwitchCont.classList.add("switchedOnSwitchCont");
-					 }
-					 if (!refTwoFactorAuthSwitch.classList.contains("switchedOnSwitch")) {
-						refTwoFactorAuthSwitch.classList.add("switchedOnSwitch");
-					 }
+				if (xhr.status === 200) {
+					const refTwoFactorAuthSwitchCont = document.querySelector("#twoFactorAuthSwitchCont");
+					const refTwoFactorAuthSwitch = document.querySelector("#twoFactorAuthSwitch");
+					twoFactorAuthConfirmPasswordError = xhr.response["message"];
+					refTwoFactorAuthConfirmPasswordError.innerHTML = xhr.response["message"];
+					twoFactorAuthConfirmPasswordText = "";
+					refTwoFactorAuthConfirmPasswordField.value = "";
+					if (xhr.response["switch"] === true) {
+						 if (!refTwoFactorAuthSwitchCont.classList.contains("switchedOnSwitchCont")) {
+							refTwoFactorAuthSwitchCont.classList.add("switchedOnSwitchCont");
+						 }
+						 if (!refTwoFactorAuthSwitch.classList.contains("switchedOnSwitch")) {
+							refTwoFactorAuthSwitch.classList.add("switchedOnSwitch");
+						 }
+					} else {
+						if (refTwoFactorAuthSwitchCont.classList.contains("switchedOnSwitchCont")) {
+						   refTwoFactorAuthSwitchCont.classList.remove("switchedOnSwitchCont");
+						}
+						if (refTwoFactorAuthSwitch.classList.contains("switchedOnSwitch")) {
+						   refTwoFactorAuthSwitch.classList.remove("switchedOnSwitch");
+						}
+					}
 				} else {
-					if (refTwoFactorAuthSwitchCont.classList.contains("switchedOnSwitchCont")) {
-					   refTwoFactorAuthSwitchCont.classList.remove("switchedOnSwitchCont");
-					}
-					if (refTwoFactorAuthSwitch.classList.contains("switchedOnSwitch")) {
-					   refTwoFactorAuthSwitch.classList.remove("switchedOnSwitch");
-					}
+					twoFactorAuthConfirmPasswordError = "An internal error occurred. Please try again later.";
+					refTwoFactorAuthConfirmPasswordError.innerHTML = "An internal error occurred. Please try again later.";
 				}
 			}
 			xhr.send("type=5&content=null&content2=" + encodeURIComponent(refTwoFactorAuthConfirmPasswordField.value));
@@ -953,18 +1003,25 @@ refAccountButton.addEventListener("click", function(triggered) {
 			refBioInfo.innerHTML = "Biography (optional): [Error. Please try again later.]";
 		}
 		xhr.onload = function() {
-			refUsernameInfo.innerHTML = "Username: " + xhr.response["username"];
-			refEmailInfo.innerHTML = "Email: " + xhr.response["email"];
-			refEmailVerifiedRow.style = xhr.response["emailVerifiedRowStyle"];
-			refEmailVerifiedInfo.style = xhr.response["emailVerifiedRowInfoStyle"];
-			refEmailVerifiedInfo.innerHTML += xhr.response["emailVerifiedRowInfoText"];
-			refEmailVerifiedRow.innerHTML += xhr.response["emailVerificationHTML"];
-			refBioCont.innerHTML = xhr.response["biographyHTML"];
-			if (document.querySelector("#verifyEmailButton")) {
-				document.querySelector("#verifyEmailButton").innerHTML = emailVerificationButtonText;
-			}
-			if (document.querySelector("#verifyEmailError")) {
-				document.querySelector("#verifyEmailError").innerHTML = emailVerificationError;
+			if (xhr.status === 200) {
+				refUsernameInfo.innerHTML = "Username: " + xhr.response["username"];
+				refEmailInfo.innerHTML = "Email: " + xhr.response["email"];
+				refEmailVerifiedRow.style = xhr.response["emailVerifiedRowStyle"];
+				refEmailVerifiedInfo.style = xhr.response["emailVerifiedRowInfoStyle"];
+				refEmailVerifiedInfo.innerHTML += xhr.response["emailVerifiedRowInfoText"];
+				refEmailVerifiedRow.innerHTML += xhr.response["emailVerificationHTML"];
+				refBioCont.innerHTML = xhr.response["biographyHTML"];
+				if (document.querySelector("#verifyEmailButton")) {
+					document.querySelector("#verifyEmailButton").innerHTML = emailVerificationButtonText;
+				}
+				if (document.querySelector("#verifyEmailError")) {
+					document.querySelector("#verifyEmailError").innerHTML = emailVerificationError;
+				}
+			} else {
+				refUsernameInfo.innerHTML = "Username: [Error. Please try again later]";
+				refEmailInfo.innerHTML = "Email: [Error. Please try again later]";
+				refEmailVerifiedInfo.innerHTML = "Email Verified: [Error. Please try again later.]";
+				refBioInfo.innerHTML = "Biography (optional): [Error. Please try again later.]";
 			}
 		}
 		xhr.send();
@@ -1013,8 +1070,13 @@ refSecurityButton.addEventListener("click", function(triggered) {
 			refTwoFactorAuthMessage.innerHTML = "An internal error occurred. Please try again later.";
 		}
 		xhr.onload = function() {
-			refTwoFactorAuthText.innerHTML += xhr.response["concatText"];
-			refTwoFactorAuthCont.innerHTML += xhr.response["concatSlider"]
+			if (xhr.status === 200) {
+				refTwoFactorAuthText.innerHTML += xhr.response["concatText"];
+				refTwoFactorAuthCont.innerHTML += xhr.response["concatSlider"];
+			} else {
+				refTwoFactorAuthText.innerHTML = "Two Factor Authentication: [Error. Please try again later]";
+				refTwoFactorAuthMessage.innerHTML = "An internal error occurred. Please try again later.";
+			}
 		}
 		xhr.send();
 	}

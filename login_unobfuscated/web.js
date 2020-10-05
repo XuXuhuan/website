@@ -51,13 +51,17 @@ function submitLogin(event) {
 				xhr.responseType = "json";
 				refLoginButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
 				xhr.onload = function() {
-					refUsernameError.innerHTML = xhr.response["errormessages"]["usernameError"];
-					refPasswordError.innerHTML = xhr.response["errormessages"]["passwordError"];
-					refLoginMessage.innerHTML = xhr.response["errormessages"]["loginError"];
-					if (xhr.response["successURL"].length > 0) {
-						window.location = xhr.response["successURL"];
+					if (xhr.status === 200) {
+						refUsernameError.innerHTML = xhr.response["errormessages"]["usernameError"];
+						refPasswordError.innerHTML = xhr.response["errormessages"]["passwordError"];
+						refLoginMessage.innerHTML = xhr.response["errormessages"]["loginError"];
+						if (xhr.response["successURL"].length > 0) {
+							window.location = xhr.response["successURL"];
+						} else {
+							refLoginButtonCont.innerHTML = '<button id="logInButton" onmouseup="submitLogin(event)" onmousedown="cancelSubmitLoginTimeout(event)">Login</button>';
+						}
 					} else {
-						refLoginButtonCont.innerHTML = '<button id="logInButton" onmouseup="submitLogin(event)" onmousedown="cancelSubmitLoginTimeout(event)">Login</button>';
+						refLoginMessage.innerHTML = "An internal server error occurred. Please try again later.";
 					}
 				}
 				xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refPasswordField.value));

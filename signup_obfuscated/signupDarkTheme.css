@@ -475,7 +475,7 @@ main {
 	flex-direction: column;
 	width: 100%;
 }
-.signupInputField {
+.signUpInputField {
 	outline: none;
 	background-color: var(--textFieldColor);
 	color: var(--UIdefaultTextColor);
@@ -487,7 +487,7 @@ main {
 	padding-right: 40px;
 	padding-left: 10px;
 }
-#signupLabel {
+#signUpLabel {
 	display: block;
 	margin: 0 auto 5px auto;
 	width: fit-content;

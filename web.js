@@ -69,7 +69,11 @@ refUsernameField.addEventListener("keyup", function() {
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.responseType = "text";
 			xhr.onload = function() {
-				refUsernameError.innerHTML = xhr.responseText;
+				if (xhr.status === 200) {
+					refUsernameError.innerHTML = xhr.responseText;
+				} else {
+					refUsernameError.innerHTML = "An internal server error occurred. Please try again later.";
+				}
 			}
 			xhr.send("username=" + encodeURIComponent(refUsernameField.value));
 		}, 350);
@@ -145,7 +149,11 @@ refEmailField.addEventListener("keyup", function() {
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.responseType = "text";
 			xhr.onload = function() {
-				refEmailError.innerHTML = xhr.responseText;
+				if (xhr.status === 200) {
+					refEmailError.innerHTML = xhr.responseText;
+				} else {
+					refEmailError.innerHTML = "An internal server error occurred. Please try again later.";
+				}
 			}
 			xhr.send("email=" + encodeURIComponent(refEmailField.value));
 		}, 350);
@@ -180,13 +188,17 @@ function submitSignUp(event) {
 				xhr.responseType = "json";
 				refSignUpButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
 				xhr.onload = function() {
-					refUsernameError.innerHTML = xhr.response["errormessages"]["usernameError"];
-					refNewPasswordError.innerHTML = xhr.response["errormessages"]["passwordError"];
-					refFirstNameError.innerHTML = xhr.response["errormessages"]["fNameError"];
-					refLastNameError.innerHTML = xhr.response["errormessages"]["lNameError"];
-					refEmailError.innerHTML = xhr.response["errormessages"]["emailError"];
-					refSignUpMessage.innerHTML = xhr.response["message"];
-					refSignUpButtonCont.innerHTML = '<button id="signUpButton" onmouseup="submitSignUp(event)" onmousedown="cancelSubmitSignUpTimeout(event)">Sign Up</button>';
+					if (xhr.status === 200) {
+						refUsernameError.innerHTML = xhr.response["errormessages"]["usernameError"];
+						refNewPasswordError.innerHTML = xhr.response["errormessages"]["passwordError"];
+						refFirstNameError.innerHTML = xhr.response["errormessages"]["fNameError"];
+						refLastNameError.innerHTML = xhr.response["errormessages"]["lNameError"];
+						refEmailError.innerHTML = xhr.response["errormessages"]["emailError"];
+						refSignUpMessage.innerHTML = xhr.response["message"];
+						refSignUpButtonCont.innerHTML = '<button id="signUpButton" onmouseup="submitSignUp(event)" onmousedown="cancelSubmitSignUpTimeout(event)">Sign Up</button>';
+					} else {
+						refSignUpMessage.innerHTML = "An internal server error occurred. Please try again later.";
+					}
 				}
 				xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refNewPasswordField.value) + "&fName=" + encodeURIComponent(refFirstNameField.value) + "&lName=" + encodeURIComponent(refLastNameField.value) + "&email=" + encodeURIComponent(refEmailField.value));
 			}, 350);
