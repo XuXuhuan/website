@@ -677,7 +677,7 @@ main {
 	width: calc(100% - 50px);
 	padding-right: 40px;
 	padding-left: 10px;
-	font-size: 15px;
+	font-size: 17px;
 	border-radius: 5px 0 0 5px;
 	background-color: var(--UIdefaultInputColor);
 	color: var(--UIdefaultTextColor);
@@ -691,7 +691,7 @@ main {
 	padding-right: 40px;
 	padding-left: 10px;
 	border-radius: 5px;
-	font-size: 15px;
+	font-size: 17px;
 	background-color: var(--UIdefaultInputColor);
 	color: var(--UIdefaultTextColor);
 	vertical-align: top;

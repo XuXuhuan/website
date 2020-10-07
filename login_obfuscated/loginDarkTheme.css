@@ -462,6 +462,7 @@ main {
 @media only screen and (max-width: 424px) {
 	#logInContainer {
 		width: 100% !important;
+		height: 100% !important;
 		margin-top: 0 !important;
 	}
 }
@@ -481,7 +482,7 @@ main {
 	color: var(--UIdefaultTextColor);
 	border: 0;
 	height: 40px;
-	font-size: 15px;
+	font-size: 17px;
 	vertical-align: top;
 	border-radius: 5px;
 	padding-right: 40px;

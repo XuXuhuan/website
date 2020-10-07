@@ -17,10 +17,17 @@ if ($mysqliConnection -> connect_error) {
         if ($allNeededDetails = $mysqliConnection -> query($neededDetailsQuery)) {
             if ($allNeededDetails -> num_rows > 0) {
                 if ($assocNeededDetails = $allNeededDetails -> fetch_assoc()) {
-                    $assocReturn["concatSlider"] = '
-                    <span id="twoFactorAuthSwitchCont" class="sliderSwitchCont" onmouseup="twoFactorAuthSwitch()" onmousedown="cancelTwoFactorAuthSwitchTimeout()">
-                        <span id="twoFactorAuthSwitch"' . ($assocNeededDetails["2FAenabled"] == true ? ' class="switchedOnSwitch"' : '') . '></span>
-                    </span>';
+                    if ($assocNeededDetails["2FAenabled"] == true) {
+                        $assocReturn["concatSlider"] = '
+                        <span id="twoFactorAuthSwitchCont" class="sliderSwitchCont switchedOnSwitchCont" onmouseup="twoFactorAuthSwitch()" onmousedown="cancelTwoFactorAuthSwitchTimeout()">
+                            <span id="twoFactorAuthSwitch" class="switchedOnSwitch"></span>
+                        </span>';
+                    } else {
+                        $assocReturn["concatSlider"] = '
+                        <span id="twoFactorAuthSwitchCont" class="sliderSwitchCont" onmouseup="twoFactorAuthSwitch()" onmousedown="cancelTwoFactorAuthSwitchTimeout()">
+                            <span id="twoFactorAuthSwitch"></span>
+                        </span>';
+                    }
                 } else {
                     $assocReturn["concatText"] = "[Error. Please try again later.]";
                 }

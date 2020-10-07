@@ -7,6 +7,7 @@
 	--UIdefaultColor: #ffffff;
 	--UIdefaultTextColor: #000000;
 	--textFieldColor: #D7D7D7;
+	--defaultButtonTextColor: #ffffff;
 	--showPassLink: url("../../Assets/lightTheme/PasswordVisible.png");
 }
 @font-face {
@@ -432,19 +433,6 @@ main {
 		font-size: 150%;
 	}
 }
-@media only screen and (min-width: 768px) {
-	#sidenav {
-		width: 30vw;
-		left: -30vw;
-		max-width: 350px;
-	}
-}
-@media only screen and (max-width: 720px) {
-	#alertCont {
-		margin-left: 10px;
-		margin-right: 10px;
-	}
-}
 @media only screen and (max-width: 1024px) {
 	#orgName {
 		font-size: 150%;
@@ -467,17 +455,72 @@ main {
 		height: 90vh;
 		left: -100%;
 	}
-	#signUpContainer {
+	#marketRegistrationContainer {
 		width: 80% !important;
 	}
 }
-@media only screen and (max-width: 424px) {
-	#signUpContainer {
-		width: 100% !important;
-		margin-top: 0 !important;
+@media only screen and (min-width: 768px) {
+	#sidenav {
+		width: 30vw;
+		left: -30vw;
+		max-width: 350px;
 	}
 }
-#usernameCont, #newPasswordCont, #confirmPasswordCont, #firstNameCont, #lastNameCont, #emailCont {
+@media only screen and (max-width: 720px) {
+	#alertCont {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+@media only screen and (max-width: 424px) {
+	#marketRegistrationContainer {
+		width: 100% !important;
+		margin: auto 0 !important;
+	}
+}
+#notificationCont {
+	position: fixed;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 10vh;
+	z-index: 999999;
+	top: -10vh;
+	-webkit-transition: top 0.2s linear;
+	-o-transition: top 0.2s linear;
+	transition: top 0.2s linear;
+	overflow: hidden;
+}
+#notificationText {
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 25px;
+	margin: 0;
+	color: var(--UIdefaultTextColor);
+}
+.infoRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+.infoColumnRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#marketNameCont {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -487,25 +530,25 @@ main {
 	flex-direction: column;
 	width: 100%;
 }
-.signupInputField {
+.marketInputField {
 	outline: none;
 	background-color: var(--textFieldColor);
 	color: var(--UIdefaultTextColor);
 	border: 0;
 	height: 40px;
-	font-size: 15px;
+	font-size: 17px;
 	vertical-align: top;
 	border-radius: 5px;
 	padding-right: 40px;
 	padding-left: 10px;
 }
-#signUpLabel {
+#marketRegistrationLabel {
 	display: block;
 	margin: 0 auto 5px auto;
 	width: fit-content;
 	width: -moz-fit-content;
 }
-#signUpContainer {
+#marketRegistrationContainer {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -532,46 +575,47 @@ main {
 	color: #ff0000;
 	overflow: hidden;
 }
-#signUpMessage {
+#categoryCont {
+	flex-wrap: wrap;
+	width: 100%;
+	margin-bottom: 30px;
+}
+.marketCategoryBox {
+	height: 15px;
+	width: 15px;
+	background-color: var(--textFieldColor);
+	cursor: pointer;
+	border-radius: 3px;
+	background-size: 11px;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.tickedCategoryBox {
+	background-image: url("../../Assets/global/checkBoxCheck.png");
+}
+.categoryBoxCont {
+	width: fit-content;
+	width: -moz-fit-content;
+	margin-right: 20px;
+}
+.categoryBoxCont:nth-last-child(1) {
+	margin: 0 !important;
+}
+.categoryLabel {
+	margin: 0;
+	font-size: 13px;
+}
+#registerMessage {
 	margin: 0;
 	height: 36.8px;
 	font-size: 15px;
 	font-family: MontserratReg, Verdana, sans-serif;
 	text-align: center;
 }
-#newPasswordField, #confirmPasswordField {
-	width: calc(100% - 50px);
-	border-radius: 5px 0 0 5px;
-}
-.passwordShowButton {
-	padding: 0;
-	float: right;
-	height: 40px;
-	width: 50px;
-	outline: none;
-	border-radius: 0 5px 5px 0;
-	border: 0;
-	cursor: pointer;
-	background-color: #E1E1E1;
-}
-.showPassImage {
-	display: inline-block;
-	background-color: transparent;
-	vertical-align: middle;
-	border: 0;
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-image: url("../../Assets/lightTheme/PasswordInvisible.png");
-	height: 15px;
-	width: calc(1012 / 616 * 15px);
-}
-.showingPassImage {
-	background-image: var(--showPassLink) !important;
-}
-#signUpButton {
+#marketRegisterButton {
 	display: block;
 	background-color: #000000;
-	color: #ffffff;
+	color: var(--defaultButtonTextColor);
 	font-family: RobotoReg, Helvetica, sans-serif;
 	font-size: 18px;
 	width: 200px;
@@ -587,19 +631,10 @@ main {
 	-o-transition: border-color 0.3s ease;
 	transition: border-color 0.3s ease;
 }
-#signUpButton:hover {
+#marketRegisterButton:hover {
 	border-color: #ffffff;
 }
-#loginLink {
-	display: block;
-	margin: 0 auto;
-	color: #4486f4;
-	text-align: center;
-	font-size: 15px;
-	width: fit-content;
-	width: -moz-fit-content;
-}
-#signUpButtonCont {
+#marketRegisterButtonCont {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -613,7 +648,7 @@ main {
 }
 #loadingImageCont {
 	position: relative;
-	background-image: url("../../Assets/lightTheme/loading.png");
+	background-image: url("../../Assets/lightTheme		/loading.png");
 	background-repeat: no-repeat;
 	background-size: contain;
 	height: 30px;

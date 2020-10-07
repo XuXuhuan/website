@@ -588,12 +588,13 @@ if ($mysqliConnection -> connect_errno) {
 								$dbPassword = $assocNeededDetails["password"];
 								$db2FAenabled = $assocNeededDetails["2FAenabled"];
 								$update2FAquery = "UPDATE accountdetails
-								SET 2FAenabled = (0 - $db2FAenabled + 1)
+								SET 2FAenabled = !$db2FAenabled
 								WHERE accountID = '" . $_SESSION["userID"] . "'";
 								if (password_verify(base64_encode(hash("sha512", $_POST["content2"], true)), $dbPassword) === true) {
 									if ($mysqliConnection -> query($update2FAquery)) {
-										$assocReturn["message"] = "Your 2 factor authentication has been <b>" . ((0 - $db2FAenabled + 1) === 1 ? "enabled" : "disabled") . "</b>.";
-										$assocReturn["switch"] = (0 - $db2FAenabled + 1) === 1 ? true : false;
+										$toggledDB2FAenabled = !$db2FAenabled;
+										$assocReturn["message"] = "Your 2 factor authentication has been <b>" . ($toggledDB2FAenabled === 1 ? "enabled" : "disabled") . "</b>.";
+										$assocReturn["switch"] = (bool)$toggledDB2FAenabled;
 									} else {
 										$assocReturn["message"] = "An internal error occurred. Please try again later.";
 									}

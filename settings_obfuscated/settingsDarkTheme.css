@@ -682,7 +682,7 @@ main {
 	border-radius: 5px 0 0 5px;
 	background-color: var(--UIdefaultInputColor);
 	color: var(--UIdefaultTextColor);
-	font-size: 15px;
+	font-size: 17px;
 	vertical-align: top;
 }
 #newUsernameField, #newEmailField {
@@ -695,7 +695,7 @@ main {
 	border-radius: 5px;
 	background-color: var(--UIdefaultInputColor);
 	color: var(--UIdefaultTextColor);
-	font-size: 15px;
+	font-size: 17px;
 	vertical-align: top;
 }
 .passwordShowButton {

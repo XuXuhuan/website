@@ -628,7 +628,7 @@ main {
 	background-color: var(--textFieldColor);
 	border: 0;
 	color: var(--UIdefaultTextColor);
-	font-size: 16px;
+	font-size: 17px;
 	border-radius: 4px 0 0 4px;
 	height: 35px;
 	min-width: 238px;
