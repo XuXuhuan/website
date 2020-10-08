@@ -40,6 +40,22 @@ body {
 	margin: 0;
 	background-color: #232527;
 }
+body::after{
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	z-index: -1;
+	content: url("../Assets/darkTheme/close.png")
+	url("../Assets/darkTheme/menu.png")
+	url("../Assets/darkTheme/homeIcon.png")
+	url("../Assets/darkTheme/person.png")
+	url("../Assets/darkTheme/CogWheel.png")
+	url("../Assets/global/market.png")
+	url("../Assets/darkTheme/privacyLock.png")
+	url("../Assets/darkTheme/PasswordVisible.png")
+	url("../Assets/darkTheme/PasswordInvisible.png");
+ }
 #topnav {
 	position: fixed;
 	display: -webkit-flex;
@@ -239,16 +255,6 @@ body {
 }
 #settingsImage {
 	background-image: url("../Assets/darkTheme/CogWheel.png");
-	height: 3.5vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#postsImage {
-	background-image: url("../Assets/darkTheme/notepad.png");
-	height: 4vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#addPostImage {
-	background-image: url("../Assets/darkTheme/plusSign.png");
 	height: 3.5vh;
 	opacity: var(--sideMenuImageOpacity);
 }

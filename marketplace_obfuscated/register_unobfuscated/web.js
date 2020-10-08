@@ -58,8 +58,14 @@ function submitMarketRegister(event) {
 				xhr.setRequestHeader("Content-Type", "application/json");
 				xhr.responseType = "json";
 				refMarketRegisterButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
+				assocRequestJSON["marketName"] = refMarketNameField.value;
 				xhr.onload = function() {
 					if (xhr.status === 200) {
+						if (xhr.response["message"] !== "Success!") {
+							if (!refMarketRegisterError.classList.contains("inputErrorText")) {
+								refMarketRegisterError.classList.add("inputErrorText");
+							}
+						}
 						refMarketNameError.innerHTML = xhr.response["errormessages"]["emailError"];
 						refMarketRegisterError.innerHTML = xhr.response["message"];
 						refMarketRegisterButtonCont.innerHTML = '<button id="marketRegisterButton" onmouseup="submitMarketRegister(event)" onmousedown="cancelMarketRegisterTimeout(event)">Register</button>';

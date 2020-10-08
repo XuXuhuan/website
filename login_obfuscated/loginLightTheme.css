@@ -29,6 +29,16 @@ body {
 	margin: 0;
 	background-color: #DDDDDD;
 }
+body::after{
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	z-index: -1;
+	content: url("../Assets/lightTheme/loading.png")
+	url("../Assets/lightTheme/PasswordVisible.png")
+	url("../Assets/lightTheme/PasswordInvisible.png");
+ }
 #topnav {
 	position: fixed;
 	display: -webkit-flex;
@@ -125,7 +135,7 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 700px;
-	background-color: var(--alertUIcolor);
+	background-color: var(--UIdefaultColor);
 	border-radius: 10px;
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
@@ -161,249 +171,6 @@ body {
 	height: 67.2px;
 	font-size: 15px;
 	color: #ff0000;
-}
-#sidenav {
-	position: fixed;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	flex-direction: column;
-	height: 90vh;
-	background-color: #EBEBEB;
-	top: 10vh;
-	-webkit-transition: left 0.4s linear;
-	-o-transition: left 0.4s linear;
-	transition: left 0.4s linear;
-}
-.openedSideNav {
-	left: 0 !important;
-}
-#sidenav > a {
-	display: inline-block;
-	width: 100%;
-	min-width: 190px;
-	height: 8vh;
-	text-decoration: none;
-	color: var(--UIdefaultTextColor);
-}
-#sidenav > a:hover {
-	--sideMenuImageOpacity: 0.5;
-	--sideMenuTextTransform: scaleX(1);
-}
-#sidenav > a:nth-child(odd) {
-	background-color: #EBEBEB;
-}
-#sidenav > a:nth-child(even) {
-	background-color: #ffffff;
-}
-.innerLinksCont {
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	-ms-align-items: center;
-	align-items: center;
-	height: 100%;
-	width: 100%;
-}
-.innerLinksCont > p {
-	position: relative;
-	display: inline-block;
-	margin: 0;
-	font-family: RobotoReg, Helvetica, sans-serif;
-	font-size: 22px;
-}
-.innerLinksCont > p::before {
-	content: "";
-	position: absolute;
-	bottom: 3px;
-	width: 100%;
-	height: 0;
-	border-bottom: 1.5px solid var(--UIdefaultTextColor);
-	-webkit-transition: -webkit-transform 0.15s ease-in;
-	-o-transition: -o-transform 0.15s ease-in;
-	transition: 0.15s ease-in;
-	-webkit-transform: var(--sideMenuTextTransform, scaleX(0));
-	-ms-transform: var(--sideMenuTextTransform, scaleX(0));
-	-o-transform: var(--sideMenuTextTransform, scaleX(0));
-	transform: var(--sideMenuTextTransform, scaleX(0));
-}
-.innerLinksCont > div {
-	margin-left: 2em;
-	margin-right: 1.5em;
-}
-.sideNavImage {
-	position: relative;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: center;
-	width: 4vh;
-}
-#homeImage {
-	background-image: url("../Assets/lightTheme/homeIcon.png");
-	height: 4vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#profilesImage {
-	background-image: url("../Assets/lightTheme/person.png");
-	height: 4vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#settingsImage {
-	background-image: url("../Assets/lightTheme/CogWheel.png");
-	height: 3.5vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#postsImage {
-	background-image: url("../Assets/lightTheme/notepad.png");
-	height: 4vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#addPostImage {
-	background-image: url("../Assets/lightTheme/plusSign.png");
-	height: 3.5vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#marketplaceImage {
-	background-image: url("../Assets/global/market.png");
-	height: 4vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#privacyImage {
-	background-image: url("../Assets/lightTheme/privacyLock.png");
-	height: 4vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-@-webkit-keyframes menuAnimationOpen {
-	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	50% {
-		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	100% {
-		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-}
-@-webkit-keyframes menuAnimationClose {
-	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	50% {
-		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	100% {
-		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-}
-@-moz-keyframes menuAnimationOpen {
-	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	50% {
-		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	100% {
-		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-}
-@-moz-keyframes menuAnimationClose {
-	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	50% {
-		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	100% {
-		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-}
-@-o-keyframes menuAnimationOpen {
-	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	50% {
-		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	100% {
-		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-}
-@-o-keyframes menuAnimationClose {
-	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	50% {
-		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	100% {
-		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-}
-@keyframes menuAnimationOpen {
-	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	50% {
-		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	100% {
-		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-}
-@keyframes menuAnimationClose {
-	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
-	}
-	50% {
-		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
-	100% {
-		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
-	}
 }
 #mainCont {
 	position: absolute;

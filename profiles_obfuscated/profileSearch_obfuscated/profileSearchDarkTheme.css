@@ -265,16 +265,6 @@ body {
 	height: 3.5vh;
 	opacity: var(--sideMenuImageOpacity);
 }
-#postsImage {
-	background-image: url("../../Assets/darkTheme/notepad.png");
-	height: 4vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#addPostImage {
-	background-image: url("../../Assets/darkTheme/plusSign.png");
-	height: 3.5vh;
-	opacity: var(--sideMenuImageOpacity);
-}
 #marketplaceImage {
 	background-image: url("../../Assets/global/market.png");
 	height: 4vh;

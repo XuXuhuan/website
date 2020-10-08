@@ -6,7 +6,6 @@
 	--sideMenuTextTransform: scaleX(0);
 	--UIdefaultColor: #ffffff;
 	--UIdefaultTextColor: #000000;
-	--alertUIcolor: #3390FF;
 	--textFieldColor: #FFFFFF;
 	--marketplaceSearchButtonBgColor: #E6E6E6;
 	--buttonDefaultTextColor: #ffffff;
@@ -31,6 +30,25 @@ body {
 	margin: 0;
 	background-color: #DDDDDD;
 }
+body::after{
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	z-index: -1;
+	content: url("../../Assets/lightTheme/close.png")
+	url("../../Assets/lightTheme/menu.png")
+	url("../../Assets/lightTheme/homeIcon.png")
+	url("../../Assets/lightTheme/person.png")
+	url("../../Assets/lightTheme/CogWheel.png")
+	url("../../Assets/global/market.png")
+	url("../../Assets/lightTheme/privacyLock.png")
+	url("../../Assets/lightTheme/loading.png")
+	url("../../Assets/lightTheme/search_magnifying_glass.png")
+	url("../../Assets/global/plusSign.png")
+	url("../../Assets/lightTheme/leftArrow.png")
+	url("../../Assets/lightTheme/rightArrow.png");
+ }
 #topnav {
 	position: fixed;
 	display: -webkit-flex;
@@ -127,7 +145,7 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 700px;
-	background-color: var(--alertUIcolor);
+	background-color: var(--UIdefaultColor);
 	border-radius: 10px;
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
@@ -256,16 +274,6 @@ body {
 }
 #settingsImage {
 	background-image: url("../Assets/lightTheme/CogWheel.png");
-	height: 3.5vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#postsImage {
-	background-image: url("../Assets/lightTheme/notepad.png");
-	height: 4vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#addPostImage {
-	background-image: url("../Assets/lightTheme/plusSign.png");
 	height: 3.5vh;
 	opacity: var(--sideMenuImageOpacity);
 }
@@ -636,7 +644,7 @@ main {
 	-webkit-transition: border-width 0.2s linear;
 	-o-transition: border-width 0.2s linear;
 	transition: border-width 0.2s linear;
-	border: 0 solid var(--UIdefaultTextColor);
+	border: 0 solid #ffffff;
 }
 .popMarketLink:nth-last-child(1) {
 	--rightMargin: 0 !important;
@@ -662,7 +670,7 @@ main {
 	-webkit-transition: border 0.2s linear;
 	-o-transition: border 0.2s linear;
 	transition: border 0.2s linear;
-	border: 0 solid var(--UIdefaultTextColor);
+	border: 0 solid #ffffff;
 }
 .recommendedMarket:hover {
 	border-width: 3px;
@@ -675,7 +683,7 @@ main {
 	width: -moz-fit-content;
 	bottom: 8px;
 	right: 8px;
-	color: rgba(255, 255, 255, var(--textTransparency));
+	color: rgba(255, 255, 255, var(--textTransparency, 1));
 }
 #marketplaceSearchButton {
 	outline: none;

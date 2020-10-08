@@ -140,7 +140,7 @@ if (!empty($loginAlert)) {
 			<meta name="description" content="Share about your lifestyle or lifestyle tips!">
 			<link rel="stylesheet" href="' . $stylesheetLink . '">
 			<script src="web.js" defer></script>
-			<title>Home · Streetor</title>
+			<title>Settings · Streetor</title>
 		</head>
 		<body>
 			<header>

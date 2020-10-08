@@ -30,6 +30,24 @@ body {
 	margin: 0;
 	background-color: #DDDDDD;
 }
+body::after{
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	z-index: -1;
+	content: url("../../Assets/lightTheme/close.png")
+	url("../../Assets/lightTheme/menu.png")
+	url("../../Assets/lightTheme/homeIcon.png")
+	url("../../Assets/lightTheme/person.png")
+	url("../../Assets/lightTheme/CogWheel.png")
+	url("../../Assets/global/market.png")
+	url("../../Assets/lightTheme/privacyLock.png")
+	url("../../Assets/lightTheme/loading.png")
+	url("../../Assets/global/checkBoxCheck.png")
+	url("../../Assets/lightTheme/PasswordInvisible.png")
+	url("../../Assets/lightTheme/PasswordVisible.png");
+ }
 #topnav {
 	position: fixed;
 	display: -webkit-flex;
@@ -126,7 +144,7 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 700px;
-	background-color: var(--alertUIcolor);
+	background-color: var(--UIdefaultColor);
 	border-radius: 10px;
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
@@ -255,16 +273,6 @@ body {
 }
 #settingsImage {
 	background-image: url("../../Assets/lightTheme/CogWheel.png");
-	height: 3.5vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#postsImage {
-	background-image: url("../../Assets/lightTheme/notepad.png");
-	height: 4vh;
-	opacity: var(--sideMenuImageOpacity);
-}
-#addPostImage {
-	background-image: url("../../Assets/lightTheme/plusSign.png");
 	height: 3.5vh;
 	opacity: var(--sideMenuImageOpacity);
 }
@@ -475,7 +483,7 @@ main {
 @media only screen and (max-width: 424px) {
 	#marketRegistrationContainer {
 		width: 100% !important;
-		margin: auto 0 !important;
+		margin: 30px 0 0 0 !important;
 	}
 }
 #notificationCont {
@@ -581,12 +589,12 @@ main {
 	margin-bottom: 30px;
 }
 .marketCategoryBox {
-	height: 15px;
-	width: 15px;
+	height: 20px;
+	width: 20px;
 	background-color: var(--textFieldColor);
 	cursor: pointer;
 	border-radius: 3px;
-	background-size: 11px;
+	background-size: 15px;
 	background-position: center;
 	background-repeat: no-repeat;
 }
@@ -612,28 +620,6 @@ main {
 	font-family: MontserratReg, Verdana, sans-serif;
 	text-align: center;
 }
-#marketRegisterButton {
-	display: block;
-	background-color: #000000;
-	color: var(--defaultButtonTextColor);
-	font-family: RobotoReg, Helvetica, sans-serif;
-	font-size: 18px;
-	width: 200px;
-	height: 40px;
-	margin: 0 auto;
-	cursor: pointer;
-	outline: none;
-	border-radius: 7px;
-	border-width: 2px;
-	border-style: solid;
-	border-color: #000000;
-	-webkit-transition: border-color 0.3s ease;
-	-o-transition: border-color 0.3s ease;
-	transition: border-color 0.3s ease;
-}
-#marketRegisterButton:hover {
-	border-color: #ffffff;
-}
 #marketRegisterButtonCont {
 	position: relative;
 	display: -webkit-flex;
@@ -646,9 +632,31 @@ main {
 	width: 100%;
 	height: 40px;
 }
+#marketRegisterButton {
+	display: block;
+	background-color: #40AF00;
+	color: var(--defaultButtonTextColor);
+	font-family: RobotoReg, Helvetica, sans-serif;
+	font-size: 18px;
+	width: 200px;
+	height: 40px;
+	margin: 0 auto;
+	cursor: pointer;
+	outline: none;
+	border-radius: 7px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #40AF00;
+	-webkit-transition: border-color 0.3s ease;
+	-o-transition: border-color 0.3s ease;
+	transition: border-color 0.3s ease;
+}
+#marketRegisterButton:hover {
+	border-color: #ffffff;
+}
 #loadingImageCont {
 	position: relative;
-	background-image: url("../../Assets/lightTheme		/loading.png");
+	background-image: url("../../Assets/lightTheme/loading.png");
 	background-repeat: no-repeat;
 	background-size: contain;
 	height: 30px;

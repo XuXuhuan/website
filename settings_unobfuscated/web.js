@@ -52,11 +52,22 @@ var bioText = "";
 var twoFactorAuthConfirmPasswordText = "";
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
+refMenuButton.addEventListener("click", function(triggered) {
+	if (triggered.button === 0) {
+		if (refSideNav.classList.contains("openedSideNav") || refMenuButton.style.animationName === "menuAnimationOpen") {
+			refSideNav.classList.remove("openedSideNav");
+			refMenuButton.style.animationName = "menuAnimationClose";
+		} else {
+			refSideNav.classList.add("openedSideNav");
+			refMenuButton.style.animationName = "menuAnimationOpen";
+		}
+	}
+});
 function getCookie(cookieName) {
 	var name = cookieName + "=";
 	var decodedCookie = decodeURIComponent(document.cookie);
 	var cookieParts = decodedCookie.split(";");
-	for(var i = 0; i < cookieParts.length; i++) {
+	for (var i = 0; i < cookieParts.length; i++) {
 		var eachCookiePart = cookieParts[i];
 		if (eachCookiePart.charAt(0) == " ") {
 			eachCookiePart = eachCookiePart.substring(1);
@@ -1079,16 +1090,5 @@ refSecurityButton.addEventListener("click", function(triggered) {
 			}
 		}
 		xhr.send();
-	}
-});
-refMenuButton.addEventListener("click", function(triggered) {
-	if (triggered.button === 0) {
-		if (refSideNav.classList.contains("openedSideNav") || refMenuButton.style.animationName === "menuAnimationOpen") {
-			refSideNav.classList.remove("openedSideNav");
-			refMenuButton.style.animationName = "menuAnimationClose";
-		} else {
-			refSideNav.classList.add("openedSideNav");
-			refMenuButton.style.animationName = "menuAnimationOpen";
-		}
 	}
 });

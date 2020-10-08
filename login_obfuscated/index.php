@@ -86,38 +86,6 @@ echo '
 			<nav id="topnav">
 				<p id="orgName" class="notSelectable">STREETOR</p>
 			</nav>
-			<nav id="sidenav">
-				<a href="https://www.streetor.sg/home/" id="homeLink">
-					<div class="innerLinksCont">
-						<div id="homeImage" class="sideNavImage"></div>
-						<p id="homeText" class="notSelectable">Home</p>
-					</div>
-				</a>
-				<a href="https://www.streetor.sg/profiles/" id="profilesLink">
-					<div class="innerLinksCont">
-						<div id="profilesImage" class="sideNavImage"></div>
-						<p id="profilesText" class="notSelectable">Profiles</p>
-					</div>
-				</a>
-				<a href="https://www.streetor.sg/settings/" id="settingsLink">
-					<div class="innerLinksCont">
-						<div id="settingsImage" class="sideNavImage"></div>
-						<p id="settingsText" class="notSelectable">Settings</p>
-					</div>
-				</a>
-				<a href="https://www.streetor.sg/marketplace/" id="marketplaceLink">
-					<div class="innerLinksCont">
-						<div id="marketplaceImage" class="sideNavImage"></div>
-						<p id="marketplaceText" class="notSelectable">Marketplace</p>
-					</div>
-				</a>
-				<a href="https://www.streetor.sg/privacy/" id="privacyLink">
-					<div class="innerLinksCont">
-						<div id="privacyImage" class="sideNavImage"></div>
-						<p id="privacyText" class="notSelectable">Privacy</p>
-					</div>
-				</a>
-			</nav>
 		</header>
 		<main>
 			<div id="mainCont">

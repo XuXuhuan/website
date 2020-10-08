@@ -26,7 +26,7 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 		if ($queriedMarketsDetails -> num_rows > 0) {
 			while ($assocMarketsDetails = $queriedMarketsDetails -> fetch_assoc()) {
 				if (!empty($assocMarketsDetails["accountID"])) {
-					$marketImageURL = glob("/uploads/" . $assocMarketsDetails["marketID"] . ".*");
+					$marketImageURL = glob("/uploads/marketLogos" . $assocMarketsDetails["marketID"] . ".*");
 					if (empty($marketImageURL)) {
 						$marketImageURL = "../../Assets/imageNotFound.png";
 					}
