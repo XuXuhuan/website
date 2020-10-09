@@ -140,7 +140,7 @@ if ($mysqliConnection -> connect_errno) {
 						}
 					}
 				} else {
-					$escapedMarketName = $mysqliConnection -> real_escape_string($_POST["marketName"]);
+					$escapedMarketName = $mysqliConnection -> real_escape_string($receivedJSON["marketName"]);
 					$specifiedColumns = implode(",\n", $selectedCategory);
 					$specifiedColumnsToggle = implode(",\n", $toggleCategory);
 					$insertValuesQuery = "INSERT INTO marketdetails (

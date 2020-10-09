@@ -96,46 +96,46 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			if ($queriedMostPopularRows -> num_rows > 0) {
 				$popularMarkets;
 				while ($assocMostPopularRows = $queriedMostPopularRows -> fetch_assoc()) {
-					$popularMarkets .= '
-					<a href="index.php?id=' . $assocMostPopularRows["marketID"] . '" class="popMarketLink">
-						<div class="popMarket">
-							<h2 class="popMarketName notSelectable">' . $assocMostPopularRows["marketName"] . '</h2>
+					$popularMarkets .= "
+					<a href='index.php?id={$assocMostPopularRows['marketID']}' class='popMarketLink'>
+						<div class='popMarket'>
+							<h2 class='popMarketName notSelectable'>{$assocMostPopularRows['marketName']}</h2>
 						</div>
-					</a>';
+					</a>";
 				}
-				$marketplacePageHTML = '
-				<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
-					<div id="registerMarketplaceImageCont"></div>
+				$marketplacePageHTML = "
+				<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
+					<div id='registerMarketplaceImageCont'></div>
 					Register
 				</a>
-				<div id="marketContents">
-					<div id="searchFormCont">
-						<form action="marketplaceSearch/index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
-							<label for="marketplaceSearchField" id="marketplaceSearchLabel">Search</label>
-							<div id="searchBarCont">
-								<input type="text" name="query" id="marketplaceSearchField" placeholder="Search Marketplace">
-								<button id="marketplaceSearchButton" type="submit">
-									<div id="marketplaceSearchImage"></div>
+				<div id='marketContents'>
+					<div id='searchFormCont'>
+						<form action='marketplaceSearch/index.php' id='marketplaceSearchForm' method='GET' autocomplete='off'>
+							<label for='marketplaceSearchField' id='marketplaceSearchLabel'>Search</label>
+							<div id='searchBarCont'>
+								<input type='text' name='query' id='marketplaceSearchField' placeholder='Search Marketplace'>
+								<button id='marketplaceSearchButton' type='submit'>
+									<div id='marketplaceSearchImage'></div>
 								</button>
 							</div>
-							<p class="inputErrorText" id="searchErrorText"></p>
+							<p class='inputErrorText' id='searchErrorText'></p>
 						</form>
 					</div>
-					<div id="suggestedMarkets">
-						<div id="popMarketsCont" class="infoColumnRow">
-							<h1 id="popMarketHeader">Most Popular</h1>
-							<div id="popMarketsWrapper" class="infoRow">
-								' . $popularMarkets . '
+					<div id='suggestedMarkets'>
+						<div id='popMarketsCont' class='infoColumnRow'>
+							<h1 id='popMarketHeader'>Most Popular</h1>
+							<div id='popMarketsWrapper' class='infoRow'>
+								{$popularMarkets}
 							</div>
 						</div>
-						<div id="recommendedMarketsCont" class="infoColumnRow">
-							<h1 id="recommendedMarketHeader">Recommended</h1>
-							<div id="recommendedMarketsWrapper" class="infoRow">
-								<p class="inputErrorText">No recommended markets.</p>
+						<div id='recommendedMarketsCont' class='infoColumnRow'>
+							<h1 id='recommendedMarketHeader'>Recommended</h1>
+							<div id='recommendedMarketsWrapper' class='infoRow'>
+								<p class='inputErrorText'>No recommended markets.</p>
 							</div>
 						</div>
 					</div>
-				</div>';
+				</div>";
 			} else {
 				$popMarketError = "No popular markets at the moment.";
 			}
@@ -174,7 +174,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			if ($queriedMarketDetails -> num_rows > 0) {
 				if ($assocMarketDetails = $queriedMarketDetails -> fetch_assoc()) {
 					$marketProfile = $assocMarketDetails["marketName"];
-					$findMarketLogo = glob('/uploads/marketLogos/' . $assocMarketDetails["marketID"] . '.*');
+					$findMarketLogo = glob("/uploads/marketLogos/{$assocMarketDetails["marketID"]}.*");
 					$imageFileName = "../../Assets/global/imageNotFound.png";
 					$selectSubscriptionQuery = "SELECT subscribingUser
 					FROM subscriptions
@@ -182,6 +182,8 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					if ($queriedSubscriptions = $mysqliConnection -> query($selectSubscriptionQuery)) {
 						$subscribeButtonClass;
 						$subscribeButtonText = "Subscribe";
+						$escapedMarketName = htmlspecialchars($assocMarketDetails['marketName'], ENT_QUOTES);
+						$escapedBiography = nl2br(htmlspecialchars($assocMarketDetails['biography'], ENT_QUOTES));
 						if ($queriedSubscriptions -> num_rows > 0) {
 							if (!empty($findMarketLogo)) {
 								$imageFileName = $findMarketLogo[0];
@@ -189,50 +191,50 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 							$subscribeButtonClass = ' class="unsubscribeButton"';
 							$subscribeButtonText = "Unsubscribe";
 						}
-						$marketplacePageHTML = '
-						<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
-							<div id="registerMarketplaceImageCont"></div>
+						$marketplacePageHTML = "
+						<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
+							<div id='registerMarketplaceImageCont'></div>
 							Register
 						</a>
-						<div id="marketContents">
-							<div id="searchFormCont">
-								<form action="marketplaceSearch/index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
-									<label for="marketplaceSearchField" id="marketplaceSearchLabel">Search</label>
-									<div id="searchBarCont">
-										<input type="text" name="query" id="marketplaceSearchField" placeholder="Search Marketplace">
-										<button id="marketplaceSearchButton" type="submit">
-											<div id="marketplaceSearchImage"></div>
+						<div id='marketContents'>
+							<div id='searchFormCont'>
+								<form action='marketplaceSearch/index.php' id='marketplaceSearchForm' method='GET' autocomplete='off'>
+									<label for='marketplaceSearchField' id='marketplaceSearchLabel'>Search</label>
+									<div id='searchBarCont'>
+										<input type='text' name='query' id='marketplaceSearchField' placeholder='Search Marketplace'>
+										<button id='marketplaceSearchButton' type='submit'>
+											<div id='marketplaceSearchImage'></div>
 										</button>
 									</div>
-									<p class="inputErrorText" id="searchErrorText"></p>
+									<p class='inputErrorText' id='searchErrorText'></p>
 								</form>
 							</div>
-							<div id="marketDetailsCont">
-								<div id="nameAndBioRow">
-									<img src="' . $imageFileName . '" alt="Market Logo" id="marketLogo">
-									<div class="infoColumnRow" id="nameAndBioCont">
-										<h2 id="marketName">' . htmlspecialchars($assocMarketDetails["marketName"], ENT_QUOTES) . '</h2>
-										<p id="biographyText">' . nl2br(htmlspecialchars($assocMarketDetails["biography"], ENT_QUOTES)) . '</p>
+							<div id='marketDetailsCont'>
+								<div id='nameAndBioRow'>
+									<img src='{$imageFileName}' alt='Market Logo' id='marketLogo'>
+									<div class='infoColumnRow' id='nameAndBioCont'>
+										<h2 id='marketName'>{$escapedMarketName}</h2>
+										<p id='biographyText'>{$escapedBiography}</p>
 									</div>
 								</div>
-								<div class="infoRow" id="marketStatsRow">
-									<div class="infoColumnRow marketStatColumn">
-										<h3 class="statLabel">Subscribers</h3>
-										<p class="statText" id="subscriberCount">' . $assocMarketDetails["subscribers"] . '</p>
-										<div id="subscribeButtonCont">
-											<button id="subscribeButton"' . $subscribeButtonClass . ' onmousedown="cancelToggleSubscribeTimeout(event)" onmouseup="toggleSubscribe(event)">' . $subscribeButtonText . '</button>
+								<div class='infoRow' id='marketStatsRow'>
+									<div class='infoColumnRow marketStatColumn'>
+										<h3 class='statLabel'>Subscribers</h3>
+										<p class='statText' id='subscriberCount'>{$assocMarketDetails['subscribers']}</p>
+										<div id='subscribeButtonCont'>
+											<button id='subscribeButton'{$subscribeButtonClass} onmousedown='cancelToggleSubscribeTimeout(event)' onmouseup='toggleSubscribe(event)'>{$subscribeButtonText}</button>
 										</div>
 									</div>
-									<div class="infoColumnRow marketStatColumn">
-										<h3 class="statLabel">Products</h3>
-										<p class="statText" id="productCount">' . $assocMarketDetails["productCount"] . '</p>
-										<div id="viewProductsLinkCont">
-											<a href="https://www.streetor.sg/marketplace/products/?id=1" id="viewProductsLink">View Products</a>
+									<div class='infoColumnRow marketStatColumn'>
+										<h3 class='statLabel'>Products</h3>
+										<p class='statText' id='productCount'>{$assocMarketDetails['productCount']}</p>
+										<div id='viewProductsLinkCont'>
+											<a href='https://www.streetor.sg/marketplace/products/?id=1' id='viewProductsLink'>View Products</a>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>';
+						</div>";
 						$queriedSubscriptions -> free();
 					} else {
 						$loginAlert = '
@@ -283,72 +285,136 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 	</div>';
 }
 $mysqliConnection -> close();
-echo '
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="keywords" content="lifestyle, life, tips, share, social media">
-	<meta name="description" content="Share about your lifestyle or lifestyle tips!">
-	<link rel="stylesheet" href="' . $stylesheetLink . '">
-	<script src="web.js" defer></script>
-	<title>' . $marketProfile . ' · Streetor</title>
-</head>
-<body>
-	<header>
-		<nav id="topnav">
-			<button id="menuToggle">
-				<div id="menuImageCont"></div>
-			</button>
-			<p id="orgName" class="notSelectable">STREETOR</p>
-			' . $logoutOrLogin . '
-		</nav>
-		<nav id="sidenav">
-			<a href="https://www.streetor.sg/home/" id="homeLink">
-				<div class="innerLinksCont">
-					<div id="homeImage" class="sideNavImage"></div>
-					<p id="homeText" class="notSelectable">Home</p>
+if (empty($loginAlert)) {
+	echo "<!DOCTYPE html>
+	<html lang='en'>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<meta name='keywords' content='lifestyle, life, tips, share, social media'>
+		<meta name='description' content='Share about your lifestyle or lifestyle tips!'>
+		<link rel='stylesheet' href='{$stylesheetLink}'>
+		<script src='web.js' defer></script>
+		<title>{$marketProfile} · Streetor</title>
+	</head>
+	<body>
+		<header>
+			<nav id='topnav'>
+				<button id='menuToggle'>
+					<div id='menuImageCont'></div>
+				</button>
+				<p id='orgName' class='notSelectable'>STREETOR</p>
+				{$logoutOrLogin}
+			</nav>
+			<nav id='sidenav'>
+				<a href='https://www.streetor.sg/home/' id='homeLink'>
+					<div class='innerLinksCont'>
+						<div id='homeImage' class='sideNavImage'></div>
+						<p id='homeText' class='notSelectable'>Home</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+					<div class='innerLinksCont'>
+						<div id='profilesImage' class='sideNavImage'></div>
+						<p id='profilesText' class='notSelectable'>Profiles</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+					<div class='innerLinksCont'>
+						<div id='settingsImage' class='sideNavImage'></div>
+						<p id='settingsText' class='notSelectable'>Settings</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+					<div class='innerLinksCont'>
+						<div id='marketplaceImage' class='sideNavImage'></div>
+						<p id='marketplaceText' class='notSelectable'>Marketplace</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+					<div class='innerLinksCont'>
+						<div id='privacyImage' class='sideNavImage'></div>
+						<p id='privacyText' class='notSelectable'>Privacy</p>
+					</div>
+				</a>
+			</nav>
+			<div id='notificationCont'>
+				<p id='notificationText'></p>
+			</div>
+		</header>
+		<main>
+			{$logoutOrLoginScript}
+			<div id='mainCont'>
+				{$marketplacePageHTML}
+			</div>
+		</main>
+		<footer>
+		</footer>
+	</body>
+	</html>";
+} else {
+	echo "
+	<!DOCTYPE html>
+	<html lang='en'>
+		<head>
+			<meta charset='UTF-8'>
+			<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+			<meta name='keywords' content='lifestyle, life, tips, share, social media'>
+			<meta name='description' content='Share about your lifestyle or lifestyle tips!'>
+			<link rel='stylesheet' href='{$stylesheetLink}'>
+			<script src='web.js' defer></script>
+			<title>{$marketProfile} · Streetor</title>
+		</head>
+		<body>
+			<header>
+				<nav id='topnav'>
+					<button id='menuToggle'>
+						<div id='menuImageCont'></div>
+					</button>
+					<p id='orgName' class='notSelectable'>STREETOR</p>
+					{$logoutOrLogin}
+				</nav>
+				<nav id='sidenav'>
+					<a href='https://www.streetor.sg/home/' id='homeLink'>
+						<div class='innerLinksCont'>
+							<div id='homeImage' class='sideNavImage'></div>
+							<p id='homeText' class='notSelectable'>Home</p>
+						</div>
+					</a>
+					<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+						<div class='innerLinksCont'>
+							<div id='profilesImage' class='sideNavImage'></div>
+							<p id='profilesText' class='notSelectable'>Profiles</p>
+						</div>
+					</a>
+					<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+						<div class='innerLinksCont'>
+							<div id='settingsImage' class='sideNavImage'></div>
+							<p id='settingsText' class='notSelectable'>Settings</p>
+						</div>
+					</a>
+					<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+						<div class='innerLinksCont'>
+							<div id='marketplaceImage' class='sideNavImage'></div>
+							<p id='marketplaceText' class='notSelectable'>Marketplace</p>
+						</div>
+					</a>
+					<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+						<div class='innerLinksCont'>
+							<div id='privacyImage' class='sideNavImage'></div>
+							<p id='privacyText' class='notSelectable'>Privacy</p>
+						</div>
+					</a>
+				</nav>
+			</header>
+			<main>
+				<div id='mainCont'>
+					{$loginAlert}
 				</div>
-			</a>
-			<a href="https://www.streetor.sg/profiles/" id="profilesLink">
-				<div class="innerLinksCont">
-					<div id="profilesImage" class="sideNavImage"></div>
-					<p id="profilesText" class="notSelectable">Profiles</p>
-				</div>
-			</a>
-			<a href="https://www.streetor.sg/settings/" id="settingsLink">
-				<div class="innerLinksCont">
-					<div id="settingsImage" class="sideNavImage"></div>
-					<p id="settingsText" class="notSelectable">Settings</p>
-				</div>
-			</a>
-			<a href="https://www.streetor.sg/marketplace/" id="marketplaceLink">
-				<div class="innerLinksCont">
-					<div id="marketplaceImage" class="sideNavImage"></div>
-					<p id="marketplaceText" class="notSelectable">Marketplace</p>
-				</div>
-			</a>
-			<a href="https://www.streetor.sg/privacy/" id="privacyLink">
-				<div class="innerLinksCont">
-					<div id="privacyImage" class="sideNavImage"></div>
-					<p id="privacyText" class="notSelectable">Privacy</p>
-				</div>
-			</a>
-		</nav>
-		<div id="notificationCont">
-			<p id="notificationText"></p>
-		</div>
-	</header>
-	<main>
-		' . $logoutOrLoginScript . '
-		<div id="mainCont">
-			' . $loginAlert . '
-			' . (empty($loginAlert) ? $marketplacePageHTML : '') . '
-		</div>
-	</main>
-	<footer>
-	</footer>
-</body>
-</html>';
+			</main>
+			<footer>
+			</footer>
+		</body>
+	</html>";
+}
 ?>

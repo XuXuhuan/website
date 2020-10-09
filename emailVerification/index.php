@@ -100,29 +100,29 @@ if ($stylesheetLink === "emailVerificationDarkTheme.css") {
 	$topnavColor = "";
 }
 $mysqliConnection -> close();
-echo '
+echo "
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="' . $stylesheetLink . '">
-		<title>' . $DOMtitle . '</title>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' href='{$stylesheetLink}'>
+		<title>{$DOMtitle}</title>
 		<style>
-			' . $topnavColor . '
+			{$topnavColor}
 			#imageCont {
-				background-image: url(' . $imageURL . ');
+				background-image: url({$imageURL});
 			}
 		</style>
 	</head>
 	<body>
-		<nav id="topnav">
-			<p id="topnavText">' . $topnavText . '</p>
+		<nav id='topnav'>
+			<p id='topnavText'>{$topnavText}</p>
 		</nav>
-		<div id="mainCont">
-			<div id="imageCont"></div>
-			<p id="verifText">' . $message . '</p>
+		<div id='mainCont'>
+			<div id='imageCont'></div>
+			<p id='verifText'>{$message}</p>
 		</div>
 	</body>
-</html>';
+</html>";
 ?>

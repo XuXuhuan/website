@@ -128,31 +128,31 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		if ($queriedProfileDetails = $mysqliConnection -> query($selectProfileDetailsQuery)) {
 			if ($queriedProfileDetails -> num_rows > 0) {
 				if ($assocProfileDetails = $queriedProfileDetails -> fetch_assoc()) {
-					$profileUsername = $assocProfileDetails["username"];
-					$profileBio = $assocProfileDetails["biography"];
-					$userProfile = $profileUsername;
+					$profileUsername = htmlspecialchars($assocProfileDetails["username"], ENT_QUOTES);
+					$profileBio = nl2br(htmlspecialchars($assocProfileDetails["biography"], ENT_QUOTES));
+					$userProfile = $assocProfileDetails["username"];
 					if (empty($loginAlert)) {
-						$profilesPageHTML = '
-						<div id="profileContents">
-							<div id="searchFormCont">
-								<form action="profileSearch/index.php" id="profileSearchForm" method="GET" autocomplete="off">
-									<label for="profileSearchField" id="profileSearchLabel">Search</label>
-									<div id="searchBarCont">
-										<input type="text" name="query" id="profileSearchField" placeholder="Search Profiles">
-										<button id="profileSearchButton" type="submit">
-											<div id="profileSearchImage"></div>
+						$profilesPageHTML = "
+						<div id='profileContents'>
+							<div id='searchFormCont'>
+								<form action='profileSearch/index.php' id='profileSearchForm' method='GET' autocomplete='off'>
+									<label for='profileSearchField' id='profileSearchLabel'>Search</label>
+									<div id='searchBarCont'>
+										<input type='text' name='query' id='profileSearchField' placeholder='Search Profiles'>
+										<button id='profileSearchButton' type='submit'>
+											<div id='profileSearchImage'></div>
 										</button>
 									</div>
 								</form>
 							</div>
-							<div class="infoColumnRow" id="nameAndBioRow">
-								<h2 id="userProfileName">' . htmlspecialchars($profileUsername, ENT_QUOTES) . '</h2>
-								<p id="biographyText">' . preg_replace("/\n/", "<br>", htmlspecialchars($profileBio, ENT_QUOTES)) . '</p>
+							<div class='infoColumnRow' id='nameAndBioRow'>
+								<h2 id='userProfileName'>{$profileUsername}</h2>
+								<p id='biographyText'>{$profileBio}</p>
 							</div>
-							<div class="infoColumnRow">
-								<h3 id="storeSubscriptionsLabel">Store Subscriptions</h3>
+							<div class='infoColumnRow'>
+								<h3 id='storeSubscriptionsLabel'>Store Subscriptions</h3>
 							</div>
-						</div>';
+						</div>";
 					}
 				} else {
 					$loginAlert = '
@@ -193,69 +193,135 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 	</div>';
 }
 $mysqliConnection -> close();
-echo '
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="keywords" content="lifestyle, life, tips, share, social media">
-	<meta name="description" content="Share about your lifestyle or lifestyle tips!">
-	<link rel="stylesheet" href="' . $stylesheetLink . '">
-	<script src="web.js" defer></script>
-	<title>' . $userProfile . ' · Streetor</title>
-</head>
-<body>
-	<header>
-		<nav id="topnav">
-			<button id="menuToggle">
-				<div id="menuImageCont"></div>
-			</button>
-			<p id="orgName" class="notSelectable">STREETOR</p>
-			' . $logoutOrLogin . '
-		</nav>
-		<nav id="sidenav">
-			<a href="https://www.streetor.sg/home/" id="homeLink">
-				<div class="innerLinksCont">
-					<div id="homeImage" class="sideNavImage"></div>
-					<p id="homeText" class="notSelectable">Home</p>
-				</div>
-			</a>
-			<a href="https://www.streetor.sg/profiles/" id="profilesLink">
-				<div class="innerLinksCont">
-					<div id="profilesImage" class="sideNavImage"></div>
-					<p id="profilesText" class="notSelectable">Profiles</p>
-				</div>
-			</a>
-			<a href="https://www.streetor.sg/settings/" id="settingsLink">
-				<div class="innerLinksCont">
-					<div id="settingsImage" class="sideNavImage"></div>
-					<p id="settingsText" class="notSelectable">Settings</p>
-				</div>
-			</a>
-			<a href="https://www.streetor.sg/marketplace/" id="marketplaceLink">
-				<div class="innerLinksCont">
-					<div id="marketplaceImage" class="sideNavImage"></div>
-					<p id="marketplaceText" class="notSelectable">Marketplace</p>
-				</div>
-			</a>
-			<a href="https://www.streetor.sg/privacy/" id="privacyLink">
-				<div class="innerLinksCont">
-					<div id="privacyImage" class="sideNavImage"></div>
-					<p id="privacyText" class="notSelectable">Privacy</p>
-				</div>
-			</a>
-		</nav>
-	</header>
-	<main>
-		' . $logoutOrLoginScript . '
-		<div id="mainCont">
-			' . $loginAlert . '
-			' . (empty($loginAlert) ? $profilesPageHTML : '') . '
-		</div>
-	</main>
-	<footer>
-	</footer>
-</body>
-</html>';
+if (empty($loginAlert)) {
+	echo "
+	<!DOCTYPE html>
+	<html lang='en'>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<meta name='keywords' content='lifestyle, life, tips, share, social media'>
+		<meta name='description' content='Share about your lifestyle or lifestyle tips!'>
+		<link rel='stylesheet' href='{$stylesheetLink}'>
+		<script src='web.js' defer></script>
+		<title>{$userProfile} · Streetor</title>
+	</head>
+	<body>
+		<header>
+			<nav id='topnav'>
+				<button id='menuToggle'>
+					<div id='menuImageCont'></div>
+				</button>
+				<p id='orgName' class='notSelectable'>STREETOR</p>
+				{$logoutOrLogin}
+			</nav>
+			<nav id='sidenav'>
+				<a href='https://www.streetor.sg/home/' id='homeLink'>
+					<div class='innerLinksCont'>
+						<div id='homeImage' class='sideNavImage'></div>
+						<p id='homeText' class='notSelectable'>Home</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+					<div class='innerLinksCont'>
+						<div id='profilesImage' class='sideNavImage'></div>
+						<p id='profilesText' class='notSelectable'>Profiles</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+					<div class='innerLinksCont'>
+						<div id='settingsImage' class='sideNavImage'></div>
+						<p id='settingsText' class='notSelectable'>Settings</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+					<div class='innerLinksCont'>
+						<div id='marketplaceImage' class='sideNavImage'></div>
+						<p id='marketplaceText' class='notSelectable'>Marketplace</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+					<div class='innerLinksCont'>
+						<div id='privacyImage' class='sideNavImage'></div>
+						<p id='privacyText' class='notSelectable'>Privacy</p>
+					</div>
+				</a>
+			</nav>
+		</header>
+		<main>
+			{$logoutOrLoginScript}
+			<div id='mainCont'>
+				{$profilesPageHTML}
+			</div>
+		</main>
+		<footer>
+		</footer>
+	</body>
+	</html>";
+} else {
+	echo "
+	<!DOCTYPE html>
+	<html lang='en'>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<meta name='keywords' content='lifestyle, life, tips, share, social media'>
+		<meta name='description' content='Share about your lifestyle or lifestyle tips!'>
+		<link rel='stylesheet' href='{$stylesheetLink}'>
+		<script src='web.js' defer></script>
+		<title>{$userProfile} · Streetor</title>
+	</head>
+	<body>
+		<header>
+			<nav id='topnav'>
+				<button id='menuToggle'>
+					<div id='menuImageCont'></div>
+				</button>
+				<p id='orgName' class='notSelectable'>STREETOR</p>
+				{$logoutOrLogin}
+			</nav>
+			<nav id='sidenav'>
+				<a href='https://www.streetor.sg/home/' id='homeLink'>
+					<div class='innerLinksCont'>
+						<div id='homeImage' class='sideNavImage'></div>
+						<p id='homeText' class='notSelectable'>Home</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+					<div class='innerLinksCont'>
+						<div id='profilesImage' class='sideNavImage'></div>
+						<p id='profilesText' class='notSelectable'>Profiles</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+					<div class='innerLinksCont'>
+						<div id='settingsImage' class='sideNavImage'></div>
+						<p id='settingsText' class='notSelectable'>Settings</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+					<div class='innerLinksCont'>
+						<div id='marketplaceImage' class='sideNavImage'></div>
+						<p id='marketplaceText' class='notSelectable'>Marketplace</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+					<div class='innerLinksCont'>
+						<div id='privacyImage' class='sideNavImage'></div>
+						<p id='privacyText' class='notSelectable'>Privacy</p>
+					</div>
+				</a>
+			</nav>
+		</header>
+		<main>
+			{$logoutOrLoginScript}
+			<div id='mainCont'>
+				{$loginAlert}
+			</div>
+		</main>
+		<footer>
+		</footer>
+	</body>
+	</html>";
+}
 ?>

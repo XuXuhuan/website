@@ -70,55 +70,55 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 	$loginError = "Your connection is insecure and this request could not be processed. Please try again later.";
 }
 $mysqliConnection -> close();
-echo '
+echo "
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="lifestyle, life, tips, share, social media">
-        <meta name="description" content="Share about your lifestyle or lifestyle tips!">
-        <link rel="stylesheet" href="' . $stylesheetLink . '">
-		<script src="web.js" defer></script>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta name='keywords' content='lifestyle, life, tips, share, social media'>
+        <meta name='description' content='Share about your lifestyle or lifestyle tips!'>
+        <link rel='stylesheet' href='{$stylesheetLink}'>
+		<script src='web.js' defer></script>
         <title>Login · Streetor</title>
     </head>
     <body>
 		<header>
-			<nav id="topnav">
-				<p id="orgName" class="notSelectable">STREETOR</p>
+			<nav id='topnav'>
+				<p id='orgName' class='notSelectable'>STREETOR</p>
 			</nav>
 		</header>
 		<main>
-			<div id="mainCont">
-                <div id="logInContainer">
-					<h2 id="logInLabel">Log In</h2>
-                    <div id="usernameCont" class="inputFieldConts">
-                        <label for="usernameField">Username</label>
-                        <input type="text" spellcheck="false" autocomplete="off" placeholder="Username" id="usernameField" class="logInInputField">
-                        <p id="usernameError" class="inputErrorText">This field is required.</p>
+			<div id='mainCont'>
+                <div id='logInContainer'>
+					<h2 id='logInLabel'>Log In</h2>
+                    <div id='usernameCont' class='inputFieldConts'>
+                        <label for='usernameField'>Username</label>
+                        <input type='text' spellcheck='false' autocomplete='off' placeholder='Username' id='usernameField' class='logInInputField'>
+                        <p id='usernameError' class='inputErrorText'>This field is required.</p>
                     </div>
-                    <div id="passwordCont" class="inputFieldConts">
-                        <label for="passwordField">Password</label>
-                        <div id="passwordFieldCont">
-                            <input type="password" spellcheck="false" autocomplete="off" placeholder="Password" id="passwordField" class="logInInputField">
-                            <button id="passwordShowButton">
-                                <div id="passwordShowImageCont"></div>
+                    <div id='passwordCont' class='inputFieldConts'>
+                        <label for='passwordField'>Password</label>
+                        <div id='passwordFieldCont'>
+                            <input type='password' spellcheck='false' autocomplete='off' placeholder='Password' id='passwordField' class='logInInputField'>
+                            <button id='passwordShowButton'>
+                                <div id='passwordShowImageCont'></div>
                             </button>
                         </div>
-                        <p id="passwordError" class="inputErrorText">This field is required.</p>
+                        <p id='passwordError' class='inputErrorText'>This field is required.</p>
                     </div>
-                    <div id="submitLogInCont">
-                        <div id="logInButtonCont">
-                            <button id="logInButton" onmouseup="submitLogin(event)" onmousedown="cancelSubmitLoginTimeout(event)">Login</button>
+                    <div id='submitLogInCont'>
+                        <div id='logInButtonCont'>
+                            <button id='logInButton' onmouseup='submitLogin(event)' onmousedown='cancelSubmitLoginTimeout(event)'>Login</button>
                         </div>
-                        <p id="logInMessage">' . $loginError . '</p>
+                        <p id='logInMessage'>{$loginError}</p>
                     </div>
-                    <a href="../" id="signUpLink">Don&#39;t have an account? Sign up here</a>
+                    <a href='../' id='signUpLink'>Don&#39;t have an account? Sign up here</a>
                 </div>
             </div>
         </main>
 		<footer>
 		</footer>
     </body>
-</html>';
+</html>";
 ?>

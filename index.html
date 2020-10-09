@@ -1,71 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="lifestyle, life, tips, share, social media">
-        <meta name="description" content="Share about your lifestyle or lifestyle tips!">
-        <link rel="stylesheet" href="signup_obfuscated/signupDarkTheme.css">
-		<script src="web.js" defer></script>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta name='keywords' content='lifestyle, life, tips, share, social media'>
+        <meta name='description' content='Share about your lifestyle or lifestyle tips!'>
+        <link rel='stylesheet' href='signup_obfuscated/signupDarkTheme.css'>
+		<script src='web.js' defer></script>
         <title>Sign Up · Streetor</title>
     </head>
     <body>
 		<header>
-			<nav id="topnav">
-				<p id="orgName" class="notSelectable">STREETOR</p>
+			<nav id='topnav'>
+				<p id='orgName' class='notSelectable'>STREETOR</p>
 			</nav>
 		</header>
 		<main>
-			<div id="mainCont">
-				<div id="signUpContainer">
-					<h2 id="signUpLabel">Sign Up</h2>
-					<div id="usernameCont">
-						<label for="usernameField">Username</label>
-						<input class="signUpInputField" spellcheck="false" autocomplete="off" type="text" placeholder="Username" id="usernameField"/>
-						<p id="usernameError" class="inputErrorText">This field is required.</p>
+			<div id='mainCont'>
+				<div id='signUpContainer'>
+					<h2 id='signUpLabel'>Sign Up</h2>
+					<div id='usernameCont'>
+						<label for='usernameField'>Username</label>
+						<input class='signUpInputField' spellcheck='false' autocomplete='off' type='text' placeholder='Username' id='usernameField'/>
+						<p id='usernameError' class='inputErrorText'>This field is required.</p>
 					</div>
-					<div id="newPasswordCont">
-						<label for="newPasswordField">Password</label>
-						<div id="newPasswordFieldCont">
-							<input class="signUpInputField" type="password" spellcheck="false" autocomplete="off" placeholder="Password" id="newPasswordField"/>
-							<button class="passwordShowButton" id="newPasswordToggleButton">
-								<div class="showPassImage" id="newPasswordToggleImageCont"></div>
+					<div id='newPasswordCont'>
+						<label for='newPasswordField'>Password</label>
+						<div id='newPasswordFieldCont'>
+							<input class='signUpInputField' type='password' spellcheck='false' autocomplete='off' placeholder='Password' id='newPasswordField'/>
+							<button class='passwordShowButton' id='newPasswordToggleButton'>
+								<div class='showPassImage' id='newPasswordToggleImageCont'></div>
 							</button>
 						</div>
-						<p id="newPasswordError" class="inputErrorText">This field is required.</p>
+						<p id='newPasswordError' class='inputErrorText'>This field is required.</p>
 					</div>
-					<div id="confirmPasswordCont">
-						<label for="confirmPasswordField">Confirm Password</label>
-						<div id="confirmPasswordFieldCont">
-							<input class="signUpInputField" type="password" spellcheck="false" autocomplete="off" placeholder="Confirm Password" id="confirmPasswordField"/>
-							<button class="passwordShowButton" id="confirmPasswordToggleButton">
-								<div class="showPassImage" id="confirmPasswordToggleImageCont"></div>
+					<div id='confirmPasswordCont'>
+						<label for='confirmPasswordField'>Confirm Password</label>
+						<div id='confirmPasswordFieldCont'>
+							<input class='signUpInputField' type='password' spellcheck='false' autocomplete='off' placeholder='Confirm Password' id='confirmPasswordField'/>
+							<button class='passwordShowButton' id='confirmPasswordToggleButton'>
+								<div class='showPassImage' id='confirmPasswordToggleImageCont'></div>
 							</button>
 						</div>
-						<p id="confirmPasswordError" class="inputErrorText">This field is required.</p>
+						<p id='confirmPasswordError' class='inputErrorText'>This field is required.</p>
 					</div>
-					<div id="firstNameCont">
-						<label for="firstNameField">First Name</label>
-						<input class="signUpInputField" spellcheck="false" autocomplete="off" type="text" placeholder="First Name" id="firstNameField"/>
-						<p id="firstNameError" class="inputErrorText">This field is required.</p>
+					<div id='firstNameCont'>
+						<label for='firstNameField'>First Name</label>
+						<input class='signUpInputField' spellcheck='false' autocomplete='off' type='text' placeholder='First Name' id='firstNameField'/>
+						<p id='firstNameError' class='inputErrorText'>This field is required.</p>
 					</div>
-					<div id="lastNameCont">
-						<label for="lastNameField">Last Name</label>
-						<input class="signUpInputField" spellcheck="false" autocomplete="off" type="text" placeholder="Last Name" id="lastNameField"/>
-						<p id="lastNameError" class="inputErrorText">This field is required.</p>
+					<div id='lastNameCont'>
+						<label for='lastNameField'>Last Name</label>
+						<input class='signUpInputField' spellcheck='false' autocomplete='off' type='text' placeholder='Last Name' id='lastNameField'/>
+						<p id='lastNameError' class='inputErrorText'>This field is required.</p>
 					</div>
-					<div id="emailCont">
-						<label for="emailField">Email</label>
-						<input class="signUpInputField" spellcheck="false" autocomplete="off" type="email" placeholder="Email" id="emailField"/>
-						<p id="emailError" class="inputErrorText">This field is required.</p>
+					<div id='emailCont'>
+						<label for='emailField'>Email</label>
+						<input class='signUpInputField' spellcheck='false' autocomplete='off' type='email' placeholder='Email' id='emailField'/>
+						<p id='emailError' class='inputErrorText'>This field is required.</p>
 					</div>
-					<div id="signUpFormSubmitCont">
-						<div id="signUpButtonCont">
-							<button id="signUpButton" onmouseup="submitSignUp(event)" onmousedown="cancelSubmitSignUpTimeout(event)">Sign Up</button>
+					<div id='signUpFormSubmitCont'>
+						<div id='signUpButtonCont'>
+							<button id='signUpButton' onmouseup='submitSignUp(event)' onmousedown='cancelSubmitSignUpTimeout(event)'>Sign Up</button>
 						</div>
-						<p id="signUpMessage"></p>
+						<p id='signUpMessage'></p>
 					</div>
-					<a href="login/" id="loginLink">Already have an account? Log in here</a>
+					<a href='login/' id='loginLink'>Already have an account? Log in here</a>
 				</div>
 			</div>
 		</main>

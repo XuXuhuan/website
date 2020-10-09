@@ -62,7 +62,7 @@ if ($mysqliConnection -> connect_errno) {
 						unset($_SESSION["email"]);
 						$DOMtitle = "Account Deleted · Streetor";
 						$imageURL = "../Assets/global/CheckMark.png";
-						$message = "Your account, $dbUsername, has been successfully deleted. If you would like to sign up for another account, please proceed to the <a href='../' style='color: #4486f4;'>sign up page</a>.";
+						$message = "Your account, {$dbUsername}, has been successfully deleted. If you would like to sign up for another account, please proceed to the <a href='../' style='color: #4486f4;'>sign up page</a>.";
 						$topnavText = "Your account has been deleted.";
 						$topnavColor = "#topnav {
 							background-color: #00D200;
@@ -110,29 +110,29 @@ if ($stylesheetLink === "accountDeletionDarkTheme.css") {
 	$topnavColor = "";
 }
 $mysqliConnection -> close();
-echo '
+echo "
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="' . $stylesheetLink . '">
-		<title>' . $DOMtitle . '</title>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' href='{$stylesheetLink}'>
+		<title>{$DOMtitle}</title>
 		<style>
-			' . $topnavColor . '
+			{$topnavColor}
 			#imageCont {
-				background-image: url(' . $imageURL . ');
+				background-image: url({$imageURL});
 			}
 		</style>
 	</head>
 	<body>
-		<nav id="topnav">
-			<p id="topnavText">' . $topnavText . '</p>
+		<nav id='topnav'>
+			<p id='topnavText'>{$topnavText}</p>
 		</nav>
-		<div id="mainCont">
-			<div id="imageCont"></div>
-			<p id="deleteText">' . $message . '</p>
+		<div id='mainCont'>
+			<div id='imageCont'></div>
+			<p id='deleteText'>{$message}</p>
 		</div>
 	</body>
-</html>';
+</html>";
 ?>
