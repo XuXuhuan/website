@@ -18,15 +18,15 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 	$escapedSearchQuery = $mysqliConnection -> real_escape_string($searchQuery);
 	$escapedPageCount = $mysqliConnection -> real_escape_string($pageCount * 10);
 	$escapedMinResults = $mysqliConnection -> real_escape_string($pageCount * 10 - 10);
-	$selectMarketsDetailsQuery = "SELECT marketID, marketName, biography, COUNT(marketName REGEXP '^($escapedSearchQuery)') AS maxResults
+	$selectMarketsDetailsQuery = "SELECT marketID, marketName, biography, COUNT(marketName REGEXP '^({$escapedSearchQuery})') AS maxResults
 	FROM marketdetails
-	WHERE marketName REGEXP '^($escapedSearchQuery)'
+	WHERE marketName REGEXP '^({$escapedSearchQuery})'
 	LIMIT $escapedMinResults, $escapedPageCount";
 	if ($queriedMarketsDetails = $mysqliConnection -> query($selectMarketsDetailsQuery)) {
 		if ($queriedMarketsDetails -> num_rows > 0) {
 			while ($assocMarketsDetails = $queriedMarketsDetails -> fetch_assoc()) {
 				if (!empty($assocMarketsDetails["accountID"])) {
-					$marketImageURL = glob("/uploads/marketLogos" . $assocMarketsDetails["marketID"] . ".*");
+					$marketImageURL = glob("/uploads/marketLogos{$assocMarketsDetails["marketID"]}.*");
 					if (empty($marketImageURL)) {
 						$marketImageURL = "../../Assets/imageNotFound.png";
 					}
@@ -53,4 +53,5 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 	$assocReturn["errormessage"] = "Invalid request. Please try again later.";
 }
 echo json_encode($assocReturn);
+$mysqliConnection -> close();
 ?>

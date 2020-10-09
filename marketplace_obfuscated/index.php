@@ -35,7 +35,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				$selectAccountDetailsQuery = "
 				SELECT accountID, username, tokenHash, email
 				FROM accountdetails
-				WHERE rememberID = '$rememberMeID'";
+				WHERE rememberID = '{$rememberMeID}'";
 				if ($allNeededDetails = $mysqliConnection -> query($selectAccountDetailsQuery)) {
 					if ($allNeededDetails -> num_rows > 0) {
 						if ($assocNeededDetails = $allNeededDetails -> fetch_assoc()) {
@@ -45,10 +45,11 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 							$dbEmail = $assocNeededDetails["email"];
 							if (hash_equals($dbTokenHash, hash("sha512", $remememberMeToken)) === true) {
 								$generateNewToken = getRandomString(50);
+								$hashedNewToken = hash("sha512", $generateNewToken);
 								$updateNewToken = "
 								UPDATE accountdetails
-								SET tokenHash = '" . hash('sha512', $generateNewToken) . "'
-								WHERE accountID = '$dbAccountID'";
+								SET tokenHash = '{$hashedNewToken}'
+								WHERE accountID = '{$dbAccountID}'";
 								if ($tokenUpdateQuery = $mysqliConnection -> query($updateNewToken)) {
 									$newCookieValuesDecoded = array("remembermeid" => $rememberMeID, "remembermetoken" => $generateNewToken);
 									setcookie("logincookie", json_encode($newCookieValuesDecoded), strtotime("9999-12-31"), "/", "www.streetor.sg", true, true);
@@ -168,7 +169,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		$marketID = $mysqliConnection -> real_escape_string($_GET["id"]);
 		$selectMarketDetailsQuery = "SELECT marketName, biography, subscribers, productCount
 		FROM marketdetails
-		WHERE marketID = '$marketID'";
+		WHERE marketID = '{$marketID}'";
 		if ($queriedMarketDetails = $mysqliConnection -> query($selectMarketDetailsQuery)) {
 			if ($queriedMarketDetails -> num_rows > 0) {
 				if ($assocMarketDetails = $queriedMarketDetails -> fetch_assoc()) {
@@ -177,7 +178,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					$imageFileName = "../../Assets/global/imageNotFound.png";
 					$selectSubscriptionQuery = "SELECT subscribingUser
 					FROM subscriptions
-					WHERE subscribingUser = '" . $_SESSION["userID"] . "'";
+					WHERE subscribingUser = '{$_SESSION["userID"]}'";
 					if ($queriedSubscriptions = $mysqliConnection -> query($selectSubscriptionQuery)) {
 						$subscribeButtonClass;
 						$subscribeButtonText = "Subscribe";

@@ -9,33 +9,33 @@ const refMarketRegisterError = document.querySelector("#registerMessage");
 const refMarketRegisterButtonCont = document.querySelector("#marketRegisterButtonCont");
 var checkMarketName;
 var checkMarketRegister;
+const availableCategories = [
+	"automotive",
+	"babyCare",
+	"books",
+	"CDandVinyl",
+	"clothesAndAccessories",
+	"electronics",
+	"gardening",
+	"outdoorsAndSports",
+	"groceries",
+	"health",
+	"household",
+	"personalCare",
+	"kitchenAndDining",
+	"travelSupplies",
+	"beauty",
+	"moviesAndTV",
+	"musicalInstruments",
+	"officeSupplies",
+	"petSupplies",
+	"software",
+	"tools",
+	"toys",
+	"games"];
 var assocRequestJSON = {
 	marketName : "",
-	marketCategories : {
-		automotive : false,
-		babyCare : false,
-		books : false,
-		CDandVinyl : false,
-		clothesAndAccessories : false,
-		electronics : false,
-		gardening : false,
-		outdoorsAndSports : false,
-		groceries : false,
-		health : false,
-		household : false,
-		personalCare : false,
-		kitchenAndDining : false,
-		travelSupplies : false,
-		beauty : false,
-		moviesAndTV : false,
-		musicalInstruments : false,
-		officeSupplies : false,
-		petSupplies : false,
-		software : false,
-		tools : false,
-		toys : false,
-		games : false
-	}
+	marketCategories : []
 };
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
@@ -51,22 +51,22 @@ function submitMarketRegister(event) {
 		});
 		if (refMarketNameField.value.length > 3 &&
 			refMarketNameField.value.length < 30 &&
-			numberOfCheckedBoxes > 0) {
+			assocRequestJSON["marketCategories"].length > 0) {
 			checkMarketName = setTimeout(function() {
 				const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-				xhr.open("POST", "registerMarkplace.php", true);
+				xhr.open("POST", "registerMarketplace.php", true);
 				xhr.setRequestHeader("Content-Type", "application/json");
 				xhr.responseType = "json";
 				refMarketRegisterButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
 				assocRequestJSON["marketName"] = refMarketNameField.value;
 				xhr.onload = function() {
 					if (xhr.status === 200) {
-						if (xhr.response["message"] !== "Success!") {
-							if (!refMarketRegisterError.classList.contains("inputErrorText")) {
-								refMarketRegisterError.classList.add("inputErrorText");
+						if (xhr.response["message"] === "Success!") {
+							if (refMarketRegisterError.classList.contains("inputErrorText")) {
+								refMarketRegisterError.classList.remove("inputErrorText");
 							}
 						}
-						refMarketNameError.innerHTML = xhr.response["errormessages"]["emailError"];
+						refMarketNameError.innerHTML = xhr.response["marketNameError"];
 						refMarketRegisterError.innerHTML = xhr.response["message"];
 						refMarketRegisterButtonCont.innerHTML = '<button id="marketRegisterButton" onmouseup="submitMarketRegister(event)" onmousedown="cancelMarketRegisterTimeout(event)">Register</button>';
 					} else {
@@ -98,8 +98,21 @@ refMenuButton.addEventListener("click", function(triggered) {
 refTickBoxes.forEach(function(eachBox, itemIndex) {
 	eachBox.addEventListener("mouseup", function(triggered) {
 		if (triggered.button === 0) {
+			const findItemInSelectedCategories = assocRequestJSON["marketCategories"].indexOf(availableCategories[itemIndex]);
+			if (findItemInSelectedCategories === -1) {
+				assocRequestJSON["marketCategories"].push(availableCategories[itemIndex]);
+			} else {
+				assocRequestJSON["marketCategories"].splice(findItemInSelectedCategories, 1);
+			}
 			eachBox.classList.toggle("tickedCategoryBox");
-			assocRequestJSON["marketCategories"][itemIndex] = !assocRequestJSON["marketCategories"][itemIndex];
+			if (assocRequestJSON["marketCategories"].length === 0) {
+				if (!refMarketRegisterError.classList.contains("inputErrorText")) {
+					refMarketRegisterError.classList.add("inputErrorText");
+				}
+				refMarketRegisterError.innerHTML = "Please select at least one category.";
+			} else {
+				refMarketRegisterError.innerHTML = "";
+			}
 		}
 	});
 });
@@ -113,6 +126,9 @@ refMarketNameField.addEventListener("keyup", function() {
 	}
 	else if (refMarketNameField.value.length > 30) {
 		refMarketNameError.innerHTML = "Market name has to be under 30 characters.";
+	}
+	else if (/[^a-z0-9._\[\]\(\)]/gi.test(refMarketNameField.value) === true) {
+		refMarketNameError.innerHTML = "Your market name can only contain letters, numbers, (), [], . and _.";
 	} else {
 		refMarketNameError.innerHTML = "";
 		checkMarketName = setTimeout(function() {

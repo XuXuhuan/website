@@ -26,7 +26,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				$selectAccountDetailsQuery = "
 				SELECT accountID, username, tokenHash, email, rememberID
 				FROM accountdetails
-				WHERE rememberID = '$rememberMeID'";
+				WHERE rememberID = '{$rememberMeID}'";
 				if ($queriedDetails = $mysqliConnection -> query($selectAccountDetailsQuery)) {
 					if ($queriedDetails -> num_rows > 0) {
 						if ($assocQueriedDetails = $queriedDetails -> fetch_assoc()) {
@@ -37,10 +37,11 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 							$dbRememberID = $assocQueriedDetails["rememberID"];
 							if (hash_equals($dbTokenHash, hash("sha512", $remememberMeToken)) === true) {
 								$randomToken = getRandomString(50);
+								$hashedRandomToken = hash("sha512", $randomToken);
 								$updateTokenHashQuery = "
 								UPDATE accountdetails
-								SET tokenHash = '" . hash("sha512", $randomToken) . "'
-								WHERE rememberID = '$dbAccountID'";
+								SET tokenHash = '{$hashedRandomToken}'
+								WHERE rememberID = '{$dbAccountID}'";
 								if ($updatedTokenHash = $mysqliConnection -> query($updateTokenHashQuery)) {
 									$newCookieDecoded = array("remembermeid" => $dbRememberID,
 															"remembermetoken" => $randomToken);

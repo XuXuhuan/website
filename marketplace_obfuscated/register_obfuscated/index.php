@@ -111,7 +111,7 @@ $registerPageHTML = '
 		<div id="marketRegisterButtonCont">
 			<button id="marketRegisterButton" onmouseup="submitMarketRegister(event)" onmousedown="cancelMarketRegisterTimeout(event)">Register</button>
 		</div>
-		<p id="registerMessage"></p>
+		<p id="registerMessage" class="inputErrorText">Please select at least one category.</p>
 	</div>
 </div>';
 $logoutOrLoginScript = '
@@ -141,7 +141,7 @@ if ($mysqliConnection -> connect_errno) {
 					$selectAccountDetailsQuery = "
 					SELECT accountID, username, tokenHash, email
 					FROM accountdetails
-					WHERE rememberID = '$rememberMeID'";
+					WHERE rememberID = '{$rememberMeID}'";
 					if ($allNeededDetails = $mysqliConnection -> query($selectAccountDetailsQuery)) {
 						if ($allNeededDetails -> num_rows > 0) {
 							if ($assocNeededDetails = $allNeededDetails -> fetch_assoc()) {
@@ -151,10 +151,11 @@ if ($mysqliConnection -> connect_errno) {
 								$dbEmail = $assocNeededDetails["email"];
 								if (hash_equals($dbTokenHash, hash("sha512", $remememberMeToken)) === true) {
 									$generateNewToken = getRandomString(50);
+									$hashedNewToken = hash("sha512", $generateNewToken);
 									$updateNewToken = "
 									UPDATE accountdetails
-									SET tokenHash = '" . hash('sha512', $generateNewToken) . "'
-									WHERE accountID = '$dbAccountID'";
+									SET tokenHash = '{$hashedNewToken}'
+									WHERE accountID = '{$dbAccountID}'";
 									if ($tokenUpdateQuery = $mysqliConnection -> query($updateNewToken)) {
 										$newCookieValuesDecoded = array("remembermeid" => $rememberMeID, "remembermetoken" => $generateNewToken);
 										setcookie("logincookie", json_encode($newCookieValuesDecoded), strtotime("9999-12-31"), "/", "www.streetor.sg", true, true);
@@ -164,7 +165,7 @@ if ($mysqliConnection -> connect_errno) {
 										$_SESSION["email"] = $dbEmail;
 										$selectMarketsQuery = "SELECT marketName
 										FROM marketdetails
-										WHERE marketOwner = '" . $_SESSION["userID"] . "'";
+										WHERE marketOwner = '{$_SESSION["userID"]}'";
 										if ($queriedMarkets = $mysqliConnection -> query($selectMarketsQuery)) {
 											if ($queriedMarkets -> num_rows > 0) {
 												$loginAlert = '
@@ -215,7 +216,7 @@ if ($mysqliConnection -> connect_errno) {
 		} else {
 			$selectMarketsQuery = "SELECT marketName
 			FROM marketdetails
-			WHERE marketOwner = '" . $_SESSION["userID"] . "'";
+			WHERE marketOwner = '{$_SESSION["userID"]}'";
 			if ($queriedMarkets = $mysqliConnection -> query($selectMarketsQuery)) {
 				if ($queriedMarkets -> num_rows > 0) {
 					$loginAlert = '

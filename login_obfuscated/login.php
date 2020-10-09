@@ -29,7 +29,7 @@ if ($mysqliConnection -> connect_errno) {
 			$checkDetailsQuery = "
 			SELECT accountID, username, password, email, emailVerified, rememberID, 2FAenabled, biography
 			FROM accountdetails
-			WHERE username = '$getUser'";
+			WHERE username = '{$getUser}'";
 			if ($queriedUsers = $mysqliConnection -> query($checkDetailsQuery)) {
 				if ($queriedUsers -> num_rows > 0) {
 					if ($assocQueriedUsers = $queriedUsers -> fetch_assoc()) {
@@ -43,8 +43,8 @@ if ($mysqliConnection -> connect_errno) {
 							$hashedToken = hash("sha512", $getToken);
 							$updateDetailsQuery = "
 							UPDATE accountdetails
-							SET tokenHash = '$hashedToken'
-							WHERE accountID = '$dbAccountID'";
+							SET tokenHash = '{$hashedToken}'
+							WHERE accountID = '{$dbAccountID}'";
 							if ($updatedDetails = $mysqliConnection -> query($updateDetailsQuery)) {
 								$toCookieValue = array("remembermeid" => $dbRememberID,
 													"remembermetoken" => $getToken);

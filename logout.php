@@ -7,10 +7,11 @@ function getRandomString($stringLength) {
 }
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
 if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true && isset($_SESSION["userID"]) && !empty($_SESSION["userID"])) {
+	$hashedNewToken = hash("sha512", getRandomString(50));
     $updateTokenHashQuery = "
     UPDATE accountdetails
-    SET tokenHash = '" . hash("sha512", getRandomString(50)) . "'
-	WHERE accountID = '" . $_SESSION["userID"] . "'";
+    SET tokenHash = '{$updateTokenHashQuery}'
+	WHERE accountID = '{$_SESSION["userID"]}'";
 	$mysqliConnection -> query($updateTokenHashQuery);
 }
 setcookie("logincookie", "", time() - 3600, "/", "www.streetor.sg", false, false);

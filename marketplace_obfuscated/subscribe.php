@@ -11,16 +11,16 @@ $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP",
 if (!$mysqliConnection -> connect_errno) {
 	if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 		$marketID = $mysqliConnection -> real_escape_string($_POST["id"]);
-		$selectSubscribedQuery = "SELECT subscribingUser, COUNT(subscribingUser = '" . $_SESSION["userID"] . "' AND subscribedMarket = '$marketID') AS subscriptionCount
+		$selectSubscribedQuery = "SELECT subscribingUser, COUNT(subscribingUser = '{$_SESSION["userID"]}' AND subscribedMarket = '{$marketID}') AS subscriptionCount
 		FROM subscriptions
-		WHERE subscribingUser = '" . $_SESSION["userID"] . "'
-		AND subscribedMarket = '$marketID'";
+		WHERE subscribingUser = '{$_SESSION["userID"]}'
+		AND subscribedMarket = '{$marketID}'";
 		if ($queriedSubscriptions = $mysqliConnection -> query($selectSubscribedQuery)) {
 			if ($assocQueriedSubscriptions = $queriedSubscriptions -> fetch_assoc()) {
 				if (!empty($assocQueriedSubscriptions["subscriptionCount"])) {
 					$unsubscribeFromMarketQuery = "DELETE FROM subscriptions
-					WHERE subscribingUser = '" . $_SESSION["userID"] .  "'
-					AND subscribedMarket = '$marketID'";
+					WHERE subscribingUser = '{$_SESSION["userID"]}'
+					AND subscribedMarket = '{$marketID}'";
 					if ($mysqliConnection -> query($unsubscribeFromMarketQuery)) {
 						$assocReturn["notificationText"] = "Unsubscribed!";
 						$assocReturn["notificationColor"] = "#40AF00";
@@ -29,7 +29,7 @@ if (!$mysqliConnection -> connect_errno) {
 					}
 				} else {
 					$subscribeToMarketQuery = "INSERT INTO subscriptions (subscribingUser, subscribedMarket)
-					VALUES ('" . $_SESSION["userID"] . "', '$marketID')";
+					VALUES ('{$_SESSION["userID"]}', '{$marketID}')";
 					if ($mysqliConnection -> query($subscribeToMarketQuery)) {
 						$assocReturn["notificationText"] = "Subscribed!";
 						$assocReturn["notificationColor"] = "#40AF00";
@@ -45,4 +45,5 @@ if (!$mysqliConnection -> connect_errno) {
 	}
 }
 echo json_encode($assocReturn);
+$mysqliConnection -> close();
 ?>

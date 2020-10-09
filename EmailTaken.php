@@ -4,7 +4,7 @@ $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP",
 $fetchEmail = $mysqliConnection -> real_escape_string($_POST["email"]);
 $fetchEmailQuery = "SELECT email
 FROM accountdetails
-WHERE LOWER(email) = LOWER('$fetchEmail')";
+WHERE LOWER(email) = LOWER('{$fetchEmail}')";
 if ($mysqliConnection -> connect_errno) {
 	echo "A connection error occurred. Please try again later.";
 }

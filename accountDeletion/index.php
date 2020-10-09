@@ -37,8 +37,8 @@ if ($mysqliConnection -> connect_errno) {
 		$selectEmailUsersQuery = "
 		SELECT username, accountID
 		FROM accountdetails
-		WHERE email = '$getEmail'
-		AND accountDeletionToken = '$getVerifToken'
+		WHERE email = '{$getEmail}'
+		AND accountDeletionToken = '{$getVerifToken}'
 		AND accountDeletionTime >= SUBDATE(NOW(), INTERVAL 10 MINUTE);";
 		if ($queriedEmailUsers = $mysqliConnection -> query($selectEmailUsersQuery)) {
 			if ($queriedEmailUsers -> num_rows > 0) {
@@ -47,8 +47,8 @@ if ($mysqliConnection -> connect_errno) {
 					$dbAccountID = $assocEmailUsers["accountID"];
 					$updateVerificationQuery = "
 					DELETE FROM accountdetails
-					WHERE accountDeletionToken = '$getVerifToken'
-					AND email = '$getEmail'";
+					WHERE accountDeletionToken = '{$getVerifToken}'
+					AND email = '{$getEmail}'";
 					if ($preparedUpdateVerif = $mysqliConnection -> query($updateVerificationQuery)) {
 						setcookie("logincookie", null, -1, "/", "www.streetor.sg", true, true);
 						$_SESSION["loggedIn"] = false;

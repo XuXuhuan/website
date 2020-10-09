@@ -15,8 +15,8 @@ $randomString = isset($_SESSION["emailVerifToken"]) ? $_SESSION["emailVerifToken
 $_SESSION["emailVerifToken"] = isset($_SESSION["emailVerifToken"]) ? $_SESSION["emailVerifToken"] : $randomString;
 $fetchDuplicateUserAndEmailQuery = "SELECT username, email
 FROM accountdetails
-WHERE LOWER(username) = LOWER('$getUser')
-OR LOWER(email) = LOWER('$getEmail');";
+WHERE LOWER(username) = LOWER('{$getUser}')
+OR LOWER(email) = LOWER('{$getEmail}');";
 $assocReturn = array(
 	"errormessages" => array(
 		"usernameError" => "",
@@ -210,20 +210,24 @@ if ($mysqliConnection -> connect_errno) {
 				$emailHeaders[] = "MIME-Version: 1.0";
 				$emailHeaders[] = "Content-type:text/html; charset=utf-8";
 				$emailHeaders[] = "From: <noreply@streetor.sg>";
+				$hashedPassword = password_hash(base64_encode(hash("sha512", $getPass, true)), PASSWORD_DEFAULT);
+				$newRememberID = getRandomString(30);
+				$currentDate = date("Y-m-j H:i:s", time());
+				$onDuplicateRememberID = getRandomString(30);
 				$insertDataQuery = "
 				INSERT INTO accountdetails
 				(username, password, rememberID, firstName, lastName, email, emailVerificationToken, emailVerificationTime)
 				VALUES
-				('$getUser',
-				'" . password_hash(base64_encode(hash("sha512", $getPass, true)), PASSWORD_DEFAULT) . "',
-				'" . getRandomString(30) . "',
-				'$getfName',
-				'$getlName',
-				'$getEmail',
-				'$randomString',
-				'" . date("Y-m-j H:i:s", time()) . "')
+				('{$getUser}',
+				'{$hashedPassword}',
+				'{$newRememberID}',
+				'{$getfName}',
+				'{$getlName}',
+				'{$getEmail}',
+				'{$randomString}',
+				'{$currentDate}')
 				ON DUPLICATE KEY UPDATE
-				rememberID = '" . getRandomString(30) . "'";
+				rememberID = '{$onDuplicateRememberID}'";
 				if ($insertedData = $mysqliConnection -> query($insertDataQuery)) {
 					if (mail($getEmail, "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
 						$assocReturn["message"] = "An email has been sent to your email address for verification.";

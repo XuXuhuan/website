@@ -36,8 +36,8 @@ if ($mysqliConnection -> connect_errno) {
 		$selectEmailUsersQuery = "
 		SELECT username
 		FROM accountdetails
-		WHERE email = '$getEmail'
-		AND emailVerificationToken = '$getVerifToken'
+		WHERE email = '{$getEmail}'
+		AND emailVerificationToken = '{$getVerifToken}'
 		AND emailVerified = 0
 		AND emailVerificationTime >= SUBDATE(NOW(), INTERVAL 10 MINUTE);";
 		if ($queriedEmailUsers = $mysqliConnection -> query($selectEmailUsersQuery)) {
@@ -48,11 +48,11 @@ if ($mysqliConnection -> connect_errno) {
 					UPDATE accountdetails
 					SET emailVerified = 1,
 					emailVerificationToken = NULL
-					WHERE username = '$dbUsername'";
+					WHERE username = '{$dbUsername}'";
 					if ($updatedVerification = $mysqliConnection -> query($updateVerificationQuery)) {
 						$DOMtitle = "Email Verified! · Streetor";
 						$imageURL = "../Assets/global/CheckMark.png";
-						$message = "The email of your account, $dbUsername, has been successfully verified! If you are not logged in, please proceed to the <a href='../login/' style='color: #4486f4;'>login page</a>. Otherwise, please proceed to the <a href='../home/' style='color: #4486f4;'>home page</a>.";
+						$message = "The email of your account, {$dbUsername}, has been successfully verified! If you are not logged in, please proceed to the <a href='../login/' style='color: #4486f4;'>login page</a>. Otherwise, please proceed to the <a href='../home/' style='color: #4486f4;'>home page</a>.";
 						$topnavText = "Your email has been verified!";
 						$topnavColor = "#topnav {
 							background-color: #00D200;
