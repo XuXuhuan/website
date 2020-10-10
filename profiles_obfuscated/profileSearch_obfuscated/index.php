@@ -92,9 +92,9 @@ if ($mysqliConnection -> connect_errno) {
 		}
 		if (!empty($searchQuery)) {
 			$escapedSearchQuery = $mysqliConnection -> real_escape_string($searchQuery);
-			$selectProfilesDetailsQuery = "SELECT accountID, username, biography, COUNT(username REGEXP '^($escapedSearchQuery)') AS maxResults
+			$selectProfilesDetailsQuery = "SELECT accountID, username, biography, COUNT(username LIKE '%{$escapedSearchQuery}%') AS maxResults
 			FROM accountdetails
-			WHERE username REGEXP '^($escapedSearchQuery)'
+			WHERE username LIKE '%{$escapedSearchQuery}%'
 			LIMIT 10";
 			if ($queriedProfilesDetails = $mysqliConnection -> query($selectProfilesDetailsQuery)) {
 				if ($queriedProfilesDetails -> num_rows > 0) {

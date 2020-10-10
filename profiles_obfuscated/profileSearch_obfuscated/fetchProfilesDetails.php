@@ -18,9 +18,9 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 	$escapedSearchQuery = $mysqliConnection -> real_escape_string($searchQuery);
 	$escapedPageCount = $mysqliConnection -> real_escape_string($pageCount * 10);
 	$escapedMinResults = $mysqliConnection -> real_escape_string($pageCount * 10 - 10);
-	$selectProfilesDetailsQuery = "SELECT accountID, username, biography, COUNT(username REGEXP '^($escapedSearchQuery)') AS maxResults
+	$selectProfilesDetailsQuery = "SELECT accountID, username, biography, COUNT(username LIKE '%{$escapedSearchQuery}%') AS maxResults
 	FROM accountdetails
-	WHERE username REGEXP '^($escapedSearchQuery)'
+	WHERE username LIKE '%{$escapedSearchQuery}%'
 	LIMIT $escapedMinResults, $escapedPageCount";
 	if ($queriedProfilesDetails = $mysqliConnection -> query($selectProfilesDetailsQuery)) {
 		if ($queriedProfilesDetails -> num_rows > 0) {

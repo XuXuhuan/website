@@ -1,0 +1,739 @@
+* {
+	box-sizing: border-box;
+}
+.notSelectable {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+:root {
+	--sideMenuImageOpacity: 1;
+	--sideMenuTextTransform: scaleX(0);
+	--UIdefaultColor: #35363A;
+	--UIdefaultTextColor: #ffffff;
+	--productSearchButtonBgColor: #2D2F31;
+	--textFieldColor: #141618;
+}
+@font-face {
+	font-family: MontserratReg;
+	src: url("../../Assets/Font-Import/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+	font-family: MontserratMed;
+	src: url("../../Assets/Font-Import/Montserrat/Montserrat-Medium.ttf");
+}
+@font-face {
+	font-family: LatoReg;
+	src: url("../../Assets/Font-Import/Lato/Lato-Regular.ttf");
+}
+@font-face {
+	font-family: RobotoReg;
+	src: url("../../Assets/Font-Import/Roboto/Roboto-Regular.ttf");
+}
+body {
+	margin: 0;
+	background-color: #232527;
+}
+body::after{
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	z-index: -1;
+	content: url("../../Assets/darkTheme/close.png")
+	url("../../Assets/darkTheme/menu.png")
+	url("../../Assets/darkTheme/homeIcon.png")
+	url("../../Assets/darkTheme/person.png")
+	url("../../Assets/darkTheme/CogWheel.png")
+	url("../../Assets/global/market.png")
+	url("../../Assets/darkTheme/privacyLock.png")
+	url("../../Assets/darkTheme/loading.png")
+	url("../../Assets/darkTheme/search_magnifying_glass.png")
+	url("../../Assets/global/plusSign.png")
+	url("../../Assets/darkTheme/leftArrow.png")
+	url("../../Assets/darkTheme/rightArrow.png");
+ }
+#topnav {
+	position: fixed;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-ms-align-items: center;
+	align-items: center;
+	justify-content: space-between;
+	flex: 1;
+	width: 100%;
+	height: 10vh;
+	background-color: rgb(25, 25, 25);
+}
+#orgName {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	display: inline-flex;
+	text-align: center;
+	color: var(--UIdefaultTextColor);
+	font-family: MontserratMed, Verdana, sans-serif;
+	margin: 0;
+}
+#menuToggle {
+	position: relative;
+	background-color: transparent;
+	width: 4vh;
+	height: 3vh;
+	left: 0;
+	padding: 0;
+	border: 0;
+	animation-duration: 0.4s;
+	animation-fill-mode: forwards;
+	filter: brightness(70%);
+	outline: none;
+}
+#menuImageCont {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: var(--menuImage, url("../../Assets/darkTheme/menu.png"));
+	height: 100%;
+	width: 100%;
+}
+#logLabel {
+	margin: 0;
+	text-decoration: none;
+	position: relative;
+	display: inline-block;
+	font-family: LatoReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
+	cursor: pointer;
+}
+#logLabel::before {
+	content: "";
+	position: absolute;
+	bottom: 3px;
+	width: 100%;
+	height: 0;
+	border-bottom: 1.5px solid var(--UIdefaultTextColor);
+	-webkit-transform: scaleX(0);
+	-ms-transform: scaleX(0);
+	-o-transform: scaleX(0);
+	transform: scaleX(0);
+	-webkit-transition: -webkit-transform 0.15s ease-in;
+	-o-transition: -o-transform 0.15s ease-in;
+	transition: 0.15s ease-in;
+}
+#logLabel:hover::before {
+	-webkit-transform: scaleX(1);
+	-ms-transform: scaleX(1);
+	-o-transform: scaleX(1);
+	transform: scaleX(1);
+}
+#alertCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	height: fit-content;
+	height: -moz-fit-content;
+	width: fit-content;
+	width: -moz-fit-content;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	flex-direction: column;
+	-ms-align-items: center;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 700px;
+	background-color: var(--UIdefaultColor);
+	border-radius: 10px;
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	margin-top: 5vh;
+}
+#cancelAlertButton, #resendEmailButton {
+	position: relative;
+	font-size: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+	background-color: transparent;
+	border: 1.5px solid white;
+	border-radius: 5px;
+	color: var(--UIdefaultTextColor);
+	cursor: pointer;
+	outline: none;
+}
+#cancelAlertButton:hover, #resendEmailButton:hover {
+	background-color: var(--UIdefaultTextColor);
+	color: black;
+}
+#alertText, #resendEmailError {
+	font-size: 20px;
+}
+#alertText {
+	color: var(--UIdefaultTextColor);
+	margin: 10px;
+}
+#resendEmailError {
+	font-family: MontserratReg, Verdana, sans-serif;
+	margin: 0 10px 10px 10px;
+	height: 67.2px;
+	font-size: 15px;
+	color: #ff0000;
+}
+#sidenav {
+	position: fixed;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	height: 90vh;
+	background-color: #292A2D;
+	top: 10vh;
+	-webkit-transition: left 0.4s linear;
+	-o-transition: left 0.4s linear;
+	transition: left 0.4s linear;
+}
+.openedSideNav {
+	left: 0 !important;
+}
+#sidenav > a {
+	display: inline-block;
+	width: 100%;
+	min-width: 190px;
+	height: 8vh;
+	text-decoration: none;
+}
+#sidenav > a:hover {
+	--sideMenuImageOpacity: 0.5;
+	--sideMenuTextTransform: scaleX(1);
+}
+#sidenav > a:nth-child(odd) {
+	background-color: #292A2D;
+}
+#sidenav > a:nth-child(even) {
+	background-color: #191B1D;
+}
+.innerLinksCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-ms-align-items: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+}
+.innerLinksCont > p {
+	position: relative;
+	display: inline-block;
+	color: var(--UIdefaultTextColor);
+	margin: 0;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	font-size: 22px;
+}
+.innerLinksCont > p::before {
+	content: "";
+	position: absolute;
+	bottom: 3px;
+	width: 100%;
+	height: 0;
+	border-bottom: 1.5px solid var(--UIdefaultTextColor);
+	-webkit-transition: -webkit-transform 0.15s ease-in;
+	-o-transition: -o-transform 0.15s ease-in;
+	transition: 0.15s ease-in;
+	-webkit-transform: var(--sideMenuTextTransform, scaleX(0));
+	-ms-transform: var(--sideMenuTextTransform, scaleX(0));
+	-o-transform: var(--sideMenuTextTransform, scaleX(0));
+	transform: var(--sideMenuTextTransform, scaleX(0));
+}
+.innerLinksCont > div {
+	margin-left: 2em;
+	margin-right: 1.5em;
+}
+.sideNavImage {
+	position: relative;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 4vh;
+}
+#homeImage {
+	background-image: url("../../Assets/darkTheme/homeIcon.png");
+	height: 4vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+#profilesImage {
+	background-image: url("../../Assets/darkTheme/person.png");
+	height: 4vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+#settingsImage {
+	background-image: url("../../Assets/darkTheme/CogWheel.png");
+	height: 3.5vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+#marketplaceImage {
+	background-image: url("../../Assets/global/market.png");
+	height: 4vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+#privacyImage {
+	background-image: url("../../Assets/darkTheme/privacyLock.png");
+	height: 4vh;
+	opacity: var(--sideMenuImageOpacity);
+}
+@-webkit-keyframes menuAnimationOpen {
+	0% {
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	49% {
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+}
+@-webkit-keyframes menuAnimationClose {
+	0% {
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	49% {
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+}
+@-moz-keyframes menuAnimationOpen {
+	0% {
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	49% {
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+}
+@-moz-keyframes menuAnimationClose {
+	0% {
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	49% {
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+}
+@-o-keyframes menuAnimationOpen {
+	0% {
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	49% {
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+}
+@-o-keyframes menuAnimationClose {
+	0% {
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	49% {
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+}
+@keyframes menuAnimationOpen {
+	0% {
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	49% {
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+}
+@keyframes menuAnimationClose {
+	0% {
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	49% {
+		--menuImage: url("../../Assets/darkTheme/close.png");
+	}
+	50% {
+		transform: scaleY(0);
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+	100% {
+		transform: scaleY(1);
+		--menuImage: url("../../Assets/darkTheme/menu.png");
+	}
+}
+#mainCont {
+	position: absolute;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+main {
+	position: absolute;
+	width: 100%;
+	height: 90vh;
+	top: 10vh;
+	z-index: -999;
+}
+@media only screen and (min-width: 427px) {
+	#topnav {
+		padding: 0 2em 0 2em;
+	}
+	#logLabel {
+		font-size: 150%;
+	}
+}
+@media only screen and (max-width: 1024px) {
+	#orgName {
+		font-size: 150%;
+	}
+}
+@media only screen and (min-width: 1025px) {
+	#orgName {
+		font-size: 200%;
+	}
+}
+@media only screen and (max-width: 768px) {
+	#topnav {
+		padding: 0 1em 0 1em;
+	}
+	#logLabel {
+		font-size: 125%;
+	}
+	#sidenav {
+		width: 100%;
+		height: 90vh;
+		left: -100%;
+	}
+	#productContents {
+		width: 100%;
+	}
+}
+@media only screen and (min-width: 768px) {
+	#sidenav {
+		width: 30vw;
+		left: -30vw;
+		max-width: 350px;
+	}
+	#productContents {
+		width: 80%;
+	}
+	#productSearchField {
+		width: 300px;
+	}
+}
+@media only screen and (max-width: 720px) {
+	#alertCont {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+#notificationCont {
+	position: fixed;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 10vh;
+	z-index: 999999;
+	top: -10vh;
+	-webkit-transition: top 0.2s linear;
+	-o-transition: top 0.2s linear;
+	transition: top 0.2s linear;
+	overflow: hidden;
+}
+#notificationText {
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 25px;
+	margin: 0;
+	color: var(--UIdefaultTextColor);
+}
+#productContents {
+	position: relative;
+	display: block;
+	margin: 30px auto 0 auto;
+}
+.infoRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	align-items: center;
+    background-color: var(--UIdefaultColor);
+}
+.infoColumnRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	background-color: var(--UIdefaultColor);
+}
+.inputErrorText {
+	margin: 0;
+	font-size: 15px;
+	font-family: MontserratReg, Verdana, sans-serif;
+	color: #ff0000;
+}
+#registerMarketplaceLink {
+	position: absolute;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 5px;
+	right: 10px;
+	color: var(--UIdefaultTextColor);
+	font-family: MontserratReg, Verdana, sans-serif;
+	background-color: #40AF00;
+	text-decoration: none;
+	padding: 9px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+#registerMarketplaceImageCont {
+	background-image: url("../../Assets/global/plusSign.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 0.8em;
+	width: 0.8em;
+	margin-right: 3px;
+}
+#searchFormCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	align-items: center;
+	margin-bottom: 20px;
+}
+#productSearchForm {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+}
+#productSearchField {
+	outline: none;
+	height: 30px;
+	vertical-align: top;
+	background-color: var(--textFieldColor);
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	font-size: 17px;
+	border-radius: 4px 0 0 4px;
+	height: 35px;
+	min-width: 238px;
+	padding: 0 0 0 5px;
+}
+#productSearchButton {
+	outline: none;
+	float: right;
+	border: 0;
+	padding: 10px 12.5px;
+	background-color: var(--productSearchButtonBgColor);
+	cursor: pointer;
+	border-radius: 0 4px 4px 0;
+}
+#productSearchImage {
+	background-image: url("../../Assets/darkTheme/search_magnifying_glass.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 15px;
+	width: calc(733 / 680 * 15px);
+}
+.productContentsRow {
+	position: relative;
+	height: 130px;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	background-color: var(--UIdefaultColor);
+	margin-bottom: 10px;
+}
+.productContentsRow:nth-last-child(1) {
+	margin-bottom: 0 !important;
+}
+.productNameAndInfoCont {
+	position: relative;
+	padding: 0 0 0 10px !important;
+	height: 100%;
+}
+.productName {
+	position: relative;
+	margin: 0;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	font-size: 25px;
+	width: fit-content;
+	width: -moz-fit-content;
+}
+.productInfoText {
+	font-size: 18px;
+	margin: 0;
+	font-size: 15px;
+	word-break: break-all;
+	max-height: 55.2px;
+	height: 55.2px;
+	overflow: hidden;
+}
+.productImage {
+	height: 100px;
+	min-height: 100px;
+	max-width: 200px;
+}
+#changePageWrapper {
+	background-color: transparent;
+	align-items: center;
+}
+#changePageCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+#nextPageButton, #prevPageButton {
+	cursor: pointer;
+	background-color: var(--UIdefaultColor);
+	outline: none;
+	border: 0;
+	padding: 9px 10px;
+	border-radius: 3px;
+}
+#nextPageButton {
+	margin-left: 10px;
+}
+#prevPageButton {
+	margin-right: 10px;
+}
+.changePageArrowCont {
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 15px;
+	width: calc(354 / 566 * 15px);
+	cursor: pointer;
+}
+#leftArrowCont {
+	background-image: url("../../Assets/darkTheme/leftArrow.png");
+}
+#rightArrowCont {
+	background-image: url("../../Assets/darkTheme/rightArrow.png");
+}
+#pageCount {
+	font-size: 15px;
+	margin-top: 15px;
+}
+#currentPageCount {
+	-moz-appearance: textfield;
+	width: 30px;
+	outline: none;
+	font-family: LatoReg, Arial, sans-serif;
+	background-color: var(--UIdefaultColor);
+	color: var(--UIdefaultTextColor);
+	border: 0;
+	padding-left: 5px;
+	border-radius: 3px;
+}
+#currentPageCount::-webkit-outer-spin-button, #currentPageCount::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+#resultCount {
+	font-size: 15px;
+	margin: 0;
+	font-family: LatoReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
+}

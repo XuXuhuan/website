@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta name='keywords' content='lifestyle, life, tips, share, social media'>
+        <meta name='description' content='Share about your lifestyle or lifestyle tips!'>
+        <link rel='stylesheet' href='../products_obfuscated/productsDarkTheme.css'>
+		<script src='web.js' defer></script>
+        <title>test's Products · Streetor</title>
+    </head>
+    <body>
+		<header>
+			<nav id='topnav'>
+				<button id='menuToggle'>
+					<div id='menuImageCont'></div>
+				</button>
+				<p id='orgName' class='notSelectable'>STREETOR</p>
+				<a href='https://www.streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>
+			</nav>
+			<nav id='sidenav'>
+				<a href='https://www.streetor.sg/home/' id='homeLink'>
+					<div class='innerLinksCont'>
+						<div id='homeImage' class='sideNavImage'></div>
+						<p id='homeText' class='notSelectable'>Home</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+					<div class='innerLinksCont'>
+						<div id='profilesImage' class='sideNavImage'></div>
+						<p id='profilesText' class='notSelectable'>Profiles</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+					<div class='innerLinksCont'>
+						<div id='settingsImage' class='sideNavImage'></div>
+						<p id='settingsText' class='notSelectable'>Settings</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+					<div class='innerLinksCont'>
+						<div id='marketplaceImage' class='sideNavImage'></div>
+						<p id='marketplaceText' class='notSelectable'>Marketplace</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+					<div class='innerLinksCont'>
+						<div id='privacyImage' class='sideNavImage'></div>
+						<p id='privacyText' class='notSelectable'>Privacy</p>
+					</div>
+				</a>
+			</nav>
+			<div id='notificationCont'>
+				<p id='notificationText'>An error occurred.</p>
+			</div>
+		</header>
+		<main>
+			<div id='mainCont'>
+				<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
+					<div id='registerMarketplaceImageCont'></div>
+					Register
+				</a>
+				<div id='productContents'>
+					<div id='searchFormCont'>
+						<form action='index.php' id='productSearchForm' method='GET' autocomplete='off'>
+							<label for='productSearchField' id='productSearchLabel'>Search</label>
+							<div id='searchBarCont'>
+								<input type='text' name='query' id='productSearchField' placeholder='Search Products'>
+								<button id='productSearchButton' type='submit'>
+									<div id='productSearchImage'></div>
+								</button>
+							</div>
+							<p class='inputErrorText'></p>
+						</form>
+					</div>
+					<p id='resultCount'>10 of 10 results</p>
+					<div id='productsContainer'>
+						<div class='productContentsRow infoRow'>
+							<img src='../../Assets/global/imageNotFound.png' alt='Product Logo' class='productImage'>
+							<div class='productNameAndInfoCont infoColumnRow'>
+								<a href='https://www.streetor.sg/marketplace/products/?id=1' class='productName'>test</a>
+								<p class="productInfoText">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel commodi expedita quasi neque eum obcaecati! Perferendis, ipsum placeat assumenda aspernatur esse optio adipisci sunt dolores fugiat recusandae et sed animi!</p>
+							</div>
+						</div>
+					</div>
+					<div class='infoColumnRow' id='changePageWrapper'>
+						<div id='changePageCont'>
+							<button id='prevPageButton' onmouseup='leftArrowProductFetch(event)' onmousedown='cancelLeftArrowDecrementTimeout(event)'>
+								<div class='changePageArrowCont' id='leftArrowCont'></div>
+							</button>
+							<button id='nextPageButton' onmouseup='rightArrowProductFetch(event)' onmousedown='cancelRightArrowIncrementTimeout(event)'>
+								<div class='changePageArrowCont' id='rightArrowCont'></div>
+							</button>
+						</div>
+						<p id='pageCount' class='notSelectable'><input type='number' max='1' min='1' value='1' id='currentPageCount' onkeyup='countFieldProductFetch(Event)' onkeydown='cancelCountFieldIncrementTimeout(Event)'> of <span id='maxPagesCount'>1</span> pages</p>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer>
+		</footer>
+    </body>
+</html>

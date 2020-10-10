@@ -18,9 +18,9 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 	$escapedSearchQuery = $mysqliConnection -> real_escape_string($searchQuery);
 	$escapedPageCount = $mysqliConnection -> real_escape_string($pageCount * 10);
 	$escapedMinResults = $mysqliConnection -> real_escape_string($pageCount * 10 - 10);
-	$selectMarketsDetailsQuery = "SELECT marketID, marketName, biography, COUNT(marketName REGEXP '^({$escapedSearchQuery})') AS maxResults
+	$selectMarketsDetailsQuery = "SELECT marketID, marketName, biography, COUNT(marketName LIKE '%{$escapedSearchQuery}%') AS maxResults
 	FROM marketdetails
-	WHERE marketName REGEXP '^({$escapedSearchQuery})'
+	WHERE marketName LIKE '%{$escapedSearchQuery}%'
 	LIMIT $escapedMinResults, $escapedPageCount";
 	if ($queriedMarketsDetails = $mysqliConnection -> query($selectMarketsDetailsQuery)) {
 		if ($queriedMarketsDetails -> num_rows > 0) {

@@ -14,9 +14,9 @@ function getRandomString($stringLength) {
 	return bin2hex(random_bytes($stringLength / 2));
 }
 if (isset($_COOKIE["darktheme"]) && $_COOKIE["darktheme"] === "false") {
-	$stylesheetLink = "marketSearchLightTheme.css";
+	$stylesheetLink = "productsLightTheme.css";
 } else {
-	$stylesheetLink = "marketSearchDarkTheme.css";
+	$stylesheetLink = "productsDarkTheme.css";
 }
 if ($mysqliConnection -> connect_errno) {
 	$loginAlert = '
@@ -92,8 +92,8 @@ if ($mysqliConnection -> connect_errno) {
 		}
 		if (!empty($searchQuery)) {
 			$escapedSearchQuery = $mysqliConnection -> real_escape_string($searchQuery);
-			$selectMarketsDetailsQuery = "SELECT marketID, marketName, biography, COUNT(marketName LIKE '%{$escapedSearchQuery}%') AS maxResults
-			FROM marketdetails
+			$selectMarketsDetailsQuery = "SELECT productID, productName, productInfo, COUNT(productName LIKE '%{$escapedSearchQuery}%') AS maxResults
+			FROM marketproducts
 			WHERE marketName LIKE '%{$escapedSearchQuery}%'
 			LIMIT 10";
 			$imageFileName;
