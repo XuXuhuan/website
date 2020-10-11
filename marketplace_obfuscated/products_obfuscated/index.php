@@ -6,8 +6,10 @@ $logoutOrLogin = '<p id="logLabel" class="notSelectable">Logout</p>';
 $logoutOrLoginScript = '
 <script>"use strict";const _0x2f34=["../../lo","Micro","text","stene","Selec","POST","XMLHt","php","addEv","soft.","#logL","respo","tpReq","click","entLi","abel","uest","XMLHT","onloa","tor","href","locat","send","gout.","open","ion","nseTy","query","nseTe"];(function(_0x5e9acd,_0x2f344a){const _0x41584a=function(_0x419e75){while(--_0x419e75){_0x5e9acd["push"](_0x5e9acd["shift"]());}};_0x41584a(++_0x2f344a);}(_0x2f34,0x1f1));const _0x4158=function(_0x5e9acd,_0x2f344a){_0x5e9acd=_0x5e9acd-0x0;let _0x41584a=_0x2f34[_0x5e9acd];return _0x41584a;};const _0x5dd2de=document[_0x4158("0x17")+_0x4158("0x0")+_0x4158("0xf")](_0x4158("0x6")+_0x4158("0xb"));var _0x2d4945;_0x5dd2de[_0x4158("0x4")+_0x4158("0xa")+_0x4158("0x1c")+"r"](_0x4158("0x9"),function(){clearTimeout(_0x2d4945);_0x2d4945=setTimeout(function(){const _0x4e392c=window[_0x4158("0x2")+_0x4158("0x8")+_0x4158("0xc")]?new XMLHttpRequest():new ActiveXObject(_0x4158("0x1a")+_0x4158("0x5")+_0x4158("0xd")+"TP");_0x4e392c[_0x4158("0x14")](_0x4158("0x1"),_0x4158("0x19")+_0x4158("0x13")+_0x4158("0x3"),!![]);_0x4e392c[_0x4158("0x7")+_0x4158("0x16")+"pe"]=_0x4158("0x1b");_0x4e392c[_0x4158("0xe")+"d"]=function(){window[_0x4158("0x11")+_0x4158("0x15")][_0x4158("0x10")]=_0x4e392c[_0x4158("0x7")+_0x4158("0x18")+"xt"];};_0x4e392c[_0x4158("0x12")]();},0x15e);});</script>';
 $searchQuery = $_GET["query"];
+$marketID = $_GET["marketid"];
+$productID = $_GET["prodid"];
 $maxResults = 0;
-$marketRows = "";
+$productRows = "";
 $searchError = "";
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
 function getRandomString($stringLength) {
@@ -90,35 +92,34 @@ if ($mysqliConnection -> connect_errno) {
 				</div>';
 			}
 		}
-		if (!empty($searchQuery)) {
+		if (!empty($searchQuery) || preg_match("/[^0-9]/", $_GET["prodid"]) == true) {
 			$escapedSearchQuery = $mysqliConnection -> real_escape_string($searchQuery);
-			$selectMarketsDetailsQuery = "SELECT productID, productName, productInfo, COUNT(productName LIKE '%{$escapedSearchQuery}%') AS maxResults
+			$selectProductsDetailsQuery = "SELECT productID, marketID, productName, productInfo, COUNT(productName LIKE '%{$escapedSearchQuery}%') AS maxResults
 			FROM marketproducts
-			WHERE marketName LIKE '%{$escapedSearchQuery}%'
+			WHERE productName LIKE '%{$escapedSearchQuery}%'
 			LIMIT 10";
-			$imageFileName;
-			$marketRows;
+			$productRows;
 			$maxResults;
-			if ($queriedMarketsDetails = $mysqliConnection -> query($selectMarketsDetailsQuery)) {
-				if ($queriedMarketsDetails -> num_rows > 0) {
-					while ($assocMarketsDetails = $queriedMarketsDetails -> fetch_assoc()) {
-						if (!empty($assocMarketsDetails["marketID"])) {
-							$findMarketLogo = glob("/uploads/marketLogos/{$assocMarketsDetails["marketID"]}.*");
+			if ($queriedProductsDetails = $mysqliConnection -> query($selectProductsDetailsQuery)) {
+				if ($queriedProductsDetails -> num_rows > 0) {
+					while ($assocProductsDetails = $queriedProductsDetails -> fetch_assoc()) {
+						if (!empty($assocProductsDetails["productID"])) {
+							$findProductImage = glob("../../uploads/productPictures/{$assocProductsDetails["marketID"]}/{$assocProductsDetails["productID"]}/*.*");
 							$imageFileName = "../../Assets/global/imageNotFound.png";
-							$escapedMarketName = htmlspecialchars($assocMarketsDetails['marketName'], ENT_QUOTES);
-							$escapedBiography = empty($assocMarketsDetails['biography']) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocMarketsDetails['biography'], ENT_QUOTES));
-							if (!empty($findMarketLogo)) {
-								$imageFileName = $findMarketLogo[0];
+							$escapedProductName = htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES);
+							$escapedProductInfo = empty($assocProductsDetails["productInfo"]) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES));
+							if (!empty($findProductImage)) {
+								$imageFileName = $findProductImage[0];
 							}
-							$marketRows .= "
-							<div class='marketContentsRow infoRow'>
-								<img src='{$imageFileName}' alt='Market Logo' class='marketLogoImage'>
-								<div class='marketNameAndBioCont infoColumnRow'>
-									<a href='https://www.streetor.sg/marketplace/?id={$assocMarketsDetails['marketID']}' class='marketName'>{$escapedMarketName}</a>
-									<p class='biographyText'>{$escapedBiography}</p>
+							$productRows .= "
+							<div class='productContentsRow infoRow'>
+								<img src='{$imageFileName}' alt='Product Image' class='productImage'>
+								<div class='productNameAndInfoCont infoColumnRow'>
+									<a href='https://www.streetor.sg/marketplace/products/?prodid={$assocProductsDetails['productID']}' class='productName'>{$escapedProductName}</a>
+									<p class='productInfoText'>{$escapedProductInfo}</p>
 								</div>
 							</div>";
-							$maxResults = $assocMarketsDetails["maxResults"];
+							$maxResults = $assocProductsDetails["maxResults"];
 						} else {
 							$searchError = "No results found.";
 						}
@@ -126,6 +127,7 @@ if ($mysqliConnection -> connect_errno) {
 				} else {
 					$searchError = "No results found.";
 				}
+				$queriedProductsDetails -> free();
 			} else {
 				$loginAlert = '
 				<div id="alertCont">
@@ -136,7 +138,7 @@ if ($mysqliConnection -> connect_errno) {
 			$currentResults = $maxResults >= 10 ? "10" : $maxResults;
 			$resultCount = empty($searchQuery) ? "" : "<p id='resultCount'>{$currentResults} of {$maxResults} results</p>";
 			$numberOfPages = ceil($maxResults / 10);
-			$changePageHTML = empty($marketRows) ? "" : 
+			$changePageHTML = empty($productRows) ? "" : 
 			"<div class='infoColumnRow' id='changePageWrapper'>
 				<div id='changePageCont'>
 					" . ($maxResults <= 10 ? '' : "
@@ -167,11 +169,40 @@ if ($mysqliConnection -> connect_errno) {
 					</div>
 					{$resultCount}
 					<div id='marketsContainer'>
-						{$marketRows}
+						{$productRows}
 					</div>
 					{$changePageHTML}
 				</div>
 			</div>";
+		}
+		else if (!empty($productID)) {
+			$sanitisedProductID = $mysqliConnection -> real_escape_string($productID);
+			$selectProductsDetailsQuery = "SELECT productID, marketID, productName, productInfo
+			FROM marketproducts
+			WHERE productID = '{$sanitisedProductID}'";
+			if ($queriedProductsDetails = $mysqliConnection -> query($selectProductsDetailsQuery)) {
+				if ($queriedProductsDetails -> num_rows > 0) {
+					if ($assocProductsDetails = $queriedProductsDetails -> fetch_assoc()) {
+
+					} else {
+						$loginAlert = '
+						<div id="alertCont">
+							<p id="alertText">An internal server error occurred. Please try again later.</p>
+						</div>';
+					}
+				} else {
+					$loginAlert = '
+					<div id="alertCont">
+						<p id="alertText">This product is unavailable.</p>
+					</div>';
+				}
+				$queriedProductsDetails -> free();
+			} else {
+				$loginAlert = '
+				<div id="alertCont">
+					<p id="alertText">An internal server error occurred. Please try again later.</p>
+				</div>';
+			}
 		} else {
 			header("Location: https://www.streetor.sg/marketplace/");
 		}

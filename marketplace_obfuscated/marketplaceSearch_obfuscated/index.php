@@ -96,14 +96,13 @@ if ($mysqliConnection -> connect_errno) {
 			FROM marketdetails
 			WHERE marketName LIKE '%{$escapedSearchQuery}%'
 			LIMIT 10";
-			$imageFileName;
 			$marketRows;
 			$maxResults;
 			if ($queriedMarketsDetails = $mysqliConnection -> query($selectMarketsDetailsQuery)) {
 				if ($queriedMarketsDetails -> num_rows > 0) {
 					while ($assocMarketsDetails = $queriedMarketsDetails -> fetch_assoc()) {
 						if (!empty($assocMarketsDetails["marketID"])) {
-							$findMarketLogo = glob("/uploads/marketLogos/{$assocMarketsDetails["marketID"]}.*");
+							$findMarketLogo = glob("../../uploads/marketLogos/{$assocMarketsDetails["marketID"]}.*");
 							$imageFileName = "../../Assets/global/imageNotFound.png";
 							$escapedMarketName = htmlspecialchars($assocMarketsDetails['marketName'], ENT_QUOTES);
 							$escapedBiography = empty($assocMarketsDetails['biography']) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocMarketsDetails['biography'], ENT_QUOTES));
@@ -126,6 +125,7 @@ if ($mysqliConnection -> connect_errno) {
 				} else {
 					$searchError = "No results found.";
 				}
+				$queriedMarketsDetails -> free();
 			} else {
 				$loginAlert = '
 				<div id="alertCont">

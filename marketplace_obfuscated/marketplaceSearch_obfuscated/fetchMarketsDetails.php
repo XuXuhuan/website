@@ -25,15 +25,16 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 	if ($queriedMarketsDetails = $mysqliConnection -> query($selectMarketsDetailsQuery)) {
 		if ($queriedMarketsDetails -> num_rows > 0) {
 			while ($assocMarketsDetails = $queriedMarketsDetails -> fetch_assoc()) {
-				if (!empty($assocMarketsDetails["accountID"])) {
-					$marketImageURL = glob("/uploads/marketLogos{$assocMarketsDetails["marketID"]}.*");
-					if (empty($marketImageURL)) {
-						$marketImageURL = "../../Assets/imageNotFound.png";
+				if (!empty($assocMarketsDetails["marketID"])) {
+					$findMarketLogo = glob("../../uploads/marketLogos{$assocMarketsDetails["marketID"]}.*");
+					$marketImageURL = "../../Assets/imageNotFound.png";
+					if (!empty($findMarketLogo)) {
+						$marketImageURL = $findMarketLogo[0];
 					}
 					$assocReturn["marketDetails"][] = array(
 						"marketLogoURL" => $marketImageURL,
-						"marketID" => $assocMarketsDetails["accountID"],
-						"marketName" => $assocMarketsDetails["username"],
+						"marketID" => $assocMarketsDetails["marketID"],
+						"marketName" => $assocMarketsDetails["marketName"],
 						"biography" => $assocMarketsDetails["biography"],
 					);
 					$assocReturn["maxResults"] = $assocMarketsDetails["maxResults"];

@@ -167,14 +167,14 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		$marketProfile = "Invalid ID";
 	} else {
 		$marketID = $mysqliConnection -> real_escape_string($_GET["id"]);
-		$selectMarketDetailsQuery = "SELECT marketName, biography, subscribers, productCount
+		$selectMarketDetailsQuery = "SELECT marketID, marketName, biography, subscribers, productCount
 		FROM marketdetails
 		WHERE marketID = '{$marketID}'";
 		if ($queriedMarketDetails = $mysqliConnection -> query($selectMarketDetailsQuery)) {
 			if ($queriedMarketDetails -> num_rows > 0) {
 				if ($assocMarketDetails = $queriedMarketDetails -> fetch_assoc()) {
 					$marketProfile = $assocMarketDetails["marketName"];
-					$findMarketLogo = glob("/uploads/marketLogos/{$assocMarketDetails["marketID"]}.*");
+					$findMarketLogo = glob("../uploads/marketLogos/{$assocMarketDetails["marketID"]}.*");
 					$imageFileName = "../../Assets/global/imageNotFound.png";
 					$selectSubscriptionQuery = "SELECT subscribingUser
 					FROM subscriptions
@@ -229,7 +229,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 										<h3 class='statLabel'>Products</h3>
 										<p class='statText' id='productCount'>{$assocMarketDetails['productCount']}</p>
 										<div id='viewProductsLinkCont'>
-											<a href='https://www.streetor.sg/marketplace/products/?id=1' id='viewProductsLink'>View Products</a>
+											<a href='https://www.streetor.sg/marketplace/products/?marketid={$assocMarketDetails['marketID']}' id='viewProductsLink'>View Products</a>
 										</div>
 									</div>
 								</div>

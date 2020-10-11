@@ -159,6 +159,7 @@ if ($mysqliConnection -> connect_errno) {
 						$assocReturn["message"] = "An internal error occurred. Please try again later.";
 					}
 				}
+				$queriedMarkets -> free();
 			} else {
 				$assocReturn["message"] = "An internal error occurred. Please try again later.";
 			}

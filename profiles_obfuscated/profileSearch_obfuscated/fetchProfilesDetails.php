@@ -40,6 +40,7 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 		} else {
 			$assocReturn["errormessage"] = "No results found.";
 		}
+		$queriedProfilesDetails -> free();
 	} else {
 		$assocReturn["errormessage"] = "An internal error occurred. Please try again later.";
 	}

@@ -118,7 +118,7 @@ refTickBoxes.forEach(function(eachBox, itemIndex) {
 });
 refMarketNameField.addEventListener("keyup", function() {
 	clearTimeout(checkMarketName);
-	if (refMarketNameField.value.length === 0) {
+	if (refMarketNameField.value.length.trim() === 0) {
 		refMarketNameError.innerHTML = "This field is required.";
 	}
 	else if (refMarketNameField.value.length < 3) {
