@@ -127,7 +127,7 @@ if ($mysqliConnection -> connect_errno) {
 			$marketName = $mysqliConnection -> real_escape_string($receivedJSON["marketName"]);
 			$checkMarketsQuery = "SELECT marketOwner, marketName
 			FROM marketdetails
-			WHERE marketOwner = '{$_SESSION["userID"]}'
+			WHERE marketOwner = {$_SESSION["userID"]}
 			OR LOWER(marketName) = LOWER('{$marketName}')";
 			if ($queriedMarkets = $mysqliConnection -> query($checkMarketsQuery)) {
 				if ($queriedMarkets -> num_rows > 0) {

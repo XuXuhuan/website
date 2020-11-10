@@ -178,7 +178,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					$imageFileName = "../../Assets/global/imageNotFound.png";
 					$selectSubscriptionQuery = "SELECT subscribingUser
 					FROM subscriptions
-					WHERE subscribingUser = '{$_SESSION["userID"]}'";
+					WHERE subscribingUser = {$_SESSION["userID"]}";
 					if ($queriedSubscriptions = $mysqliConnection -> query($selectSubscriptionQuery)) {
 						$subscribeButtonClass;
 						$subscribeButtonText = "Subscribe";
@@ -264,11 +264,11 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 									<div id="marketplaceSearchImage"></div>
 								</button>
 							</div>
-							<p class="inputErrorText" id="searchErrorText">User not found.</p>
+							<p class="inputErrorText" id="searchErrorText">Market not found.</p>
 						</form>
 					</div>
 				</div>';
-				$marketProfile = "User not found";
+				$marketProfile = "Market not found";
 			}
 			$queriedMarketDetails -> free();
 		} else {

@@ -658,6 +658,7 @@ main {
 	font-size: 25px;
 	width: fit-content;
 	width: -moz-fit-content;
+	word-break: break-all;
 }
 .biographyText {
 	font-size: 18px;

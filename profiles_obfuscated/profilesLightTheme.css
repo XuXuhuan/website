@@ -458,6 +458,9 @@ main {
 		height: 90vh;
 		left: -100%;
 	}
+	#profileContents {
+		width: 100%;
+	}
 }
 @media only screen and (min-width: 768px) {
 	#sidenav {
@@ -578,10 +581,12 @@ main {
 	position: relative;
 	display: block;
 	margin: 0 auto 15px auto;
+	word-break: break-all;
 }
 #biographyText {
 	font-size: 18px;
 	margin: 0;
+	word-break: break-all;
 }
 #storeSubscriptionsLabel {
 	display: block;

@@ -165,7 +165,7 @@ if ($mysqliConnection -> connect_errno) {
 										$_SESSION["email"] = $dbEmail;
 										$selectMarketsQuery = "SELECT marketName
 										FROM marketdetails
-										WHERE marketOwner = '{$_SESSION["userID"]}'";
+										WHERE marketOwner = {$_SESSION["userID"]}";
 										if ($queriedMarkets = $mysqliConnection -> query($selectMarketsQuery)) {
 											if ($queriedMarkets -> num_rows > 0) {
 												$loginAlert = '
@@ -216,7 +216,7 @@ if ($mysqliConnection -> connect_errno) {
 		} else {
 			$selectMarketsQuery = "SELECT marketName
 			FROM marketdetails
-			WHERE marketOwner = '{$_SESSION["userID"]}'";
+			WHERE marketOwner = {$_SESSION["userID"]}";
 			if ($queriedMarkets = $mysqliConnection -> query($selectMarketsQuery)) {
 				if ($queriedMarkets -> num_rows > 0) {
 					$loginAlert = '

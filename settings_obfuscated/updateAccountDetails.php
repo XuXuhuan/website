@@ -28,7 +28,7 @@ if ($mysqliConnection -> connect_errno) {
 				$escapedReplacedContent = $mysqliConnection -> real_escape_string($replacedContent);
 				$updateBioQuery = "UPDATE accountdetails
 				SET biography = '{$escapedReplacedContent}'
-				WHERE accountID = '{$_SESSION["userID"]}'";
+				WHERE accountID = {$_SESSION["userID"]}";
 				if ($mysqliConnection -> query($updateBioQuery)) {
 					$assocReturn["message"] = "Biography updated.";
 				} else {
@@ -53,7 +53,7 @@ if ($mysqliConnection -> connect_errno) {
 						$_SESSION["userChangeToken"] = isset($_SESSION["userChangeToken"]) ? $_SESSION["userChangeToken"] : $randomString;
 						$selectNeededDetailsQuery = "SELECT firstName, username, email, userChangeTime
 													FROM accountdetails
-													WHERE accountID = '{$_SESSION["userID"]}'";
+													WHERE accountID = {$_SESSION["userID"]}";
 						if ($queriedNeededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 							if ($queriedNeededDetails -> num_rows > 0) {
 								if ($assocNeededDetails = $queriedNeededDetails -> fetch_assoc()) {
@@ -69,7 +69,7 @@ if ($mysqliConnection -> connect_errno) {
 																	SET userChangeTime = NOW(),
 																	userChangeToken = '{$_SESSION["userChangeToken"]}',
 																	newUsername = '{$changeContent}'
-																	WHERE accountID = '{$_SESSION["userID"]}'";
+																	WHERE accountID = {$_SESSION["userID"]}";
 										$emailDOM = '
 										<!DOCTYPE html>
 										<html>
@@ -230,7 +230,7 @@ if ($mysqliConnection -> connect_errno) {
 						$_SESSION["passChangeToken"] = isset($_SESSION["passChangeToken"]) ? $_SESSION["passChangeToken"] : $randomString;
 						$selectNeededDetailsQuery = "SELECT firstName, username, email, passChangeTime
 													FROM accountdetails
-													WHERE accountID = '{$_SESSION["userID"]}'";
+													WHERE accountID = {$_SESSION["userID"]}";
 						if ($queriedNeededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 							if ($queriedNeededDetails -> num_rows > 0) {
 								if ($assocNeededDetails = $queriedNeededDetails -> fetch_assoc()) {
@@ -247,7 +247,7 @@ if ($mysqliConnection -> connect_errno) {
 										SET passChangeTime = NOW(),
 										passChangeToken = '{$_SESSION["passChangeToken"]}',
 										newPassword = '{$hashedNewPassword}'
-										WHERE accountID = '{$_SESSION["userID"]}'";
+										WHERE accountID = {$_SESSION["userID"]}";
 										$emailDOM = '
 										<!DOCTYPE html>
 										<html>
@@ -409,7 +409,7 @@ if ($mysqliConnection -> connect_errno) {
 						$_SESSION["emailChangeToken"] = isset($_SESSION["emailChangeToken"]) ? $_SESSION["emailChangeToken"] : $randomString;
 						$selectNeededDetailsQuery = "SELECT firstName, username, password, email, emailChangeTime
 													FROM accountdetails
-													WHERE accountID = '{$_SESSION["userID"]}'";
+													WHERE accountID = {$_SESSION["userID"]}";
 						if ($queriedNeededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 							if ($queriedNeededDetails -> num_rows > 0) {
 								if ($assocNeededDetails = $queriedNeededDetails -> fetch_assoc()) {
@@ -427,7 +427,7 @@ if ($mysqliConnection -> connect_errno) {
 																		SET emailChangeTime = NOW(),
 																		emailChangeToken = '{$_SESSION["emailChangeToken"]}',
 																		newEmail = '{$changeContent}'
-																		WHERE accountID = '{$_SESSION["userID"]}'";
+																		WHERE accountID = {$_SESSION["userID"]}";
 											$verificationEmailDOM = '
 											<!DOCTYPE html>
 											<html>
@@ -583,14 +583,14 @@ if ($mysqliConnection -> connect_errno) {
 					} else {
 						$selectNeededDetailsQuery = "SELECT password, 2FAenabled
 						FROM accountdetails
-						WHERE accountID = '{$_SESSION["userID"]}'";
+						WHERE accountID = {$_SESSION["userID"]}";
 						if ($queriedNeededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 							if ($assocNeededDetails = $queriedNeededDetails -> fetch_assoc()) {
 								$dbPassword = $assocNeededDetails["password"];
 								$db2FAenabled = $assocNeededDetails["2FAenabled"];
 								$update2FAquery = "UPDATE accountdetails
 								SET 2FAenabled = !{$db2FAenabled}
-								WHERE accountID = '{$_SESSION["userID"]}'";
+								WHERE accountID = {$_SESSION["userID"]}";
 								if (password_verify(base64_encode(hash("sha512", $_POST["content2"], true)), $dbPassword) === true) {
 									if ($mysqliConnection -> query($update2FAquery)) {
 										$toggledDB2FAenabled = !$db2FAenabled;

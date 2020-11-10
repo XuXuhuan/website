@@ -17,7 +17,7 @@ if ($mysqliConnection -> connect_errno) {
 		$selectNeededDetailsQuery = "
 		SELECT username, tokenHash, firstName, email, accountDeletionTime
 		FROM accountdetails
-		WHERE accountID = '{$_SESSION["userID"]}'";
+		WHERE accountID = {$_SESSION["userID"]}";
 		if ($neededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 			if ($assocNeededDetails = $neededDetails -> fetch_assoc()) {
 				$dbUsername = $assocNeededDetails["username"];
@@ -159,7 +159,7 @@ if ($mysqliConnection -> connect_errno) {
 							UPDATE accountdetails
 							SET accountDeletionTime = NOW(),
 							accountDeletionToken = '{$_SESSION["accountDeletionToken"]}'
-							WHERE accountID = '{$_SESSION["userID"]}";
+							WHERE accountID = {$_SESSION["userID"]}";
 							if ($queriedUpdateTimeQuery = $mysqliConnection -> query($updateDeletionEmailTimeQuery)) {
 								$assocReturn["message"] = "Email sent!";
 								$assocReturn["leftoverCooldown"] = 120;

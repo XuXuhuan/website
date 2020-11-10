@@ -5,12 +5,11 @@ date_default_timezone_set("MST");
 $logoutOrLogin = '<p id="logLabel" class="notSelectable">Logout</p>';
 $logoutOrLoginScript = '
 <script>"use strict";const _0x2f34=["../../lo","Micro","text","stene","Selec","POST","XMLHt","php","addEv","soft.","#logL","respo","tpReq","click","entLi","abel","uest","XMLHT","onloa","tor","href","locat","send","gout.","open","ion","nseTy","query","nseTe"];(function(_0x5e9acd,_0x2f344a){const _0x41584a=function(_0x419e75){while(--_0x419e75){_0x5e9acd["push"](_0x5e9acd["shift"]());}};_0x41584a(++_0x2f344a);}(_0x2f34,0x1f1));const _0x4158=function(_0x5e9acd,_0x2f344a){_0x5e9acd=_0x5e9acd-0x0;let _0x41584a=_0x2f34[_0x5e9acd];return _0x41584a;};const _0x5dd2de=document[_0x4158("0x17")+_0x4158("0x0")+_0x4158("0xf")](_0x4158("0x6")+_0x4158("0xb"));var _0x2d4945;_0x5dd2de[_0x4158("0x4")+_0x4158("0xa")+_0x4158("0x1c")+"r"](_0x4158("0x9"),function(){clearTimeout(_0x2d4945);_0x2d4945=setTimeout(function(){const _0x4e392c=window[_0x4158("0x2")+_0x4158("0x8")+_0x4158("0xc")]?new XMLHttpRequest():new ActiveXObject(_0x4158("0x1a")+_0x4158("0x5")+_0x4158("0xd")+"TP");_0x4e392c[_0x4158("0x14")](_0x4158("0x1"),_0x4158("0x19")+_0x4158("0x13")+_0x4158("0x3"),!![]);_0x4e392c[_0x4158("0x7")+_0x4158("0x16")+"pe"]=_0x4158("0x1b");_0x4e392c[_0x4158("0xe")+"d"]=function(){window[_0x4158("0x11")+_0x4158("0x15")][_0x4158("0x10")]=_0x4e392c[_0x4158("0x7")+_0x4158("0x18")+"xt"];};_0x4e392c[_0x4158("0x12")]();},0x15e);});</script>';
-$searchQuery = $_GET["query"];
-$marketID = $_GET["marketid"];
-$productID = $_GET["prodid"];
 $maxResults = 0;
 $productRows = "";
 $searchError = "";
+$numberOfRatings = 0;
+$averageRating = 0;
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
 function getRandomString($stringLength) {
 	return bin2hex(random_bytes($stringLength / 2));
@@ -92,11 +91,175 @@ if ($mysqliConnection -> connect_errno) {
 				</div>';
 			}
 		}
-		if (!empty($searchQuery) || preg_match("/[^0-9]/", $_GET["prodid"]) == true) {
-			$escapedSearchQuery = $mysqliConnection -> real_escape_string($searchQuery);
+		if (!empty($_GET["prodid"])) {
+			if (!preg_match("/[^0-9]/i", $_GET["prodid"])) {
+				$escapedProductID = $mysqliConnection -> real_escape_string($_GET["prodid"]);
+				$selectProductRatingQuery = "SELECT COUNT(productID = '{$escapedProductID}') AS numberOfRatings, AVG(rating) AS averageRating
+				FROM ratings
+				WHERE productID = '{$escapedProductID}'";
+				$selectProductDetailsQuery = "SELECT productID, marketID, productName, productInfo
+				FROM marketproducts
+				WHERE productID = {$escapedProductID}";
+				if ($queriedProductRating = $mysqliConnection -> query($selectProductRatingQuery)) {
+					if ($queriedProductRating -> num_rows > 0) {
+						if ($assocProductRating = $queriedProductRating -> fetch_assoc()) {
+							$numberOfRatings = $assocProductRating["numberOfRatings"];
+							$averageRating = $assocProductRating["averageRating"];
+						} else {
+							$loginAlert = '
+							<div id="alertCont">
+								<p id="alertText">An internal error occurred. Please try again later.</p>
+							</div>';
+						}
+					}
+					if ($queriedProductDetails = $mysqliConnection -> query($selectProductDetailsQuery)) {
+						if ($queriedProductDetails -> num_rows > 0) {
+							if ($assocProductDetails = $queriedProductDetails -> fetch_assoc()) {
+								$firstStarGradient = $averageRating >= 1 ? "100%" : $averageRating * 100;
+								$secondStarGradient = $averageRating >= 2 ? "100%" : ($averageRating - 1) * 100;
+								$thirdStarGradient = $averageRating >= 3 ? "100%" : ($averageRating - 2) * 100;
+								$fourthStarGradient = $averageRating >= 4 ? "100%" : ($averageRating - 3) * 100;
+								$fifthStarGradient = $averageRating === 5 ? "100%" : ($averageRating - 4) * 100;
+								$productPageHTML = "
+								<div id='mainCont'>
+									<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
+										<div id='registerMarketplaceImageCont'></div>
+										Register
+									</a>
+									<div id='productContents'>
+										<div id='searchFormCont'>
+											<form action='index.php' id='productSearchForm' method='GET' autocomplete='off'>
+												<label for='productSearchField' id='productSearchLabel'>Search</label>
+												<div id='searchBarCont'>
+													<input type='text' name='query' id='productSearchField' placeholder='Search For Products'>
+													<button id='productSearchButton' type='submit'>
+														<div id='productSearchImage'></div>
+													</button>
+												</div>
+												<p class='inputErrorText' id='searchErrorText'></p>
+											</form>
+										</div>
+										<div id='productDetailsContainer'>
+											<div id='mainDetailsCont'>
+												<img src='../../Assets/global/imageNotFound.png' alt='Product Image' id='productImage'>
+												<h2 id='productNameLabel'>test Product</h2>
+												<p id='productInfoText'>No product information found.</p>
+											</div>
+											<div id='ratingStarRow'>
+												<p id='ratingLabel'>{$averageRating} ({$numberOfRatings})</p>
+												<div id='ratingStarCont'>
+													<div id='firstStarOuterCont'>
+														<svg height='18' width='18' id='firstStar' class='ratingStar'>
+															<defs>
+																<linearGradient class='starGradient' id='firstStarGradient'>
+																	<stop offset='{$firstStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																	<stop offset='{$firstStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+																</linearGradient>
+															</defs>
+															<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#firstStarGradient);'></polygon>
+														</svg>
+														<div id='firstStarLeftHalf' class='ratingStarLeftHalf'></div>
+														<div id='firstStarRightHalf' class='ratingStarRightHalf'></div>
+													</div>
+													<div id='secondStarOuterCont'>
+														<svg height='18' width='18' id='secondStar' class='ratingStar'>
+															<defs>
+																<linearGradient class='starGradient' id='secondStarGradient'>
+																	<stop offset='{$secondStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																	<stop offset='{$secondStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+																</linearGradient>
+															</defs>
+															<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#secondStarGradient);'></polygon>
+														</svg>
+														<div id='secondStarLeftHalf' class='ratingStarLeftHalf'></div>
+														<div id='secondStarRightHalf' class='ratingStarRightHalf'></div>
+													</div>
+													<div id='thirdStarOuterCont'>
+														<svg height='18' width='18' id='thirdStar' class='ratingStar'>
+															<defs>
+																<linearGradient class='starGradient' id='thirdStarGradient'>
+																	<stop offset='{$thirdStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																	<stop offset='{$thirdStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+																</linearGradient>
+															</defs>
+															<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#thirdStarGradient);'></polygon>
+														</svg>
+														<div id='thirdStarLeftHalf' class='ratingStarLeftHalf'></div>
+														<div id='thirdStarRightHalf' class='ratingStarRightHalf'></div>
+													</div>
+													<div id='fourthStarOuterCont'>
+														<svg height='18' width='18' id='fourthStar' class='ratingStar'>
+															<defs>
+																<linearGradient class='starGradient' id='fourthStarGradient'>
+																	<stop offset='{$fourthStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																	<stop offset='{$fourthStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+																</linearGradient>
+															</defs>
+															<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#fourthStarGradient);'></polygon>
+														</svg>
+														<div id='fourthStarLeftHalf' class='ratingStarLeftHalf'></div>
+														<div id='fourthStarRightHalf' class='ratingStarRightHalf'></div>
+													</div>
+													<div id='fifthStarOuterCont'>
+														<svg height='18' width='18' id='fifthStar' class='ratingStar'>
+															<defs>
+																<linearGradient class='starGradient' id='fifthStarGradient'>
+																	<stop offset='{$fifthStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																	<stop offset='{$fifthStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+																</linearGradient>
+															</defs>
+															<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#fifthStarGradient);'></polygon>
+														</svg>
+														<div id='fifthStarLeftHalf' class='ratingStarLeftHalf'></div>
+														<div id='fifthStarRightHalf' class='ratingStarRightHalf'></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>";
+							} else {
+								$loginAlert = '
+								<div id="alertCont">
+									<p id="alertText">An internal error occurred. Please try again later.</p>
+								</div>';
+							}
+						} else {
+							$loginAlert = '
+							<div id="alertCont">
+								<p id="alertText">This product is unavailable.</p>
+							</div>';
+						}
+						$queriedProductDetails -> free();
+					} else {
+						$loginAlert = '
+						<div id="alertCont">
+							<p id="alertText">An internal error occurred. Please try again later.</p>
+						</div>';
+					}
+					$queriedProductRating -> free();
+				} else {
+					$loginAlert = '
+					<div id="alertCont">
+						<p id="alertText">An internal error occurred. Please try again later.</p>
+					</div>';
+				}
+			} else {
+				$loginAlert = '
+				<div id="alertCont">
+					<p id="alertText">You have entered an invalid product ID in the URL.</p>
+				</div>';
+			}
+		}
+		else if (!empty($_GET["marketid"]) && empty($_GET["query"])) {
+
+		}
+		else if (!empty($_GET["query"]) && !empty($_GET["marketid"])) {
+			$escapedSearchQuery = $mysqliConnection -> real_escape_string($_GET["query"]);
 			$selectProductsDetailsQuery = "SELECT productID, marketID, productName, productInfo, COUNT(productName LIKE '%{$escapedSearchQuery}%') AS maxResults
 			FROM marketproducts
 			WHERE productName LIKE '%{$escapedSearchQuery}%'
+			AND marketID = '{$_GET["marketid"]}'
 			LIMIT 10";
 			$productRows;
 			$maxResults;
@@ -131,12 +294,12 @@ if ($mysqliConnection -> connect_errno) {
 			} else {
 				$loginAlert = '
 				<div id="alertCont">
-					<p id="alertText">An internal server error occurred. Please try again later.</p>
+					<p id="alertText">An internal error occurred. Please try again later.</p>
 				</div>';
 			}
-			$sanitisedSearchQuery = htmlspecialchars($searchQuery, ENT_QUOTES);
+			$sanitisedSearchQuery = htmlspecialchars($_GET["query"], ENT_QUOTES);
 			$currentResults = $maxResults >= 10 ? "10" : $maxResults;
-			$resultCount = empty($searchQuery) ? "" : "<p id='resultCount'>{$currentResults} of {$maxResults} results</p>";
+			$resultCount = empty($_GET["query"]) ? "" : "<p id='resultCount'>{$currentResults} of {$maxResults} results</p>";
 			$numberOfPages = ceil($maxResults / 10);
 			$changePageHTML = empty($productRows) ? "" : 
 			"<div class='infoColumnRow' id='changePageWrapper'>
@@ -148,7 +311,7 @@ if ($mysqliConnection -> connect_errno) {
 				</div>
 				<p id='pageCount' class='notSelectable'><input type='number' value='1' max='{$numberOfPages}' min='1' value='1' id='currentPageCount' onkeyup='countFieldMarketFetch(Event)' onkeydown='cancelCountFieldIncrementTimeout(Event)'> of <span id='maxPagesCount'>{$numberOfPages}</span> pages</p>
 			</div>";
-			$marketplacePageHTML = "
+			$productPageHTML = "
 			<div id='mainCont'>
 				<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
 					<div id='registerMarketplaceImageCont'></div>
@@ -156,12 +319,12 @@ if ($mysqliConnection -> connect_errno) {
 				</a>
 				<div id='marketplaceContents'>
 					<div id='searchFormCont'>
-						<form action='index.php' id='marketplaceSearchForm' method='GET' autocomplete='off'>
-							<label for='marketplaceSearchField' id='marketplaceSearchLabel'>Search</label>
+						<form action='index.php' id='productSearchForm' method='GET' autocomplete='off'>
+							<label for='productSearchField' id='productSearchLabel'>Search</label>
 							<div id='searchBarCont'>
-								<input type='text' value='{$sanitisedSearchQuery}' name='query' id='marketplaceSearchField' placeholder='Search Marketplace'>
-								<button id='marketplaceSearchButton' type='submit'>
-									<div id='marketplaceSearchImage'></div>
+								<input type='text' value='{$sanitisedSearchQuery}' name='query' id='productSearchField' placeholder='Search For Products'>
+								<button id='productSearchButton' type='submit'>
+									<div id='productSearchImage'></div>
 								</button>
 							</div>
 							<p class='inputErrorText' id='searchErrorText'>{$searchError}</p>
@@ -174,35 +337,6 @@ if ($mysqliConnection -> connect_errno) {
 					{$changePageHTML}
 				</div>
 			</div>";
-		}
-		else if (!empty($productID)) {
-			$sanitisedProductID = $mysqliConnection -> real_escape_string($productID);
-			$selectProductsDetailsQuery = "SELECT productID, marketID, productName, productInfo
-			FROM marketproducts
-			WHERE productID = '{$sanitisedProductID}'";
-			if ($queriedProductsDetails = $mysqliConnection -> query($selectProductsDetailsQuery)) {
-				if ($queriedProductsDetails -> num_rows > 0) {
-					if ($assocProductsDetails = $queriedProductsDetails -> fetch_assoc()) {
-
-					} else {
-						$loginAlert = '
-						<div id="alertCont">
-							<p id="alertText">An internal server error occurred. Please try again later.</p>
-						</div>';
-					}
-				} else {
-					$loginAlert = '
-					<div id="alertCont">
-						<p id="alertText">This product is unavailable.</p>
-					</div>';
-				}
-				$queriedProductsDetails -> free();
-			} else {
-				$loginAlert = '
-				<div id="alertCont">
-					<p id="alertText">An internal server error occurred. Please try again later.</p>
-				</div>';
-			}
 		} else {
 			header("Location: https://www.streetor.sg/marketplace/");
 		}
@@ -274,7 +408,7 @@ if (empty($loginAlert)) {
 			</header>
 			<main>
 				{$logoutOrLoginScript}
-				{$marketplacePageHTML}
+				{$productPageHTML}
 			</main>
 			<footer>
 			</footer>

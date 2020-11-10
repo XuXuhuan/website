@@ -5,8 +5,10 @@ const refCurrentPageCountField = document.querySelector("#currentPageCount");
 const refResultCount = document.querySelector("#resultCount");
 const refNotificationCont = document.querySelector("#notificationCont");
 const refNotificationText = document.querySelector("#notificationText");
+var overallRating = document.querySelector("#ratingLabel").innerHTML.split(" ")[0];
 var currentPage = 1;
 var checkChangePage;
+var checkRating;
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
 function fetchNewPage(newPage) {
@@ -125,4 +127,99 @@ function cancelRightArrowIncrementTimeout(event) {
 	if (event.button === 0) {
 		clearTimeout(checkChangePage);
 	}
+}
+if (document.querySelector("#firstStar")) {
+	const refRatingStarCont = document.querySelector("#ratingStarCont");
+	const refRatingStarLeftHalves = document.querySelectorAll(".ratingStarLeftHalf");
+	const refRatingStarRightHalves = document.querySelectorAll(".ratingStarRightHalf");
+	const refFilledStops = document.querySelectorAll(".filledStop");
+	const refUnfilledStops = document.querySelectorAll(".unfilledStop");
+	refRatingStarCont.addEventListener("mouseout", function() {
+		refFilledStops.forEach(function(item, index) {
+			if (index < parseInt(overallRating.charAt(0))) {
+				item.setAttribute("offset", "100%");
+			}
+			else if (overallRating.length > 1) {
+				if (index === parseInt(overallRating.charAt(0))) {
+					item.setAttribute("offset", overallRating.substr(2) + "%");
+				}
+			} else {
+				item.setAttribute("offset", 0);
+			}
+			refUnfilledStops[index].setAttribute("offset", item.getAttribute("offset"));
+		});
+	});
+	refRatingStarLeftHalves.forEach(function(item, index) {
+		item.addEventListener("mouseover", function() {
+			refFilledStops.forEach(function(filledStop, filledStopIndex) {
+				if (filledStopIndex < index) {
+					filledStop.setAttribute("offset", "100%");
+				}
+				else if (filledStopIndex === index) {
+					filledStop.setAttribute("offset", "50%");
+				} else {
+					filledStop.setAttribute("offset", 0);
+				}
+				refUnfilledStops[filledStopIndex].setAttribute("offset", filledStop.getAttribute("offset"));
+			});
+		});
+	});
+	refRatingStarLeftHalves.forEach(function(item, index) {
+		item.addEventListener("click", function() {
+			clearTimeout(checkRating);
+			checkRating = setTimeout(function() {
+				const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+				const URLparameters = new URLSearchParams(window.location.search);
+				xhr.open("POST", "rateProduct.php", true);
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhr.responseType = "json";
+				xhr.onerror = function() {
+					refNotificationCont.style.top = 0;
+					refNotificationCont.style.backgroundColor = "#E60505";
+					refNotificationText.innerHTML = "An error occurred.";
+					setTimeout(function() {
+						refNotificationCont.style.top = "-10vh";
+					},1000);
+				}
+				xhr.onload = function() {
+					if (xhr.status === 200) {
+						const notificationColor = xhr.response["notificationColor"];
+						const notificationText = xhr.response["notificationText"];
+						const newRating = xhr.response["rating"];
+						refNotificationCont.style.top = 0;
+						refNotificationCont.style.backgroundColor = notificationColor;
+						refNotificationText.innerHTML = notificationText;
+						setTimeout(function() {
+							refNotificationCont.style.top = "-10vh";
+						},1000);
+						if (xhr.response["notificationText"] === "Submitted Rating!") {
+							const refRatingLabel = document.querySelector("#ratingLabel");
+							refRatingLabel.innerHTML = newRating;
+							overallRating = newRating;
+						}
+					} else {
+						refNotificationCont.style.top = 0;
+						refNotificationCont.style.backgroundColor = "#E60505";
+						refNotificationText.innerHTML = "An error occurred.";
+						setTimeout(function() {
+							refNotificationCont.style.top = "-10vh";
+						},1000);
+					}
+				}
+				xhr.send("productid=" + encodeURIComponent(URLparameters["prodid"]) + "&rating=" + encodeURIComponent(index + 0.5));
+			}, 350);
+		});
+	});
+	refRatingStarRightHalves.forEach(function(item, index) {
+		item.addEventListener("mouseover", function() {
+			refFilledStops.forEach(function(filledStop, filledStopIndex) {
+				if (filledStopIndex <= index) {
+					filledStop.setAttribute("offset", "100%");
+				} else {
+					filledStop.setAttribute("offset", 0);
+				}
+				refUnfilledStops[filledStopIndex].setAttribute("offset", filledStop.getAttribute("offset"));
+			});
+		});
+	});
 }
