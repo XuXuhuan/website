@@ -26,11 +26,11 @@ function fetchNewPage(newPage) {
 			xhr.response["productDetails"].forEach(function(item) {
 				refProductsContainer.innerHTML += `
 				<div class="productContentsRow infoRow">
-					<img src="${item["productImageURL"]}" alt="Product Image" class="productImage">
-					<div class="productNameAndInfoCont infoColumnRow">
-						<a href="https://www.streetor.sg/marketplace/products/?id=${item["productID"]}" class="productName">${item["productName"]}</a>
-						<p class="biographyText">${item["productInfo"]}</p>
-					</div>
+				<img src="${item["productImageURL"]}" alt="Product Image" class="productImage">
+				<div class="productNameAndInfoCont infoColumnRow">
+				<a href="https://www.streetor.sg/marketplace/products/?id=${item["productID"]}" class="productName">${item["productName"]}</a>
+				<p class="biographyText">${item["productInfo"]}</p>
+				</div>
 				</div>`;
 			});
 			if (xhr.response["currentResults"] > 0 && xhr.response["maxResults"] > 0) {
@@ -221,5 +221,96 @@ if (document.querySelector("#firstStar")) {
 				refUnfilledStops[filledStopIndex].setAttribute("offset", filledStop.getAttribute("offset"));
 			});
 		});
+	});
+}
+if (document.querySelector("#productImageScroller")) {
+	const refProductImageScroller = document.querySelector("#productImageScroller");
+	var currentProductImage = 0;
+	var productImages = window.getComputedStyle(document.querySelector("body"), "::before").getPropertyValue("content").split(" ");
+	var keys = {37 : 1, 38 : 1, 39 : 1, 40 : 1};
+	function preventDefault(e) {
+		e.preventDefault();
+	}
+	function preventDefaultForScrollKeys(e) {
+		if (keys[e.keyCode]) {
+			preventDefault(e);
+			return false;
+		}
+	}
+	var supportsPassive = false;
+	try {
+		window.addEventListener("test", null, Object.defineProperty({}, "passive", {
+			get: function () {
+				supportsPassive = true;
+			} 
+		}));
+	} catch(e) {}
+	var wheelOpt = supportsPassive ? { passive: false } : false;
+	var wheelEvent = "onwheel" in document.createElement("div") ? "wheel" : "mousewheel";
+	function disableScroll() {
+		window.addEventListener("DOMMouseScroll", preventDefault, false);
+		window.addEventListener(wheelEvent, preventDefault, wheelOpt);
+		window.addEventListener("touchmove", preventDefault, wheelOpt);
+		window.addEventListener("keydown", preventDefaultForScrollKeys, false);
+	}
+	function enableScroll() {
+		window.removeEventListener("DOMMouseScroll", preventDefault, false);
+		window.removeEventListener(wheelEvent, preventDefault, wheelOpt); 
+		window.removeEventListener("touchmove", preventDefault, wheelOpt);
+		window.removeEventListener("keydown", preventDefaultForScrollKeys, false);
+	}
+	if (productImages.length > 0) {
+		if (!document.querySelector("div#nextImageButton")) {
+			var createNextImageButton = document.createElement("div");
+			createNextImageButton.id = "nextImageButton";
+			refProductImageScroller.appendChild(createNextImageButton);
+			function goToPreviousImage() {
+				if (currentProductImage > 0) {
+					currentProductImage--;
+					refProductImageScroller.style.backgroundImage = productImages[currentProductImage];
+					if (currentProductImage === 0) {
+						const refPreviousImageButton = document.querySelector("#previousImageButton");
+						refPreviousImageButton.parentNode.removeChild(refPreviousImageButton);
+					}
+					if (!document.querySelector("#nextImageButton")) {
+						var createNextImageButton = document.createElement("div");
+						createNextImageButton.id = "nextImageButton";
+						refProductImageScroller.appendChild(createNextImageButton);
+						createNextImageButton.addEventListener("click", goToNextImage);
+					}
+				}
+			}
+			function goToNextImage() {
+				if (productImages.length > currentProductImage) {
+					currentProductImage++;
+					refProductImageScroller.style.backgroundImage = productImages[currentProductImage];
+					if (currentProductImage + 1 === productImages.length) {
+						const refNextImageButton = document.querySelector("#nextImageButton");
+						refNextImageButton.parentNode.removeChild(refNextImageButton);
+					}
+					if (!document.querySelector("#previousImageButton")) {
+						var createPreviousImageButton = document.createElement("div");
+						createPreviousImageButton.id = "previousImageButton";
+						refProductImageScroller.appendChild(createPreviousImageButton);
+						createPreviousImageButton.addEventListener("click", goToPreviousImage);
+					}
+				}
+			}
+			createNextImageButton.addEventListener("click", goToNextImage);
+			refProductImageScroller.addEventListener("wheel", function(triggered) {
+				if (triggered.deltaY > 0) {
+					goToNextImage();
+				}
+				else if (triggered.deltaY < 0) {
+					goToPreviousImage();
+				}
+			});
+		}
+	}
+	refProductImageScroller.addEventListener("mouseover", function() {
+		disableScroll();
+	});
+	refProductImageScroller.addEventListener("mouseleave", function() {
+		enableScroll();
 	});
 }

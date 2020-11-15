@@ -487,6 +487,10 @@ main {
 	#productInfoText {
 		margin: 0 !important;
 	}
+	#productImageScroller {
+		width: 100% !important;
+		margin: 0 !important;
+	}
 }
 @media only screen and (min-width: 768px) {
 	#sidenav {
@@ -818,13 +822,18 @@ main {
 #productImageScroller {
 	--changeImageButtonOpacity: 0;
 	position: relative;
-	display: block;
-	clear: left;
 	float: left;
 	height: 300px;
 	width: 300px;
 	margin: 0 15px 0 0;
 	background-color: #000000;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+#productImageScroller::after {
+	display: block;
+	clear: left;
 }
 #productImageScroller:hover {
 	--changeImageButtonOpacity: 1;
