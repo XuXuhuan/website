@@ -33,6 +33,25 @@
 	font-family: RobotoReg;
 	src: url("../../Assets/Font-Import/Roboto/Roboto-Regular.ttf");
 }
+body::before{
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	z-index: -1;
+	content: url("../../Assets/darkTheme/close.png")
+	url("../../Assets/darkTheme/menu.png")
+	url("../../Assets/darkTheme/homeIcon.png")
+	url("../../Assets/darkTheme/person.png")
+	url("../../Assets/darkTheme/CogWheel.png")
+	url("../../Assets/global/market.png")
+	url("../../Assets/darkTheme/privacyLock.png")
+	url("../../Assets/darkTheme/loading.png")
+	url("../../Assets/darkTheme/search_magnifying_glass.png")
+	url("../../Assets/global/plusSign.png")
+	url("../../Assets/darkTheme/leftArrow.png")
+	url("../../Assets/darkTheme/rightArrow.png");
+}
 body {
 	margin: 0;
 	background-color: #232527;
@@ -615,11 +634,6 @@ main {
 	align-items: center;
 	margin-bottom: 20px;
 }
-#productSearchForm {
-	position: relative;
-	display: block;
-	margin: 0 auto;
-}
 #productSearchField {
 	outline: none;
 	height: 30px;
@@ -676,11 +690,21 @@ main {
 	width: fit-content;
 	width: -moz-fit-content;
 }
+#pageHeader {
+	display: block;
+	position: relative;
+	margin: 0 auto 15px auto;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	font-family: LatoReg, Arial, sans-serif;
+	width: fit-content;
+	width: -moz-fit-content;
+}
 .productInfoText {
 	font-size: 18px;
 	margin: 0;
 	font-size: 15px;
-	word-break: break-all;
+	word-break: break-word;
 	max-height: 55.2px;
 	height: 55.2px;
 	overflow: hidden;
@@ -759,7 +783,7 @@ main {
 	color: var(--UIdefaultTextColor);
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 27px;
-	word-break: break-all;
+	word-break: break-word;
 }
 #productDetailsContainer {
 	display: -webkit-flex;
@@ -784,7 +808,7 @@ main {
 	margin: 0 0 10px 15px;
 	font-family: LatoReg, Arial, sans-serif;
 	color: var(--UIdefaultTextColor);
-	word-break: break-all;
+	word-break: break-word;
 }
 #ratingStarRow, #ratingStarCont {
 	position: relative;

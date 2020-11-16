@@ -5,7 +5,8 @@ const refCurrentPageCountField = document.querySelector("#currentPageCount");
 const refResultCount = document.querySelector("#resultCount");
 const refNotificationCont = document.querySelector("#notificationCont");
 const refNotificationText = document.querySelector("#notificationText");
-var overallRating = document.querySelector("#ratingLabel").innerHTML.split(" ")[0];
+const refProductSearchField = document.querySelector("#productSearchField");
+const refProductSearchButton = document.querySelector("#productSearchButton");
 var currentPage = 1;
 var checkChangePage;
 var checkRating;
@@ -128,7 +129,20 @@ function cancelRightArrowIncrementTimeout(event) {
 		clearTimeout(checkChangePage);
 	}
 }
+refProductSearchField.addEventListener("keyup", function(key) {
+	if (key.keyCode === 13 && refProductSearchField.value.length > 0) {
+		const URLparameters = new URLSearchParams(window.location.search);
+		window.location = "https://www.streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(URLparameters.get("marketid")) + "&query=" + encodeURIComponent(refProductSearchField.value);
+	}
+});
+refProductSearchButton.addEventListener("keyup", function(triggered) {
+	if (triggered.button === 0 && refProductSearchField.value.length > 0) {
+		const URLparameters = new URLSearchParams(window.location.search);
+		window.location = "https://www.streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(URLparameters.get("marketid")) + "&query=" + encodeURIComponent(refProductSearchField.value);
+	}
+});
 if (document.querySelector("#firstStar")) {
+	var overallRating = document.querySelector("#ratingLabel").innerHTML.split(" ")[0];
 	const refRatingStarCont = document.querySelector("#ratingStarCont");
 	const refRatingStarLeftHalves = document.querySelectorAll(".ratingStarLeftHalf");
 	const refRatingStarRightHalves = document.querySelectorAll(".ratingStarRightHalf");
@@ -259,7 +273,7 @@ if (document.querySelector("#productImageScroller")) {
 		window.removeEventListener("touchmove", preventDefault, wheelOpt);
 		window.removeEventListener("keydown", preventDefaultForScrollKeys, false);
 	}
-	if (productImages.length > 0) {
+	if (productImages.length > 1) {
 		if (!document.querySelector("div#nextImageButton")) {
 			var createNextImageButton = document.createElement("div");
 			createNextImageButton.id = "nextImageButton";

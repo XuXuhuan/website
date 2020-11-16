@@ -630,7 +630,7 @@ main {
 }
 .rowInfo {
 	margin: 0;
-	word-break: break-all;
+	word-break: break-word;
 }
 #changePasswordText, #changeUsernameText, #changeEmailText {
 	font-family: LatoReg, Arial, sans-serif;

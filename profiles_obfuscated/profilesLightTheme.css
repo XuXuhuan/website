@@ -581,12 +581,12 @@ main {
 	position: relative;
 	display: block;
 	margin: 0 auto 15px auto;
-	word-break: break-all;
+	word-break: break-word;
 }
 #biographyText {
 	font-size: 18px;
 	margin: 0;
-	word-break: break-all;
+	word-break: break-word;
 }
 #storeSubscriptionsLabel {
 	display: block;

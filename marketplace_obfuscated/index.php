@@ -174,7 +174,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			if ($queriedMarketDetails -> num_rows > 0) {
 				if ($assocMarketDetails = $queriedMarketDetails -> fetch_assoc()) {
 					$marketProfile = $assocMarketDetails["marketName"];
-					$findMarketLogo = glob("../uploads/marketLogos/{$assocMarketDetails["marketID"]}.*");
+					$findMarketLogo = glob("../uploads/marketLogos/{$assocMarketDetails["marketID"]}.png");
 					$imageFileName = "../../Assets/global/imageNotFound.png";
 					$selectSubscriptionQuery = "SELECT subscribingUser
 					FROM subscriptions
