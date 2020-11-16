@@ -454,7 +454,7 @@ if ($mysqliConnection -> connect_errno) {
 								<div class='productContentsRow infoRow'>
 									<img src='{$imageFileName}' alt='Product Image' class='productImage'>
 									<div class='productNameAndInfoCont infoColumnRow'>
-										<a href='https://www.streetor.sg/marketplace/products/?marketid={$assocProductDetails["marketID"]}&prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
+										<a href='https://www.streetor.sg/marketplace/products/?marketid={$assocProductsDetails["marketID"]}&prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
 										<p class='productInfoText'>{$escapedProductInfo}</p>
 									</div>
 								</div>";
