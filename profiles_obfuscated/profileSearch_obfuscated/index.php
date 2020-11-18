@@ -114,6 +114,7 @@ if ($mysqliConnection -> connect_errno) {
 				} else {
 					$searchError = "No results found.";
 				}
+				$queriedProfilesDetails -> free();
 			} else {
 				$loginAlert = '
 				<div id="alertCont">

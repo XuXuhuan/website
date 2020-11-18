@@ -102,7 +102,7 @@ if ($mysqliConnection -> connect_errno) {
 				WHERE productID = '{$escapedProductID}'";
 				$selectProductDetailsQuery = "SELECT marketID, productID, productName, productInfo
 				FROM marketproducts
-				WHERE productID = {$escapedProductID}";
+				WHERE productID = '{$escapedProductID}'";
 				$firstProductImageURL;
 				$productImageURLs;
 				$firstStarGradient;
@@ -155,7 +155,7 @@ if ($mysqliConnection -> connect_errno) {
 								</style>";
 								$selectMarketNameQuery = "SELECT marketName
 								FROM marketdetails
-								WHERE marketID = {$escapedMarketID}";
+								WHERE marketID = '{$escapedMarketID}'";
 								if ($queriedMarketName = $mysqliConnection -> query($selectMarketNameQuery)) {
 									if ($queriedMarketName -> num_rows > 0) {
 										if ($assocMarketName = $queriedMarketName -> fetch_assoc()) {
@@ -323,7 +323,7 @@ if ($mysqliConnection -> connect_errno) {
 					if ($queriedProductsDetails -> num_rows > 0) {
 						while ($assocProductsDetails = $queriedProductsDetails -> fetch_assoc()) {
 							if (!empty($assocProductsDetails["productID"])) {
-								$findProductImage = glob("../../uploads/productPictures/{$assocProductsDetails["productID"]}/*.*");
+								$findProductImage = glob("../../uploads/productPictures/{$assocProductsDetails["productID"]}/1.png");
 								$imageFileName = "../../Assets/global/imageNotFound.png";
 								$escapedProductName = htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES);
 								$escapedProductInfo = empty($assocProductsDetails["productInfo"]) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES));
@@ -345,7 +345,7 @@ if ($mysqliConnection -> connect_errno) {
 						}
 						$selectMarketNameQuery = "SELECT marketName
 						FROM marketdetails
-						WHERE marketID = {$escapedMarketID}";
+						WHERE marketID = '{$escapedMarketID}'";
 						if ($queriedMarketName = $mysqliConnection -> query($selectMarketNameQuery)) {
 							if ($queriedMarketName -> num_rows > 0) {
 								if ($assocMarketName = $queriedMarketName -> fetch_assoc()) {
@@ -443,7 +443,7 @@ if ($mysqliConnection -> connect_errno) {
 					if ($queriedProductsDetails -> num_rows > 0) {
 						while ($assocProductsDetails = $queriedProductsDetails -> fetch_assoc()) {
 							if (!empty($assocProductsDetails["productID"])) {
-								$findProductImage = glob("../../uploads/productPictures/{$assocProductsDetails["productID"]}/*.*");
+								$findProductImage = glob("../../uploads/productPictures/{$assocProductsDetails["productID"]}/1.png");
 								$imageFileName = "../../Assets/global/imageNotFound.png";
 								$escapedProductName = htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES);
 								$escapedProductInfo = empty($assocProductsDetails["productInfo"]) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES));
@@ -465,7 +465,7 @@ if ($mysqliConnection -> connect_errno) {
 						}
 						$selectMarketNameQuery = "SELECT marketName
 						FROM marketdetails
-						WHERE marketID = {$escapedMarketID}";
+						WHERE marketID = '{$escapedMarketID}'";
 						if ($queriedMarketName = $mysqliConnection -> query($selectMarketNameQuery)) {
 							if ($queriedMarketName -> num_rows > 0) {
 								if ($assocMarketName = $queriedMarketName -> fetch_assoc()) {
@@ -547,8 +547,6 @@ if ($mysqliConnection -> connect_errno) {
 					<p id="alertText">You have entered an invalid market ID in the URL.</p>
 				</div>';
 			}
-		} else {
-			header("Location: https://www.streetor.sg/marketplace/");
 		}
 	} else {
 		$loginAlert = '
