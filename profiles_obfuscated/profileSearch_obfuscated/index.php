@@ -92,29 +92,40 @@ if ($mysqliConnection -> connect_errno) {
 		}
 		if (!empty($searchQuery)) {
 			$escapedSearchQuery = $mysqliConnection -> real_escape_string($searchQuery);
-			$selectProfilesDetailsQuery = "SELECT accountID, username, biography, COUNT(username LIKE '%{$escapedSearchQuery}%') AS maxResults
+			$selectProfilesDetailsQuery = "SELECT accountID, username, biography
 			FROM accountdetails
 			WHERE username LIKE '%{$escapedSearchQuery}%'
-			LIMIT 10";
-			if ($queriedProfilesDetails = $mysqliConnection -> query($selectProfilesDetailsQuery)) {
-				if ($queriedProfilesDetails -> num_rows > 0) {
-					while ($assocProfilesDetails = $queriedProfilesDetails -> fetch_assoc()) {
-						if (!empty($assocProfilesDetails["accountID"])) {
-							$bioText = empty($assocProfilesDetails['biography']) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProfilesDetails['biography'], ENT_QUOTES));
-							$profileRows .= "
-							<div class='infoColumnRow'>
-								<a href='https://www.streetor.sg/profiles/?id={$assocProfilesDetails['accountID']}' class='userListName'>{$assocProfilesDetails['username']}</a>
-								<p class='bioPreview'>{$bioText}</p>
-							</div>";
-							$maxResults = $assocProfilesDetails["maxResults"];
+			LIMIT 10;";
+			$selectProfilesDetailsQuery .= "SELECT COUNT(username LIKE '%{$escapedSearchQuery}%') AS maxResults
+			FROM accountdetails
+			WHERE username LIKE '%{$escapedSearchQuery}%'";
+			if ($mysqliConnection -> multi_query($selectProfilesDetailsQuery)) {
+				do {
+					if ($queriedProfilesDetails = $mysqliConnection -> store_result()) {
+						if ($queriedProfilesDetails -> num_rows > 0) {
+							while ($assocProfilesDetails = $queriedProfilesDetails -> fetch_assoc()) {
+								if (isset($assocProfilesDetails["maxResults"])) {
+									$maxResults = $assocProfilesDetails["maxResults"];
+								} else {
+									$bioText = empty($assocProfilesDetails['biography']) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProfilesDetails['biography'], ENT_QUOTES));
+									$profileRows .= "
+									<div class='infoColumnRow'>
+										<a href='https://www.streetor.sg/profiles/?id={$assocProfilesDetails['accountID']}' class='userListName'>{$assocProfilesDetails['username']}</a>
+										<p class='bioPreview'>{$bioText}</p>
+									</div>";
+								}
+							}
 						} else {
 							$searchError = "No results found.";
 						}
+						$queriedProfilesDetails -> free();
+					} else {
+						$loginAlert = '
+						<div id="alertCont">
+							<p id="alertText">An internal error occurred. Please try again later.</p>
+						</div>';
 					}
-				} else {
-					$searchError = "No results found.";
-				}
-				$queriedProfilesDetails -> free();
+				} while ($mysqliConnection -> next_result());
 			} else {
 				$loginAlert = '
 				<div id="alertCont">

@@ -18,7 +18,7 @@ if (!$mysqliConnection -> connect_errno) {
 			AND subscribedMarket = '{$marketID}'";
 			if ($queriedSubscriptions = $mysqliConnection -> query($selectSubscribedQuery)) {
 				if ($assocQueriedSubscriptions = $queriedSubscriptions -> fetch_assoc()) {
-					if (!empty($assocQueriedSubscriptions["subscriptionCount"])) {
+					if (!empty($assocQueriedSubscriptions["subscribingUser"])) {
 						$unsubscribeFromMarketQuery = "DELETE FROM subscriptions
 						WHERE subscribingUser = {$_SESSION["userID"]}
 						AND subscribedMarket = '{$marketID}'";

@@ -312,68 +312,77 @@ if ($mysqliConnection -> connect_errno) {
 		else if (!empty($_GET["marketid"]) && empty($_GET["query"])) {
 			if (!preg_match("/[^0-9]/i", $_GET["marketid"])) {
 				$escapedMarketID = $mysqliConnection -> real_escape_string($_GET["marketid"]);
-				$selectProductsDetailsQuery = "SELECT marketID, productID, productName, productInfo, COUNT(productName LIKE '%{$escapedMarketID}%') AS maxResults
+				$selectProductsDetailsQuery = "SELECT marketID, productID, productName, productInfo
 				FROM marketproducts
 				WHERE marketID = '{$escapedMarketID}'
-				LIMIT 10";
-				$productRows;
-				$maxResults;
+				LIMIT 10;";
+				$selectProductsDetailsQuery .= "SELECT COUNT(marketID = '{$escapedMarketID}') AS maxResults
+				FROM marketproducts
+				WHERE marketID = '{$escapedMarketID}'";
 				$marketName;
-				if ($queriedProductsDetails = $mysqliConnection -> query($selectProductsDetailsQuery)) {
-					if ($queriedProductsDetails -> num_rows > 0) {
-						while ($assocProductsDetails = $queriedProductsDetails -> fetch_assoc()) {
-							if (!empty($assocProductsDetails["productID"])) {
-								$findProductImage = glob("../../uploads/productPictures/{$assocProductsDetails["productID"]}/1.png");
-								$imageFileName = "../../Assets/global/imageNotFound.png";
-								$escapedProductName = htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES);
-								$escapedProductInfo = empty($assocProductsDetails["productInfo"]) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES));
-								if (!empty($findProductImage)) {
-									$imageFileName = $findProductImage[0];
+				if ($mysqliConnection -> multi_query($selectProductsDetailsQuery)) {
+					do {
+						if ($queriedProductsDetails = $mysqliConnection -> store_result()) {
+							if ($queriedProductsDetails -> num_rows > 0) {
+								while ($assocProductsDetails = $queriedProductsDetails -> fetch_assoc()) {
+									if (isset($assocProductsDetails["maxResults"])) {
+										$maxResults = $assocProductsDetails["maxResults"];
+									} else {
+										$findProductImage = glob("../../uploads/productPictures/{$assocProductsDetails["productID"]}/1.png");
+										$imageFileName = "../../Assets/global/imageNotFound.png";
+										$escapedProductName = htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES);
+										$escapedProductInfo = empty($assocProductsDetails["productInfo"]) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES));
+										if (!empty($findProductImage)) {
+											$imageFileName = $findProductImage[0];
+										}
+										$productRows .= "
+										<div class='productContentsRow infoRow'>
+											<img src='{$imageFileName}' alt='Product Image' class='productImage'>
+											<div class='productNameAndInfoCont infoColumnRow'>
+												<a href='https://www.streetor.sg/marketplace/products/?marketid={$assocProductsDetails["marketID"]}&prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
+												<p class='productInfoText'>{$escapedProductInfo}</p>
+											</div>
+										</div>";
+									}
 								}
-								$productRows .= "
-								<div class='productContentsRow infoRow'>
-									<img src='{$imageFileName}' alt='Product Image' class='productImage'>
-									<div class='productNameAndInfoCont infoColumnRow'>
-										<a href='https://www.streetor.sg/marketplace/products/?marketid={$assocProductsDetails["marketID"]}&prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
-										<p class='productInfoText'>{$escapedProductInfo}</p>
-									</div>
-								</div>";
-								$maxResults = $assocProductsDetails["maxResults"];
 							} else {
 								$searchError = "No results found.";
 							}
-						}
-						$selectMarketNameQuery = "SELECT marketName
-						FROM marketdetails
-						WHERE marketID = '{$escapedMarketID}'";
-						if ($queriedMarketName = $mysqliConnection -> query($selectMarketNameQuery)) {
-							if ($queriedMarketName -> num_rows > 0) {
-								if ($assocMarketName = $queriedMarketName -> fetch_assoc()) {
-									$pageTitle = "{$assocMarketName["marketName"]}'s Products";
-									$marketName = $assocMarketName["marketName"];
-								} else {
-									$loginAlert = '
-									<div id="alertCont">
-										<p id="alertText">An internal error occurred. Please try again later.</p>
-									</div>';
-								}
-							} else {
-								$loginAlert = '
-								<div id="alertCont">
-									<p id="alertText">This product may have been deleted. Please check again later.</p>
-								</div>';
-							}
-							$queriedMarketName -> free();
+							$queriedProductsDetails -> free();
 						} else {
 							$loginAlert = '
 							<div id="alertCont">
-								<p id="alertText">An internal error occurred. Please try again later.</p>
+							<p id="alertText">An internal error occurred. Please try again later.</p>
 							</div>';
 						}
+					} while ($mysqliConnection -> next_result());
+					$selectMarketNameQuery = "SELECT marketName
+					FROM marketdetails
+					WHERE marketID = '{$escapedMarketID}'";
+					if ($queriedMarketName = $mysqliConnection -> query($selectMarketNameQuery)) {
+						if ($queriedMarketName -> num_rows > 0) {
+							if ($assocMarketName = $queriedMarketName -> fetch_assoc()) {
+								$pageTitle = $assocMarketName["marketName"];
+								$marketName = $assocMarketName["marketName"];
+							} else {
+								$loginAlert = '
+								<div id="alertCont">
+									<p id="alertText">An internal error occurred. Please try again later.</p>
+								</div>';
+							}
+						} else {
+							$loginAlert = '
+							<div id="alertCont">
+								<p id="alertText">This product may have been deleted. Please check again later.</p>
+							</div>';
+						}
+						$queriedMarketName -> free();
 					} else {
-						$searchError = "No results found.";
+						$loginAlert = '
+						<div id="alertCont">
+							<p id="alertText">An internal error occurred. Please try again later.</p>
+						</div>';
 					}
-					$queriedProductsDetails -> free();
 				} else {
 					$loginAlert = '
 					<div id="alertCont">
@@ -431,69 +440,83 @@ if ($mysqliConnection -> connect_errno) {
 			if (!preg_match("/[^0-9]/i", $_GET["marketid"])) {
 				$escapedSearchQuery = $mysqliConnection -> real_escape_string($_GET["query"]);
 				$escapedMarketID = $mysqliConnection -> real_escape_string($_GET["marketid"]);
-				$selectProductsDetailsQuery = "SELECT marketID, productID, productName, productInfo, COUNT(productName LIKE '%{$escapedSearchQuery}%') AS maxResults
+				$selectProductsDetailsQuery = "SELECT marketID, productID, productName, productInfo
 				FROM marketproducts
 				WHERE productName LIKE '%{$escapedSearchQuery}%'
 				AND marketID = '{$escapedMarketID}'
-				LIMIT 10";
-				$productRows;
-				$maxResults;
+				LIMIT 10;";
+				$selectProductsDetailsQuery .= "SELECT COUNT(productName LIKE '%{$escapedSearchQuery}%') AS maxResults
+				FROM marketproducts
+				WHERE productName LIKE '%{$escapedSearchQuery}%'";
 				$marketName;
-				if ($queriedProductsDetails = $mysqliConnection -> query($selectProductsDetailsQuery)) {
-					if ($queriedProductsDetails -> num_rows > 0) {
-						while ($assocProductsDetails = $queriedProductsDetails -> fetch_assoc()) {
-							if (!empty($assocProductsDetails["productID"])) {
-								$findProductImage = glob("../../uploads/productPictures/{$assocProductsDetails["productID"]}/1.png");
-								$imageFileName = "../../Assets/global/imageNotFound.png";
-								$escapedProductName = htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES);
-								$escapedProductInfo = empty($assocProductsDetails["productInfo"]) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES));
-								if (!empty($findProductImage)) {
-									$imageFileName = $findProductImage[0];
+				if ($mysqliConnection -> multi_query($selectProductsDetailsQuery)) {
+					do {
+						if ($queriedProductsDetails = $mysqliConnection -> store_result()) {
+							if ($queriedProductsDetails -> num_rows > 0) {
+								while ($assocProductsDetails = $queriedProductsDetails -> fetch_assoc()) {
+									if (isset($assocProductsDetails["maxResults"])) {
+										$maxResults = $assocProductsDetails["maxResults"];
+									} else {
+										if (!empty($assocProductsDetails["productID"])) {
+											$findProductImage = glob("../../uploads/productPictures/{$assocProductsDetails["productID"]}/1.png");
+											$imageFileName = "../../Assets/global/imageNotFound.png";
+											$escapedProductName = htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES);
+											$escapedProductInfo = empty($assocProductsDetails["productInfo"]) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES));
+											if (!empty($findProductImage)) {
+												$imageFileName = $findProductImage[0];
+											}
+											$productRows .= "
+											<div class='productContentsRow infoRow'>
+												<img src='{$imageFileName}' alt='Product Image' class='productImage'>
+												<div class='productNameAndInfoCont infoColumnRow'>
+													<a href='https://www.streetor.sg/marketplace/products/?marketid={$assocProductsDetails["marketID"]}&prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
+													<p class='productInfoText'>{$escapedProductInfo}</p>
+												</div>
+											</div>";
+											$maxResults = $assocProductsDetails["maxResults"];
+										} else {
+											$searchError = "No results found.";
+										}
+									}
 								}
-								$productRows .= "
-								<div class='productContentsRow infoRow'>
-									<img src='{$imageFileName}' alt='Product Image' class='productImage'>
-									<div class='productNameAndInfoCont infoColumnRow'>
-										<a href='https://www.streetor.sg/marketplace/products/?marketid={$assocProductsDetails["marketID"]}&prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
-										<p class='productInfoText'>{$escapedProductInfo}</p>
-									</div>
-								</div>";
-								$maxResults = $assocProductsDetails["maxResults"];
 							} else {
 								$searchError = "No results found.";
 							}
-						}
-						$selectMarketNameQuery = "SELECT marketName
-						FROM marketdetails
-						WHERE marketID = '{$escapedMarketID}'";
-						if ($queriedMarketName = $mysqliConnection -> query($selectMarketNameQuery)) {
-							if ($queriedMarketName -> num_rows > 0) {
-								if ($assocMarketName = $queriedMarketName -> fetch_assoc()) {
-									$pageTitle = "{$assocMarketName["marketName"]}'s Products";
-									$marketName = $assocMarketName["marketName"];
-								} else {
-									$loginAlert = '
-									<div id="alertCont">
-										<p id="alertText">An internal error occurred. Please try again later.</p>
-									</div>';
-								}
-							} else {
-								$loginAlert = '
-								<div id="alertCont">
-									<p id="alertText">This product may have been deleted. Please check again later.</p>
-								</div>';
-							}
-							$queriedMarketName -> free();
+							$queriedProductsDetails -> free();
 						} else {
 							$loginAlert = '
 							<div id="alertCont">
 								<p id="alertText">An internal error occurred. Please try again later.</p>
 							</div>';
 						}
+					} while ($mysqliConnection -> next_result());
+					$selectMarketNameQuery = "SELECT marketName
+					FROM marketdetails
+					WHERE marketID = '{$escapedMarketID}'";
+					if ($queriedMarketName = $mysqliConnection -> query($selectMarketNameQuery)) {
+						if ($queriedMarketName -> num_rows > 0) {
+							if ($assocMarketName = $queriedMarketName -> fetch_assoc()) {
+								$pageTitle = $assocMarketName["marketName"];
+								$marketName = $assocMarketName["marketName"];
+							} else {
+								$loginAlert = '
+								<div id="alertCont">
+									<p id="alertText">An internal error occurred. Please try again later.</p>
+								</div>';
+							}
+						} else {
+							$loginAlert = '
+							<div id="alertCont">
+								<p id="alertText">This product may have been deleted. Please check again later.</p>
+							</div>';
+						}
+						$queriedMarketName -> free();
 					} else {
-						$searchError = "No results found.";
+						$loginAlert = '
+						<div id="alertCont">
+							<p id="alertText">An internal error occurred. Please try again later.</p>
+						</div>';
 					}
-					$queriedProductsDetails -> free();
 				} else {
 					$loginAlert = '
 					<div id="alertCont">

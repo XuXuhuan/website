@@ -7,6 +7,7 @@ const refNotificationCont = document.querySelector("#notificationCont");
 const refNotificationText = document.querySelector("#notificationText");
 var currentPage = 1;
 var checkChangePage;
+var checkNotification;
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
 function fetchNewPage(newPage) {
@@ -72,7 +73,8 @@ function fetchNewPage(newPage) {
 			refNotificationCont.style.top = 0;
 			refNotificationCont.style.backgroundColor = "#E60505";
 			refNotificationText.innerHTML = "An error occurred.";
-			setTimeout(function() {
+			clearTimeout(checkNotification);
+			checkNotification = setTimeout(function() {
 				refNotificationCont.style.top = "-10vh";
 			},1000);
 		}

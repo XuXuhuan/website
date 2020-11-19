@@ -88,9 +88,11 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		}
 	}
 	if (empty($_GET["id"])) {
-		$fetchMostPopularRowsQuery = "SELECT marketID, marketName
+		$fetchMostPopularRowsQuery = "SELECT marketdetails.marketID, marketdetails.marketName
 		FROM marketdetails
-		ORDER BY subscribers DESC
+		INNER JOIN subscriptions
+		ON marketdetails.marketID = subscriptions.subscribedMarket
+		ORDER BY COUNT(*) DESC
 		LIMIT 4";
 		if ($queriedMostPopularRows = $mysqliConnection -> query($fetchMostPopularRowsQuery)) {
 			if ($queriedMostPopularRows -> num_rows > 0) {
@@ -167,7 +169,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		$marketProfile = "Invalid ID";
 	} else {
 		$marketID = $mysqliConnection -> real_escape_string($_GET["id"]);
-		$selectMarketDetailsQuery = "SELECT marketID, marketName, biography, subscribers, productCount
+		$selectMarketDetailsQuery = "SELECT marketID, marketName, biography, (SELECT COUNT(marketID = '{$marketID}') FROM marketproducts) AS productCount, (SELECT COUNT(subscribedMarket = '{$marketID}') FROM subscriptions) AS subscribers
 		FROM marketdetails
 		WHERE marketID = '{$marketID}'";
 		if ($queriedMarketDetails = $mysqliConnection -> query($selectMarketDetailsQuery)) {

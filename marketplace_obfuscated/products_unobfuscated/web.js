@@ -10,6 +10,7 @@ const refProductSearchButton = document.querySelector("#productSearchButton");
 var currentPage = 1;
 var checkChangePage;
 var checkRating;
+var checkNotification;
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
 function setRating(rating) {
@@ -101,7 +102,8 @@ function fetchNewPage(newPage) {
 			refNotificationCont.style.top = 0;
 			refNotificationCont.style.backgroundColor = "#E60505";
 			refNotificationText.innerHTML = "An error occurred.";
-			setTimeout(function() {
+			clearTimeout(checkNotification);
+			checkNotification = setTimeout(function() {
 				refNotificationCont.style.top = "-10vh";
 			},1000);
 		}
@@ -190,7 +192,8 @@ if (document.querySelector("#firstStar")) {
 					refNotificationCont.style.top = 0;
 					refNotificationCont.style.backgroundColor = "#E60505";
 					refNotificationText.innerHTML = "An error occurred.";
-					setTimeout(function() {
+					clearTimeout(checkNotification);
+					checkNotification = setTimeout(function() {
 						refNotificationCont.style.top = "-10vh";
 					},1000);
 				}
@@ -203,7 +206,8 @@ if (document.querySelector("#firstStar")) {
 						refNotificationCont.style.top = 0;
 						refNotificationCont.style.backgroundColor = notificationColor;
 						refNotificationText.innerHTML = notificationText;
-						setTimeout(function() {
+						clearTimeout(checkNotification);
+						checkNotification = setTimeout(function() {
 							refNotificationCont.style.top = "-10vh";
 						},1000);
 						if (xhr.response["notificationText"] === "Rating submitted!") {
@@ -218,7 +222,8 @@ if (document.querySelector("#firstStar")) {
 						refNotificationCont.style.top = 0;
 						refNotificationCont.style.backgroundColor = "#E60505";
 						refNotificationText.innerHTML = "An error occurred.";
-						setTimeout(function() {
+						clearTimeout(checkNotification);
+						checkNotification = setTimeout(function() {
 							refNotificationCont.style.top = "-10vh";
 						},1000);
 					}
@@ -240,7 +245,8 @@ if (document.querySelector("#firstStar")) {
 					refNotificationCont.style.top = 0;
 					refNotificationCont.style.backgroundColor = "#E60505";
 					refNotificationText.innerHTML = "An error occurred.";
-					setTimeout(function() {
+					clearTimeout(checkNotification);
+					checkNotification = setTimeout(function() {
 						refNotificationCont.style.top = "-10vh";
 					},1000);
 				}
@@ -253,7 +259,8 @@ if (document.querySelector("#firstStar")) {
 						refNotificationCont.style.top = 0;
 						refNotificationCont.style.backgroundColor = notificationColor;
 						refNotificationText.innerHTML = notificationText;
-						setTimeout(function() {
+						clearTimeout(checkNotification);
+						checkNotification = setTimeout(function() {
 							refNotificationCont.style.top = "-10vh";
 						},1000);
 						if (xhr.response["notificationText"] === "Rating submitted!") {
@@ -268,7 +275,8 @@ if (document.querySelector("#firstStar")) {
 						refNotificationCont.style.top = 0;
 						refNotificationCont.style.backgroundColor = "#E60505";
 						refNotificationText.innerHTML = "An error occurred.";
-						setTimeout(function() {
+						clearTimeout(checkNotification);
+						checkNotification = setTimeout(function() {
 							refNotificationCont.style.top = "-10vh";
 						},1000);
 					}

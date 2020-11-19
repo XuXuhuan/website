@@ -92,40 +92,45 @@ if ($mysqliConnection -> connect_errno) {
 		}
 		if (!empty($searchQuery)) {
 			$escapedSearchQuery = $mysqliConnection -> real_escape_string($searchQuery);
-			$selectMarketsDetailsQuery = "SELECT marketID, marketName, biography, COUNT(marketName LIKE '%{$escapedSearchQuery}%') AS maxResults
+			$selectMarketsDetailsQuery = "SELECT marketID, marketName, biography
 			FROM marketdetails
 			WHERE marketName LIKE '%{$escapedSearchQuery}%'
-			LIMIT 10";
-			$marketRows;
-			$maxResults;
-			if ($queriedMarketsDetails = $mysqliConnection -> query($selectMarketsDetailsQuery)) {
-				if ($queriedMarketsDetails -> num_rows > 0) {
-					while ($assocMarketsDetails = $queriedMarketsDetails -> fetch_assoc()) {
-						if (!empty($assocMarketsDetails["marketID"])) {
-							$findMarketLogo = glob("../../uploads/marketLogos/{$assocMarketsDetails["marketID"]}.*");
-							$imageFileName = "../../Assets/global/imageNotFound.png";
-							$escapedMarketName = htmlspecialchars($assocMarketsDetails['marketName'], ENT_QUOTES);
-							$escapedBiography = empty($assocMarketsDetails['biography']) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocMarketsDetails['biography'], ENT_QUOTES));
-							if (!empty($findMarketLogo)) {
-								$imageFileName = $findMarketLogo[0];
+			LIMIT 10;";
+			$selectMarketsDetailsQuery .= "SELECT COUNT(marketName LIKE '%{$escapedSearchQuery}%') AS maxResults
+			FROM marketdetails
+			WHERE marketName LIKE '%{$escapedSearchQuery}%'";
+			if ($mysqliConnection -> multi_query($selectMarketsDetailsQuery)) {
+				do {
+					if ($queriedMarketsDetails = $mysqliConnection -> store_result()) {
+						if ($queriedMarketsDetails -> num_rows > 0) {
+							while ($assocMarketsDetails = $queriedMarketsDetails -> fetch_assoc()) {
+								if (isset($assocMarketsDetails["maxResults"])) {
+									$maxResults = $assocMarketsDetails["maxResults"];
+								} else {
+									$findMarketLogo = glob("../../uploads/marketLogos/{$assocMarketsDetails["marketID"]}.*");
+									$imageFileName = "../../Assets/global/imageNotFound.png";
+									$escapedMarketName = htmlspecialchars($assocMarketsDetails['marketName'], ENT_QUOTES);
+									$escapedBiography = empty($assocMarketsDetails['biography']) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocMarketsDetails['biography'], ENT_QUOTES));
+									if (!empty($findMarketLogo)) {
+										$imageFileName = $findMarketLogo[0];
+									}
+									$marketRows .= "
+									<div class='marketContentsRow infoRow'>
+										<img src='{$imageFileName}' alt='Market Logo' class='marketLogoImage'>
+										<div class='marketNameAndBioCont infoColumnRow'>
+											<a href='https://www.streetor.sg/marketplace/?id={$assocMarketsDetails['marketID']}' class='marketName'>{$escapedMarketName}</a>
+											<p class='biographyText'>{$escapedBiography}</p>
+										</div>
+									</div>";
+									$maxResults = $assocMarketsDetails["maxResults"];
+								}
 							}
-							$marketRows .= "
-							<div class='marketContentsRow infoRow'>
-								<img src='{$imageFileName}' alt='Market Logo' class='marketLogoImage'>
-								<div class='marketNameAndBioCont infoColumnRow'>
-									<a href='https://www.streetor.sg/marketplace/?id={$assocMarketsDetails['marketID']}' class='marketName'>{$escapedMarketName}</a>
-									<p class='biographyText'>{$escapedBiography}</p>
-								</div>
-							</div>";
-							$maxResults = $assocMarketsDetails["maxResults"];
 						} else {
 							$searchError = "No results found.";
 						}
 					}
-				} else {
-					$searchError = "No results found.";
-				}
-				$queriedMarketsDetails -> free();
+					$queriedMarketsDetails -> free();
+				} while ($mysqliConnection -> next_result());
 			} else {
 				$loginAlert = '
 				<div id="alertCont">

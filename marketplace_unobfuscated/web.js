@@ -4,6 +4,7 @@ const refSideNav = document.querySelector("#sidenav");
 const refNotificationCont = document.querySelector("#notificationCont");
 const refNotificationText = document.querySelector("#notificationText");
 var checkSubscribe;
+var checkNotification;
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
 refMenuButton.addEventListener("click", function(triggered) {
@@ -33,7 +34,8 @@ function toggleSubscribe(event) {
 				refNotificationCont.style.top = 0;
 				refNotificationCont.style.backgroundColor = "#E60505";
 				refNotificationText.innerHTML = "An error occurred.";
-				setTimeout(function() {
+				clearTimeout(checkNotification);
+				checkNotification = setTimeout(function() {
                     refNotificationCont.style.top = "-10vh";
 				},1000);
 			}
@@ -47,7 +49,8 @@ function toggleSubscribe(event) {
 					refSubscribeButtonCont.innerHTML = `<button id="subscribeButton" class="${xhr.response["buttonClass"]}" onmouseup="toggleSubscribe(event)" onmousedown="cancelToggleSubscribeTimeout(event)">
 															${xhr.response["buttonText"].length === 0 ? defaultButtonText : xhr.response["buttonText"]}
 														</button>`;
-					setTimeout(function() {
+					clearTimeout(checkNotification);
+					checkNotification = setTimeout(function() {
 						refNotificationCont.style.top = "-10vh";
 					},1000);
 					if (xhr.response["notificationText"] === "Subscribed!" || xhr.response["notificationText"] === "Unsubscribed!") {
@@ -58,7 +61,8 @@ function toggleSubscribe(event) {
                     refNotificationCont.style.top = 0;
                     refNotificationCont.style.backgroundColor = "#E60505";
 					refNotificationText.innerHTML = "An error occurred.";
-					setTimeout(function() {
+					clearTimeout(checkNotification);
+					checkNotification = setTimeout(function() {
 						refNotificationCont.style.top = "-10vh";
 					},1000);
 				}
