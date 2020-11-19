@@ -223,7 +223,7 @@ if (document.querySelector("#firstStar")) {
 						},1000);
 					}
 				}
-				xhr.send("productid=" + encodeURIComponent(URLparameters["prodid"]) + "&rating=" + encodeURIComponent(index + 0.5));
+				xhr.send("productid=" + encodeURIComponent(URLparameters.get("prodid")) + "&rating=" + encodeURIComponent(index + 0.5));
 			}, 350);
 		});
 	});

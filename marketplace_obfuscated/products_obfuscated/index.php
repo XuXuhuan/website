@@ -126,11 +126,11 @@ if ($mysqliConnection -> connect_errno) {
 						if ($queriedProductDetails -> num_rows > 0) {
 							if ($assocProductDetails = $queriedProductDetails -> fetch_assoc()) {
 								$foundProductImages = glob("../../uploads/productPictures/{$assocProductDetails["productID"]}/*.png");
-								$firstStarGradient = $averageRating >= 1 ? "100%" : $averageRating * 100;
-								$secondStarGradient = $averageRating >= 2 ? "100%" : ($averageRating - 1) * 100;
-								$thirdStarGradient = $averageRating >= 3 ? "100%" : ($averageRating - 2) * 100;
-								$fourthStarGradient = $averageRating >= 4 ? "100%" : ($averageRating - 3) * 100;
-								$fifthStarGradient = $averageRating === 5 ? "100%" : ($averageRating - 4) * 100;
+								$firstStarGradient = $averageRating >= 1 ? 100 : $averageRating * 100;
+								$secondStarGradient = $averageRating >= 2 ? 100 : ($averageRating - 1) * 100;
+								$thirdStarGradient = $averageRating >= 3 ? 100 : ($averageRating - 2) * 100;
+								$fourthStarGradient = $averageRating >= 4 ? 100 : ($averageRating - 3) * 100;
+								$fifthStarGradient = $averageRating === 5 ? 100 : ($averageRating - 4) * 100;
 								$pageTitle = $assocProductDetails["productName"];
 								$productInfo = empty($assocProductDetails["productInfo"]) ? "No product information found." : $assocProductDetails["productInfo"];
 								if (!empty($foundProductImages)) {
