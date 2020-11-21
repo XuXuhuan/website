@@ -88,12 +88,12 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		}
 	}
 	if (empty($_GET["id"])) {
-		$fetchMostPopularRowsQuery = "SELECT marketdetails.marketID, marketdetails.marketName
+		$fetchMostPopularRowsQuery = "SELECT marketdetails.marketID, marketdetails.marketName, COUNT(subscriptions.subscriptionID) AS subscribers
 		FROM marketdetails
-		INNER JOIN subscriptions
+		LEFT JOIN subscriptions
 		ON marketdetails.marketID = subscriptions.subscribedMarket
-		ORDER BY COUNT(*) DESC
-		LIMIT 4";
+		GROUP BY marketdetails.marketName
+		ORDER BY COUNT(subscriptions.subscriptionID)";
 		if ($queriedMostPopularRows = $mysqliConnection -> query($fetchMostPopularRowsQuery)) {
 			if ($queriedMostPopularRows -> num_rows > 0) {
 				$popularMarkets;

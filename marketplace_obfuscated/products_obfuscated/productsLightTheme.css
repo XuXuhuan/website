@@ -865,3 +865,17 @@ main {
 	right: 25px;
 	background-image: url("../../Assets/lightTheme/rightArrow.png");
 }
+.ratingLabel {
+	display: table-cell;
+	vertical-align: middle;
+	margin: 0 5px 0 0;
+	font-size: 15px;
+	height: 18px;
+}
+.productRatingRow {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}

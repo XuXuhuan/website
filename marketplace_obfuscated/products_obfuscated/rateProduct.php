@@ -26,7 +26,7 @@ if (!$mysqliConnection -> connect_errno) {
 							$assocReturn["notificationColor"] = "#40AF00";
 							$assocReturn["notificationText"] = "Rating submitted!";
 							$assocReturn["averageRating"] = empty($assocQueriedRatings["averageRating"]) ? 0 : $assocQueriedRatings["averageRating"];
-							$assocReturn["ratingCount"] = $assocQueriedRatings["ratingCount"] + 1;
+							$assocReturn["ratingCount"] = (int)$assocQueriedRatings["ratingCount"];
 							$assocReturn["ratingAlreadyExists"] = false;
 						}
 					} else {
@@ -38,7 +38,7 @@ if (!$mysqliConnection -> connect_errno) {
 							$assocReturn["notificationColor"] = "#40AF00";
 							$assocReturn["notificationText"] = "Rating submitted!";
 							$assocReturn["averageRating"] = empty($assocQueriedRatings["averageRating"]) ? 0 : $assocQueriedRatings["averageRating"];
-							$assocReturn["ratingCount"] = $assocQueriedRatings["ratingCount"];
+							$assocReturn["ratingCount"] = (int)$assocQueriedRatings["ratingCount"];
 							$assocReturn["ratingAlreadyExists"] = true;
 						}
 					}

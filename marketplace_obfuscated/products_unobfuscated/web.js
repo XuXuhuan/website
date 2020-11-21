@@ -7,6 +7,8 @@ const refNotificationCont = document.querySelector("#notificationCont");
 const refNotificationText = document.querySelector("#notificationText");
 const refProductSearchField = document.querySelector("#productSearchField");
 const refProductSearchButton = document.querySelector("#productSearchButton");
+const URLparameters = new URLSearchParams(window.location.search);
+var marketID;
 var currentPage = 1;
 var checkChangePage;
 var checkRating;
@@ -40,22 +42,34 @@ function fetchNewPage(newPage) {
 	const refProductsContainer = document.querySelector("#productsContainer");
 	const refSearchErrorText = document.querySelector("#searchErrorText");
 	const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-	const URLparameters = new URLSearchParams(window.location.search);
+	var URLdata;
 	xhr.open("POST", "fetchProductsDetails.php", true);
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.responseType = "json";
 	xhr.onload = function() {
 		if (xhr.status === 200) {
+			currentPage = newPage;
 			refProductsContainer.innerHTML = "";
 			refSearchErrorText.innerHTML = xhr.response["errormessage"];
 			xhr.response["productDetails"].forEach(function(item) {
 				refProductsContainer.innerHTML += `
-				<div class="productContentsRow infoRow">
-				<img src="${item["productImageURL"]}" alt="Product Image" class="productImage">
-				<div class="productNameAndInfoCont infoColumnRow">
-				<a href="https://www.streetor.sg/marketplace/products/?id=${item["productID"]}" class="productName">${item["productName"]}</a>
-				<p class="biographyText">${item["productInfo"]}</p>
-				</div>
+				<div class='productContentsRow infoRow'>
+					<img src='${item["productImageURL"]}' alt='Product Image' class='productImage'>
+					<div class='productNameAndInfoCont infoColumnRow'>
+						<a href='https://www.streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
+						<p class='productInfoText'>${item["productInfo"]}</p>
+						<div class='productRatingRow'>
+							<p class='ratingLabel'>${item["productRating"]}</p>
+							<svg height='18' width='18' class='productRatingStar'>
+								<defs>
+									<linearGradient id='starGradient'>
+										<stop offset='100%' stop-color='#e1c900'></stop>
+									</linearGradient>
+								</defs>
+								<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+							</svg>
+						</div>
+					</div>
 				</div>`;
 			});
 			if (xhr.response["currentResults"] > 0 && xhr.response["maxResults"] > 0) {
@@ -108,7 +122,12 @@ function fetchNewPage(newPage) {
 			},1000);
 		}
 	}
-	xhr.send("query=" + encodeURIComponent(URLparameters.get("query")) + "&page=" + encodeURIComponent(newPage));
+	if (URLparameters.has("query")) {
+		URLdata = "hasQuery=1&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("marketid")) + "&query=" + encodeURIComponent(URLparameters.get("query"));
+	} else {
+		URLdata = "hasQuery=0&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("marketid"));
+	}
+	xhr.send(URLdata);
 }
 refMenuButton.addEventListener("click", function(triggered) {
 	if (triggered.button === 0) {
@@ -154,23 +173,47 @@ function cancelRightArrowIncrementTimeout(event) {
 		clearTimeout(checkChangePage);
 	}
 }
-refProductSearchField.addEventListener("keyup", function(key) {
-	if (key.keyCode === 13 && refProductSearchField.value.length > 0) {
-		const URLparameters = new URLSearchParams(window.location.search);
-		window.location = "https://www.streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(URLparameters.get("marketid")) + "&query=" + encodeURIComponent(refProductSearchField.value);
-	}
-});
-refProductSearchButton.addEventListener("keyup", function(triggered) {
-	if (triggered.button === 0 && refProductSearchField.value.length > 0) {
-		const URLparameters = new URLSearchParams(window.location.search);
-		window.location = "https://www.streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(URLparameters.get("marketid")) + "&query=" + encodeURIComponent(refProductSearchField.value);
-	}
-});
-if (document.querySelector("#firstStar")) {
+if (document.querySelector("#productImageScroller")) {
+	const refProductImageScroller = document.querySelector("#productImageScroller");
+	var currentProductImage = 0;
+	var productImages = window.getComputedStyle(document.querySelector("body"), "::before").getPropertyValue("content").split(" ");
+	var keys = {37 : 1, 38 : 1, 39 : 1, 40 : 1};
 	var overallRating = document.querySelector("#ratingLabel").innerHTML.split(" ")[0];
 	const refRatingStarCont = document.querySelector("#ratingStarCont");
 	const refRatingStarLeftHalves = document.querySelectorAll(".ratingStarLeftHalf");
 	const refRatingStarRightHalves = document.querySelectorAll(".ratingStarRightHalf");
+	function preventDefault(e) {
+		e.preventDefault();
+	}
+	function preventDefaultForScrollKeys(e) {
+		if (keys[e.keyCode]) {
+			preventDefault(e);
+			return false;
+		}
+	}
+	var supportsPassive = false;
+	try {
+		window.addEventListener("test", null, Object.defineProperty({}, "passive", {
+			get: function () {
+				supportsPassive = true;
+			} 
+		}));
+	} catch(e) {}
+	var wheelOpt = supportsPassive ? { passive: false } : false;
+	var wheelEvent = "onwheel" in document.createElement("div") ? "wheel" : "mousewheel";
+	function disableScroll() {
+		window.addEventListener("DOMMouseScroll", preventDefault, false);
+		window.addEventListener(wheelEvent, preventDefault, wheelOpt);
+		window.addEventListener("touchmove", preventDefault, wheelOpt);
+		window.addEventListener("keydown", preventDefaultForScrollKeys, false);
+	}
+	function enableScroll() {
+		window.removeEventListener("DOMMouseScroll", preventDefault, false);
+		window.removeEventListener(wheelEvent, preventDefault, wheelOpt); 
+		window.removeEventListener("touchmove", preventDefault, wheelOpt);
+		window.removeEventListener("keydown", preventDefaultForScrollKeys, false);
+	}
+	marketID = document.querySelector("#marketID").innerHTML;
 	refRatingStarCont.addEventListener("mouseout", function() {
 		setRating(overallRating);
 	});
@@ -184,7 +227,6 @@ if (document.querySelector("#firstStar")) {
 			clearTimeout(checkRating);
 			checkRating = setTimeout(function() {
 				const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-				const URLparameters = new URLSearchParams(window.location.search);
 				xhr.open("POST", "rateProduct.php", true);
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xhr.responseType = "json";
@@ -237,7 +279,6 @@ if (document.querySelector("#firstStar")) {
 			clearTimeout(checkRating);
 			checkRating = setTimeout(function() {
 				const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-				const URLparameters = new URLSearchParams(window.location.search);
 				xhr.open("POST", "rateProduct.php", true);
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xhr.responseType = "json";
@@ -281,7 +322,7 @@ if (document.querySelector("#firstStar")) {
 						},1000);
 					}
 				}
-				xhr.send("productid=" + encodeURIComponent(URLparameters["prodid"]) + "&rating=" + encodeURIComponent(index + 1));
+				xhr.send("productid=" + encodeURIComponent(URLparameters.get("prodid")) + "&rating=" + encodeURIComponent(index + 1));
 			}, 350);
 		});
 	});
@@ -290,43 +331,6 @@ if (document.querySelector("#firstStar")) {
 			setRating(index + 1);
 		});
 	});
-}
-if (document.querySelector("#productImageScroller")) {
-	const refProductImageScroller = document.querySelector("#productImageScroller");
-	var currentProductImage = 0;
-	var productImages = window.getComputedStyle(document.querySelector("body"), "::before").getPropertyValue("content").split(" ");
-	var keys = {37 : 1, 38 : 1, 39 : 1, 40 : 1};
-	function preventDefault(e) {
-		e.preventDefault();
-	}
-	function preventDefaultForScrollKeys(e) {
-		if (keys[e.keyCode]) {
-			preventDefault(e);
-			return false;
-		}
-	}
-	var supportsPassive = false;
-	try {
-		window.addEventListener("test", null, Object.defineProperty({}, "passive", {
-			get: function () {
-				supportsPassive = true;
-			} 
-		}));
-	} catch(e) {}
-	var wheelOpt = supportsPassive ? { passive: false } : false;
-	var wheelEvent = "onwheel" in document.createElement("div") ? "wheel" : "mousewheel";
-	function disableScroll() {
-		window.addEventListener("DOMMouseScroll", preventDefault, false);
-		window.addEventListener(wheelEvent, preventDefault, wheelOpt);
-		window.addEventListener("touchmove", preventDefault, wheelOpt);
-		window.addEventListener("keydown", preventDefaultForScrollKeys, false);
-	}
-	function enableScroll() {
-		window.removeEventListener("DOMMouseScroll", preventDefault, false);
-		window.removeEventListener(wheelEvent, preventDefault, wheelOpt); 
-		window.removeEventListener("touchmove", preventDefault, wheelOpt);
-		window.removeEventListener("keydown", preventDefaultForScrollKeys, false);
-	}
 	if (productImages.length > 1) {
 		if (!document.querySelector("div#nextImageButton")) {
 			var createNextImageButton = document.createElement("div");
@@ -382,3 +386,20 @@ if (document.querySelector("#productImageScroller")) {
 		enableScroll();
 	});
 }
+if (URLparameters.has("marketid")) {
+	marketID = URLparameters.get("marketid");
+} else {
+	if (document.querySelector("#marketID")) {
+		marketID = document.querySelector("#marketID");
+	}
+}
+refProductSearchField.addEventListener("keyup", function(key) {
+	if (key.keyCode === 13 && refProductSearchField.value.length > 0) {
+		window.location = "https://www.streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(marketID) + "&query=" + encodeURIComponent(refProductSearchField.value);
+	}
+});
+refProductSearchButton.addEventListener("keyup", function(triggered) {
+	if (triggered.button === 0 && refProductSearchField.value.length > 0) {
+		window.location = "https://www.streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(marketID) + "&query=" + encodeURIComponent(refProductSearchField.value);
+	}
+});

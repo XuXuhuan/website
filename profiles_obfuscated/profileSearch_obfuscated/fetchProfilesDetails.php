@@ -30,16 +30,14 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 			if ($queriedProfilesDetails = $mysqliConnection -> store_result()) {
 				if ($queriedProfilesDetails -> num_rows > 0) {
 					while ($assocProfilesDetails = $queriedProfilesDetails -> fetch_assoc()) {
-						if (!empty($assocProfilesDetails["accountID"])) {
-							if ($assocProfilesDetails[""])
+						if (isset($assocProfilesDetails["maxResults"])) {
+							$assocReturn["maxResults"] = $assocProfilesDetails["maxResults"];
+							$assocReturn["currentResults"] = $escapedPageCount > $assocProfilesDetails["maxResults"] ? $assocProfilesDetails["maxResults"] : $escapedPageCount;
+						} else {
 							$assocReturn["profileDetails"][] = array("profileID" => $assocProfilesDetails["accountID"],
 								"profileUsername" => $assocProfilesDetails["username"],
 								"profileBiography" => $assocProfilesDetails["biography"]
 							);
-							$assocReturn["maxResults"] = $assocProfilesDetails["maxResults"];
-							$assocReturn["currentResults"] = $escapedPageCount > $assocProfilesDetails["maxResults"] ? $assocProfilesDetails["maxResults"] : $escapedPageCount;
-						} else {
-							$assocReturn["errormessage"] = "No results found.";
 						}
 					}
 				} else {

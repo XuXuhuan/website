@@ -93,16 +93,16 @@ if ($mysqliConnection -> connect_errno) {
 				</div>';
 			}
 		}
-		if (!empty($_GET["prodid"]) && !empty($_GET["marketid"])) {
+		if (!empty($_GET["prodid"])) {
 			if (!preg_match("/[^0-9]/i", $_GET["prodid"])) {
-				$escapedMarketID = $mysqliConnection -> real_escape_string($_GET["marketid"]);
 				$escapedProductID = $mysqliConnection -> real_escape_string($_GET["prodid"]);
-				$selectProductRatingQuery = "SELECT COUNT(productID = '{$escapedProductID}') AS numberOfRatings, AVG(rating) AS averageRating
-				FROM ratings
-				WHERE productID = '{$escapedProductID}'";
-				$selectProductDetailsQuery = "SELECT marketID, productID, productName, productInfo
+				$selectProductDetailsQuery = "SELECT marketdetails.marketName, marketproducts.marketID, marketproducts.productID, marketproducts.productName, marketproducts.productInfo, COUNT(ratings.productID = '{$escapedProductID}') AS numberOfRatings, AVG(ratings.rating) AS averageRating
 				FROM marketproducts
-				WHERE productID = '{$escapedProductID}'";
+				JOIN ratings
+				ON ratings.productID = marketproducts.productID
+				JOIN marketdetails
+				ON marketdetails.marketID = marketproducts.marketID
+				WHERE marketproducts.productID = '{$escapedProductID}'";
 				$firstProductImageURL;
 				$productImageURLs;
 				$firstStarGradient;
@@ -110,192 +110,151 @@ if ($mysqliConnection -> connect_errno) {
 				$thirdStarGradient;
 				$fourthStarGradient;
 				$fifthStarGradient;
-				if ($queriedProductRating = $mysqliConnection -> query($selectProductRatingQuery)) {
-					if ($queriedProductRating -> num_rows > 0) {
-						if ($assocProductRating = $queriedProductRating -> fetch_assoc()) {
-							$numberOfRatings = $assocProductRating["numberOfRatings"];
-							$averageRating = empty($assocProductRating["averageRating"]) ? 0 : $assocProductRating["averageRating"];
+				if ($queriedProductDetails = $mysqliConnection -> query($selectProductDetailsQuery)) {
+					if ($queriedProductDetails -> num_rows > 0) {
+						if ($assocProductDetails = $queriedProductDetails -> fetch_assoc()) {
+							$numberOfRatings = $assocProductDetails["numberOfRatings"];
+							$averageRating = empty($assocProductDetails["averageRating"]) ? 0 : $assocProductDetails["averageRating"];
+							$foundProductImages = glob("../../uploads/productPictures/{$assocProductDetails["productID"]}/*.png");
+							$firstStarGradient = $averageRating >= 1 ? 100 : $averageRating * 100;
+							$secondStarGradient = $averageRating >= 2 ? 100 : ($averageRating - 1) * 100;
+							$thirdStarGradient = $averageRating >= 3 ? 100 : ($averageRating - 2) * 100;
+							$fourthStarGradient = $averageRating >= 4 ? 100 : ($averageRating - 3) * 100;
+							$fifthStarGradient = $averageRating === 5 ? 100 : ($averageRating - 4) * 100;
+							$pageTitle = $assocProductDetails["productName"];
+							$productInfo = empty($assocProductDetails["productInfo"]) ? "No product information found." : $assocProductDetails["productInfo"];
+							if (!empty($foundProductImages)) {
+								$firstProductImageURL = "url({$foundProductImages[0]})";
+								foreach($foundProductImages as $eachImageURL) {
+									$productImageURLs .= " url({$eachImageURL})";
+								}
+							} else {
+								$productImageURLs = "url(../../Assets/global/imageNotFound.png)";
+								$firstProductImageURL = "url(../../Assets/global/imageNotFound.png)";
+							}
+							$headStyles = "
+							<style>
+								body::before{
+									position: absolute;
+									width: 0;
+									height: 0;
+									overflow: hidden;
+									z-index: -1;
+									content:{$productImageURLs};
+								}
+							</style>";
+							$productPageHTML = "
+							<div id='mainCont'>
+								<p id='marketID' style='display: none'>{$assocProductDetails["marketID"]}</p>
+								<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
+									<div id='registerMarketplaceImageCont'></div>
+									Register
+								</a>
+								<div id='productContents'>
+									<div id='searchFormCont'>
+										<div id='searchForm'>
+											<label for='productSearchField' id='productSearchLabel'>Search</label>
+											<div id='searchBarCont'>
+												<input autocomplete='off' type='text' name='query' id='productSearchField' placeholder='Search In {$assocProductDetails["marketName"]}'>
+												<button id='productSearchButton' type='submit'>
+													<div id='productSearchImage'></div>
+												</button>
+											</div>
+											<p class='inputErrorText' id='searchErrorText'></p>
+										</div>
+									</div>
+									<div id='productDetailsContainer'>
+										<div id='mainDetailsCont'>
+											<div id='productImageScroller' style='background-image: {$firstProductImageURL}'></div>
+											<h2 id='productNameLabel'>{$assocProductDetails["productName"]}</h2>
+											<p id='productInfoText'>{$productInfo}</p>
+										</div>
+										<div id='ratingStarRow'>
+											<p id='ratingLabel'>{$averageRating} ({$numberOfRatings})</p>
+											<div id='ratingStarCont'>
+												<div id='firstStarOuterCont'>
+													<svg height='18' width='18' id='firstStar' class='ratingStar'>
+														<defs>
+															<linearGradient class='starGradient' id='firstStarGradient'>
+																<stop offset='{$firstStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																<stop offset='{$firstStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+															</linearGradient>
+														</defs>
+														<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#firstStarGradient);'></polygon>
+													</svg>
+													<div id='firstStarLeftHalf' class='ratingStarLeftHalf'></div>
+													<div id='firstStarRightHalf' class='ratingStarRightHalf'></div>
+												</div>
+												<div id='secondStarOuterCont'>
+													<svg height='18' width='18' id='secondStar' class='ratingStar'>
+														<defs>
+															<linearGradient class='starGradient' id='secondStarGradient'>
+																<stop offset='{$secondStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																<stop offset='{$secondStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+															</linearGradient>
+														</defs>
+														<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#secondStarGradient);'></polygon>
+													</svg>
+													<div id='secondStarLeftHalf' class='ratingStarLeftHalf'></div>
+													<div id='secondStarRightHalf' class='ratingStarRightHalf'></div>
+												</div>
+												<div id='thirdStarOuterCont'>
+													<svg height='18' width='18' id='thirdStar' class='ratingStar'>
+														<defs>
+															<linearGradient class='starGradient' id='thirdStarGradient'>
+																<stop offset='{$thirdStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																<stop offset='{$thirdStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+															</linearGradient>
+														</defs>
+														<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#thirdStarGradient);'></polygon>
+													</svg>
+													<div id='thirdStarLeftHalf' class='ratingStarLeftHalf'></div>
+													<div id='thirdStarRightHalf' class='ratingStarRightHalf'></div>
+												</div>
+												<div id='fourthStarOuterCont'>
+													<svg height='18' width='18' id='fourthStar' class='ratingStar'>
+														<defs>
+															<linearGradient class='starGradient' id='fourthStarGradient'>
+																<stop offset='{$fourthStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																<stop offset='{$fourthStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+															</linearGradient>
+														</defs>
+														<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#fourthStarGradient);'></polygon>
+													</svg>
+													<div id='fourthStarLeftHalf' class='ratingStarLeftHalf'></div>
+													<div id='fourthStarRightHalf' class='ratingStarRightHalf'></div>
+												</div>
+												<div id='fifthStarOuterCont'>
+													<svg height='18' width='18' id='fifthStar' class='ratingStar'>
+														<defs>
+															<linearGradient class='starGradient' id='fifthStarGradient'>
+																<stop offset='{$fifthStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																<stop offset='{$fifthStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+															</linearGradient>
+														</defs>
+														<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#fifthStarGradient);'></polygon>
+													</svg>
+													<div id='fifthStarLeftHalf' class='ratingStarLeftHalf'></div>
+													<div id='fifthStarRightHalf' class='ratingStarRightHalf'></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>";
 						} else {
 							$loginAlert = '
 							<div id="alertCont">
 								<p id="alertText">An internal error occurred. Please try again later.</p>
 							</div>';
 						}
-					}
-					if ($queriedProductDetails = $mysqliConnection -> query($selectProductDetailsQuery)) {
-						if ($queriedProductDetails -> num_rows > 0) {
-							if ($assocProductDetails = $queriedProductDetails -> fetch_assoc()) {
-								$foundProductImages = glob("../../uploads/productPictures/{$assocProductDetails["productID"]}/*.png");
-								$firstStarGradient = $averageRating >= 1 ? 100 : $averageRating * 100;
-								$secondStarGradient = $averageRating >= 2 ? 100 : ($averageRating - 1) * 100;
-								$thirdStarGradient = $averageRating >= 3 ? 100 : ($averageRating - 2) * 100;
-								$fourthStarGradient = $averageRating >= 4 ? 100 : ($averageRating - 3) * 100;
-								$fifthStarGradient = $averageRating === 5 ? 100 : ($averageRating - 4) * 100;
-								$pageTitle = $assocProductDetails["productName"];
-								$productInfo = empty($assocProductDetails["productInfo"]) ? "No product information found." : $assocProductDetails["productInfo"];
-								if (!empty($foundProductImages)) {
-									$firstProductImageURL = "url({$foundProductImages[0]})";
-									foreach($foundProductImages as $eachImageURL) {
-										$productImageURLs .= " url({$eachImageURL})";
-									}
-								} else {
-									$productImageURLs = "url(../../Assets/global/imageNotFound.png)";
-									$firstProductImageURL = "url(../../Assets/global/imageNotFound.png)";
-								}
-								$headStyles = "
-								<style>
-									body::before{
-										position: absolute;
-										width: 0;
-										height: 0;
-										overflow: hidden;
-										z-index: -1;
-										content:{$productImageURLs};
-									}
-								</style>";
-								$selectMarketNameQuery = "SELECT marketName
-								FROM marketdetails
-								WHERE marketID = '{$escapedMarketID}'";
-								if ($queriedMarketName = $mysqliConnection -> query($selectMarketNameQuery)) {
-									if ($queriedMarketName -> num_rows > 0) {
-										if ($assocMarketName = $queriedMarketName -> fetch_assoc()) {
-											$productPageHTML = "
-											<div id='mainCont'>
-												<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
-													<div id='registerMarketplaceImageCont'></div>
-													Register
-												</a>
-												<div id='productContents'>
-													<div id='searchFormCont'>
-														<div id='searchForm'>
-															<label for='productSearchField' id='productSearchLabel'>Search</label>
-															<div id='searchBarCont'>
-																<input autocomplete='off' type='text' name='query' id='productSearchField' placeholder='Search In {$assocMarketName["marketName"]}'>
-																<button id='productSearchButton' type='submit'>
-																	<div id='productSearchImage'></div>
-																</button>
-															</div>
-															<p class='inputErrorText' id='searchErrorText'></p>
-														</div>
-													</div>
-													<div id='productDetailsContainer'>
-														<div id='mainDetailsCont'>
-															<div id='productImageScroller' style='background-image: {$firstProductImageURL}'></div>
-															<h2 id='productNameLabel'>{$assocProductDetails["productName"]}</h2>
-															<p id='productInfoText'>{$productInfo}</p>
-														</div>
-														<div id='ratingStarRow'>
-															<p id='ratingLabel'>{$averageRating} ({$numberOfRatings})</p>
-															<div id='ratingStarCont'>
-																<div id='firstStarOuterCont'>
-																	<svg height='18' width='18' id='firstStar' class='ratingStar'>
-																		<defs>
-																			<linearGradient class='starGradient' id='firstStarGradient'>
-																				<stop offset='{$firstStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
-																				<stop offset='{$firstStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
-																			</linearGradient>
-																		</defs>
-																		<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#firstStarGradient);'></polygon>
-																	</svg>
-																	<div id='firstStarLeftHalf' class='ratingStarLeftHalf'></div>
-																	<div id='firstStarRightHalf' class='ratingStarRightHalf'></div>
-																</div>
-																<div id='secondStarOuterCont'>
-																	<svg height='18' width='18' id='secondStar' class='ratingStar'>
-																		<defs>
-																			<linearGradient class='starGradient' id='secondStarGradient'>
-																				<stop offset='{$secondStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
-																				<stop offset='{$secondStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
-																			</linearGradient>
-																		</defs>
-																		<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#secondStarGradient);'></polygon>
-																	</svg>
-																	<div id='secondStarLeftHalf' class='ratingStarLeftHalf'></div>
-																	<div id='secondStarRightHalf' class='ratingStarRightHalf'></div>
-																</div>
-																<div id='thirdStarOuterCont'>
-																	<svg height='18' width='18' id='thirdStar' class='ratingStar'>
-																		<defs>
-																			<linearGradient class='starGradient' id='thirdStarGradient'>
-																				<stop offset='{$thirdStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
-																				<stop offset='{$thirdStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
-																			</linearGradient>
-																		</defs>
-																		<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#thirdStarGradient);'></polygon>
-																	</svg>
-																	<div id='thirdStarLeftHalf' class='ratingStarLeftHalf'></div>
-																	<div id='thirdStarRightHalf' class='ratingStarRightHalf'></div>
-																</div>
-																<div id='fourthStarOuterCont'>
-																	<svg height='18' width='18' id='fourthStar' class='ratingStar'>
-																		<defs>
-																			<linearGradient class='starGradient' id='fourthStarGradient'>
-																				<stop offset='{$fourthStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
-																				<stop offset='{$fourthStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
-																			</linearGradient>
-																		</defs>
-																		<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#fourthStarGradient);'></polygon>
-																	</svg>
-																	<div id='fourthStarLeftHalf' class='ratingStarLeftHalf'></div>
-																	<div id='fourthStarRightHalf' class='ratingStarRightHalf'></div>
-																</div>
-																<div id='fifthStarOuterCont'>
-																	<svg height='18' width='18' id='fifthStar' class='ratingStar'>
-																		<defs>
-																			<linearGradient class='starGradient' id='fifthStarGradient'>
-																				<stop offset='{$fifthStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
-																				<stop offset='{$fifthStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
-																			</linearGradient>
-																		</defs>
-																		<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#fifthStarGradient);'></polygon>
-																	</svg>
-																	<div id='fifthStarLeftHalf' class='ratingStarLeftHalf'></div>
-																	<div id='fifthStarRightHalf' class='ratingStarRightHalf'></div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>";
-										} else {
-											$loginAlert = '
-											<div id="alertCont">
-												<p id="alertText">An internal error occurred. Please try again later.</p>
-											</div>';
-										}
-									} else {
-										$loginAlert = '
-										<div id="alertCont">
-											<p id="alertText">This product may have been deleted. Please check again later.</p>
-										</div>';
-									}
-									$queriedMarketName -> free();
-								} else {
-									$loginAlert = '
-									<div id="alertCont">
-										<p id="alertText">An internal error occurred. Please try again later.</p>
-									</div>';
-								}
-							} else {
-								$loginAlert = '
-								<div id="alertCont">
-									<p id="alertText">An internal error occurred. Please try again later.</p>
-								</div>';
-							}
-						} else {
-							$loginAlert = '
-							<div id="alertCont">
-								<p id="alertText">This product is unavailable.</p>
-							</div>';
-						}
-						$queriedProductDetails -> free();
 					} else {
 						$loginAlert = '
 						<div id="alertCont">
-							<p id="alertText">An internal error occurred. Please try again later.</p>
+							<p id="alertText">This product is unavailable.</p>
 						</div>';
 					}
-					$queriedProductRating -> free();
+					$queriedProductDetails -> free();
 				} else {
 					$loginAlert = '
 					<div id="alertCont">
@@ -312,9 +271,12 @@ if ($mysqliConnection -> connect_errno) {
 		else if (!empty($_GET["marketid"]) && empty($_GET["query"])) {
 			if (!preg_match("/[^0-9]/i", $_GET["marketid"])) {
 				$escapedMarketID = $mysqliConnection -> real_escape_string($_GET["marketid"]);
-				$selectProductsDetailsQuery = "SELECT marketID, productID, productName, productInfo
+				$selectProductsDetailsQuery = "SELECT marketproducts.productID, marketproducts.productName, marketproducts.productInfo, ratings.rating
 				FROM marketproducts
+				LEFT JOIN ratings
+				ON marketproducts.productID = ratings.productID
 				WHERE marketID = '{$escapedMarketID}'
+				ORDER BY ratings.rating DESC
 				LIMIT 10;";
 				$selectProductsDetailsQuery .= "SELECT COUNT(marketID = '{$escapedMarketID}') AS maxResults
 				FROM marketproducts
@@ -332,6 +294,7 @@ if ($mysqliConnection -> connect_errno) {
 										$imageFileName = "../../Assets/global/imageNotFound.png";
 										$escapedProductName = htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES);
 										$escapedProductInfo = empty($assocProductsDetails["productInfo"]) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES));
+										$productRating = empty($assocProductsDetails["rating"]) ? 0 : $assocProductsDetails["rating"];
 										if (!empty($findProductImage)) {
 											$imageFileName = $findProductImage[0];
 										}
@@ -339,8 +302,19 @@ if ($mysqliConnection -> connect_errno) {
 										<div class='productContentsRow infoRow'>
 											<img src='{$imageFileName}' alt='Product Image' class='productImage'>
 											<div class='productNameAndInfoCont infoColumnRow'>
-												<a href='https://www.streetor.sg/marketplace/products/?marketid={$assocProductsDetails["marketID"]}&prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
+												<a href='https://www.streetor.sg/marketplace/products/?prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
 												<p class='productInfoText'>{$escapedProductInfo}</p>
+												<div class='productRatingRow'>
+													<p class='ratingLabel'>{$productRating}</p>
+													<svg height='18' width='18' class='productRatingStar'>
+														<defs>
+															<linearGradient id='starGradient'>
+																<stop offset='100%' stop-color='#e1c900'></stop>
+															</linearGradient>
+														</defs>
+														<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+													</svg>
+												</div>
 											</div>
 										</div>";
 									}
@@ -396,7 +370,7 @@ if ($mysqliConnection -> connect_errno) {
 				"<div class='infoColumnRow' id='changePageWrapper'>
 					<div id='changePageCont'>
 						" . ($maxResults <= 10 ? '' : "
-						<button id='nextPageButton' onmouseup='rightArrowMarketFetch(event)' onmousedown='cancelRightArrowIncrementTimeout(event)'>
+						<button id='nextPageButton' onmouseup='rightArrowProductFetch(event)' onmousedown='cancelRightArrowIncrementTimeout(event)'>
 							<div class='changePageArrowCont' id='rightArrowCont'></div>
 						</button>") . "
 					</div>
@@ -423,7 +397,7 @@ if ($mysqliConnection -> connect_errno) {
 							</div>
 						</div>
 						{$resultCount}
-						<div id='marketsContainer'>
+						<div id='productsContainer'>
 							{$productRows}
 						</div>
 						{$changePageHTML}
@@ -440,10 +414,13 @@ if ($mysqliConnection -> connect_errno) {
 			if (!preg_match("/[^0-9]/i", $_GET["marketid"])) {
 				$escapedSearchQuery = $mysqliConnection -> real_escape_string($_GET["query"]);
 				$escapedMarketID = $mysqliConnection -> real_escape_string($_GET["marketid"]);
-				$selectProductsDetailsQuery = "SELECT marketID, productID, productName, productInfo
+				$selectProductsDetailsQuery = "SELECT marketproducts.productID, marketproducts.productName, marketproducts.productInfo, ratings.rating
 				FROM marketproducts
+				LEFT JOIN ratings
+				ON marketproducts.productID = ratings.productID
 				WHERE productName LIKE '%{$escapedSearchQuery}%'
 				AND marketID = '{$escapedMarketID}'
+				ORDER BY ratings.rating DESC
 				LIMIT 10;";
 				$selectProductsDetailsQuery .= "SELECT COUNT(productName LIKE '%{$escapedSearchQuery}%') AS maxResults
 				FROM marketproducts
@@ -462,6 +439,7 @@ if ($mysqliConnection -> connect_errno) {
 											$imageFileName = "../../Assets/global/imageNotFound.png";
 											$escapedProductName = htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES);
 											$escapedProductInfo = empty($assocProductsDetails["productInfo"]) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES));
+											$productRating = empty($assocProductsDetails["rating"]) ? 0 : $assocProductsDetails["rating"];
 											if (!empty($findProductImage)) {
 												$imageFileName = $findProductImage[0];
 											}
@@ -469,8 +447,19 @@ if ($mysqliConnection -> connect_errno) {
 											<div class='productContentsRow infoRow'>
 												<img src='{$imageFileName}' alt='Product Image' class='productImage'>
 												<div class='productNameAndInfoCont infoColumnRow'>
-													<a href='https://www.streetor.sg/marketplace/products/?marketid={$assocProductsDetails["marketID"]}&prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
+													<a href='https://www.streetor.sg/marketplace/products/?prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
 													<p class='productInfoText'>{$escapedProductInfo}</p>
+													<div class='productRatingRow'>
+														<p class='ratingLabel'>{$productRating}</p>
+														<svg height='18' width='18' class='productRatingStar'>
+															<defs>
+																<linearGradient id='starGradient'>
+																	<stop offset='100%' stop-color='#e1c900'></stop>
+																</linearGradient>
+															</defs>
+															<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+														</svg>
+													</div>
 												</div>
 											</div>";
 											$maxResults = $assocProductsDetails["maxResults"];
@@ -531,7 +520,7 @@ if ($mysqliConnection -> connect_errno) {
 				"<div class='infoColumnRow' id='changePageWrapper'>
 					<div id='changePageCont'>
 						" . ($maxResults <= 10 ? '' : "
-						<button id='nextPageButton' onmouseup='rightArrowMarketFetch(event)' onmousedown='cancelRightArrowIncrementTimeout(event)'>
+						<button id='nextPageButton' onmouseup='rightArrowProductFetch(event)' onmousedown='cancelRightArrowIncrementTimeout(event)'>
 							<div class='changePageArrowCont' id='rightArrowCont'></div>
 						</button>") . "
 					</div>
@@ -558,7 +547,7 @@ if ($mysqliConnection -> connect_errno) {
 							</div>
 						</div>
 						{$resultCount}
-						<div id='marketsContainer'>
+						<div id='productsContainer'>
 							{$productRows}
 						</div>
 						{$changePageHTML}

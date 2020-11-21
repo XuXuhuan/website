@@ -26,7 +26,7 @@ if (!$mysqliConnection -> connect_errno) {
 							$assocReturn["notificationText"] = "Unsubscribed!";
 							$assocReturn["notificationColor"] = "#40AF00";
 							$assocReturn["buttonText"] = "Subscribe";
-							$assocReturn["subscriberCount"] = $assocQueriedSubscriptions["subscriptionCount"] - 1;
+							$assocReturn["subscriberCount"] = (int)$assocQueriedSubscriptions["subscriptionCount"] - 1;
 						}
 					} else {
 						$subscribeToMarketQuery = "INSERT INTO subscriptions (subscribingUser, subscribedMarket)
@@ -36,7 +36,7 @@ if (!$mysqliConnection -> connect_errno) {
 							$assocReturn["notificationColor"] = "#40AF00";
 							$assocReturn["buttonClass"] = "unsubscribeButton";
 							$assocReturn["buttonText"] = "Unsubscribe";
-							$assocReturn["subscriberCount"] = $assocQueriedSubscriptions["subscriberCount"] + 1;
+							$assocReturn["subscriberCount"] = (int)$assocQueriedSubscriptions["subscriberCount"] + 1;
 						} else {
 							$assocReturn["notificationText"] = "An internal error occurred.";
 						}

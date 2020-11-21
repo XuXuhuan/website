@@ -32,9 +32,10 @@ else if (!empty($searchQuery) && !empty($pageCount) && !preg_match("/[^0-9]/", $
 					while ($assocMarketsDetails = $queriedMarketsDetails -> fetch_assoc()) {
 						if (isset($assocMarketsDetails["maxResults"])) {
 							$assocReturn["maxResults"] = $assocMarketsDetails["maxResults"];
+							$assocReturn["currentResults"] = $escapedPageCount > $assocMarketsDetails["maxResults"] ? $assocMarketsDetails["maxResults"] : $escapedPageCount;
 						} else {
-							$findMarketLogo = glob("../../uploads/marketLogos/{$assocMarketsDetails["marketID"]}.*");
-							$marketImageURL = "../../Assets/imageNotFound.png";
+							$findMarketLogo = glob("../../uploads/marketLogos/{$assocMarketsDetails["marketID"]}.png");
+							$marketImageURL = "../../Assets/global/imageNotFound.png";
 							if (!empty($findMarketLogo)) {
 								$marketImageURL = $findMarketLogo[0];
 							}
@@ -44,8 +45,6 @@ else if (!empty($searchQuery) && !empty($pageCount) && !preg_match("/[^0-9]/", $
 								"marketName" => $assocMarketsDetails["marketName"],
 								"biography" => $assocMarketsDetails["biography"],
 							);
-							$assocReturn["maxResults"] = $assocMarketsDetails["maxResults"];
-							$assocReturn["currentResults"] = $escapedPageCount > $assocMarketsDetails["maxResults"] ? $assocMarketsDetails["maxResults"] : $escapedPageCount;
 						}
 					}
 				} else {
