@@ -15,13 +15,13 @@ if (!$mysqliConnection -> connect_errno) {
 			$escapedRating = $mysqliConnection -> real_escape_string($_POST["rating"]);
 			$checkIfRatingExistsQuery = "SELECT accountID, AVG(rating) AS averageRating, COUNT(productID = '{$escapedProductID}') AS ratingCount
 			FROM ratings
-			WHERE accountID = {$_SESSION["userID"]}
+			WHERE accountID = '{$_SESSION["userID"]}'
 			AND productID = '{$escapedProductID}'";
 			if ($queriedRatings = $mysqliConnection -> query($checkIfRatingExistsQuery)) {
 				if ($assocQueriedRatings = $queriedRatings -> fetch_assoc()) {
 					if (empty($assocQueriedRatings["accountID"])) {
 						$insertRatingValuesQuery = "INSERT INTO ratings(accountID, productID, rating)
-						VALUES ({$_SESSION["userID"]}, '{$escapedProductID}', '{$escapedRating}')";
+						VALUES ('{$_SESSION["userID"]}', '{$escapedProductID}', '{$escapedRating}')";
 						if ($mysqliConnection -> query($insertRatingValuesQuery)) {
 							$assocReturn["notificationColor"] = "#40AF00";
 							$assocReturn["notificationText"] = "Rating submitted!";
@@ -32,7 +32,7 @@ if (!$mysqliConnection -> connect_errno) {
 					} else {
 						$changeRatingValuesQuery = "UPDATE ratings
 						SET rating = '{$escapedRating}'
-						WHERE accountID = {$_SESSION["userID"]}
+						WHERE accountID = '{$_SESSION["userID"]}'
 						AND productID = '{$escapedProductID}'";
 						if ($mysqliConnection -> query($changeRatingValuesQuery)) {
 							$assocReturn["notificationColor"] = "#40AF00";

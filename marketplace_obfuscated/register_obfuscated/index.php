@@ -165,7 +165,7 @@ if ($mysqliConnection -> connect_errno) {
 										$_SESSION["email"] = $dbEmail;
 										$selectMarketsQuery = "SELECT marketName
 										FROM marketdetails
-										WHERE marketOwner = {$_SESSION["userID"]}";
+										WHERE marketOwner = '{$_SESSION["userID"]}'";
 										if ($queriedMarkets = $mysqliConnection -> query($selectMarketsQuery)) {
 											if ($queriedMarkets -> num_rows > 0) {
 												$loginAlert = '
@@ -211,24 +211,6 @@ if ($mysqliConnection -> connect_errno) {
 				$loginAlert = '
 				<div id="alertCont">
 					<p id="alertText">This page is open only to logged in users.</p>
-				</div>';
-			}
-		} else {
-			$selectMarketsQuery = "SELECT marketName
-			FROM marketdetails
-			WHERE marketOwner = {$_SESSION["userID"]}";
-			if ($queriedMarkets = $mysqliConnection -> query($selectMarketsQuery)) {
-				if ($queriedMarkets -> num_rows > 0) {
-					$loginAlert = '
-					<div id="alertCont">
-						<p id="alertText">You already own a market. Each user is only allowed to own and manage 1 market.</p>
-					</div>';
-				}
-				$queriedMarkets -> free();
-			} else {
-				$loginAlert = '
-				<div id="alertCont">
-					<p id="alertText">An internal error occurred. Please try again later.</p>
 				</div>';
 			}
 		}

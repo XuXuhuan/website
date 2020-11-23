@@ -17,7 +17,7 @@ if ($mysqliConnection -> connect_errno) {
 		$selectNeededDetailsQuery = "
 		SELECT username, tokenHash, firstName, email, emailVerified, emailVerificationTime
 		FROM accountdetails
-		WHERE accountID = {$_SESSION["userID"]}";
+		WHERE accountID = '{$_SESSION["userID"]}'";
 		if ($neededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 			if ($neededDetails -> num_rows > 0) {
 				if ($assocNeededDetails = $neededDetails -> fetch_assoc()) {
@@ -163,7 +163,7 @@ if ($mysqliConnection -> connect_errno) {
 							UPDATE accountdetails
 							SET emailVerificationTime = NOW(),
 							emailVerificationToken = '{$_SESSION["emailVerifToken"]}'
-							WHERE accountID = {$_SESSION["userID"]}";
+							WHERE accountID = '{$_SESSION["userID"]}'";
 							if ($queriedUpdateTimeQuery = $mysqliConnection -> query($updateVerificationEmailTimeQuery)) {
 								$assocReturn["message"] = "Email sent!";
 								$assocReturn["leftoverCooldown"] = 120;

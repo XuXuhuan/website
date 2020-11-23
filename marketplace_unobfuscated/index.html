@@ -73,31 +73,41 @@
 							<p class='inputErrorText' id='searchErrorText'></p>
 						</form>
 					</div>
-					<div id='suggestedMarkets'>
-						<div id='popMarketsCont' class='infoColumnRow'>
-							<h1 id='popMarketHeader'>Most Popular</h1>
-							<div id='popMarketsWrapper' class='infoRow'>
-								<a href='index.php?id=1' class='popMarketLink'>
-									<div class='popMarket'>
-										<h2 class='popMarketName notSelectable'>test</h2>
-									</div>
-								</a>
-								<a href='index.php?id=1' class='popMarketLink'>
-									<div class='popMarket'>
-										<h2 class='popMarketName notSelectable'>test</h2>
-									</div>
-								</a>
-								<a href='index.php?id=1' class='popMarketLink'>
-									<div class='popMarket'>
-										<h2 class='popMarketName notSelectable'>test</h2>
-									</div>
-								</a>
+					<div id='marketDetailsCont'>
+						<div id='nameAndBioRow'>
+							<img src='../Assets/global/imageNotFound.png' alt='Market Logo' id='marketLogo'>
+							<div class='infoColumnRow' id='nameAndBioCont'>
+								<div id='menuButtonCont'>
+									<svg id='menuButton' width='5' height='20'>
+										<circle cx='2.5' cy='2.5' r='2.5' class='menuButtonDot'/>
+										<circle cx='2.5' cy='10' r='2.5' class='menuButtonDot'/>
+										<circle cx='2.5' cy='17.5' r='2.5' class='menuButtonDot'/>
+									</svg>
+									<span id='popUp' class='hidePopUp'>
+										<a href='https://www.streetor.sg/marketplace/edit/?id=6' id='popUpLink' class='notSelectable'>
+											Manage
+											<div id='popUpTail'></div>
+										</a>
+									</span>
+								</div>
+								<h2 id='marketName'>test</h2>
+								<p id='biographyText'><b>No information found.</b></p>
 							</div>
 						</div>
-						<div id='recommendedMarketsCont' class='infoColumnRow'>
-							<h1 id='recommendedMarketHeader'>Recommended</h1>
-							<div id='recommendedMarketsWrapper' class='infoRow'>
-								<p class='inputErrorText'>No recommended markets.</p>
+						<div class='infoRow' id='marketStatsRow'>
+							<div class='infoColumnRow marketStatColumn'>
+								<h3 class='statLabel'>Subscribers</h3>
+								<p class='statText' id='subscriberCount'>0</p>
+								<div id='subscribeButtonCont'>
+									<button id='subscribeButton'>Subscribe</button>
+								</div>
+							</div>
+							<div class='infoColumnRow marketStatColumn'>
+								<h3 class='statLabel'>Products</h3>
+								<p class='statText' id='productCount'>11</p>
+								<div id='viewProductsLinkCont'>
+									<a href='https://www.streetor.sg/marketplace/products/?marketid=6' id='viewProductsLink'>View Products</a>
+								</div>
 							</div>
 						</div>
 					</div>

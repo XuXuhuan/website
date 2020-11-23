@@ -46,7 +46,7 @@ function toggleSubscribe(event) {
                     refNotificationCont.style.top = 0;
 					refNotificationCont.style.backgroundColor = notificationColor;
 					refNotificationText.innerHTML = notificationText;
-					refSubscribeButtonCont.innerHTML = `<button id="subscribeButton" class="${xhr.response["buttonClass"]}" onmouseup="toggleSubscribe(event)" onmousedown="cancelToggleSubscribeTimeout(event)">
+					refSubscribeButtonCont.innerHTML = `<button id="subscribeButton" class="${xhr.response["buttonClass"]}" ${xhr.response["buttonClass"] === "cannotSubscribe" ? "" : 'onmouseup="toggleSubscribe(event)" onmousedown="cancelToggleSubscribeTimeout(event)"'}>
 															${xhr.response["buttonText"].length === 0 ? defaultButtonText : xhr.response["buttonText"]}
 														</button>`;
 					clearTimeout(checkNotification);
@@ -67,7 +67,7 @@ function toggleSubscribe(event) {
 					},1000);
 				}
 			}
-			xhr.send("id=" + encodeURIComponent(URLparameters["id"]));
+			xhr.send("id=" + encodeURIComponent(URLparameters.get("id")));
 		}, 350);
 	}
 }
@@ -76,3 +76,18 @@ function cancelToggleSubscribeTimeout(event) {
 		clearTimeout(checkSubscribe);
 	}
 }
+if (document.querySelector("#menuButtonCont")) {
+	const refMenuButtonCont = document.querySelector("#menuButtonCont");
+	const refPopUp = document.querySelector("#popUp");
+	var canManage = refMenuButtonCont.classList.contains("cannotManage");
+	refMenuButtonCont.addEventListener("click", function() {
+		if (canManage === false) {
+			refPopUp.classList.toggle("hidePopUp");
+		}
+	});
+}
+document.addEventListener("mousedown", function(event) {
+	if (event.detail > 1) {
+	  event.preventDefault();
+	}
+}, false);

@@ -6,7 +6,6 @@ $marketProfile;
 $marketplacePageHTML;
 $stylesheetLink;
 $loginAlert;
-$popMarketError;
 $logoutOrLogin = '<p id="logLabel" class="notSelectable">Logout</p>';
 $logoutOrLoginScript = '
 <script>"use strict";const _0x2f34=["../lo","Micro","text","stene","Selec","POST","XMLHt","php","addEv","soft.","#logL","respo","tpReq","click","entLi","abel","uest","XMLHT","onloa","tor","href","locat","send","gout.","open","ion","nseTy","query","nseTe"];(function(_0x5e9acd,_0x2f344a){const _0x41584a=function(_0x419e75){while(--_0x419e75){_0x5e9acd["push"](_0x5e9acd["shift"]());}};_0x41584a(++_0x2f344a);}(_0x2f34,0x1f1));const _0x4158=function(_0x5e9acd,_0x2f344a){_0x5e9acd=_0x5e9acd-0x0;let _0x41584a=_0x2f34[_0x5e9acd];return _0x41584a;};const _0x5dd2de=document[_0x4158("0x17")+_0x4158("0x0")+_0x4158("0xf")](_0x4158("0x6")+_0x4158("0xb"));var _0x2d4945;_0x5dd2de[_0x4158("0x4")+_0x4158("0xa")+_0x4158("0x1c")+"r"](_0x4158("0x9"),function(){clearTimeout(_0x2d4945);_0x2d4945=setTimeout(function(){const _0x4e392c=window[_0x4158("0x2")+_0x4158("0x8")+_0x4158("0xc")]?new XMLHttpRequest():new ActiveXObject(_0x4158("0x1a")+_0x4158("0x5")+_0x4158("0xd")+"TP");_0x4e392c[_0x4158("0x14")](_0x4158("0x1"),_0x4158("0x19")+_0x4158("0x13")+_0x4158("0x3"),!![]);_0x4e392c[_0x4158("0x7")+_0x4158("0x16")+"pe"]=_0x4158("0x1b");_0x4e392c[_0x4158("0xe")+"d"]=function(){window[_0x4158("0x11")+_0x4158("0x15")][_0x4158("0x10")]=_0x4e392c[_0x4158("0x7")+_0x4158("0x18")+"xt"];};_0x4e392c[_0x4158("0x12")]();},0x15e);});</script>';
@@ -88,60 +87,104 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		}
 	}
 	if (empty($_GET["id"])) {
-		$fetchMostPopularRowsQuery = "SELECT marketdetails.marketID, marketdetails.marketName, COUNT(subscriptions.subscriptionID) AS subscribers
+		$popularMarkets;
+		$ownedMarkets;
+		$fetchMarketsQuery = "SELECT marketdetails.marketID, marketdetails.marketName AS popularMarketName, COUNT(subscriptions.subscriptionID) AS subscribers
 		FROM marketdetails
 		LEFT JOIN subscriptions
 		ON marketdetails.marketID = subscriptions.subscribedMarket
 		GROUP BY marketdetails.marketName
-		ORDER BY COUNT(subscriptions.subscriptionID)";
-		if ($queriedMostPopularRows = $mysqliConnection -> query($fetchMostPopularRowsQuery)) {
-			if ($queriedMostPopularRows -> num_rows > 0) {
-				$popularMarkets;
-				while ($assocMostPopularRows = $queriedMostPopularRows -> fetch_assoc()) {
-					$popularMarkets .= "
-					<a href='index.php?id={$assocMostPopularRows['marketID']}' class='popMarketLink'>
-						<div class='popMarket'>
-							<h2 class='popMarketName notSelectable'>{$assocMostPopularRows['marketName']}</h2>
-						</div>
-					</a>";
+		ORDER BY COUNT(subscriptions.subscriptionID);";
+		if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
+			$fetchMarketsQuery .= "SELECT marketName AS ownedMarketName, marketID
+			FROM marketdetails
+			WHERE marketOwner = '{$_SESSION["userID"]}'";
+		}
+		if ($mysqliConnection -> multi_query($fetchMarketsQuery)) {
+			if ($queriedMarketRows = $mysqliConnection -> store_result()) {
+				if ($queriedMarketRows -> num_rows > 0) {
+					while ($assocMarketRows = $queriedMarketRows -> fetch_assoc()) {
+						$popularMarkets .= "
+						<a href='index.php?id={$assocMarketRows['marketID']}' class='popMarketLink'>
+							<div class='popMarket'>
+								<h2 class='popMarketName notSelectable'>{$assocMarketRows['popularMarketName']}</h2>
+							</div>
+						</a>";
+					}
+				} else {
+					$popularMarkets = "<p class='inputErrorText' id='popularMarketsError'>None at the moment.</p>";
 				}
-				$marketplacePageHTML = "
-				<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
-					<div id='registerMarketplaceImageCont'></div>
-					Register
-				</a>
-				<div id='marketContents'>
-					<div id='searchFormCont'>
-						<form action='marketplaceSearch/index.php' id='marketplaceSearchForm' method='GET' autocomplete='off'>
-							<label for='marketplaceSearchField' id='marketplaceSearchLabel'>Search</label>
-							<div id='searchBarCont'>
-								<input type='text' name='query' id='marketplaceSearchField' placeholder='Search Marketplace'>
-								<button id='marketplaceSearchButton' type='submit'>
-									<div id='marketplaceSearchImage'></div>
-								</button>
-							</div>
-							<p class='inputErrorText' id='searchErrorText'></p>
-						</form>
-					</div>
-					<div id='suggestedMarkets'>
-						<div id='popMarketsCont' class='infoColumnRow'>
-							<h1 id='popMarketHeader'>Most Popular</h1>
-							<div id='popMarketsWrapper' class='infoRow'>
-								{$popularMarkets}
-							</div>
-						</div>
-						<div id='recommendedMarketsCont' class='infoColumnRow'>
-							<h1 id='recommendedMarketHeader'>Recommended</h1>
-							<div id='recommendedMarketsWrapper' class='infoRow'>
-								<p class='inputErrorText'>No recommended markets.</p>
-							</div>
-						</div>
-					</div>
-				</div>";
+				$queriedMarketRows -> free();
 			} else {
-				$popMarketError = "No popular markets at the moment.";
+				$loginAlert = '
+				<div id="alertCont">
+					<p id="alertText">An internal error occurred. Please try again later.</p>
+				</div>';
 			}
-			$queriedMostPopularRows -> free();
+			if ($mysqliConnection -> more_results()) {
+				$mysqliConnection -> next_result();
+				if ($queriedMarketRows = $mysqliConnection -> store_result()) {
+					if ($queriedMarketRows -> num_rows > 0) {
+						while ($assocMarketRows = $queriedMarketRows -> fetch_assoc()) {
+							$ownedMarkets .= "
+							<a href='index.php?id={$assocMarketRows['marketID']}' class='ownedMarketLink'>
+								<div class='ownedMarket'>
+									<h2 class='ownedMarketName notSelectable'>{$assocMarketRows['ownedMarketName']}</h2>
+								</div>
+							</a>";
+						}
+					} else {
+						$ownedMarkets = "<p class='inputErrorText' id='ownedMarketsError'>None at the moment.</p>";
+					}
+					$queriedMarketRows -> free();
+				} else {
+					$loginAlert = '
+					<div id="alertCont">
+						<p id="alertText">An internal error occurred. Please try again later.</p>
+					</div>';
+				}
+			} else {
+				$ownedMarkets = "<p class='inputErrorText' id='ownedMarketsError'>None at the moment.</p>";
+			}
+			$marketplacePageHTML = "
+			<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
+				<div id='registerMarketplaceImageCont'></div>
+				Register
+			</a>
+			<div id='marketContents'>
+				<div id='searchFormCont'>
+					<form action='marketplaceSearch/index.php' id='marketplaceSearchForm' method='GET' autocomplete='off'>
+						<label for='marketplaceSearchField' id='marketplaceSearchLabel'>Search</label>
+						<div id='searchBarCont'>
+							<input type='text' name='query' id='marketplaceSearchField' placeholder='Search Marketplace'>
+							<button id='marketplaceSearchButton' type='submit'>
+								<div id='marketplaceSearchImage'></div>
+							</button>
+						</div>
+						<p class='inputErrorText' id='searchErrorText'></p>
+					</form>
+				</div>
+				<div id='suggestedMarkets'>
+					<div id='popMarketsCont' class='infoColumnRow'>
+						<h1 id='popMarketHeader'>Most Popular</h1>
+						<div id='popMarketsWrapper' class='infoRow'>
+							{$popularMarkets}
+						</div>
+					</div>
+					<div id='recommendedMarketsCont' class='infoColumnRow'>
+						<h1 id='recommendedMarketHeader'>Recommended</h1>
+						<div id='recommendedMarketsWrapper' class='infoRow'>
+							<p class='inputErrorText' id='recommendedMarketsError'>None at the moment.</p>
+						</div>
+					</div>
+					<div id='ownedMarketsCont' class='infoColumnRow'>
+						<h1 id='ownedMarketHeader'>Your Markets</h1>
+						<div id='ownedMarketsWrapper' class='infoRow'>
+							{$ownedMarkets}
+						</div>
+					</div>
+				</div>
+			</div>";
 		} else {
 			$loginAlert = '
 			<div id="alertCont">
@@ -169,29 +212,61 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		$marketProfile = "Invalid ID";
 	} else {
 		$marketID = $mysqliConnection -> real_escape_string($_GET["id"]);
-		$selectMarketDetailsQuery = "SELECT marketID, marketName, biography, (SELECT COUNT(marketID = '{$marketID}') FROM marketproducts) AS productCount, (SELECT COUNT(subscribedMarket = '{$marketID}') FROM subscriptions) AS subscribers
+		$selectMarketDetailsQuery = "SELECT marketID, marketName, biography,
+		(SELECT COUNT(marketID = '{$marketID}') FROM marketproducts) AS productCount,
+		(SELECT COUNT(subscribedMarket = '{$marketID}') FROM subscriptions WHERE subscribedMarket = '{$marketID}') AS subscribers,
+		(SELECT COUNT(marketOwner = '{$_SESSION["userID"]}') AS isUserOwner FROM marketdetails WHERE marketID = '{$marketID}' AND marketOwner = '{$_SESSION["userID"]}') AS isUserOwner
 		FROM marketdetails
 		WHERE marketID = '{$marketID}'";
 		if ($queriedMarketDetails = $mysqliConnection -> query($selectMarketDetailsQuery)) {
-			if ($queriedMarketDetails -> num_rows > 0) {
-				if ($assocMarketDetails = $queriedMarketDetails -> fetch_assoc()) {
+			if ($assocMarketDetails = $queriedMarketDetails -> fetch_assoc()) {
+				if (!empty($assocMarketDetails["marketID"])) {
 					$marketProfile = $assocMarketDetails["marketName"];
 					$findMarketLogo = glob("../uploads/marketLogos/{$assocMarketDetails["marketID"]}.png");
 					$imageFileName = "../../Assets/global/imageNotFound.png";
 					$selectSubscriptionQuery = "SELECT subscribingUser
 					FROM subscriptions
-					WHERE subscribingUser = {$_SESSION["userID"]}";
+					WHERE subscribingUser = '{$_SESSION["userID"]}'";
 					if ($queriedSubscriptions = $mysqliConnection -> query($selectSubscriptionQuery)) {
 						$subscribeButtonClass;
+						$subscribeButtonEvents;
+						$menuButtonHTML;
 						$subscribeButtonText = "Subscribe";
 						$escapedMarketName = htmlspecialchars($assocMarketDetails['marketName'], ENT_QUOTES);
-						$escapedBiography = nl2br(htmlspecialchars($assocMarketDetails['biography'], ENT_QUOTES));
-						if ($queriedSubscriptions -> num_rows > 0) {
-							if (!empty($findMarketLogo)) {
-								$imageFileName = $findMarketLogo[0];
+						$escapedBiography = empty($assocMarketDetails["biography"]) ? '<b>No information found.</b>' : nl2br(htmlspecialchars($assocMarketDetails['biography'], ENT_QUOTES));
+						if (!empty($findMarketLogo)) {
+							$imageFileName = $findMarketLogo[0];
+						}
+						if ($assocMarketDetails["isUserOwner"] == 1) {
+							$subscribeButtonClass = " class='cannotSubscribe'";
+							$menuButtonHTML = "
+							<div id='menuButtonCont'>
+								<svg id='menuButton' width='5' height='20'>
+									<circle cx='2.5' cy='2.5' r='2.5' class='menuButtonDot'/>
+									<circle cx='2.5' cy='10' r='2.5' class='menuButtonDot'/>
+									<circle cx='2.5' cy='17.5' r='2.5' class='menuButtonDot'/>
+								</svg>
+								<span id='popUp' class='hidePopUp'>
+									<a href='https://www.streetor.sg/marketplace/edit/?id=6' id='popUpLink' class='notSelectable'>
+										Manage
+										<div id='popUpTail'></div>
+									</a>
+								</span>
+							</div>";
+						} else {
+							$menuButtonHTML = "
+							<div id='menuButtonCont' class='cannotManage'>
+								<svg id='menuButton' width='5' height='20'>
+									<circle cx='2.5' cy='2.5' r='2.5' class='menuButtonDot'/>
+									<circle cx='2.5' cy='10' r='2.5' class='menuButtonDot'/>
+									<circle cx='2.5' cy='17.5' r='2.5' class='menuButtonDot'/>
+								</svg>
+							</div>";
+							if ($queriedSubscriptions -> num_rows > 0) {
+								$subscribeButtonClass = " class='unsubscribeButton'";
+								$subscribeButtonText = "Unsubscribe";
 							}
-							$subscribeButtonClass = ' class="unsubscribeButton"';
-							$subscribeButtonText = "Unsubscribe";
+							$subscribeButtonEvents = "onmousedown='cancelToggleSubscribeTimeout(event)' onmouseup='toggleSubscribe(event)'";
 						}
 						$marketplacePageHTML = "
 						<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
@@ -215,6 +290,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 								<div id='nameAndBioRow'>
 									<img src='{$imageFileName}' alt='Market Logo' id='marketLogo'>
 									<div class='infoColumnRow' id='nameAndBioCont'>
+										{$menuButtonHTML}
 										<h2 id='marketName'>{$escapedMarketName}</h2>
 										<p id='biographyText'>{$escapedBiography}</p>
 									</div>
@@ -224,7 +300,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 										<h3 class='statLabel'>Subscribers</h3>
 										<p class='statText' id='subscriberCount'>{$assocMarketDetails['subscribers']}</p>
 										<div id='subscribeButtonCont'>
-											<button id='subscribeButton'{$subscribeButtonClass} onmousedown='cancelToggleSubscribeTimeout(event)' onmouseup='toggleSubscribe(event)'>{$subscribeButtonText}</button>
+											<button id='subscribeButton'{$subscribeButtonClass} {$subscribeButtonEvents}>{$subscribeButtonText}</button>
 										</div>
 									</div>
 									<div class='infoColumnRow marketStatColumn'>
@@ -245,32 +321,32 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 						</div>';
 					}
 				} else {
-					$loginAlert = '
-					<div id="alertCont">
-						<p id="alertText">An internal error occurred. Please try again later.</p>
+					$marketplacePageHTML = '
+					<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
+						<div id="registerMarketplaceImageCont"></div>
+						Register
+					</a>
+					<div id="marketContents">
+						<div id="searchFormCont">
+							<form action="marketplaceSearch/index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
+								<label for="marketplaceSearchField" id="marketplaceSearchLabel">Search</label>
+								<div id="searchBarCont">
+									<input type="text" name="query" id="marketplaceSearchField" placeholder="Search Marketplace">
+									<button id="marketplaceSearchButton" type="submit">
+										<div id="marketplaceSearchImage"></div>
+									</button>
+								</div>
+								<p class="inputErrorText" id="searchErrorText">Market not found.</p>
+							</form>
+						</div>
 					</div>';
+					$marketProfile = "Market not found";
 				}
 			} else {
-				$marketplacePageHTML = '
-				<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
-					<div id="registerMarketplaceImageCont"></div>
-					Register
-				</a>
-				<div id="marketContents">
-					<div id="searchFormCont">
-						<form action="marketplaceSearch/index.php" id="marketplaceSearchForm" method="GET" autocomplete="off">
-							<label for="marketplaceSearchField" id="marketplaceSearchLabel">Search</label>
-							<div id="searchBarCont">
-								<input type="text" name="query" id="marketplaceSearchField" placeholder="Search Marketplace">
-								<button id="marketplaceSearchButton" type="submit">
-									<div id="marketplaceSearchImage"></div>
-								</button>
-							</div>
-							<p class="inputErrorText" id="searchErrorText">Market not found.</p>
-						</form>
-					</div>
+				$loginAlert = '
+				<div id="alertCont">
+					<p id="alertText">An internal error occurred. Please try again later.</p>
 				</div>';
-				$marketProfile = "Market not found";
 			}
 			$queriedMarketDetails -> free();
 		} else {

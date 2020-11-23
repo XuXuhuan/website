@@ -11,7 +11,7 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true && isset($_SE
     $updateTokenHashQuery = "
     UPDATE accountdetails
     SET tokenHash = '{$updateTokenHashQuery}'
-	WHERE accountID = {$_SESSION["userID"]}";
+	WHERE accountID = '{$_SESSION["userID"]}'";
 	$mysqliConnection -> query($updateTokenHashQuery);
 }
 setcookie("logincookie", "", time() - 3600, "/", "www.streetor.sg", false, false);

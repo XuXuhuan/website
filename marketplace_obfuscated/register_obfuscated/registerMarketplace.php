@@ -125,20 +125,12 @@ if ($mysqliConnection -> connect_errno) {
 		}
 		if (empty($assocReturn["marketNameError"]) && empty($assocReturn["message"])) {
 			$marketName = $mysqliConnection -> real_escape_string($receivedJSON["marketName"]);
-			$checkMarketsQuery = "SELECT marketOwner, marketName
+			$checkMarketsQuery = "SELECT marketOwner
 			FROM marketdetails
-			WHERE marketOwner = {$_SESSION["userID"]}
-			OR LOWER(marketName) = LOWER('{$marketName}')";
+			WHERE LOWER(marketName) = LOWER('{$marketName}')";
 			if ($queriedMarkets = $mysqliConnection -> query($checkMarketsQuery)) {
 				if ($queriedMarkets -> num_rows > 0) {
-					while ($assocQueriedMarkets = $queriedMarkets -> fetch_assoc()) {
-						if (isset($assocQueriedMarkets["marketOwner"])) {
-							$assocReturn["marketNameError"] = "Your already own a market.";
-						}
-						if (isset($assocQueriedMarkets["marketName"])) {
-							$assocReturn["marketNameError"] = "This market already exists.";
-						}
-					}
+					$assocReturn["marketNameError"] = "This market already exists.";
 				} else {
 					$escapedMarketName = $mysqliConnection -> real_escape_string($receivedJSON["marketName"]);
 					$specifiedColumns = implode(",\n", $selectedCategory);
@@ -150,7 +142,7 @@ if ($mysqliConnection -> connect_errno) {
 					)
 					VALUES (
 						'{$escapedMarketName}',
-						{$_SESSION["userID"]},
+						'{$_SESSION["userID"]}',
 						{$specifiedColumnsToggle}
 					)";
 					if ($mysqliConnection -> query($insertValuesQuery)) {

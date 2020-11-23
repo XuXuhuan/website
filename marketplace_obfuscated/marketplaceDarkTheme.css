@@ -16,6 +16,7 @@
 	--UIdefaultTextColor: #ffffff;
 	--marketplaceSearchButtonBgColor: #2D2F31;
 	--textFieldColor: #141618;
+	--popUpBgColor: #26272B;
 }
 @font-face {
 	font-family: MontserratReg;
@@ -440,6 +441,9 @@ main {
 	z-index: -999;
 }
 @media only screen and (max-width: 351px) {
+	#marketDetailsCont {
+		padding: 0 0 20px 0 !important;
+	}
 	#marketLogo {
 		width: 100% !important;
 		height: auto !important;
@@ -453,9 +457,14 @@ main {
 	}
 	#nameAndBioCont {
 		margin: 0;
+		position: relative !important;
 	}
 	#marketName {
 		margin-top: 10px !important;
+	}
+	#menuButtonCont {
+		top: 10px !important;
+		right: 0 !important;
 	}
 }
 @media only screen and (min-width: 425px) {
@@ -491,11 +500,11 @@ main {
 	#marketContents {
 		width: 100%;
 	}
-	.popMarketLink, .recommendedMarketLink, .popMarket, .recommendedMarket, #popMarketsWrapper, #recommendedMarketsWrapper {
+	.popMarketLink, .recommendedMarketLink, .ownedMarketLink, .popMarket, .recommendedMarket, .ownedMarket, #popMarketsWrapper, #recommendedMarketsWrapper, #ownedMarketsWrapper {
 		display: inline-block;
 		width: 100% !important;
 	}
-	.popMarket, .recommendedMarket {
+	.popMarket, .recommendedMarket, .ownedMarket, #popMarketsError, #recommendedMarketsError, #ownedMarketsError {
 		margin: 0 0 15px 0 !important;
 	}
 }
@@ -641,13 +650,13 @@ main {
 	min-width: 238px;
 	padding: 0 0 0 5px;
 }
-#popMarketHeader, #recommendedMarketHeader {
+#popMarketHeader, #recommendedMarketHeader, #ownedMarketHeader {
 	position: relative;
 	margin: 0;
 	font-family: LatoReg, Arial, sans-serif;
 	color: var(--UIdefaultTextColor);
 }
-#popMarketsWrapper, #recommendedMarketsWrapper {
+#popMarketsWrapper, #recommendedMarketsWrapper, #ownedMarketsWrapper {
 	flex-wrap: wrap;
 }
 .popMarket {
@@ -669,12 +678,21 @@ main {
 	transition: border-width 0.2s linear;
 	border: 0 solid var(--UIdefaultTextColor);
 }
-.popMarketLink:nth-last-child(1) {
+.popMarketLink:nth-last-child(1), .recommendedMarket:nth-last-child(1), .ownedMarket:nth-last-child(1) {
 	--rightMargin: 0 !important;
 }
-.popMarket:hover {
+.popMarket:hover, .recommendedMarket:hover, .ownedMarket:hover {
 	border-width: 3px;
 	--textTransparency: 0.9;
+}
+.popMarketName, .recommendedMarketName, .ownedMarketName {
+	position: absolute;
+	margin: 0;
+	width: fit-content;
+	width: -moz-fit-content;
+	bottom: 8px;
+	right: 8px;
+	color: rgba(255, 255, 255, var(--textTransparency));
 }
 .recommendedMarket {
 	position: relative;
@@ -695,18 +713,24 @@ main {
 	transition: border 0.2s linear;
 	border: 0 solid var(--UIdefaultTextColor);
 }
-.recommendedMarket:hover {
-	border-width: 3px;
-	--textTransparency: 0.9;
-}
-.popMarketName, .recommendedMarketName {
-	position: absolute;
-	margin: 0;
-	width: fit-content;
-	width: -moz-fit-content;
-	bottom: 8px;
-	right: 8px;
-	color: rgba(255, 255, 255, var(--textTransparency));
+.ownedMarket {
+	position: relative;
+	background: rgb(175,0,255);
+	background: -moz-linear-gradient(135deg, rgba(175,0,255,1) 51%, rgba(255,0,245,1) 84%);
+	background: -webkit-linear-gradient(135deg, rgba(175,0,255,1) 51%, rgba(255,0,245,1) 84%);
+	background: linear-gradient(135deg, rgba(175,0,255,1) 51%, rgba(255,0,245,1) 84%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#af00ff",endColorstr="#ff00f5",GradientType=1);
+	height: 150px;
+	width: 350px;
+	border-radius: 8px;
+	font-family: LatoReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
+	margin-bottom: 15px;
+	margin-right: 15px;
+	-webkit-transition: border 0.2s linear;
+	-o-transition: border 0.2s linear;
+	transition: border 0.2s linear;
+	border: 0 solid var(--UIdefaultTextColor);
 }
 #marketplaceSearchButton {
 	outline: none;
@@ -725,6 +749,7 @@ main {
 	width: calc(733 / 680 * 15px);
 }
 #marketDetailsCont {
+	position: relative;
 	display: grid;
 	display: -moz-grid;
 	grid-template-rows: auto auto;
@@ -761,12 +786,13 @@ main {
 	width: auto;
 }
 #nameAndBioCont {
+	position: unset;
 	margin-left: 15px;
 }
 #marketName {
 	position: relative;
 	display: block;
-	margin: 0 0 15px 0;
+	margin: 0 0 5px 0;
 }
 #biographyText {
 	font-size: 18px;
@@ -798,7 +824,7 @@ main {
 	height: 40px;
 }
 #subscribeButton {
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: MontserratReg, Verdana, sans-serif;
 	--subscribeButtonBgColor: #40AF00;
 	background-color: var(--subscribeButtonBgColor);
 	color: var(--buttonDefaultTextColor);
@@ -808,40 +834,35 @@ main {
 	height: 100%;
 	border-radius: 5px;
 	font-size: 18px;
-	text-decoration: underline;
-	text-decoration-color: var(--subscribeButtonBgColor);
 	-webkit-transition: text-decoration-color 0.3s ease-out;
 	-o-transition: text-decoration-color 0.3s ease-out;
 	transition: text-decoration-color 0.3s ease-out;
 	outline: none;
-}
-#subscribeButton:hover {
-	text-decoration-color: var(--buttonDefaultTextColor);
 }
 .unsubscribeButton {
 	background-color: #E60505 !important;
 	text-decoration-color: #E60505;
 	--subscribeButtonBgColor: #E60505 !important;
 }
+.cannotSubscribe {
+	cursor: not-allowed !important;
+	--subscribeButtonBgColor: #328800 !important;
+}
 #viewProductsLink {
 	display: inline-block;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: MontserratReg, Verdana, sans-serif;
 	color: var(--UIdefaultTextColor);
-	background-color: #202124;
+	background-color: #40AF00;
 	width: 100%;
 	height: 100%;
 	border-radius: 5px;
 	line-height: 40px;
+	text-decoration: none;
 	text-align: center;
-	text-decoration: underline;
-	text-decoration-color: #202124;
 	-webkit-transition: text-decoration-color 0.3s ease-out;
 	-o-transition: text-decoration-color 0.3s ease-out;
 	transition: text-decoration-color 0.3s ease-out;
 	outline: none;
-}
-#viewProductsLink:hover {
-	text-decoration-color: var(--UIdefaultTextColor);
 }
 #loadingImageCont {
 	position: relative;
@@ -875,4 +896,62 @@ main {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+#menuButtonCont {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	z-index: 2;
+}
+.menuButtonDot {
+	fill: #ffffff;
+}
+.cannotManage {
+	cursor: not-allowed !important;
+}
+.cannotManage circle {
+	fill: rgba(255, 255, 255, 0.7);
+}
+#popUp {
+	position: absolute;
+	right: 140%;
+	top: 10%;
+}
+#popUpTail {
+	position: absolute;
+	width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+	border-left: 8px solid var(--popUpBgColor);
+	top: 0;
+	left: 100%;
+	line-height: 40px;
+}
+#popUpLink {
+	display: inline-block;
+	position: relative;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	font-size: 17px;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	background-color: var(--popUpBgColor);
+	border-radius: 5px 0 5px 5px;
+	min-height: 40px;
+	min-width: 100px;
+	text-align: center;
+	line-height: 40px;
+}
+.hidePopUp {
+	display: none;
 }

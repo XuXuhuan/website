@@ -100,7 +100,7 @@ if ($mysqliConnection -> connect_errno) {
 			$selectEmailVerifiedQuery = "
 			SELECT emailVerified, biography
 			FROM accountdetails
-			WHERE accountID = {$_SESSION["userID"]}
+			WHERE accountID = '{$_SESSION["userID"]}'
 			AND emailVerified = 0";
 			if ($allNeededDetails = $mysqliConnection -> query($selectEmailVerifiedQuery)) {
 				if ($allNeededDetails -> num_rows > 0) {

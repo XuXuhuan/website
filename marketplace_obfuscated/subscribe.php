@@ -12,34 +12,39 @@ if (!$mysqliConnection -> connect_errno) {
 	if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 		if (!empty($_POST["id"]) && !preg_match("/[0-9]/i", $_POST["id"])) {
 			$marketID = $mysqliConnection -> real_escape_string($_POST["id"]);
-			$selectSubscribedQuery = "SELECT subscribingUser, COUNT(subscribedMarket = '{$marketID}') AS subscriptionCount
-			FROM subscriptions
-			WHERE subscribingUser = {$_SESSION["userID"]}
-			AND subscribedMarket = '{$marketID}'";
+			$selectSubscribedQuery = "SELECT subscriptions.subscribingUser, COUNT(subscriptions.subscribedMarket = '{$marketID}') AS subscriptionCount, COUNT(marketdetails.marketID = '{$marketID}' AND marketdetails.marketOwner = '{$_SESSION["userID"]}') AS isUserOwner
+			FROM marketdetails
+            LEFT JOIN subscriptions
+            ON marketdetails.marketID = subscriptions.subscribedMarket";
 			if ($queriedSubscriptions = $mysqliConnection -> query($selectSubscribedQuery)) {
 				if ($assocQueriedSubscriptions = $queriedSubscriptions -> fetch_assoc()) {
-					if (!empty($assocQueriedSubscriptions["subscribingUser"])) {
-						$unsubscribeFromMarketQuery = "DELETE FROM subscriptions
-						WHERE subscribingUser = {$_SESSION["userID"]}
-						AND subscribedMarket = '{$marketID}'";
-						if ($mysqliConnection -> query($unsubscribeFromMarketQuery)) {
-							$assocReturn["notificationText"] = "Unsubscribed!";
-							$assocReturn["notificationColor"] = "#40AF00";
-							$assocReturn["buttonText"] = "Subscribe";
-							$assocReturn["subscriberCount"] = (int)$assocQueriedSubscriptions["subscriptionCount"] - 1;
+					if ($assocQueriedSubscriptions["isUserOwner"] == 0) {
+						if (!empty($assocQueriedSubscriptions["subscribingUser"])) {
+							$unsubscribeFromMarketQuery = "DELETE FROM subscriptions
+							WHERE subscribingUser = '{$_SESSION["userID"]}'
+							AND subscribedMarket = '{$marketID}'";
+							if ($mysqliConnection -> query($unsubscribeFromMarketQuery)) {
+								$assocReturn["notificationText"] = "Unsubscribed!";
+								$assocReturn["notificationColor"] = "#40AF00";
+								$assocReturn["buttonText"] = "Subscribe";
+								$assocReturn["subscriberCount"] = (int)$assocQueriedSubscriptions["subscriptionCount"] - 1;
+							}
+						} else {
+							$subscribeToMarketQuery = "INSERT INTO subscriptions (subscribingUser, subscribedMarket)
+							VALUES ('{$_SESSION["userID"]}', '{$marketID}')";
+							if ($mysqliConnection -> query($subscribeToMarketQuery)) {
+								$assocReturn["notificationText"] = "Subscribed!";
+								$assocReturn["notificationColor"] = "#40AF00";
+								$assocReturn["buttonClass"] = "unsubscribeButton";
+								$assocReturn["buttonText"] = "Unsubscribe";
+								$assocReturn["subscriberCount"] = (int)$assocQueriedSubscriptions["subscriberCount"] + 1;
+							} else {
+								$assocReturn["notificationText"] = "An internal error occurred.";
+							}
 						}
 					} else {
-						$subscribeToMarketQuery = "INSERT INTO subscriptions (subscribingUser, subscribedMarket)
-						VALUES ({$_SESSION["userID"]}, '{$marketID}')";
-						if ($mysqliConnection -> query($subscribeToMarketQuery)) {
-							$assocReturn["notificationText"] = "Subscribed!";
-							$assocReturn["notificationColor"] = "#40AF00";
-							$assocReturn["buttonClass"] = "unsubscribeButton";
-							$assocReturn["buttonText"] = "Unsubscribe";
-							$assocReturn["subscriberCount"] = (int)$assocQueriedSubscriptions["subscriberCount"] + 1;
-						} else {
-							$assocReturn["notificationText"] = "An internal error occurred.";
-						}
+						$assocReturn["notificationText"] = "Cannot subscribe to your own market.";
+						$assocReturn["buttonClass"] = "cannotSubscribe";
 					}
 				}
 				$queriedSubscriptions -> free();
