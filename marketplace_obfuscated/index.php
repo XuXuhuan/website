@@ -104,10 +104,11 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			if ($queriedMarketRows = $mysqliConnection -> store_result()) {
 				if ($queriedMarketRows -> num_rows > 0) {
 					while ($assocMarketRows = $queriedMarketRows -> fetch_assoc()) {
+						$escapedMarketName = htmlspecialchars($assocMarketRows['popularMarketName'], ENT_QUOTES);
 						$popularMarkets .= "
 						<a href='index.php?id={$assocMarketRows['marketID']}' class='popMarketLink'>
 							<div class='popMarket'>
-								<h2 class='popMarketName notSelectable'>{$assocMarketRows['popularMarketName']}</h2>
+								<h2 class='popMarketName notSelectable'>{$escapedMarketName}</h2>
 							</div>
 						</a>";
 					}
@@ -126,10 +127,11 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				if ($queriedMarketRows = $mysqliConnection -> store_result()) {
 					if ($queriedMarketRows -> num_rows > 0) {
 						while ($assocMarketRows = $queriedMarketRows -> fetch_assoc()) {
+							$escapedMarketName = htmlspecialchars($assocMarketRows["ownedMarketName"], ENT_QUOTES);
 							$ownedMarkets .= "
 							<a href='index.php?id={$assocMarketRows['marketID']}' class='ownedMarketLink'>
 								<div class='ownedMarket'>
-									<h2 class='ownedMarketName notSelectable'>{$assocMarketRows['ownedMarketName']}</h2>
+									<h2 class='ownedMarketName notSelectable'>{$escapedMarketName}</h2>
 								</div>
 							</a>";
 						}
@@ -221,7 +223,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		if ($queriedMarketDetails = $mysqliConnection -> query($selectMarketDetailsQuery)) {
 			if ($assocMarketDetails = $queriedMarketDetails -> fetch_assoc()) {
 				if (!empty($assocMarketDetails["marketID"])) {
-					$marketProfile = $assocMarketDetails["marketName"];
+					$marketProfile = htmlspecialchars($assocMarketDetails["marketName"], ENT_QUOETS);
 					$findMarketLogo = glob("../uploads/marketLogos/{$assocMarketDetails["marketID"]}.png");
 					$imageFileName = "../../Assets/global/imageNotFound.png";
 					$selectSubscriptionQuery = "SELECT subscribingUser

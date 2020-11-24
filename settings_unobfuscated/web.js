@@ -875,17 +875,17 @@ refAccountButton.addEventListener("click", function(triggered) {
 		refSecurityButton.classList.toggle("selectedTab");
 		refSelectedTabLine.style.top = 0;
 		refSettingsInfoCont.innerHTML = `
-		<h1 class="topHeaderInfo notSelectable">Details</h1>
+		<h1 class="topHeaderInfo">Details</h1>
 		<div class="infoRow" id="usernameRow">
-			<p class="rowInfo notSelectable" id="usernameRowInfo">Username:</p>
+			<p class="rowInfo" id="usernameRowInfo">Username:</p>
 		</div>
 		<div class="infoRow" id="emailRow">
-			<p class="rowInfo notSelectable" id="emailRowInfo">Email:</p>
+			<p class="rowInfo" id="emailRowInfo">Email:</p>
 		</div>
 		<div class="infoColumnRow" id="emailVerifiedRow" style="padding-bottom: 0;">
-			<p class="rowInfo notSelectable" id="emailVerifiedRowInfo" style="margin-bottom: 10px;">Email Verified: </p>
+			<p class="rowInfo" id="emailVerifiedRowInfo" style="margin-bottom: 10px;">Email Verified: </p>
 		</div>
-		<h1 class="notSelectable">Change Details</h1>
+		<h1>Change Details</h1>
 		<div class="infoColumnRow">
 			<p id="changeUsernameText" class="notSelectable" onclick="changeUserToggle()">
 				Change Your Username
@@ -976,9 +976,9 @@ refAccountButton.addEventListener("click", function(triggered) {
 				</div>
 			</div>
 		</div>
-		<h1 class="notSelectable">Other Settings</h1>
+		<h1>Other Settings</h1>
 		<div class="infoColumnRow">
-			<label for="bioInput" onkeyup="saveBioValue()" class="rowInfo notSelectable" id="bioInfoLabel" style="vertical-align: top;">Biography (optional):</label>
+			<label for="bioInput" onkeyup="saveBioValue()" class="rowInfo" id="bioInfoLabel" style="vertical-align: top;">Biography (optional):</label>
 			<div id="bioContainer">
 				<textarea id="bioInput" placeholder="Share about yourself in 200 characters." maxlength="200" rows="10">${bioText}</textarea>
 			</div>
@@ -986,13 +986,13 @@ refAccountButton.addEventListener("click", function(triggered) {
 			<button id="saveBioButton" class="notSelectable" onmouseup="updateBio()" onmousedown="cancelUpdateBioTimeout()">${changeBioButtonText}</button>
 		</div>
 		<div class="infoRow">
-			<label for="darkThemeSwitchCont" class="rowInfo notSelectable" id="darkThemeLabel">Dark Theme:</label>
+			<label for="darkThemeSwitchCont" class="rowInfo" id="darkThemeLabel">Dark Theme:</label>
 			<span id="darkThemeSwitchCont" class="sliderSwitchCont" onclick="themeSwitch()">
 				<span id="darkThemeSwitch"></span>
 			</span>
 		</div>
 		<div class="infoColumnRow" style="padding-bottom: 0;">
-			<label id="deleteAccountButtonLabel" for="deleteAccountButtonLabel" class="rowInfo notSelectable">Delete This Account:</label>
+			<label id="deleteAccountButtonLabel" for="deleteAccountButtonLabel" class="rowInfo">Delete This Account:</label>
 			<div id="deleteAccountButtonCont" style="height: 40px;">
 				<button id="deleteAccountButton" class="notSelectable" onmouseup="deleteAccount()" onmousedown="cancelDeleteAccountTimeout()">${accountDeletionButtonText}</button>
 			</div>
@@ -1056,10 +1056,10 @@ refSecurityButton.addEventListener("click", function(triggered) {
 		refSecurityButton.classList.toggle("selectedTab");
 		refSelectedTabLine.style.top = "50px";
 		refSettingsInfoCont.innerHTML = `
-		<h1 class="topHeaderInfo notSelectable">Account Security</h1>
+		<h1 class="topHeaderInfo">Account Security</h1>
 		<div class="infoColumnRow" id="twoFactorAuthRow" style="border: 0;">
 			<div id="change2FACont" class="infoRow" style="margin-bottom: 5px; padding: 0; border: 0;">
-				<p id="twoFactorAuthLabel" class="rowInfo notSelectable">2 Factor Authentication:</p>
+				<p id="twoFactorAuthLabel" class="rowInfo">2 Factor Authentication:</p>
 			</div>
 			<div id="confirmPasswordChange2FACont">
 				<label for="change2FAConfirmPassword" id="change2FAConfirmPasswordLabel">Password</label>
@@ -1092,3 +1092,8 @@ refSecurityButton.addEventListener("click", function(triggered) {
 		xhr.send();
 	}
 });
+document.addEventListener("mousedown", function(event) {
+	if (event.detail > 1) {
+	  event.preventDefault();
+	}
+}, false);

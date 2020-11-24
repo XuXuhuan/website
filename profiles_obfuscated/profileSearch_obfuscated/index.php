@@ -107,10 +107,11 @@ if ($mysqliConnection -> connect_errno) {
 								if (isset($assocProfilesDetails["maxResults"])) {
 									$maxResults = $assocProfilesDetails["maxResults"];
 								} else {
+									$escapedUsername = htmlspecialchars($assocProfilesDetails['username'], ENT_QUOTES);
 									$bioText = empty($assocProfilesDetails['biography']) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProfilesDetails['biography'], ENT_QUOTES));
 									$profileRows .= "
 									<div class='infoColumnRow'>
-										<a href='https://www.streetor.sg/profiles/?id={$assocProfilesDetails['accountID']}' class='userListName'>{$assocProfilesDetails['username']}</a>
+										<a href='https://www.streetor.sg/profiles/?id={$assocProfilesDetails['accountID']}' class='userListName'>{$escapedUsername}</a>
 										<p class='bioPreview'>{$bioText}</p>
 									</div>";
 								}

@@ -69,8 +69,8 @@ $_POST["page"] > 0 &&
 							$assocReturn["productDetails"][] = array(
 								"productImageURL" => $productImageURL,
 								"productID" => $assocProductsDetails["productID"],
-								"productName" => $assocProductsDetails["productName"],
-								"productInfo" => $assocProductsDetails["productInfo"],
+								"productName" => htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES),
+								"productInfo" => htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES),
 								"productRating" => $productRating
 							);
 						}

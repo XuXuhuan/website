@@ -35,8 +35,8 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 							$assocReturn["currentResults"] = $escapedPageCount > $assocProfilesDetails["maxResults"] ? $assocProfilesDetails["maxResults"] : $escapedPageCount;
 						} else {
 							$assocReturn["profileDetails"][] = array("profileID" => $assocProfilesDetails["accountID"],
-								"profileUsername" => $assocProfilesDetails["username"],
-								"profileBiography" => $assocProfilesDetails["biography"]
+								"profileUsername" => htmlspecialchars($assocProfilesDetails["username"], ENT_QUOTES),
+								"profileBiography" => htmlspecialchars($assocProfilesDetails["biography"], ENT_QUOTES)
 							);
 						}
 					}

@@ -121,8 +121,9 @@ if ($mysqliConnection -> connect_errno) {
 							$thirdStarGradient = $averageRating >= 3 ? 100 : ($averageRating - 2) * 100;
 							$fourthStarGradient = $averageRating >= 4 ? 100 : ($averageRating - 3) * 100;
 							$fifthStarGradient = $averageRating === 5 ? 100 : ($averageRating - 4) * 100;
-							$pageTitle = $assocProductDetails["productName"];
-							$productInfo = empty($assocProductDetails["productInfo"]) ? "No product information found." : $assocProductDetails["productInfo"];
+							$pageTitle = htmlspecialchars($assocProductDetails["productName"], ENT_QUOTES);
+							$escapedProductName = htmlspecialchars($assocProductDetails["productName"], ENT_QUOTES);
+							$productInfo = empty($assocProductDetails["productInfo"]) ? "No product information found." : htmlspecialchars($assocProductDetails["productInfo"], ENT_QUOTES);
 							if (!empty($foundProductImages)) {
 								$firstProductImageURL = "url({$foundProductImages[0]})";
 								foreach($foundProductImages as $eachImageURL) {
@@ -166,7 +167,7 @@ if ($mysqliConnection -> connect_errno) {
 									<div id='productDetailsContainer'>
 										<div id='mainDetailsCont'>
 											<div id='productImageScroller' style='background-image: {$firstProductImageURL}'></div>
-											<h2 id='productNameLabel'>{$assocProductDetails["productName"]}</h2>
+											<h2 id='productNameLabel'>{$escapedProductName}</h2>
 											<p id='productInfoText'>{$productInfo}</p>
 										</div>
 										<div id='ratingStarRow'>

@@ -9,19 +9,19 @@
 }
 @font-face {
 	font-family: MontserratReg;
-	src: url("../Assets/Font-Import/Montserrat/Montserrat-Regular.ttf");
+	src: url("../../Assets/Font-Import/Montserrat/Montserrat-Regular.ttf");
 }
 @font-face {
 	font-family: MontserratMed;
-	src: url("../Assets/Font-Import/Montserrat/Montserrat-Medium.ttf");
+	src: url("../../Assets/Font-Import/Montserrat/Montserrat-Medium.ttf");
 }
 @font-face {
 	font-family: LatoReg;
-	src: url("../Assets/Font-Import/Lato/Lato-Regular.ttf");
+	src: url("../../Assets/Font-Import/Lato/Lato-Regular.ttf");
 }
 @font-face {
 	font-family: RobotoReg;
-	src: url("../Assets/Font-Import/Roboto/Roboto-Regular.ttf");
+	src: url("../../Assets/Font-Import/Roboto/Roboto-Regular.ttf");
 }
 body {
 	margin: 0;
@@ -33,13 +33,13 @@ body::after{
 	height: 0;
 	overflow: hidden;
 	z-index: -1;
-	content: url("../Assets/lightTheme/close.png")
-	url("../Assets/lightTheme/menu.png")
-	url("../Assets/lightTheme/homeIcon.png")
-	url("../Assets/lightTheme/person.png")
-	url("../Assets/lightTheme/CogWheel.png")
-	url("../Assets/global/market.png")
-	url("../Assets/lightTheme/privacyLock.png");
+	content: url("../../Assets/lightTheme/close.png")
+	url("../../Assets/lightTheme/menu.png")
+	url("../../Assets/lightTheme/homeIcon.png")
+	url("../../Assets/lightTheme/person.png")
+	url("../../Assets/lightTheme/CogWheel.png")
+	url("../../Assets/global/market.png")
+	url("../../Assets/lightTheme/privacyLock.png");
  }
 body::after{
 	position:absolute;
@@ -47,13 +47,13 @@ body::after{
 	height:0;
 	overflow: hidden;
 	z-index: -1;
-	content: url("../Assets/lightTheme/close.png")
-	url("../Assets/lightTheme/menu.png")
-	url("../Assets/lightTheme/homeIcon.png")
-	url("../Assets/lightTheme/person.png")
-	url("../Assets/lightTheme/CogWheel.png")
-	url("../Assets/global/market.png")
-	url("../Assets/lightTheme/privacyLock.png");
+	content: url("../../Assets/lightTheme/close.png")
+	url("../../Assets/lightTheme/menu.png")
+	url("../../Assets/lightTheme/homeIcon.png")
+	url("../../Assets/lightTheme/person.png")
+	url("../../Assets/lightTheme/CogWheel.png")
+	url("../../Assets/global/market.png")
+	url("../../Assets/lightTheme/privacyLock.png");
  }
 #topnav {
 	position: fixed;
@@ -99,7 +99,7 @@ body::after{
 #menuImageCont {
 	background-size: contain;
 	background-repeat: no-repeat;
-	background-image: var(--menuImage, url("../Assets/lightTheme/menu.png"));
+	background-image: var(--menuImage, url("../../Assets/lightTheme/menu.png"));
 	height: 100%;
 	width: 100%;
 }
@@ -272,156 +272,156 @@ body::after{
 	width: 4vh;
 }
 #homeImage {
-	background-image: url("../Assets/lightTheme/homeIcon.png");
+	background-image: url("../../Assets/lightTheme/homeIcon.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #profilesImage {
-	background-image: url("../Assets/lightTheme/person.png");
+	background-image: url("../../Assets/lightTheme/person.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #settingsImage {
-	background-image: url("../Assets/lightTheme/CogWheel.png");
+	background-image: url("../../Assets/lightTheme/CogWheel.png");
 	height: 3.5vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #marketplaceImage {
-	background-image: url("../Assets/global/market.png");
+	background-image: url("../../Assets/global/market.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 #privacyImage {
-	background-image: url("../Assets/lightTheme/privacyLock.png");
+	background-image: url("../../Assets/lightTheme/privacyLock.png");
 	height: 4vh;
 	opacity: var(--sideMenuImageOpacity);
 }
 @-webkit-keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 }
 @-webkit-keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 }
 @-moz-keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 }
 @-moz-keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 }
 @-o-keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 }
 @-o-keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 }
 @keyframes menuAnimationOpen {
 	0% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 }
 @keyframes menuAnimationClose {
 	0% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	49% {
-		--menuImage: url("../Assets/lightTheme/close.png");
+		--menuImage: url("../../Assets/lightTheme/close.png");
 	}
 	50% {
 		transform: scaleY(0);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 	100% {
 		transform: scaleY(1);
-		--menuImage: url("../Assets/lightTheme/menu.png");
+		--menuImage: url("../../Assets/lightTheme/menu.png");
 	}
 }
 #mainCont {

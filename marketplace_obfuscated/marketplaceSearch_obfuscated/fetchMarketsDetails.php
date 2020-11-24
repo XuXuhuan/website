@@ -42,8 +42,8 @@ else if (!empty($searchQuery) && !empty($pageCount) && !preg_match("/[^0-9]/", $
 							$assocReturn["marketDetails"][] = array(
 								"marketLogoURL" => $marketImageURL,
 								"marketID" => $assocMarketsDetails["marketID"],
-								"marketName" => $assocMarketsDetails["marketName"],
-								"biography" => $assocMarketsDetails["biography"],
+								"marketName" => htmlspecialchars($assocMarketsDetails["marketName"], ENT_QUOTES),
+								"biography" => htmlspecialchars($assocMarketsDetails["biography"], ENT_QUOTES)
 							);
 						}
 					}

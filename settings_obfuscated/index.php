@@ -149,6 +149,7 @@ if (empty($loginAlert)) {
 			<meta name='keywords' content='lifestyle, life, tips, share, social media'>
 			<meta name='description' content='Share about your lifestyle or lifestyle tips!'>
 			<link id='stylesheetLink' rel='stylesheet' href='{$stylesheetLink}'>
+			<script src='web.js' defer></script>
 			<title>Settings · Streetor</title>
 		</head>
 		<body>
@@ -199,12 +200,12 @@ if (empty($loginAlert)) {
 					<nav id='settingsOptions'>
 						<ul id='optionsList'>
 							<li class='optionItems'>
-								<button id='accountButton' class='optionButtons selectedTab' id='accountButton'>
+								<button id='accountButton' class='optionButtons selectedTab'>
 									<p class='optionsText notSelectable' id='accountText'>My Account</p>
 								</button>
 							</li>
 							<li class='optionItems'>
-								<button id='securityButton' class='optionButtons' id='securityButton'>
+								<button id='securityButton' class='optionButtons'>
 									<p class='optionsText notSelectable' id='securityText'>Account Security</p>
 								</button>
 							</li>
@@ -212,18 +213,18 @@ if (empty($loginAlert)) {
 						<div id='selectedTabLine'></div>
 					</nav>
 					<div id='settingsInfoCont'>
-						<h1 class='topHeaderInfo notSelectable'>Details</h1>
+						<h1 class='topHeaderInfo'>Details</h1>
 						<div class='infoRow' id='usernameRow'>
-							<p class='rowInfo notSelectable' id='usernameRowInfo'>Username: {$escapedUsername}</p>
+							<p class='rowInfo' id='usernameRowInfo'>Username: {$escapedUsername}</p>
 						</div>
 						<div class='infoRow' id='emailRow'>
-							<p class='rowInfo notSelectable' id='emailRowInfo'>Email: {$escapedEmail}</p>
+							<p class='rowInfo' id='emailRowInfo'>Email: {$escapedEmail}</p>
 						</div>
 						<div class='infoColumnRow' id='emailVerifiedRow' style='padding-bottom: 0;'>
-							<p class='rowInfo notSelectable' id='emailVerifiedRowInfo' style='margin-bottom: 10px;'>Email Verified: {$emailIsVerified}</p>
+							<p class='rowInfo' id='emailVerifiedRowInfo' style='margin-bottom: 10px;'>Email Verified: {$emailIsVerified}</p>
 							{$emailVerificationHTML}
 						</div>
-						<h1 class='notSelectable'>Change Details</h1>
+						<h1>Change Details</h1>
 						<div class='infoColumnRow'>
 							<p id='changeUsernameText' class='notSelectable' onclick='changeUserToggle()'>
 								Change Your Username
@@ -314,9 +315,9 @@ if (empty($loginAlert)) {
 								</div>
 							</div>
 						</div>
-						<h1 class='notSelectable'>Other Settings</h1>
+						<h1>Other Settings</h1>
 						<div class='infoColumnRow'>
-							<label for='bioInput' onkeyup='saveBioValue()' class='rowInfo notSelectable' id='bioInfoLabel' style='vertical-align: top;'>Biography (optional):</label>
+							<label for='bioInput' onkeyup='saveBioValue()' class='rowInfo' id='bioInfoLabel' style='vertical-align: top;'>Biography (optional):</label>
 							<div id='bioContainer'>
 								<textarea id='bioInput' placeholder='Share about yourself in 200 characters.' maxlength='200' rows='10'>{$escapedBiography}</textarea>
 							</div>
@@ -324,20 +325,19 @@ if (empty($loginAlert)) {
 							<button id='saveBioButton' class='notSelectable' onclick='updateBio()'>Save Changes</button>
 						</div>
 						<div class='infoRow'>
-							<label for='darkThemeSwitchCont' class='rowInfo notSelectable' id='darkThemeLabel'>Dark Theme:</label>
+							<label for='darkThemeSwitchCont' class='rowInfo' id='darkThemeLabel'>Dark Theme:</label>
 							<span id='darkThemeSwitchCont' class='sliderSwitchCont' onclick='themeSwitch()'>
 								<span id='darkThemeSwitch'></span>
 							</span>
 						</div>
 						<div class='infoColumnRow' style='padding-bottom: 0;'>
-							<label id='deleteAccountButtonLabel' for='deleteAccountButtonLabel' class='rowInfo notSelectable'>Delete This Account:</label>
+							<label id='deleteAccountButtonLabel' for='deleteAccountButtonLabel' class='rowInfo'>Delete This Account:</label>
 							<div id='deleteAccountButtonCont' style='height: 40px;'>
 								<button id='deleteAccountButton' class='notSelectable' onclick='deleteAccount()'>Send Email</button>
 							</div>
 							<p id='deleteAccountError' class='inputErrorText'></p>
 						</div>
 					</div>
-					<script src='web.js'></script>
 				</div>
 			</main>
 			<footer>
