@@ -129,15 +129,13 @@ function fetchNewPage(newPage) {
 	}
 	xhr.send(URLdata);
 }
-refMenuButton.addEventListener("click", function(triggered) {
-	if (triggered.button === 0) {
-		if (refSideNav.classList.contains("openedSideNav") || refMenuButton.style.animationName === "menuAnimationOpen") {
-			refSideNav.classList.remove("openedSideNav");
-			refMenuButton.style.animationName = "menuAnimationClose";
-		} else {
-			refSideNav.classList.add("openedSideNav");
-			refMenuButton.style.animationName = "menuAnimationOpen";
-		}
+refMenuButton.addEventListener("click", function() {
+	if (refSideNav.classList.contains("openedSideNav") || refMenuButton.style.animationName === "menuAnimationOpen") {
+		refSideNav.classList.remove("openedSideNav");
+		refMenuButton.style.animationName = "menuAnimationClose";
+	} else {
+		refSideNav.classList.add("openedSideNav");
+		refMenuButton.style.animationName = "menuAnimationOpen";
 	}
 });
 function countFieldProductFetch(event) {
@@ -398,8 +396,8 @@ refProductSearchField.addEventListener("keyup", function(key) {
 		window.location = "https://www.streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(marketID) + "&query=" + encodeURIComponent(refProductSearchField.value);
 	}
 });
-refProductSearchButton.addEventListener("keyup", function(triggered) {
-	if (triggered.button === 0 && refProductSearchField.value.length > 0) {
+refProductSearchButton.addEventListener("click", function() {
+	if (refProductSearchField.value.length > 0) {
 		window.location = "https://www.streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(marketID) + "&query=" + encodeURIComponent(refProductSearchField.value);
 	}
 });

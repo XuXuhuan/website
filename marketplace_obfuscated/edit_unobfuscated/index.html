@@ -57,12 +57,12 @@
 					<ul id='optionsList'>
 						<li class='optionItems'>
 							<button id='marketButton' class='optionButtons selectedTab'>
-								<p class='optionsText notSelectable' id='accountText'>My Account</p>
+								<p class='optionsText notSelectable' id='accountText'>Market Details</p>
 							</button>
 						</li>
 						<li class='optionItems'>
 							<button id='productsButton' class='optionButtons'>
-								<p class='optionsText notSelectable' id='securityText'>Account Security</p>
+								<p class='optionsText notSelectable' id='securityText'>Products</p>
 							</button>
 						</li>
 					</ul>
@@ -72,7 +72,115 @@
 					<h1 class="topHeaderInfo">Details</h1>
 					<div class="infoRow" id="marketNameRow">
 						<p id="marketNameLabel" class="rowInfo">Market Name:</p>
-						<p id="marketNameValue" class="rowInfo">LoremIpsum</p>
+						<div class="detailsCont">
+							<p id="marketNameValue" class="rowInfo">LoremIpsum</p>
+							<div id="marketNameEditIcon" class="editIcon"></div>
+						</div>
+					</div>
+					<div class="infoColumnRow" id="marketBioRow">
+						<p id="marketBioLabel" class="rowInfo">Market Information (optional):</p>
+						<textarea id="marketBioField" rows="10" placeholder="Give information about your store in 1000 characters."></textarea>
+					</div>
+					<div id="marketCategoryRow" class="infoColumnRow">
+						<p id="marketCategoryLabel" class="rowInfo">Categories:</p>
+						<div id="marketCategoryCont">
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Automotive</p>
+								<div class='marketCategoryBox' id='automotiveBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Baby Care</p>
+								<div class='marketCategoryBox' id='babyCareBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Books</p>
+								<div class='marketCategoryBox' id='booksBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>CD and Vinyl</p>
+								<div class='marketCategoryBox' id='CDandVinylBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Clothes and Accessories</p>
+								<div class='marketCategoryBox' id='clothesAndAccessoriesBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Electronics</p>
+								<div class='marketCategoryBox' id='electronicsBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Gardening</p>
+								<div class='marketCategoryBox' id='gardeningBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Outdoors and Sports</p>
+								<div class='marketCategoryBox' id='outdoorsAndSportsBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Groceries</p>
+								<div class='marketCategoryBox' id='groceriesBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Health</p>
+								<div class='marketCategoryBox' id='healthBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Household</p>
+								<div class='marketCategoryBox' id='householdBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Personal Care</p>
+								<div class='marketCategoryBox' id='personalCareBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Kitchen and Dining</p>
+								<div class='marketCategoryBox' id='kitchenAndDiningBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Travel Supplies</p>
+								<div class='marketCategoryBox' id='travelSuppliesBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Beauty</p>
+								<div class='marketCategoryBox' id='beautyBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Movies and TV</p>
+								<div class='marketCategoryBox' id='moviesAndTVBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Musical Instruments</p>
+								<div class='marketCategoryBox' id='musicalInstrumentsBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Office Supplies</p>
+								<div class='marketCategoryBox' id='officeSuppliesBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Pet Supplies</p>
+								<div class='marketCategoryBox' id='petSuppliesBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Software</p>
+								<div class='marketCategoryBox' id='softwareBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Tools</p>
+								<div class='marketCategoryBox' id='toolsBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Toys</p>
+								<div class='marketCategoryBox' id='toysBox'></div>
+							</div>
+							<div class='categoryBoxCont'>
+								<p class='categoryLabel'>Games</p>
+								<div class='marketCategoryBox' id='gamesBox'></div>
+							</div>
+						</div>
+					</div>
+					<div id="deleteMarketRow" class="infoColumnRow">
+						<p id="deleteMarketLabel" class="rowInfo">Delete This Market</p>
+						<button id="deleteMarketButton">Delete Market</button>
 					</div>
 				</div>
 			</div>

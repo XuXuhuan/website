@@ -52,15 +52,13 @@ var bioText = "";
 var twoFactorAuthConfirmPasswordText = "";
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
-refMenuButton.addEventListener("click", function(triggered) {
-	if (triggered.button === 0) {
-		if (refSideNav.classList.contains("openedSideNav") || refMenuButton.style.animationName === "menuAnimationOpen") {
-			refSideNav.classList.remove("openedSideNav");
-			refMenuButton.style.animationName = "menuAnimationClose";
-		} else {
-			refSideNav.classList.add("openedSideNav");
-			refMenuButton.style.animationName = "menuAnimationOpen";
-		}
+refMenuButton.addEventListener("click", function() {
+	if (refSideNav.classList.contains("openedSideNav") || refMenuButton.style.animationName === "menuAnimationOpen") {
+		refSideNav.classList.remove("openedSideNav");
+		refMenuButton.style.animationName = "menuAnimationClose";
+	} else {
+		refSideNav.classList.add("openedSideNav");
+		refMenuButton.style.animationName = "menuAnimationOpen";
 	}
 });
 function getCookie(cookieName) {
@@ -865,8 +863,8 @@ function twoFactorAuthSwitch() {
 function cancelTwoFactorAuthSwitchTimeout() {
 	clearTimeout(checkTwoFactorAuth);
 }
-refAccountButton.addEventListener("click", function(triggered) {
-	if (triggered.button === 0 && refAccountButton.classList.contains("selectedTab") === false) {
+refAccountButton.addEventListener("click", function() {
+	if (refAccountButton.classList.contains("selectedTab") === false) {
 		const refTwoFactorAuthConfirmPasswordField = document.querySelector("#confirmPasswordChange2FAField");
 		const refTwoFactorAuthConfirmPasswordError = document.querySelector("#confirmPasswordChange2FAError");
 		twoFactorAuthConfirmPasswordText = refTwoFactorAuthConfirmPasswordField.value;
@@ -1038,8 +1036,8 @@ refAccountButton.addEventListener("click", function(triggered) {
 		xhr.send();
 	}
 });
-refSecurityButton.addEventListener("click", function(triggered) {
-	if (triggered.button === 0 && refSecurityButton.classList.contains("selectedTab") === false) {
+refSecurityButton.addEventListener("click", function() {
+	if (refSecurityButton.classList.contains("selectedTab") === false) {
 		const refNewUserField = document.querySelector("#newUsernameField");
 		const refNewPassField = document.querySelector("#newPasswordField");
 		const refConfirmPassField = document.querySelector("#confirmPasswordField");

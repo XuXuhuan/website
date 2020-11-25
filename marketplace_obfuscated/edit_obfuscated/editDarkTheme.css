@@ -14,6 +14,8 @@
 	--sideMenuTextTransform: scaleX(0);
 	--UIdefaultColor: #35363A;
 	--UIdefaultTextColor: #ffffff;
+	--UIdefaultInputColor: #141618;
+	--deleteMarketButtonHoverBgColor: #E60505;
 }
 @font-face {
 	font-family: MontserratReg;
@@ -644,7 +646,7 @@ main {
 	border-bottom: 1px solid #ffffff;
 	padding: 15px 1em 15px 1em;
 }
-.infoColumnRow:nth-child(4), .infoColumnRow:nth-child(8), .infoRow:nth-last-child(1) {
+.infoColumnRow:nth-last-child(1) {
 	border: 0 !important;
 }
 .rowInfo {
@@ -653,4 +655,112 @@ main {
 }
 #marketNameLabel {
 	margin-right: 10px;
+}
+.editIcon {
+	background-image: url("../../Assets/darkTheme/editIcon.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	min-height: 15px;
+	min-width: 15px;
+	cursor: pointer;
+	margin-left: 10px;
+}
+.detailsCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+}
+#marketBioField {
+	background-color: var(--UIdefaultInputColor);
+	font-family: MontserratReg, Verdana, sans-serif;
+	padding: 8px;
+	border-radius: 6px;
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	outline: none;
+	width: 100%;
+	resize: vertical;
+	margin-top: 7px;
+}
+#bioInput::placeholder {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+#marketCategoryCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	margin-bottom: 30px;
+}
+.marketCategoryBox {
+	height: 20px;
+	width: 20px;
+	background-color: var(--UIdefaultInputColor);
+	cursor: pointer;
+	border-radius: 3px;
+	background-size: 15px;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.tickedCategoryBox {
+	background-image: url("../../Assets/global/checkBoxCheck.png");
+}
+.categoryBoxCont {
+	width: fit-content;
+	width: -moz-fit-content;
+	margin-right: 20px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.categoryBoxCont:nth-last-child(1) {
+	margin: 0 !important;
+}
+.categoryLabel {
+	margin: 0;
+	font-size: 13px;
+}
+#marketCategoryLabel {
+	margin-bottom: 10px;
+	font-size: 18px;
+}
+#deleteMarketButton {
+	display: block;
+	margin: 8px auto 0 auto;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	font-size: 17px;
+	border-radius: 10px;
+	background-color: transparent;
+	color: var(--UIdefaultTextColor);
+	cursor: pointer;
+	outline: none;
+	border: 2px solid #E60505;
+	height: 40px;
+	width: 200px;
+	-webkit-transition: background-color 0.3s ease-out;
+	-o-transition: background-color 0.3s ease-out;
+	transition: background-color 0.3s ease-out;
+}
+#deleteMarketButton:hover {
+	background-color: var(--deleteMarketButtonHoverBgColor);
+}
+#deleteMarketRow {
+	justify-content: center;
+	align-items: center;
 }
