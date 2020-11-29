@@ -120,9 +120,6 @@ if ($mysqliConnection -> connect_errno) {
 		else if (strlen($receivedJSON["marketName"]) > 30) {
 			$assocReturn["marketNameError"] = "Market name has to be under 30 characters.";
 		}
-		else if (preg_match("/[^a-z0-9._\[\]\(\) ]/i", $receivedJSON["marketName"]) == true) {
-			$assocReturn["marketNameError"] = "Your market name can only contain letters, numbers, (), [], . and _.";
-		}
 		if (empty($assocReturn["marketNameError"]) && empty($assocReturn["message"])) {
 			$marketName = $mysqliConnection -> real_escape_string($receivedJSON["marketName"]);
 			$checkMarketsQuery = "SELECT marketOwner

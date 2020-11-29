@@ -102,7 +102,7 @@ function changeUserToggle() {
 	} else {
 		if (document.querySelector("#changeUsernameStyles")) {
 			const refChangeUserStyles = document.querySelector("#changeUsernameStyles");
-			refChangeUserStyles.parentNode.removeChild(refChangeUserStyles);
+			refChangeUserStyles.remove();
 		}
 		changeUserOpenedToggle = false;
 	}
@@ -133,7 +133,7 @@ function changePassToggle() {
 	} else {
 		if (document.querySelector("#changePasswordStyles")) {
 			const refChangePassStyles = document.querySelector("#changePasswordStyles");
-			refChangePassStyles.parentNode.removeChild(refChangePassStyles);
+			refChangePassStyles.remove();
 		}
 		changePassOpenedToggle = false;
 	}
@@ -165,7 +165,7 @@ function changeEmailToggle() {
 	} else {
 		if (document.querySelector("#changeEmailStyles")) {
 			const refChangeEmailStyles = document.querySelector("#changeEmailStyles");
-			refChangeEmailStyles.parentNode.removeChild(refChangeEmailStyles);
+			refChangeEmailStyles.remove();
 		}
 		changeEmailOpenedToggle = false;
 	}
@@ -187,7 +187,7 @@ function newPassFieldShowToggle() {
 	} else {
 		if (document.querySelector("#newPasswordStyles")) {
 			const newPassSheet = document.querySelector("#newPasswordStyles");
-			newPassSheet.parentNode.removeChild(newPassSheet);
+			newPassSheet.remove();
 		}
 		newPassField.type = "password";
 	}
@@ -209,7 +209,7 @@ function confirmPassFieldShowToggle() {
 	} else {
 		if (document.querySelector("#confirmPasswordStyles")) {
 			const confirmPassSheet = document.querySelector("#confirmPasswordStyles");
-			confirmPassSheet.parentNode.removeChild(confirmPassSheet);
+			confirmPassSheet.remove();
 		}
 		confirmPassField.type = "password";
 	}
@@ -231,7 +231,7 @@ function newEmailConfirmPassFieldShowToggle() {
 	} else {
 		if (document.querySelector("#newEmailConfirmPasswordStyles")) {
 			const refNewEmailConfirmPasswordSheet = document.querySelector("#newEmailConfirmPasswordStyles");
-			refNewEmailConfirmPasswordSheet.parentNode.removeChild(refNewEmailConfirmPasswordSheet);
+			refNewEmailConfirmPasswordSheet.remove();
 		}
 		refNewEmailConfirmPassField.type = "password";
 	}
@@ -253,7 +253,7 @@ function change2FAConfirmPassFieldShowToggle() {
 	} else {
 		if (document.querySelector("#change2FAConfirmPasswordStyles")) {
 			const refChange2FAConfirmPasswordSheet = document.querySelector("#change2FAConfirmPasswordStyles");
-			refChange2FAConfirmPasswordSheet.parentNode.removeChild(refChange2FAConfirmPasswordSheet);
+			refChange2FAConfirmPasswordSheet.remove();
 		}
 		refChange2FAConfirmPassField.type = "password";
 	}

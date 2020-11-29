@@ -124,9 +124,6 @@ refMarketNameField.addEventListener("keyup", function() {
 	}
 	else if (refMarketNameField.value.length > 30) {
 		refMarketNameError.innerHTML = "Market name has to be under 30 characters.";
-	}
-	else if (/[^a-z0-9._\[\]\(\) ]/gi.test(refMarketNameField.value) === true) {
-		refMarketNameError.innerHTML = "Your market name can only contain letters, numbers, (), [], . and _.";
 	} else {
 		refMarketNameError.innerHTML = "";
 		checkMarketName = setTimeout(function() {

@@ -50,9 +50,13 @@
 					</div>
 				</a>
 			</nav>
+			<div id='notificationCont'>
+				<p id='notificationText'></p>
+			</div>
 		</header>
 		<main>
 			<div id='mainCont'>
+				<div id="cancelOperationOverlay"></div>
 				<nav id='editOptions'>
 					<ul id='optionsList'>
 						<li class='optionItems'>
@@ -70,16 +74,25 @@
 				</nav>
 				<div id="marketInfoCont">
 					<h1 class="topHeaderInfo">Details</h1>
+					<div class="infoColumnRow" id="marketLogoRow">
+						<p class="rowInfo" id="marketLogoLabel">Market Logo:</p>
+						<div id="marketLogoImageDisplay" style="background-image: url('../../Assets/global/imageNotFound.png');">
+							<div id="marketLogoTextOverlay" onmouseout="edit_marketLogoTextOverlayMouseLeave(event)" onmouseover="edit_marketLogoTextOverlayMouseEnter()">
+								<p id="marketLogoText" class="notSelectable"></p>
+							</div>
+						</div>
+					</div>
 					<div class="infoRow" id="marketNameRow">
 						<p id="marketNameLabel" class="rowInfo">Market Name:</p>
-						<div class="detailsCont">
+						<div class="detailsCont" id="marketNameDetailsCont">
 							<p id="marketNameValue" class="rowInfo">LoremIpsum</p>
-							<div id="marketNameEditIcon" class="editIcon"></div>
+							<div id="marketNameEditIcon" class="editIcon" onclick="edit_marketNameEditIconClick()"></div>
 						</div>
 					</div>
 					<div class="infoColumnRow" id="marketBioRow">
 						<p id="marketBioLabel" class="rowInfo">Market Information (optional):</p>
 						<textarea id="marketBioField" rows="10" placeholder="Give information about your store in 1000 characters."></textarea>
+						<button id="changeCategoryButton">Make Changes</button>
 					</div>
 					<div id="marketCategoryRow" class="infoColumnRow">
 						<p id="marketCategoryLabel" class="rowInfo">Categories:</p>
@@ -177,6 +190,7 @@
 								<div class='marketCategoryBox' id='gamesBox'></div>
 							</div>
 						</div>
+						<button id="changeCategoryButton">Make Changes</button>
 					</div>
 					<div id="deleteMarketRow" class="infoColumnRow">
 						<p id="deleteMarketLabel" class="rowInfo">Delete This Market</p>

@@ -35,13 +35,13 @@ function fetchNewPage(newPage) {
 				if (Math.ceil(xhr.response["maxResults"] / 10) === newPage) {
 					if (document.querySelector("#nextPageButton")) {
 						const refNextPageButton = document.querySelector("#nextPageButton");
-						refNextPageButton.parentNode.removeChild(refNextPageButton);
+						refNextPageButton.remove();
 					}
 				}
 				if (newPage === 1) {
 					if (document.querySelector("#prevPageButton")) {
 						const refPrevPageButton = document.querySelector("#prevPageButton");
-						refPrevPageButton.parentNode.removeChild(refPrevPageButton);
+						refPrevPageButton.remove();
 					}
 				}
 				if (newPage > 1) {
