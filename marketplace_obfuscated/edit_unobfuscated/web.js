@@ -2,13 +2,8 @@
 const refMenuButton = document.querySelector("#menuToggle");
 const refSideNav = document.querySelector("#sidenav");
 const refCancelOperationOverlay = document.querySelector("#cancelOperationOverlay");
-const refMarketNameEditIcon = document.querySelector("#marketNameEditIcon");
-const refMarketLogoTextOverlay = document.querySelector("#marketLogoTextOverlay");
-const refMarketLogoText = document.querySelector("#marketLogoText"); 
-const refTickBoxes = document.querySelectorAll(".marketCategoryBox");
 const refNotificationCont = document.querySelector("#notificationCont");
 const refNotificationText = document.querySelector("#notificationText");
-const refMarketLogoImageDisplay = document.querySelector("#marketLogoImageDisplay");
 const acceptedImageFileTypes = /(\.jpg|\.png|\.jpeg)$/i;
 const availableCategories = [
 	"automotive",
@@ -38,9 +33,23 @@ var assocRequestJSON = {
 	marketName : "",
 	marketCategories : []
 };
-var marketLogoImageURL = refMarketLogoImageDisplay.style.backgroundImage;
+var marketLogoImageURL = document.querySelector("#marketLogoImageDisplay").style.backgroundImage;
+var marketName = document.querySelector("#marketNameValue").innerHTML;
 var checkNotification;
 var checkMarketName;
+var checkMarketBio;
+var isMarketNameChangeInProgress = false;
+var marketNameFieldValue = "";
+var marketNameError = "";
+function setNotification(message, isError) {
+	refNotificationCont.style.top = 0;
+	refNotificationCont.style.backgroundColor = isError === true ? "#E60505" : "#40AF00";
+	refNotificationText.innerHTML = message;
+	clearTimeout(checkNotification);
+	checkNotification = setTimeout(function() {
+		refNotificationCont.style.top = "-10vh";
+	}, 1000);
+}
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
 refMenuButton.addEventListener("click", function() {
@@ -52,7 +61,7 @@ refMenuButton.addEventListener("click", function() {
 		refMenuButton.style.animationName = "menuAnimationOpen";
 	}
 });
-refTickBoxes.forEach(function(eachBox, itemIndex) {
+document.querySelectorAll(".marketCategoryBox").forEach(function(eachBox, itemIndex) {
 	eachBox.addEventListener("mouseup", function(triggered) {
 		if (triggered.button === 0) {
 			const findItemInSelectedCategories = assocRequestJSON["marketCategories"].indexOf(availableCategories[itemIndex]);
@@ -66,21 +75,71 @@ refTickBoxes.forEach(function(eachBox, itemIndex) {
 				if (!refMarketRegisterError.classList.contains("inputErrorText")) {
 					refMarketRegisterError.classList.add("inputErrorText");
 				}
-				refMarketRegisterError.innerHTML = "Please select at least one category.";
-			} else {
-				refMarketRegisterError.innerHTML = "";
+				setNotification("Please select at least one category.", true);
 			}
 		}
 	});
 });
-refCancelOperationOverlay.addEventListener("mousedown", function() {
-});
+refCancelOperationOverlay.addEventListener("mousedown", edit_cancelMarketNameChange);
+function edit_cancelMarketNameChange() {
+	const refMarketNameDetailsRow = document.querySelector("#marketNameRow");
+	const refMarketNameDetailsCont = document.querySelector("#marketNameDetailsCont");
+	const refNewMarketNameField = document.querySelector("#newMarketNameField");
+	const refNewMarketNameError = document.querySelector("#newMarketNameError");
+	marketNameError = "";
+	marketNameFieldValue = "";
+	refNewMarketNameField.remove();
+	refNewMarketNameError.remove();
+	refMarketNameDetailsCont.style = 0;
+	refMarketNameDetailsRow.style = 0;
+	refCancelOperationOverlay.classList.remove("showOverlay");
+	refMarketNameDetailsCont.innerHTML = `
+	<p id='marketNameValue' class='rowInfo'>${marketName}</p>
+	<div id='marketNameEditIcon' class='editIcon' onclick='edit_marketNameEditIconClick()'></div>`;
+	isMarketNameChangeInProgress = false;
+}
 function edit_validateMarketNameFieldKeyUp(key) {
+	const refNewMarketNameField = document.querySelector("#newMarketNameField");
+	const refNewMarketNameError = document.querySelector("#newMarketNameError");
 	clearTimeout(checkMarketName);
-	if (key.keyCode)
-	checkMarketName = setTimeout(function() {
-
-	}, 350);
+	if (key.keyCode === 27) {
+		edit_cancelMarketNameChange();
+	}
+	else if (key.keyCode === 13) {
+		if (refNewMarketNameField.value.trim().length > 0) {
+			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+			xhr.open("POST", "updateMarketDetails.php", true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.responseType = "json";
+			xhr.onerror = function() {
+				setNotification("An error occurred.", true);
+			}
+			xhr.onload = function() {
+				if (xhr.status === 200) {
+					setNotification("Market Name Changed!", false);
+					marketName = xhr.response["newMarketName"];
+					document.querySelector("#marketNameValue").innerHTML = xhr.response["newMarketName"];
+					refNewMarketNameError.innerHTML = "";
+					marketNameError = "";
+				} else {
+					setNotification("An error occurred.", true);
+				}
+			}
+			xhr.send("type=1&value=" + encodeURIComponent(refNewMarketNameField.value));
+		} else {
+			refNewMarketNameError.innerHTML = "This field is required.";
+			marketNameError = "This field is required.";
+		}
+	} else {
+		if (refNewMarketNameField.value.trim().length > 0) {
+			checkMarketName = setTimeout(function() {
+				
+			}, 350);
+		} else {
+			refNewMarketNameError.innerHTML = "This field is required.";
+			marketNameError = "This field is required.";
+		}
+	}
 }
 function edit_validateMarketNameFieldKeyDown() {
 	clearTimeout(checkMarketName);
@@ -88,7 +147,6 @@ function edit_validateMarketNameFieldKeyDown() {
 function edit_marketNameEditIconClick() {
 	const refMarketNameDetailsRow = document.querySelector("#marketNameRow");
 	const refMarketNameDetailsCont = document.querySelector("#marketNameDetailsCont");
-	const refCancelOperationOverlay = document.querySelector("#cancelOperationOverlay");
 	const createErrorMessage = document.createElement("p");
 	const createInputField = document.createElement("input");
 	createErrorMessage.id = "newMarketNameError";
@@ -96,14 +154,20 @@ function edit_marketNameEditIconClick() {
 	createErrorMessage.innerHTML = "Enter to confirm, Esc/click outside to cancel";
 	createInputField.id = "newMarketNameField";
 	createInputField.classList.add("newDetailField");
+	createInputField.classList.add("inputMethod");
+	createInputField.addEventListener("keyup", edit_validateMarketNameFieldKeyUp);
+	createInputField.addEventListener("keydown", edit_validateMarketNameFieldKeyDown);
 	refMarketNameDetailsCont.innerHTML = "";
 	refMarketNameDetailsCont.style.flexDirection = "column";
 	refMarketNameDetailsRow.style.height = refMarketNameDetailsRow.getBoundingClientRect()["height"] + 30 + "px";
 	refMarketNameDetailsCont.appendChild(createInputField);
 	refMarketNameDetailsCont.appendChild(createErrorMessage);
 	refCancelOperationOverlay.classList.add("showOverlay");
+	isMarketNameChangeInProgress = true;
 }
 function edit_marketLogoTextOverlayMouseEnter() {
+	const refMarketLogoText = document.querySelector("#marketLogoText");
+	const refMarketLogoTextOverlay = document.querySelector("#marketLogoTextOverlay");
 	if (marketLogoImageURL !== 'url("../../Assets/global/imageNotFound.png")') {
 		refMarketLogoText.innerHTML = "REMOVE IMAGE";
 		refMarketLogoTextOverlay.style.opacity = 1;
@@ -123,6 +187,7 @@ function edit_marketLogoTextOverlayMouseEnter() {
 	}
 }
 function edit_marketLogoTextOverlayMouseLeave(event) {
+	const refMarketLogoTextOverlay = document.querySelector("#marketLogoTextOverlay");
 	var e = event.toElement || event.relatedTarget;
 	if (e && e.parentNode != refMarketLogoTextOverlay) {
 		if (document.querySelector("#marketLogoUpload")) {
@@ -133,47 +198,54 @@ function edit_marketLogoTextOverlayMouseLeave(event) {
 	}
 }
 function edit_uploadImageFile() {
-	console.log(0);
+	const refMarketLogoImageDisplay = document.querySelector("#marketLogoImageDisplay");
 	if (acceptedImageFileTypes.test(document.querySelector("#marketLogoUpload").value)) {
 		const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 		xhr.open("POST", "changeMarketLogo.php", true);
 		xhr.responseType = "json";
 		xhr.onerror = function() {
-			console.log(1);
-			refNotificationCont.style.top = 0;
-			refNotificationCont.style.backgroundColor = "#E60505";
-			refNotificationText.innerHTML = "An error occurred.";
-			clearTimeout(checkNotification);
-			checkNotification = setTimeout(function() {
-				refNotificationCont.style.top = "-10vh";
-			},1000);
+			setNotification("An error occurred.", true);
 		}
 		xhr.onload = function() {
 			if (xhr.status === 200) {
 				refMarketLogoImageDisplay.style.backgroundImage = 'url("' + xhr.response["newMarketLogoURL"] + '")';
 				marketLogoImageURL = refMarketLogoImageDisplay.style.backgroundImage;
 			} else {
-				console.log(0);
-				refNotificationCont.style.top = 0;
-				refNotificationCont.style.backgroundColor = "#E60505";
-				refNotificationText.innerHTML = "An error occurred.";
-				clearTimeout(checkNotification);
-				checkNotification = setTimeout(function() {
-					refNotificationCont.style.top = "-10vh";
-				},1000);
+				setNotification("An error occurred.", true);
 			}
 		}
-		console.log(xhr);
 		xhr.send(document.querySelector("#marketLogoUpload").files[0]);
 	} else {
-		refNotificationCont.style.top = 0;
-		refNotificationCont.style.backgroundColor = "#E60505";
-		refNotificationText.innerHTML = "Only JPEG or PNG files are accepted.";
-		clearTimeout(checkNotification);
-		checkNotification = setTimeout(function() {
-			refNotificationCont.style.top = "-10vh";
-		},1000);
+		setNotification("Only JPEG or PNG files are accepted.", true);
 	}
+}
+function edit_updateMarketBio() {
+	const refMarketBioField = document.querySelector("#marketBioField");
+	clearTimeout(checkMarketBio);
+	checkMarketBio = setTimeout(function() {
+		const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+		xhr.open("POST", "updateMarketDetails.php", true);
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.responseType = "json";
+		xhr.onerror = function() {
+			setNotification("An error occurred.", true);
+		}
+		xhr.onload = function() {
+			if (xhr.status === 200) {
+				setNotification(xhr.response["message"], xhr.response["isError"]);
+			} else {
+				setNotification("An error occurred.", true);
+			}
+		}
+		xhr.send(
+			JSON.stringify(
+				{
+					"type" : 2,
+					"marketBio" : refMarketBioField.value
+				}
+			)
+		);
+	}, 350);
 }
 document.addEventListener("mousedown", function(event) {
 	if (event.detail > 1) {

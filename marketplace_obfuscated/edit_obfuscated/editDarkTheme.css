@@ -619,6 +619,7 @@ main {
 }
 #editOptions {
 	margin-top: 30px;
+	z-index: 4;
 }
 #optionsList {
 	display: -webkit-flex;
@@ -669,7 +670,7 @@ main {
 	z-index: 3;
 }
 .showOverlay {
-	display: block;
+	display: block !important;
 }
 .infoRow {
 	position: relative;
@@ -868,7 +869,6 @@ main {
 	border: 0;
 	height: 30px;
 	max-width: 165px;
-	z-index: 4;
 }
 #marketLogoLabel {
 	margin-right: 10px;
@@ -914,4 +914,7 @@ main {
 	width: 100%;
 	opacity: 0;
 	cursor: pointer;
+}
+.inputMethod {
+	z-index: 4;
 }
