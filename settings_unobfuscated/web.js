@@ -869,8 +869,10 @@ refAccountButton.addEventListener("click", function() {
 		const refTwoFactorAuthConfirmPasswordError = document.querySelector("#confirmPasswordChange2FAError");
 		twoFactorAuthConfirmPasswordText = refTwoFactorAuthConfirmPasswordField.value;
 		twoFactorAuthConfirmPasswordError = refTwoFactorAuthConfirmPasswordError.innerHTML;
-		refAccountButton.classList.toggle("selectedTab");
-		refSecurityButton.classList.toggle("selectedTab");
+		refAccountButton.classList.add("selectedTab");
+		if (refSecurityButton.classList.contains("selectedTab")) {
+			refSecurityButton.classList.remove("selectedTab");
+		}
 		refSelectedTabLine.style.top = 0;
 		refSettingsInfoCont.innerHTML = `
 		<h1 class="topHeaderInfo">Details</h1>
@@ -1050,8 +1052,10 @@ refSecurityButton.addEventListener("click", function() {
 		newEmailText = refNewEmailField.value;
 		newEmailConfirmPasswordText = refNewEmailConfirmPassField.value;
 		bioText = refBioInput.value;
-		refAccountButton.classList.toggle("selectedTab");
-		refSecurityButton.classList.toggle("selectedTab");
+		refSecurityButton.classList.add("selectedTab");
+		if (refAccountButton.classList.contains("selectedTab")) {
+			refAccountButton.classList.remove("selectedTab");
+		}
 		refSelectedTabLine.style.top = "50px";
 		refSettingsInfoCont.innerHTML = `
 		<h1 class="topHeaderInfo">Account Security</h1>

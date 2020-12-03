@@ -16,6 +16,7 @@
 	--UIdefaultTextColor: #ffffff;
 	--UIdefaultInputColor: #141618;
 	--deleteMarketButtonHoverBgColor: #E60505;
+	--productSearchButtonBgColor: #2D2F31;
 }
 @font-face {
 	font-family: MontserratReg;
@@ -917,4 +918,210 @@ main {
 }
 .inputMethod {
 	z-index: 4;
+}
+#productListCont {
+	width: 100%;
+}
+#productSearchBarContainer {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	margin-bottom: 15px;
+}
+#productSearchField {
+	outline: none;
+	height: 30px;
+	vertical-align: top;
+	background-color: var(--UIdefaultInputColor);
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	font-size: 15px;
+	border-radius: 4px 0 0 4px;
+	height: 35px;
+	min-width: 238px;
+	flex-grow: 1;
+	padding: 0 0 0 5px;
+}
+#productSearchButton {
+	outline: none;
+	float: right;
+	border: 0;
+	padding: 10px 12.5px;
+	background-color: var(--productSearchButtonBgColor);
+	cursor: pointer;
+	border-radius: 0 4px 4px 0;
+}
+#productSearchImage {
+	background-image: url("../../Assets/darkTheme/search_magnifying_glass.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 15px;
+	width: calc(733 / 680 * 15px);
+}
+#newProductCont {
+	margin-bottom: 15px;
+}
+.productContentsRow {
+	position: relative;
+	height: 130px;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	background-color: var(--UIdefaultColor);
+	margin-bottom: 10px;
+	border: 0 !important;
+}
+#newProductRow {
+	position: relative;
+	height: auto;
+	color: var(--UIdefaultTextColor);
+	font-family: LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	background-color: var(--UIdefaultColor);
+	margin-bottom: 10px;
+	border: 0 !important;
+	justify-content: center;
+}
+.productContentsRow:nth-last-child(1) {
+	margin-bottom: 0 !important;
+}
+.productNameAndInfoCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	padding: 0 0 0 10px !important;
+	height: 100%;
+}
+#newProductInfoCont {
+	height: 100%;
+}
+.productName {
+	position: relative;
+	margin: 0;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	font-size: 25px;
+	width: fit-content;
+	width: -moz-fit-content;
+}
+#newProductLabel {
+	font-size: 20px;
+}
+#pageHeader {
+	display: block;
+	position: relative;
+	margin: 0 auto 15px auto;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	font-family: LatoReg, Arial, sans-serif;
+	width: fit-content;
+	width: -moz-fit-content;
+}
+.productInfoText {
+	font-size: 18px;
+	margin: 0;
+	font-size: 15px;
+	word-break: break-word;
+	max-height: 55.2px;
+	height: 55.2px;
+	overflow: hidden;
+}
+.productImage {
+	height: 100px;
+	min-height: 100px;
+	max-width: 200px;
+}
+#changePageWrapper {
+	background-color: transparent;
+	align-items: center;
+}
+#changePageCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+#nextPageButton, #prevPageButton {
+	cursor: pointer;
+	background-color: var(--UIdefaultColor);
+	outline: none;
+	border: 0;
+	padding: 9px 10px;
+	border-radius: 3px;
+}
+#nextPageButton {
+	margin-left: 10px;
+}
+#prevPageButton {
+	margin-right: 10px;
+}
+.changePageArrowCont {
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 15px;
+	width: calc(354 / 566 * 15px);
+	cursor: pointer;
+}
+#leftArrowCont {
+	background-image: url("../../Assets/darkTheme/leftArrow.png");
+}
+#rightArrowCont {
+	background-image: url("../../Assets/darkTheme/rightArrow.png");
+}
+#pageCount {
+	font-size: 15px;
+	margin-top: 15px;
+}
+#currentPageCount {
+	-moz-appearance: textfield;
+	width: 30px;
+	outline: none;
+	font-family: LatoReg, Arial, sans-serif;
+	background-color: var(--UIdefaultColor);
+	color: var(--UIdefaultTextColor);
+	border: 0;
+	padding-left: 5px;
+	border-radius: 3px;
+}
+#currentPageCount::-webkit-outer-spin-button, #currentPageCount::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+#resultCount {
+	font-size: 15px;
+	margin: 0;
+	font-family: LatoReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
+}
+.ratingLabel {
+	display: table-cell;
+	vertical-align: middle;
+	margin: 0 5px 0 0;
+	font-size: 15px;
+	height: 18px;
+}
+.productRatingRow {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+#newProductIcon {
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("../../Assets/darkTheme/newIcon.png");
+	min-height: 19px;
+	min-width: 19px;
 }

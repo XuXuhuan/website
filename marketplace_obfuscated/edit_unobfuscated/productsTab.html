@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta name='keywords' content='lifestyle, life, tips, share, social media'>
+        <meta name='description' content='Share about your lifestyle or lifestyle tips!'>
+        <link rel='stylesheet' href='../edit_obfuscated/editDarkTheme.css'>
+		<script src='web.js' defer></script>
+        <title>Edit · Streetor</title>
+    </head>
+    <body>
+		<header>
+			<nav id='topnav'>
+				<button id='menuToggle'>
+					<div id='menuImageCont'></div>
+				</button>
+				<p id='orgName' class='notSelectable'>STREETOR</p>
+				<a href='https://www.streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>
+			</nav>
+			<nav id='sidenav'>
+				<a href='https://www.streetor.sg/home/' id='homeLink'>
+					<div class='innerLinksCont'>
+						<div id='homeImage' class='sideNavImage'></div>
+						<p id='homeText' class='notSelectable'>Home</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+					<div class='innerLinksCont'>
+						<div id='profilesImage' class='sideNavImage'></div>
+						<p id='profilesText' class='notSelectable'>Profiles</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+					<div class='innerLinksCont'>
+						<div id='settingsImage' class='sideNavImage'></div>
+						<p id='settingsText' class='notSelectable'>Settings</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+					<div class='innerLinksCont'>
+						<div id='marketplaceImage' class='sideNavImage'></div>
+						<p id='marketplaceText' class='notSelectable'>Marketplace</p>
+					</div>
+				</a>
+				<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+					<div class='innerLinksCont'>
+						<div id='privacyImage' class='sideNavImage'></div>
+						<p id='privacyText' class='notSelectable'>Privacy</p>
+					</div>
+				</a>
+			</nav>
+			<div id='notificationCont'>
+				<p id='notificationText'></p>
+			</div>
+		</header>
+		<main>
+			<div id='mainCont'>
+				<div id="cancelOperationOverlay"></div>
+				<nav id='editOptions'>
+					<ul id='optionsList'>
+						<li class='optionItems'>
+							<button id='marketButton' class='optionButtons'>
+								<p class='optionsText notSelectable' id='accountText'>Market Details</p>
+							</button>
+						</li>
+						<li class='optionItems'>
+							<button id='productsButton' class='optionButtons selectedTab'>
+								<p class='optionsText notSelectable' id='securityText'>Products</p>
+							</button>
+						</li>
+					</ul>
+					<div id='selectedTabLine'></div>
+				</nav>
+				<div id="marketInfoCont">
+					<h1 class="topHeaderInfo">Products</h1>
+					<div id="productListCont">
+						<div id="productSearchBarContainer">
+							<input type='text' id='productSearchField' placeholder='Search'>
+							<button id='productSearchButton' type='submit'>
+								<div id='productSearchImage'></div>
+							</button>
+						</div>
+						<p id="resultCount">10 of 11 results</p>
+						<div id="productRowsContainer">
+							<div id="newProductCont">
+								<div class='productContentsRow infoRow' id="newProductRow">
+									<div id="newProductIcon"></div>
+									<div class='productNameAndInfoCont infoColumnRow' id="newProductInfoCont">
+										<a href='https://www.streetor.sg/marketplace/createProduct/' class='productName' id="newProductLabel">New Product</a>
+									</div>
+								</div>
+							</div>
+							<div id="existingProductsCont">
+								<p id="fetchProductsError" class="inputErrorText"></p>
+								<div class='infoColumnRow' id='changePageWrapper'>
+									<div id='changePageCont'></div>
+									<p id='pageCount' class='notSelectable'><input type='number' value='1' max='1' min='1' value='1' id='currentPageCount' onkeyup='countFieldMarketFetch(Event)'> of <span id='maxPagesCount'>0</span> pages</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer>
+		</footer>
+    </body>
+</html>
