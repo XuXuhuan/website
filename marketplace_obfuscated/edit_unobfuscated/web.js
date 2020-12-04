@@ -9,6 +9,7 @@ const refMarketDetailsButton = document.querySelector("#marketButton");
 const refProductsButton = document.querySelector("#productsButton");
 const refSelectedTabLine = document.querySelector("#selectedTabLine");
 const URLparameters = new URLSearchParams(window.location.search);
+const adaptedURL = window.URL || window.webkitURL;
 const acceptedImageFileTypes = /(\.jpg|\.png|\.jpeg)$/i;
 const availableCategories = [
 	"automotive",
@@ -53,98 +54,6 @@ function setNotification(message, isError) {
 	checkNotification = setTimeout(function() {
 		refNotificationCont.style.top = "-10vh";
 	}, 1000);
-}
-function fetchNewPage(newPage) {
-	const refExistingProductsCont = document.querySelector("#existingProductsCont");
-	const refFetchProductsError = document.querySelector("#fetchProductsError");
-	const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-	var URLdata;
-	xhr.open("POST", "fetchMarketProducts.php", true);
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.responseType = "json";
-	xhr.onload = function() {
-		if (xhr.status === 200) {
-			if (xhr.response["errormessage"].length === 0 && xhr.response["productDetails"].length > 0) {
-				currentProductsListPage = newPage;
-				refExistingProductsCont.innerHTML = "";
-				xhr.response["productDetails"].forEach(function(item) {
-					refExistingProductsCont.innerHTML += `
-					<div class='productContentsRow infoRow'>
-						<img src='${item["productImageURL"]}' alt='Product Image' class='productImage'>
-						<div class='productNameAndInfoCont infoColumnRow'>
-							<a href='https://www.streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
-							<p class='productInfoText'>${item["productInfo"]}</p>
-							<div class='productRatingRow'>
-								<p class='ratingLabel'>${item["productRating"]}</p>
-								<svg height='18' width='18' class='productRatingStar'>
-									<defs>
-										<linearGradient id='starGradient'>
-											<stop offset='100%' stop-color='#e1c900'></stop>
-										</linearGradient>
-									</defs>
-									<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
-								</svg>
-							</div>
-						</div>
-					</div>`;
-				});
-				if (xhr.response["currentResults"] > 0 && xhr.response["maxResults"] > 0) {
-					refResultCount.innerHTML = xhr.response["currentResults"] + " of " + xhr.response["maxResults"] + " results";
-					refCurrentPageCountField.value = Math.ceil(xhr.response["currentResults"] / 10);
-					if (Math.ceil(xhr.response["maxResults"] / 10) === newPage) {
-						if (document.querySelector("#nextPageButton")) {
-							const refNextPageButton = document.querySelector("#nextPageButton");
-							refNextPageButton.remove();
-						}
-					}
-					if (newPage === 1) {
-						if (document.querySelector("#prevPageButton")) {
-							const refPrevPageButton = document.querySelector("#prevPageButton");
-							refPrevPageButton.remove();
-						}
-					}
-					if (newPage > 1) {
-						const refChangePageCont = document.querySelector("#changePageCont");
-						const refCreatePrevPageButton = document.createElement("button");
-						const refCreatePrevPageImage = document.createElement("div");
-						refCreatePrevPageButton.id = "prevPageButton";
-						refCreatePrevPageButton.onclick = function(triggered) {leftArrowProductFetch(triggered)};
-						refCreatePrevPageImage.id = "leftArrowCont";
-						refCreatePrevPageImage.classList.add("changePageArrowCont");
-						refCreatePrevPageButton.appendChild(refCreatePrevPageImage);
-						refChangePageCont.appendChild(refCreatePrevPageButton);
-					}
-					if (Math.ceil(xhr.response["maxResults"] / 10) > newPage) {
-						const refChangePageCont = document.querySelector("#changePageCont");
-						const refCreateNextPageButton = document.createElement("button");
-						const refCreateNextPageImage = document.createElement("div");
-						refCreateNextPageButton.id = "nextPageButton";
-						refCreateNextPageButton.onclick = function(triggered) {rightArrowProductFetch(triggered)};
-						refCreateNextPageImage.id = "rightArrowCont";
-						refCreateNextPageImage.classList.add("changePageArrowCont");
-						refCreateNextPageButton.appendChild(refCreateNextPageImage);
-						refChangePageCont.appendChild(refCreateNextPageButton);
-					}
-				}
-			} else {
-				refFetchProductsError.innerHTML = xhr.response["errormessage"];
-			}
-		} else {
-			refNotificationCont.style.top = 0;
-			refNotificationCont.style.backgroundColor = "#E60505";
-			refNotificationText.innerHTML = "An error occurred.";
-			clearTimeout(checkNotification);
-			checkNotification = setTimeout(function() {
-				refNotificationCont.style.top = "-10vh";
-			},1000);
-		}
-	}
-	if (URLparameters.has("query")) {
-		URLdata = "hasQuery=1&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("marketid")) + "&query=" + encodeURIComponent(URLparameters.get("query"));
-	} else {
-		URLdata = "hasQuery=0&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("marketid"));
-	}
-	xhr.send(URLdata);
 }
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
@@ -229,7 +138,20 @@ function edit_validateMarketNameFieldKeyUp(key) {
 	} else {
 		if (refNewMarketNameField.value.trim().length > 0) {
 			checkMarketName = setTimeout(function() {
-				
+				const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+				xhr.open("POST", "../register/marketNameTaken.php", true);
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhr.onerror = function() {
+					setNotification("An error occurred.", true);
+				}
+				xhr.onload = function() {
+					if (xhr.status === 200) {
+						setNotification(xhr.responseText, true);
+					} else {
+						setNotification("An error occurred.", true);
+					}
+				}
+				xhr.send("type=1&value=" + encodeURIComponent(refNewMarketNameField.value));
 			}, 350);
 		} else {
 			refNewMarketNameError.innerHTML = "This field is required.";
@@ -257,6 +179,7 @@ function edit_marketLogoTextOverlayMouseEnter() {
 		refMarketLogoTextOverlay.addEventListener("click", function() {
 			var dataForm = new FormData();
 			dataForm.append("type", 1);
+			dataForm.append("id", URLparameters.get("id"));
 			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 			xhr.open("POST", "changeMarketLogo.php", true);
 			xhr.responseType = "json";
@@ -306,28 +229,39 @@ function edit_marketLogoTextOverlayMouseLeave(event) {
 function edit_uploadImageFile() {
 	const refMarketLogoImageDisplay = document.querySelector("#marketLogoImageDisplay");
 	if (acceptedImageFileTypes.test(document.querySelector("#marketLogoUpload").value)) {
-		var dataForm = new FormData();
-		dataForm.append("type", 2);
-		dataForm.append("image", document.querySelector("#marketLogoUpload").files[0]);
-		const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-		xhr.open("POST", "changeMarketLogo.php", true);
-		xhr.responseType = "json";
-		xhr.onerror = function() {
-			setNotification("An error occurred.", true);
-		}
-		xhr.onload = function() {
-			if (xhr.status === 200) {
-				if (xhr.response["errormessage"].length === 0) {
-					refMarketLogoImageDisplay.style.backgroundImage = 'url("' + xhr.response["newMarketLogoURL"] + '")';
-					marketLogoImageURL = refMarketLogoImageDisplay.style.backgroundImage;
-				} else {
-					setNotification(xhr.response["errormessage"], 1);
+		var pseudoImage = new Image();
+		var newObjectURL = adaptedURL.createObjectURL(document.querySelector("#marketLogoUpload").files[0]);
+		pseudoImage.onload = function () {
+			if (pseudoImage.width >= 150 && pseudoImage.height >= 150) {
+				var dataForm = new FormData();
+				dataForm.append("type", 2);
+				dataForm.append("id", URLparameters.get("id"));
+				dataForm.append("image", document.querySelector("#marketLogoUpload").files[0]);
+				const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+				xhr.open("POST", "changeMarketLogo.php", true);
+				xhr.responseType = "json";
+				xhr.onerror = function() {
+					setNotification("An error occurred.", true);
 				}
+				xhr.onload = function() {
+					if (xhr.status === 200) {
+						if (xhr.response["errormessage"].length === 0) {
+							refMarketLogoImageDisplay.style.backgroundImage = 'url("' + xhr.response["newMarketLogoURL"] + '")';
+							marketLogoImageURL = refMarketLogoImageDisplay.style.backgroundImage;
+						} else {
+							setNotification(xhr.response["errormessage"], 1);
+						}
+					} else {
+						setNotification("An error occurred.", true);
+					}
+				}
+				xhr.send(dataForm);
 			} else {
-				setNotification("An error occurred.", true);
+				setNotification("Image must have dimensions of at least 150px by 150px.", true);
 			}
+			adaptedURL.revokeObjectURL(newObjectURL);
 		}
-		xhr.send(dataForm);
+		pseudoImage.src = newObjectURL;
 	} else {
 		setNotification("Only JPEG or PNG files are accepted.", true);
 	}
@@ -361,18 +295,18 @@ function edit_updateMarketBio() {
 	}, 350);
 }
 function countFieldProductFetch(event) {
-	if (/[^0-9]/.test(currentPage) === false && event.keyCode === 13) {
-		checkChangePage = refCurrentPageCountField.value;
+	if (/[^0-9]/.test(currentProductsListPage) === false && event.keyCode === 13 && refCurrentPageCountField.value.trim().length > 0) {
+		fetchNewPage(refCurrentPageCountField.value.trim());
 	}
 }
 function leftArrowProductFetch(event) {
-	if (/[^0-9]/.test(currentPage) === false && currentPage > 1 && event.button === 0) {
-		fetchNewPage(currentPage - 1);
+	if (/[^0-9]/.test(currentProductsListPage) === false && currentProductsListPage > 1 && event.button === 0) {
+		fetchNewPage(currentProductsListPage - 1);
 	}
 }
 function rightArrowProductFetch(event) {
-	if (/[^0-9]/.test(currentPage) === false && event.button === 0) {
-		fetchNewPage(currentPage + 1);
+	if (/[^0-9]/.test(currentProductsListPage) === false && event.button === 0) {
+		fetchNewPage(currentProductsListPage + 1);
 	}
 }
 refMarketDetailsButton.addEventListener("click", function() {
@@ -584,6 +518,92 @@ refProductsButton.addEventListener("click", function() {
 		const refNewMarketNameField = document.querySelector("#newMarketNameField");
 		const refNewMarketNameError = document.querySelector("#newMarketNameError");
 		const refMarketBioField = document.querySelector("#marketBioField");
+		function fetchNewPage(newPage) {
+			const refExistingProductsCont = document.querySelector("#existingProductsCont");
+			const refFetchProductsError = document.querySelector("#fetchProductsError");
+			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+			var URLdata;
+			xhr.open("POST", "fetchMarketProducts.php", true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.responseType = "json";
+			xhr.onload = function() {
+				if (xhr.status === 200) {
+					if (xhr.response["errormessage"].length === 0 && xhr.response["productDetails"].length > 0) {
+						currentProductsListPage = newPage;
+						refExistingProductsCont.innerHTML = "";
+						xhr.response["productDetails"].forEach(function(item) {
+							refExistingProductsCont.innerHTML += `
+							<div class='productContentsRow infoRow'>
+								<img src='${item["productImageURL"]}' alt='Product Image' class='productImage'>
+								<div class='productNameAndInfoCont infoColumnRow'>
+									<a href='https://www.streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
+									<p class='productInfoText'>${item["productInfo"]}</p>
+									<div class='productRatingRow'>
+										<p class='ratingLabel'>${item["productRating"]}</p>
+										<svg height='18' width='18' class='productRatingStar'>
+											<defs>
+												<linearGradient id='starGradient'>
+													<stop offset='100%' stop-color='#e1c900'></stop>
+												</linearGradient>
+											</defs>
+											<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+										</svg>
+									</div>
+								</div>
+							</div>`;
+						});
+						if (xhr.response["currentResults"] > 0 && xhr.response["maxResults"] > 0) {
+							refResultCount.innerHTML = xhr.response["currentResults"] + " of " + xhr.response["maxResults"] + " results";
+							refCurrentPageCountField.value = Math.ceil(xhr.response["currentResults"] / 10);
+							if (Math.ceil(xhr.response["maxResults"] / 10) === newPage) {
+								if (document.querySelector("#nextPageButton")) {
+									const refNextPageButton = document.querySelector("#nextPageButton");
+									refNextPageButton.remove();
+								}
+							}
+							if (newPage === 1) {
+								if (document.querySelector("#prevPageButton")) {
+									const refPrevPageButton = document.querySelector("#prevPageButton");
+									refPrevPageButton.remove();
+								}
+							}
+							if (newPage > 1) {
+								const refChangePageCont = document.querySelector("#changePageCont");
+								const refCreatePrevPageButton = document.createElement("button");
+								const refCreatePrevPageImage = document.createElement("div");
+								refCreatePrevPageButton.id = "prevPageButton";
+								refCreatePrevPageButton.onclick = function(triggered) {leftArrowProductFetch(triggered)};
+								refCreatePrevPageImage.id = "leftArrowCont";
+								refCreatePrevPageImage.classList.add("changePageArrowCont");
+								refCreatePrevPageButton.appendChild(refCreatePrevPageImage);
+								refChangePageCont.appendChild(refCreatePrevPageButton);
+							}
+							if (Math.ceil(xhr.response["maxResults"] / 10) > newPage) {
+								const refChangePageCont = document.querySelector("#changePageCont");
+								const refCreateNextPageButton = document.createElement("button");
+								const refCreateNextPageImage = document.createElement("div");
+								refCreateNextPageButton.id = "nextPageButton";
+								refCreateNextPageButton.onclick = function(triggered) {rightArrowProductFetch(triggered)};
+								refCreateNextPageImage.id = "rightArrowCont";
+								refCreateNextPageImage.classList.add("changePageArrowCont");
+								refCreateNextPageButton.appendChild(refCreateNextPageImage);
+								refChangePageCont.appendChild(refCreateNextPageButton);
+							}
+						}
+					} else {
+						refFetchProductsError.innerHTML = xhr.response["errormessage"];
+					}
+				} else {
+					refFetchProductsError.innerHTML = "An error occurred.";
+				}
+			}
+			if (URLparameters.has("query")) {
+				URLdata = "hasQuery=1&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("marketid")) + "&query=" + encodeURIComponent(URLparameters.get("query"));
+			} else {
+				URLdata = "hasQuery=0&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("marketid"));
+			}
+			xhr.send(URLdata);
+		}
 		marketBioFieldValue = refMarketBioField.value;
 		refProductsButton.classList.add("selectedTab");
 		if (refMarketDetailsButton.classList.contains("selectedTab")) {
@@ -616,7 +636,12 @@ refProductsButton.addEventListener("click", function() {
 						</div>
 					</div>
 				</div>
+				<p id="fetchProductsError" class="inputErrorText"></p>
 				<div id="existingProductsCont">
+				</div>
+				<div class='infoColumnRow' id='changePageWrapper'>
+					<div id='changePageCont'></div>
+					<p id='pageCount' class='notSelectable'><input type='number' value='1' max='1' min='1' value='1' id='currentPageCount' onkeyup='countFieldProductFetch(Event)'> of <span id='maxPagesCount'>0</span> pages</p>
 				</div>
 			</div>
 		</div>`;

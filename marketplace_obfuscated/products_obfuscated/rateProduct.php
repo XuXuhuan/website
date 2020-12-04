@@ -51,4 +51,5 @@ if (!$mysqliConnection -> connect_errno) {
 	}
 }
 echo json_encode($assocReturn);
+$mysqliConnection -> close();
 ?>

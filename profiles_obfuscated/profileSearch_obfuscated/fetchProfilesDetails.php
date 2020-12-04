@@ -55,4 +55,5 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 	$assocReturn["errormessage"] = "Invalid request. Please try again later.";
 }
 echo json_encode($assocReturn);
+$mysqliConnection -> close();
 ?>
