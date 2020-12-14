@@ -72,7 +72,7 @@ refUsernameField.addEventListener("keyup", function() {
 				if (xhr.status === 200) {
 					refUsernameError.innerHTML = xhr.responseText;
 				} else {
-					refUsernameError.innerHTML = "An internal server error occurred. Please try again later.";
+					refUsernameError.innerHTML = "An error occurred.";
 				}
 			}
 			xhr.send("username=" + encodeURIComponent(refUsernameField.value));
@@ -152,7 +152,7 @@ refEmailField.addEventListener("keyup", function() {
 				if (xhr.status === 200) {
 					refEmailError.innerHTML = xhr.responseText;
 				} else {
-					refEmailError.innerHTML = "An internal server error occurred. Please try again later.";
+					refEmailError.innerHTML = "An error occurred.";
 				}
 			}
 			xhr.send("email=" + encodeURIComponent(refEmailField.value));
@@ -197,7 +197,7 @@ function submitSignUp(event) {
 						refSignUpMessage.innerHTML = xhr.response["message"];
 						refSignUpButtonCont.innerHTML = '<button id="signUpButton" onmouseup="submitSignUp(event)" onmousedown="cancelSubmitSignUpTimeout(event)">Sign Up</button>';
 					} else {
-						refSignUpMessage.innerHTML = "An internal server error occurred. Please try again later.";
+						refSignUpMessage.innerHTML = "An error occurred.";
 					}
 				}
 				xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refNewPasswordField.value) + "&fName=" + encodeURIComponent(refFirstNameField.value) + "&lName=" + encodeURIComponent(refLastNameField.value) + "&email=" + encodeURIComponent(refEmailField.value));

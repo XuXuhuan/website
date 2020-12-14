@@ -61,7 +61,7 @@ function submitLogin(event) {
 							refLoginButtonCont.innerHTML = '<button id="logInButton" onmouseup="submitLogin(event)" onmousedown="cancelSubmitLoginTimeout(event)">Login</button>';
 						}
 					} else {
-						refLoginMessage.innerHTML = "An internal server error occurred. Please try again later.";
+						refLoginMessage.innerHTML = "An error occurred.";
 					}
 				}
 				xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refPasswordField.value));

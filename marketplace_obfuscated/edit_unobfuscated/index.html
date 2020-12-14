@@ -92,7 +92,9 @@
 					<div class="infoColumnRow" id="marketBioRow">
 						<p id="marketBioLabel" class="rowInfo">Market Information (optional):</p>
 						<textarea id="marketBioField" class="inputMethod" rows="10" placeholder="Give information about your store in 500 characters." maxlength="500"></textarea>
-						<button id="changeCategoryButton" class="inputMethod">Make Changes</button>
+						<div id="updateBioButtonCont">
+							<button id="changeCategoryButton" class="inputMethod">Make Changes</button>
+						</div>
 					</div>
 					<div id="marketCategoryRow" class="infoColumnRow">
 						<p id="marketCategoryLabel" class="rowInfo">Categories:</p>
@@ -190,11 +192,15 @@
 								<div class='marketCategoryBox inputMethod' id='gamesBox'></div>
 							</div>
 						</div>
-						<button id="changeCategoryButton" class="inputMethod">Make Changes</button>
+						<div id="changeCategoryButtonCont">
+							<button id="changeCategoryButton" class="inputMethod" onclick="edit_changeMarketCategory()">Make Changes</button>
+						</div>
 					</div>
 					<div id="deleteMarketRow" class="infoColumnRow">
 						<p id="deleteMarketLabel" class="rowInfo">Delete This Market</p>
-						<button id="deleteMarketButton" class="inputMethod">Delete Market</button>
+						<div id="deleteMarketButtonCont">
+							<button id="deleteMarketButton" class="inputMethod">Delete Market</button>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -43,12 +43,6 @@ function submitMarketRegister(event) {
 	if (event.button === 0) {
 		clearTimeout(checkMarketName);
 		clearTimeout(checkMarketRegister);
-		var numberOfCheckedBoxes = 0;
-		refTickBoxes.forEach(function(item) {
-			if (item.classList.contains("tickedCategoryBox")) {
-				numberOfCheckedBoxes++;
-			}
-		});
 		if (refMarketNameField.value.length > 3 &&
 			refMarketNameField.value.length < 30 &&
 			assocRequestJSON["marketCategories"].length > 0) {
@@ -70,7 +64,7 @@ function submitMarketRegister(event) {
 						refMarketRegisterError.innerHTML = xhr.response["message"];
 						refMarketRegisterButtonCont.innerHTML = '<button id="marketRegisterButton" onmouseup="submitMarketRegister(event)" onmousedown="cancelMarketRegisterTimeout(event)">Register</button>';
 					} else {
-						refMarketRegisterError.innerHTML = "An internal server error occurred. Please try again later.";
+						refMarketRegisterError.innerHTML = "An error occurred.";
 					}
 				}
 				xhr.send(JSON.stringify(assocRequestJSON));
@@ -138,7 +132,7 @@ refMarketNameField.addEventListener("keyup", function() {
 				if (xhr.status === 200) {
 					refMarketNameError.innerHTML = xhr.responseText;
 				} else {
-					refMarketNameError.innerHTML = "An internal server error occurred. Please try again later.";
+					refMarketNameError.innerHTML = "An error occurred.";
 				}
 			}
 			xhr.send("marketname=" + encodeURIComponent(refMarketNameField.value));

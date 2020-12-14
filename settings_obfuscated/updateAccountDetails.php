@@ -16,7 +16,7 @@ if ($mysqliConnection -> connect_errno) {
 	if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 		$changeType = $_POST["type"];
 		if (empty($changeType) && empty(json_decode(file_get_contents("php://input"), true)["type"])) {
-			$assocReturn["message"] = "This request is invalid. Please try again later.";
+			$assocReturn["message"] = "Invalid request.";
 		}
 		else if (json_decode(file_get_contents("php://input"), true)["type"] === 4) {
 			$changeContent = json_decode(file_get_contents("php://input"), true)["content"];
@@ -611,6 +611,9 @@ if ($mysqliConnection -> connect_errno) {
 							$assocReturn["message"] = "An internal error occurred. Please try again later.";
 						}
 					}
+				break;
+				default:
+					$assocReturn["message"] = "Invalid request.";
 				break;
 			}
 		}

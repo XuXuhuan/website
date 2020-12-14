@@ -290,8 +290,8 @@ function validateChangeUserField(event) {
 					newUsernameChangeError = xhr.responseText;
 					refNewUserError.innerHTML = xhr.responseText;
 				} else {
-					newUsernameChangeError = "An internal server error occurred. Please try again later.";
-					refNewUserError.innerHTML = "An internal server error occurred. Please try again later.";
+					newUsernameChangeError = "An error occurred.";
+					refNewUserError.innerHTML = "An error occurred.";
 				}
 			}
 			xhr.send("username=" + encodeURIComponent(refNewUserField.value));
@@ -373,8 +373,8 @@ function validateChangeEmailField(event) {
 					newEmailChangeError = xhr.responseText;
 					refEmailError.innerHTML = xhr.responseText;
 				} else {
-					newEmailChangeError = "An internal server error occurred. Please try again later.";
-					refEmailError.innerHTML = "An internal server error occurred. Please try again later.";
+					newEmailChangeError = "An error occurred.";
+					refEmailError.innerHTML = "An error occurred.";
 				}
 			}
 			xhr.send("email=" + encodeURIComponent(refEmailField.value));
@@ -467,8 +467,8 @@ function sendEmailVerification() {
 					}
 				} else {
 					const refVerifyEmailError = document.querySelector("#verifyEmailError");
-					emailVerificationError = "An internal server error occurred. Please try again later.";
-					refVerifyEmailError.innerHTML = "An internal server error occurred. Please try again later.";
+					emailVerificationError = "An error occurred.";
+					refVerifyEmailError.innerHTML = "An error occurred.";
 				}
 			}
 			xhr.send();
@@ -533,8 +533,8 @@ function updateUsername() {
 					}
 				} else {
 					const refNewUsernameError = document.querySelector("#newUsernameError");
-					newUsernameChangeError = "An internal server error occurred. Please try again later.";
-					refNewUsernameError.innerHTML = "An internal server error occurred. Please try again later.";
+					newUsernameChangeError = "An error occurred.";
+					refNewUsernameError.innerHTML = "An error occurred.";
 				}
 			}
 			xhr.send("type=1&content=" + encodeURIComponent(refNewUserField.value));
@@ -609,8 +609,8 @@ function updatePassword() {
 					}
 				} else {
 					const refConfirmPassError = document.querySelector("#confirmPasswordError");
-					confirmPasswordChangeError = "An internal server error occurred. Please try again later.";
-					refConfirmPassError.innerHTML = "An internal server error occurred. Please try again later.";
+					confirmPasswordChangeError = "An error occurred.";
+					refConfirmPassError.innerHTML = "An error occurred.";
 				}
 			}
 			xhr.send("type=2&content=" + encodeURIComponent(refNewPassField.value));
@@ -688,8 +688,8 @@ function updateEmail() {
 						}
 					} else {
 						const refNewEmailConfirmPassError = document.querySelector("#confirmPasswordNewEmailError");
-						newEmailConfirmPasswordChangeError = "An internal server error occurred. Please try again later.";
-						refNewEmailConfirmPassError.innerHTML = "An internal server error occurred. Please try again later.";
+						newEmailConfirmPasswordChangeError = "An error occurred.";
+						refNewEmailConfirmPassError.innerHTML = "An error occurred.";
 					}
 				}
 				xhr.send("type=3&content=" + encodeURIComponent(refNewEmailField.value) + "&content2=" + encodeURIComponent(refNewEmailConfirmPassField.value));
@@ -720,8 +720,8 @@ function updateBio() {
 				bioInputError = xhr.response["message"];
 				refBioError.innerHTML = xhr.response["message"];
 			} else {
-				bioInputError = "An internal server error occurred. Please try again later.";
-				refBioError.innerHTML = "An internal server error occurred. Please try again later.";
+				bioInputError = "An error occurred.";
+				refBioError.innerHTML = "An error occurred.";
 			}
 		}
 		xhr.send(JSON.stringify({type : 4, content : refBioInput.value}));
@@ -784,8 +784,8 @@ function deleteAccount() {
 					}
 				} else {
 					const refDeleteAccountError = document.querySelector("#deleteAccountError");
-					accountDeletionError = "An internal server error occurred. Please try again later.";
-					refDeleteAccountError.innerHTML = "An internal server error occurred. Please try again later.";
+					accountDeletionError = "An error occurred.";
+					refDeleteAccountError.innerHTML = "An error occurred.";
 				}
 			}
 			xhr.send();
