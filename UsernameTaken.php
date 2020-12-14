@@ -14,7 +14,7 @@ else if ($queriedUsername = $mysqliConnection -> query($fetchUsernameQuery)) {
 	}
 	$queriedUsername -> free();
 } else {
-	echo "An internal error occurred. Please try again later.";
+	echo "An error occurred.";
 }
 $mysqliConnection -> close();
 ?>

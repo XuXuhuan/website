@@ -145,12 +145,12 @@ if ($mysqliConnection -> connect_errno) {
 					if ($mysqliConnection -> query($insertValuesQuery)) {
 						$assocReturn["message"] = "Success!";
 					} else {
-						$assocReturn["message"] = "An internal error occurred. Please try again later.";
+						$assocReturn["message"] = "An error occurred.";
 					}
 				}
 				$queriedMarkets -> free();
 			} else {
-				$assocReturn["message"] = "An internal error occurred. Please try again later.";
+				$assocReturn["message"] = "An error occurred.";
 			}
 		}
 	} else {

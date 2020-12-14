@@ -59,7 +59,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 								} else {
 									$loginAlert = '
 									<div id="alertCont">
-										<p id="alertText">An internal error occurred. Please try again later.</p>
+										<p id="alertText">An error occurred.</p>
 									</div>';
 								}
 							} else {
@@ -68,7 +68,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 						} else {
 							$loginAlert = '
 							<div id="alertCont">
-								<p id="alertText">An internal error occurred. Please try again later.</p>
+								<p id="alertText">An error occurred.</p>
 							</div>';
 						}
 					} else {
@@ -119,7 +119,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			} else {
 				$loginAlert = '
 				<div id="alertCont">
-					<p id="alertText">An internal error occurred. Please try again later.</p>
+					<p id="alertText">An error occurred.</p>
 				</div>';
 			}
 			if ($mysqliConnection -> more_results()) {
@@ -142,7 +142,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				} else {
 					$loginAlert = '
 					<div id="alertCont">
-						<p id="alertText">An internal error occurred. Please try again later.</p>
+						<p id="alertText">An error occurred.</p>
 					</div>';
 				}
 			} else {
@@ -190,7 +190,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		} else {
 			$loginAlert = '
 			<div id="alertCont">
-				<p id="alertText">An internal error occurred. Please try again later.</p>
+				<p id="alertText">An error occurred.</p>
 			</div>';
 		}
 		$marketProfile = "Search Marketplace";
@@ -319,7 +319,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					} else {
 						$loginAlert = '
 						<div id="alertCont">
-							<p id="alertText">An internal error occurred. Please try again later.</p>
+							<p id="alertText">An error occurred.</p>
 						</div>';
 					}
 				} else {
@@ -347,14 +347,14 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			} else {
 				$loginAlert = '
 				<div id="alertCont">
-					<p id="alertText">An internal error occurred. Please try again later.</p>
+					<p id="alertText">An error occurred.</p>
 				</div>';
 			}
 			$queriedMarketDetails -> free();
 		} else {
 			$loginAlert = '
 			<div id="alertCont">
-				<p id="alertText">An internal error occurred. Please try again later.</p>
+				<p id="alertText">An error occurred.</p>
 			</div>';
 		}
 	}

@@ -177,13 +177,13 @@ if ($mysqliConnection -> connect_errno) {
 										} else {
 											$loginAlert = '
 											<div id="alertCont">
-												<p id="alertText">An internal error occurred. Please try again later.</p>
+												<p id="alertText">An error occurred.</p>
 											</div>';
 										}
 									} else {
 										$loginAlert = '
 										<div id="alertCont">
-											<p id="alertText">An internal error occurred. Please try again later.</p>
+											<p id="alertText">An error occurred.</p>
 										</div>';
 									}
 								} else {
@@ -192,7 +192,7 @@ if ($mysqliConnection -> connect_errno) {
 							} else {
 								$loginAlert = '
 								<div id="alertCont">
-									<p id="alertText">An internal error occurred. Please try again later.</p>
+									<p id="alertText">An error occurred.</p>
 								</div>';
 							}
 						} else {

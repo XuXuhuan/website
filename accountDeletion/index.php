@@ -70,8 +70,8 @@ if ($mysqliConnection -> connect_errno) {
 					} else {
 						$DOMtitle = "An internal error occured · Streetor";
 						$imageURL = "../Assets/global/CrossMark.png";
-						$message = "An internal error occurred. Please try again later.";
-						$topnavText = "An internal error occurred.";
+						$message = "An error occurred.";
+						$topnavText = "An error occurred.";
 						$topnavColor = "#topnav {
 							background-color: #E60505;
 						}";
@@ -79,8 +79,8 @@ if ($mysqliConnection -> connect_errno) {
 				} else {
 					$DOMtitle = "An internal error occured · Streetor";
 					$imageURL = "../Assets/global/CrossMark.png";
-					$message = "An internal error occurred. Please try again later.";
-					$topnavText = "An internal error occurred.";
+					$message = "An error occurred.";
+					$topnavText = "An error occurred.";
 					$topnavColor = "#topnav {
 						background-color: #E60505;
 					}";
@@ -98,8 +98,8 @@ if ($mysqliConnection -> connect_errno) {
 		} else {
 			$DOMtitle = "An internal error occured · Streetor";
 			$imageURL = "../Assets/global/CrossMark.png";
-			$message = "An internal error occurred. Please try again later.";
-			$topnavText = "An internal error occurred.";
+			$message = "An error occurred.";
+			$topnavText = "An error occurred.";
 			$topnavColor = "#topnav {
 				background-color: #E60505;
 			}";

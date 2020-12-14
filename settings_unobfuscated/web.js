@@ -819,8 +819,8 @@ function twoFactorAuthSwitch() {
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.responseType = "json";
 			xhr.onerror = function() {
-				twoFactorAuthConfirmPasswordError = "An internal error occurred. Please try again later.";
-				refTwoFactorAuthConfirmPasswordError.innerHTML = "An internal error occurred. Please try again later.";
+				twoFactorAuthConfirmPasswordError = "An error occurred.";
+				refTwoFactorAuthConfirmPasswordError.innerHTML = "An error occurred.";
 			}
 			xhr.onload = function() {
 				if (xhr.status === 200) {
@@ -846,8 +846,8 @@ function twoFactorAuthSwitch() {
 						}
 					}
 				} else {
-					twoFactorAuthConfirmPasswordError = "An internal error occurred. Please try again later.";
-					refTwoFactorAuthConfirmPasswordError.innerHTML = "An internal error occurred. Please try again later.";
+					twoFactorAuthConfirmPasswordError = "An error occurred.";
+					refTwoFactorAuthConfirmPasswordError.innerHTML = "An error occurred.";
 				}
 			}
 			xhr.send("type=5&content=null&content2=" + encodeURIComponent(refTwoFactorAuthConfirmPasswordField.value));
@@ -1080,7 +1080,7 @@ refSecurityButton.addEventListener("click", function() {
 		xhr.responseType = "json";
 		xhr.onerror = function() {
 			refTwoFactorAuthText.innerHTML = "Two Factor Authentication: [Error. Please try again later]";
-			refTwoFactorAuthMessage.innerHTML = "An internal error occurred. Please try again later.";
+			refTwoFactorAuthMessage.innerHTML = "An error occurred.";
 		}
 		xhr.onload = function() {
 			if (xhr.status === 200) {
@@ -1088,7 +1088,7 @@ refSecurityButton.addEventListener("click", function() {
 				refTwoFactorAuthCont.innerHTML += xhr.response["concatSlider"];
 			} else {
 				refTwoFactorAuthText.innerHTML = "Two Factor Authentication: [Error. Please try again later]";
-				refTwoFactorAuthMessage.innerHTML = "An internal error occurred. Please try again later.";
+				refTwoFactorAuthMessage.innerHTML = "An error occurred.";
 			}
 		}
 		xhr.send();

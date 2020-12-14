@@ -59,7 +59,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 								} else {
 									$loginAlert = '
 									<div id="alertCont">
-										<p id="alertText">An internal error occurred. Please try again later.</p>
+										<p id="alertText">An error occurred.</p>
 									</div>';
 								}
 							} else {
@@ -68,7 +68,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 						} else {
 							$loginAlert = '
 							<div id="alertCont">
-								<p id="alertText">An internal error occurred. Please try again later.</p>
+								<p id="alertText">An error occurred.</p>
 							</div>';
 						}
 					} else {
@@ -157,7 +157,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				} else {
 					$loginAlert = '
 					<div id="alertCont">
-						<p id="alertText">An internal error occurred. Please try again later.</p>
+						<p id="alertText">An error occurred.</p>
 					</div>';
 				}
 			} else {
@@ -182,7 +182,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		} else {
 			$loginAlert = '
 			<div id="alertCont">
-				<p id="alertText">An internal error occurred. Please try again later.</p>
+				<p id="alertText">An error occurred.</p>
 			</div>';
 		}
 	}

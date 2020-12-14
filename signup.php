@@ -232,15 +232,15 @@ if ($mysqliConnection -> connect_errno) {
 					if (mail($getEmail, "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
 						$assocReturn["message"] = "An email has been sent to your email address for verification.";
 					} else {
-						$assocReturn["message"] = "An internal error occurred and a verification email was not sent to the input email address. You can go to the <a href='https://www.streetor.sg/login/'>log in</a> page or settings page to re-send the email.";
+						$assocReturn["message"] = "An error occurred and a verification email was not sent to the input email address. You can go to the <a href='https://www.streetor.sg/login/'>log in</a> page or settings page to re-send the email.";
 					}
 				} else {
-					$assocReturn["message"] = "An internal error occurred. Please refresh the page and try again later.";
+					$assocReturn["message"] = "An error occurred. Please refresh the page and try again later.";
 				}
 			}
 			$queriedDuplicates -> free();
 		} else {
-			$assocReturn["message"] = "An internal error occurred. Please refresh the page and try again later.";
+			$assocReturn["message"] = "An error occurred. Please refresh the page and try again later.";
 		}
 	}
 }

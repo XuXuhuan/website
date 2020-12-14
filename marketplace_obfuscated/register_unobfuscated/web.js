@@ -126,7 +126,7 @@ refMarketNameField.addEventListener("keyup", function() {
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.responseType = "text";
 			xhr.onerror = function() {
-				refMarketNameError.innerHTML = "An error occurred. Please try again later.";
+				refMarketNameError.innerHTML = "An error occurred.";
 			}
 			xhr.onload = function() {
 				if (xhr.status === 200) {

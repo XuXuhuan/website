@@ -52,18 +52,18 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 									$_SESSION["email"] = $dbEmail;
 									header("Location: https://www.streetor.sg/home/");
 								} else {
-									$alertError = "An internal error occurred. Please try again later.";
+									$alertError = "An error occurred.";
 								}
 							}
 						} else {
-							$alertError = "An internal error occurred. Please try again later.";
+							$alertError = "An error occurred.";
 						}
 					} else {
 						header("Location: https://www.streetor.sg/login/");
 					}
 					$queriedDetails -> free();
 				} else {
-					$alertError = "An internal error occurred. Please try again later.";
+					$alertError = "An error occurred.";
 				}
 			}
 		}

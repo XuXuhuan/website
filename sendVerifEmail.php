@@ -11,7 +11,7 @@ function getRandomString($stringLength) {
 $randomString = getRandomString(20);
 $_SESSION["emailVerifToken"] = isset($_SESSION["emailVerifToken"]) ? $_SESSION["emailVerifToken"] : $randomString;
 if ($mysqliConnection -> connect_errno) {
-	$assocReturn["message"] = "An internal error occurred. Please try again later.";
+	$assocReturn["message"] = "An error occurred.";
 } else {
 	if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 		$selectNeededDetailsQuery = "
@@ -168,21 +168,21 @@ if ($mysqliConnection -> connect_errno) {
 								$assocReturn["message"] = "Email sent!";
 								$assocReturn["leftoverCooldown"] = 120;
 							} else {
-								$assocReturn["message"] = "An internal error occurred, but the email was sent.";
+								$assocReturn["message"] = "An error occurred, but the email was sent.";
 							}
 						} else {
-							$assocReturn["message"] = "An internal error occurred and the email was not sent.";
+							$assocReturn["message"] = "An error occurred and the email was not sent.";
 						}
 					}
 				} else {
-					$assocReturn["message"] = "An internal error occurred. Please try again later.";
+					$assocReturn["message"] = "An error occurred.";
 				}
 			} else {
 				$assocReturn["message"] = "No records were found in the database. This account may have been deleted.";
 			}
 			$neededDetails -> free();
 		} else {
-			$assocReturn["message"] = "An internal error occurred. Please try again later.";
+			$assocReturn["message"] = "An error occurred.";
 		}
 	} else {
 		$assocReturn["message"] = "Please <a href='https://www.streetor.sg/login/' style='color: #4486f4;'>log in and try again.</a>";

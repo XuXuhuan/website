@@ -56,20 +56,20 @@ if ($mysqliConnection -> connect_errno) {
 								$AssocReturn["successmessage"] = "Logging in...";
 								$AssocReturn["successURL"] = "https://www.streetor.sg/home/";
 							} else {
-								$AssocReturn["errormessages"]["loginError"] = "An internal error occurred. Please try again later.";
+								$AssocReturn["errormessages"]["loginError"] = "An error occurred.";
 							}
 						} else {
 							$AssocReturn["errormessages"]["passwordError"] = "Incorrect password.";
 						}
 					} else {
-						$AssocReturn["errormessages"]["loginError"] = "An internal error occurred. Please try again later.";
+						$AssocReturn["errormessages"]["loginError"] = "An error occurred.";
 					}
 				} else {
 					$AssocReturn["errormessages"]["usernameError"] = "No such account exists with this username.";
 				}
 				$queriedUsers -> free();
 			} else {
-				$AssocReturn["errormessages"]["loginError"] = "An internal error occurred. Please try again later.";
+				$AssocReturn["errormessages"]["loginError"] = "An error occurred.";
 			}
 		}
 	} else {

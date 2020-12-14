@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 date_default_timezone_set("MST");
 $assocReturn = array("notificationColor" => "#E60505",
-					"notificationText" => "An internal error occurred.",
+					"notificationText" => "An error occurred.",
 					"ratingCount" => 0,
 					"averageRating" => 0,
 					"ratingAlreadyExists" => null);

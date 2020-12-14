@@ -45,11 +45,11 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 				}
 				$queriedProfilesDetails -> free();
 			} else {
-				$assocReturn["errormessage"] = "An internal error occurred. Please try again later.";
+				$assocReturn["errormessage"] = "An error occurred.";
 			}
 		} while ($mysqliConnection -> next_result());
 	} else {
-		$assocReturn["errormessage"] = "An internal error occurred. Please try again later.";
+		$assocReturn["errormessage"] = "An error occurred.";
 	}
 } else {
 	$assocReturn["errormessage"] = "Invalid request. Please try again later.";

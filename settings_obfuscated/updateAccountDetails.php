@@ -32,7 +32,7 @@ if ($mysqliConnection -> connect_errno) {
 				if ($mysqliConnection -> query($updateBioQuery)) {
 					$assocReturn["message"] = "Biography updated.";
 				} else {
-					$assocReturn["message"] = "An internal error occurred. Please try again later.";
+					$assocReturn["message"] = "An error occurred.";
 				}
 			}
 		} else {
@@ -199,18 +199,18 @@ if ($mysqliConnection -> connect_errno) {
 												$assocReturn["message"] = "An error occurred and an email could not be sent to your email address.";
 											}
 										} else {
-											$assocReturn["message"] = "An internal error occurred. Please try again later.";
+											$assocReturn["message"] = "An error occurred.";
 										}
 									}
 								} else {
-									$assocReturn["message"] = "An internal error occurred. Please try again later.";
+									$assocReturn["message"] = "An error occurred.";
 								}
 							} else {
 								$assocReturn["message"] = "No records were found in the database. This account may have been deleted.";
 							}
 							$queriedNeededDetails -> free();
 						} else {
-							$assocReturn["message"] = "An internal error occurred. Please try again later.";
+							$assocReturn["message"] = "An error occurred.";
 						}
 					}
 				break;
@@ -377,18 +377,18 @@ if ($mysqliConnection -> connect_errno) {
 												$assocReturn["message"] = "An error occurred and an email could not be sent to your email address.";
 											}
 										} else {
-											$assocReturn["message"] = "An internal error occurred. Please try again later.";
+											$assocReturn["message"] = "An error occurred.";
 										}
 									}
 								} else {
-									$assocReturn["message"] = "An internal error occurred. Please try again later.";
+									$assocReturn["message"] = "An error occurred.";
 								}
 							} else {
 								$assocReturn["message"] = "No records were found in the database. This account may have been deleted.";
 							}
 							$queriedNeededDetails -> free();
 						} else {
-							$assocReturn["message"] = "An internal error occurred. Please try again later.";
+							$assocReturn["message"] = "An error occurred.";
 						}
 					}
 				break;
@@ -557,21 +557,21 @@ if ($mysqliConnection -> connect_errno) {
 													$assocReturn["message"] = "An error occurred and emails could not be sent to your email addresses.";
 												}
 											} else {
-												$assocReturn["message"] = "An internal error occurred. Please try again later.";
+												$assocReturn["message"] = "An error occurred.";
 											}
 										}
 									} else {
 										$assocReturn["message"] = "Incorrect password.";
 									}
 								} else {
-									$assocReturn["message"] = "An internal error occurred. Please try again later.";
+									$assocReturn["message"] = "An error occurred.";
 								}
 							} else {
 								$assocReturn["message"] = "No records were found in the database. This account may have been deleted.";
 							}
 							$queriedNeededDetails -> free();
 						} else {
-							$assocReturn["message"] = "An internal error occurred. Please try again later.";
+							$assocReturn["message"] = "An error occurred.";
 						}
 					}
 				break;
@@ -598,17 +598,17 @@ if ($mysqliConnection -> connect_errno) {
 										$assocReturn["message"] = "Your 2 factor authentication has been <b>{$twoFactorAuthToggleState}</b>.";
 										$assocReturn["switch"] = (bool)$toggledDB2FAenabled;
 									} else {
-										$assocReturn["message"] = "An internal error occurred. Please try again later.";
+										$assocReturn["message"] = "An error occurred.";
 									}
 								} else {
 									$assocReturn["message"] = "Incorrect password.";
 								}
 							} else {
-								$assocReturn["message"] = "An internal error occurred. Please try again later.";
+								$assocReturn["message"] = "An error occurred.";
 							}
 							$queriedNeededDetails -> free();
 						} else {
-							$assocReturn["message"] = "An internal error occurred. Please try again later.";
+							$assocReturn["message"] = "An error occurred.";
 						}
 					}
 				break;

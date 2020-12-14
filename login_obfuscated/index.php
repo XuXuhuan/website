@@ -12,7 +12,7 @@ if (isset($_COOKIE["darktheme"]) && $_COOKIE["darktheme"] === "false") {
 	$stylesheetLink = "loginDarkTheme.css";
 }
 if ($mysqliConnection -> connect_errno) {
-	$loginError = "An internal error occurred. Please try again later.";
+	$loginError = "An error occurred.";
 }
 else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 	if (!isset($_SESSION["loggedIn"]) || $_SESSION["loggedIn"] !== true) {
@@ -50,11 +50,11 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 									$_SESSION["email"] = $dbEmail;
 									header("Location: https://www.streetor.sg/home/");
 								} else {
-									$loginError = "An internal error occurred. Please log in manually or try again later.";
+									$loginError = "An error occurred. Please log in manually or try again later.";
 								}
 							}
 						} else {
-							$loginError = "An internal error occurred. Please log in manually or try again later.";
+							$loginError = "An error occurred. Please log in manually or try again later.";
 						}
 					} else {
 						$loginError = "An error occurred. Your login credentials do not match those in the database.";

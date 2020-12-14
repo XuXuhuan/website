@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 date_default_timezone_set("MST");
 $assocReturn = array("notificationColor" => "#E60505",
-					"notificationText" => "An internal error occurred.",
+					"notificationText" => "An error occurred.",
 					"buttonClass" => "",
 					"buttonText" => "",
 					"subscriberCount" => 0);
@@ -39,7 +39,7 @@ if (!$mysqliConnection -> connect_errno) {
 								$assocReturn["buttonText"] = "Unsubscribe";
 								$assocReturn["subscriberCount"] = (int)$assocQueriedSubscriptions["subscriberCount"] + 1;
 							} else {
-								$assocReturn["notificationText"] = "An internal error occurred.";
+								$assocReturn["notificationText"] = "An error occurred.";
 							}
 						}
 					} else {

@@ -58,19 +58,19 @@ if ($mysqliConnection -> connect_errno) {
 							background-color: #00D200;
 						}";
 					} else {
-						$DOMtitle = "An internal error occurred · Streetor";
+						$DOMtitle = "An error occurred · Streetor";
 						$imageURL = "../Assets/global/CrossMark.png";
-						$message = "An internal error occurred. Please try again later.";
-						$topnavText = "An internal error occurred.";
+						$message = "An error occurred.";
+						$topnavText = "An error occurred.";
 						$topnavColor = "#topnav {
 							background-color: #E60505;
 						}";
 					}
 				} else {
-					$DOMtitle = "An internal error occurred · Streetor";
+					$DOMtitle = "An error occurred · Streetor";
 					$imageURL = "../Assets/global/CrossMark.png";
-					$message = "An internal error occurred. Please try again later.";
-					$topnavText = "An internal error occurred.";
+					$message = "An error occurred.";
+					$topnavText = "An error occurred.";
 					$topnavColor = "#topnav {
 						background-color: #E60505;
 					}";
@@ -86,10 +86,10 @@ if ($mysqliConnection -> connect_errno) {
 			}
 			$queriedEmailUsers -> free();
 		} else {
-			$DOMtitle = "An internal error occurred · Streetor";
+			$DOMtitle = "An error occurred · Streetor";
 			$imageURL = "../Assets/global/CrossMark.png";
-			$message = "An internal error occurred. Please try again later.";
-			$topnavText = "An internal error occurred.";
+			$message = "An error occurred.";
+			$topnavText = "An error occurred.";
 			$topnavColor = "#topnav {
 				background-color: #E60505;
 			}";
