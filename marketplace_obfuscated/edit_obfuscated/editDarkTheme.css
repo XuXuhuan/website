@@ -715,6 +715,7 @@ main {
 	font-family: MontserratReg, Verdana, sans-serif;
 	color: #ff0000;
 	overflow: hidden;
+	height: 36.36px;
 }
 #newMarketNameError {
 	font-size: 10px;

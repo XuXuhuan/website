@@ -40,10 +40,14 @@ var marketLogoImageURL = document.querySelector("#marketLogoImageDisplay").style
 var marketName = document.querySelector("#marketNameValue").innerHTML;
 var checkNotification;
 var checkMarketName;
+var checkDeleteMarket;
 var isMarketNameChangeInProgress = false;
+var marketDeletionEmailSent = false;
 var marketNameFieldValue = "";
 var marketNameError = "";
 var marketBioFieldValue = "";
+var marketDeletionButtonText = "Delete Market";
+var marketDeletionError = "";
 var currentProductsListPage = 1;
 function setNotification(message, isError) {
 	refNotificationCont.style.top = 0;
@@ -315,6 +319,68 @@ function edit_updateMarketBio() {
 		);
 	}, 350);
 }
+function edit_deleteMarket() {
+	if (marketDeletionEmailSent === false) {
+		clearTimeout(checkDeleteMarket);
+		checkDeleteMarket = setTimeout(function() {
+			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+			marketDeletionEmailSent = true;
+			xhr.open("POST", "updateMarketDetails.php", true);
+			xhr.responseType = "json";
+			xhr.onload = function() {
+				if (xhr.status === 200) {
+					marketDeletionError = xhr.response["message"];
+					var leftCooldown = xhr.response["leftoverCooldown"];
+					if (document.querySelector("#deleteMarketError")) {
+						const refDeleteMarketError = document.querySelector("#deleteMarketError");
+						refDeleteMarketError.innerHTML = marketDeletionError;
+					}
+					if (leftCooldown <= 1) {
+						marketDeletionButtonText = "Re-send Email";
+						if (document.querySelector("#deleteMarketButton")) {
+							const refDeleteMarketButton = document.querySelector("#deleteMarketButton");
+							refDeleteMarketButton.innerHTML = marketDeletionButtonText;
+						}
+					} else {
+						marketDeletionButtonText = "Re-send Email (" + leftCooldown + ")";
+						if (document.querySelector("#deleteMarketButton")) {
+							const refDeleteMarketButton = document.querySelector("#deleteMarketButton");
+							refDeleteMarketButton.innerHTML = marketDeletionButtonText;
+						}
+						leftCooldown--;
+						for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
+							setTimeout(function() {
+								if (leftCooldown === 0) {
+									marketDeletionButtonText = "Re-send Email";
+									marketDeletionEmailSent = false;
+								} else {
+									marketDeletionButtonText = "Re-send Email (" + leftCooldown + ")";
+									leftCooldown--;
+								}
+								if (leftCooldown === xhr.response["leftoverCooldown"] - 3) {
+									marketDeletionError = "";
+								}
+								if (document.querySelector("#deleteMarketButton")) {
+									const refDeleteMarketButton = document.querySelector("#deleteMarketButton");
+									refDeleteMarketButton.innerHTML = marketDeletionButtonText;
+								}
+								if (document.querySelector("#deleteMarketError")) {
+									const refDeleteMarketError = document.querySelector("#deleteMarketError");
+									refDeleteMarketError.innerHTML = marketDeletionError;
+								}
+							}, 1000 * i);
+						}
+					}
+				} else {
+					const refDeleteMarketError = document.querySelector("#deleteMarketError");
+					marketDeletionError = "An error occurred.";
+					refDeleteMarketError.innerHTML = "An error occurred.";
+				}
+			}
+			xhr.send("type=4&id=" + encodeURIComponent(URLparameters.get("id")));
+		}, 350);
+	}
+}
 function countFieldProductFetch(event) {
 	if (/[^0-9]/.test(currentProductsListPage) === false && event.keyCode === 13 && refCurrentPageCountField.value.trim().length > 0) {
 		fetchNewPage(refCurrentPageCountField.value.trim());
@@ -362,7 +428,9 @@ refMarketDetailsButton.addEventListener("click", function() {
 		<div class="infoColumnRow" id="marketBioRow">
 			<p id="marketBioLabel" class="rowInfo">Market Information (optional):</p>
 			<textarea id="marketBioField" class="inputMethod" rows="10" placeholder="Give information about your store in 500 characters." maxlength="500"></textarea>
-			<button id="changeCategoryButton" class="inputMethod">Make Changes</button>
+			<div id="updateBioButtonCont">
+				<button id="changeCategoryButton" class="inputMethod">Make Changes</button>
+			</div>
 		</div>
 		<div id="marketCategoryRow" class="infoColumnRow">
 			<p id="marketCategoryLabel" class="rowInfo">Categories:</p>
@@ -460,11 +528,16 @@ refMarketDetailsButton.addEventListener("click", function() {
 					<div class='marketCategoryBox inputMethod' id='gamesBox'></div>
 				</div>
 			</div>
-			<button id="changeCategoryButton" class="inputMethod">Make Changes</button>
+			<div id="changeCategoryButtonCont">
+				<button id="changeCategoryButton" class="inputMethod" onclick="edit_changeMarketCategory()">Make Changes</button>
+			</div>
 		</div>
 		<div id="deleteMarketRow" class="infoColumnRow">
 			<p id="deleteMarketLabel" class="rowInfo">Delete This Market</p>
-			<button id="deleteMarketButton" class="inputMethod">Delete Market</button>
+			<div id="deleteMarketButtonCont">
+				<button id="deleteMarketButton" class="inputMethod">${marketDeletionButtonText}</button>
+			</div>
+			<p id="deleteMarketError" class="inputErrorText">${marketDeletionError}</p>
 		</div>`;
 		document.querySelectorAll(".marketCategoryBox").forEach(function(eachBox, itemIndex) {
 			eachBox.addEventListener("mouseup", function(triggered) {

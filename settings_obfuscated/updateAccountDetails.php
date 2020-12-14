@@ -70,12 +70,12 @@ if ($mysqliConnection -> connect_errno) {
 																	userChangeToken = '{$_SESSION["userChangeToken"]}',
 																	newUsername = '{$changeContent}'
 																	WHERE accountID = '{$_SESSION["userID"]}'";
-										$emailDOM = '
+										$emailDOM = "
 										<!DOCTYPE html>
 										<html>
 											<head>
 												<title>Username Change · Streetor</title>
-												<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
+												<link href='https://fonts.googleapis.com/css2?family=Baloo+Da+2&family=Montserrat&family=Roboto&display=swap' rel='stylesheet'>
 												<style>
 													body {
 														margin: 0;
@@ -103,18 +103,18 @@ if ($mysqliConnection -> connect_errno) {
 														background-color: #0e0f2c;
 														text-align: center;
 														color: #ffffff;
-														font-family: "Montserrat", Verdana, sans-serif;
+														font-family: 'Montserrat', Verdana, sans-serif;
 														font-size: 30px;
 													}
 													#bodyContainer > tr > td {
 														background-color: #ffffff;
 													}
 													#helloText {
-														font-family: "Roboto", Helvetica, sans-serif;
+														font-family: 'Roboto', Helvetica, sans-serif;
 													}
 													#infoText {
 														text-indent: 2em;
-														font-family: "Baloo Da 2", Arial, sans-serif;
+														font-family: 'Baloo Da 2', Arial, sans-serif;
 														padding-bottom: 20px;
 													}
 													#verificationLink {
@@ -124,14 +124,14 @@ if ($mysqliConnection -> connect_errno) {
 														width: 250px;
 														text-align: center;
 														vertical-align: middle;
-														font-family: "Roboto", Helvetica, sans-serif;
+														font-family: 'Roboto', Helvetica, sans-serif;
 														font-size: 24px;
 														background-color: #06BA00;
 														text-decoration: none;
 													}
 													#websiteLabel {
 														text-align: center;
-														font-family: "Montserrat", Verdana, sans-serif;
+														font-family: 'Montserrat', Verdana, sans-serif;
 													}
 													#footerContainer > tr > td {
 														color: #ffffff;
@@ -142,46 +142,46 @@ if ($mysqliConnection -> connect_errno) {
 													}
 													#contactCell {
 														text-align: center;
-														font-family: "Roboto", Helvetica, sans-serif;
+														font-family: 'Roboto', Helvetica, sans-serif;
 														padding-top: 10px;
 														padding-bottom: 10px;
 													}
 												</style>
 											</head>
 											<body>
-												<table id="outerContainer" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#38444a">
+												<table id='outerContainer' width='100%' border='0' cellspacing='0' cellpadding='0' align='center' bgcolor='#38444a'>
 													<tr>
-														<td id="outerMain">
-															<table id="mainContainer">
+														<td id='outerMain'>
+															<table id='mainContainer'>
 																<thead>
 																	<tr>
-																		<td id="headerRow">STREETOR</td>
+																		<td id='headerRow'>STREETOR</td>
 																	</tr>
 																</thead>
-																<tbody id="bodyContainer">
+																<tbody id='bodyContainer'>
 																	<tr>
 																		<td>
-																			<h1 id="helloText">Hello ' . $dbFirstName . ',</h1>
+																			<h1 id='helloText'>Hello {$dbFirstName},</h1>
 																		</td>
 																	</tr>
 																	<tr>
-																		<td id="infoText">An account, under the name of ' . $dbUsername . ', has requested to change its username to ' . $changeContent . '. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
+																		<td id='infoText'>An account, under the name of {$dbUsername}, has requested to change its username to {$changeContent}. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
 																	</tr>
 																	<tr>
-																		<td align="center" style="padding-bottom: 20px;">
-																			<a id="verificationLink" href="https://www.streetor.sg/changeUsername/?email=' . $dbEmail . '&token=' . $_SESSION["userChangeToken"] . '">
+																		<td align='center' style='padding-bottom: 20px;'>
+																			<a id='verificationLink' href='https://www.streetor.sg/changeUsername/?email={$dbEmail}&token={$_SESSION["userChangeToken"]}'>
 																				Change Username
 																			</a>
 																		</td>
 																	</tr>
 																</tbody>
-																<tfoot id="footerContainer">
+																<tfoot id='footerContainer'>
 																	<tr>
-																		<td id="websiteLabel">streetor.sg</td>
+																		<td id='websiteLabel'>streetor.sg</td>
 																	</tr>
 																	<tr>
-																		<td id="contactCell">
-																			<a href="mailto:support@streetor.sg">Contact Support</a>
+																		<td id='contactCell'>
+																			<a href='mailto:support@streetor.sg'>Contact Support</a>
 																		</td>
 																	</tr>
 																</tfoot>
@@ -190,8 +190,8 @@ if ($mysqliConnection -> connect_errno) {
 													</tr>
 												</table>
 											</body>
-										</html>';
-										if ($updatedAccountDetails = $mysqliConnection -> query($updateAccountDetailsQuery)) {
+										</html>";
+										if ($mysqliConnection -> query($updateAccountDetailsQuery)) {
 											if (mail($dbEmail, "Username Change", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
 												$assocReturn["message"] = "An email has been sent to your email address for verification.";
 												$assocReturn["leftoverCooldown"] = 120;
@@ -248,12 +248,12 @@ if ($mysqliConnection -> connect_errno) {
 										passChangeToken = '{$_SESSION["passChangeToken"]}',
 										newPassword = '{$hashedNewPassword}'
 										WHERE accountID = '{$_SESSION["userID"]}'";
-										$emailDOM = '
+										$emailDOM = "
 										<!DOCTYPE html>
 										<html>
 											<head>
 												<title>Password Change · Streetor</title>
-												<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
+												<link href='https://fonts.googleapis.com/css2?family=Baloo+Da+2&family=Montserrat&family=Roboto&display=swap' rel='stylesheet'>
 												<style>
 													body {
 														margin: 0;
@@ -281,18 +281,18 @@ if ($mysqliConnection -> connect_errno) {
 														background-color: #0e0f2c;
 														text-align: center;
 														color: #ffffff;
-														font-family: "Montserrat", Verdana, sans-serif;
+														font-family: 'Montserrat', Verdana, sans-serif;
 														font-size: 30px;
 													}
 													#bodyContainer > tr > td {
 														background-color: #ffffff;
 													}
 													#helloText {
-														font-family: "Roboto", Helvetica, sans-serif;
+														font-family: 'Roboto', Helvetica, sans-serif;
 													}
 													#infoText {
 														text-indent: 2em;
-														font-family: "Baloo Da 2", Arial, sans-serif;
+														font-family: 'Baloo Da 2', Arial, sans-serif;
 														padding-bottom: 20px;
 													}
 													#verificationLink {
@@ -302,14 +302,14 @@ if ($mysqliConnection -> connect_errno) {
 														width: 250px;
 														text-align: center;
 														vertical-align: middle;
-														font-family: "Roboto", Helvetica, sans-serif;
+														font-family: 'Roboto', Helvetica, sans-serif;
 														font-size: 24px;
 														background-color: #06BA00;
 														text-decoration: none;
 													}
 													#websiteLabel {
 														text-align: center;
-														font-family: "Montserrat", Verdana, sans-serif;
+														font-family: 'Montserrat', Verdana, sans-serif;
 													}
 													#footerContainer > tr > td {
 														color: #ffffff;
@@ -320,46 +320,46 @@ if ($mysqliConnection -> connect_errno) {
 													}
 													#contactCell {
 														text-align: center;
-														font-family: "Roboto", Helvetica, sans-serif;
+														font-family: 'Roboto', Helvetica, sans-serif;
 														padding-top: 10px;
 														padding-bottom: 10px;
 													}
 												</style>
 											</head>
 											<body>
-												<table id="outerContainer" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#38444a">
+												<table id='outerContainer' width='100%' border='0' cellspacing='0' cellpadding='0' align='center' bgcolor='#38444a'>
 													<tr>
-														<td id="outerMain">
-															<table id="mainContainer">
+														<td id='outerMain'>
+															<table id='mainContainer'>
 																<thead>
 																	<tr>
-																		<td id="headerRow">STREETOR</td>
+																		<td id='headerRow'>STREETOR</td>
 																	</tr>
 																</thead>
-																<tbody id="bodyContainer">
+																<tbody id='bodyContainer'>
 																	<tr>
 																		<td>
-																			<h1 id="helloText">Hello ' . $dbFirstName . ',</h1>
+																			<h1 id='helloText'>Hello {$dbFirstName},</h1>
 																		</td>
 																	</tr>
 																	<tr>
-																		<td id="infoText">An account, under the name of ' . $dbUsername . ', has requested to change its password. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
+																		<td id='infoText'>An account, under the name of {$dbUsername}, has requested to change its password. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
 																	</tr>
 																	<tr>
-																		<td align="center" style="padding-bottom: 20px;">
-																			<a id="verificationLink" href="https://www.streetor.sg/changePassword/?email=' . $dbEmail . '&token=' . $_SESSION["passChangeToken"] . '">
+																		<td align='center' style='padding-bottom: 20px;'>
+																			<a id='verificationLink' href='https://www.streetor.sg/changePassword/?email={$dbEmail}&token={$_SESSION["passChangeToken"]}'>
 																				Change Password
 																			</a>
 																		</td>
 																	</tr>
 																</tbody>
-																<tfoot id="footerContainer">
+																<tfoot id='footerContainer'>
 																	<tr>
-																		<td id="websiteLabel">streetor.sg</td>
+																		<td id='websiteLabel'>streetor.sg</td>
 																	</tr>
 																	<tr>
-																		<td id="contactCell">
-																			<a href="mailto:support@streetor.sg">Contact Support</a>
+																		<td id='contactCell'>
+																			<a href='mailto:support@streetor.sg'>Contact Support</a>
 																		</td>
 																	</tr>
 																</tfoot>
@@ -368,8 +368,8 @@ if ($mysqliConnection -> connect_errno) {
 													</tr>
 												</table>
 											</body>
-										</html>';
-										if ($updatedAccountDetails = $mysqliConnection -> query($updateAccountDetailsQuery)) {
+										</html>";
+										if ($mysqliConnection -> query($updateAccountDetailsQuery)) {
 											if (mail($dbEmail, "Password Change", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
 												$assocReturn["message"] = "An email has been sent to your email address for verification.";
 												$assocReturn["leftoverCooldown"] = 120;
@@ -428,12 +428,12 @@ if ($mysqliConnection -> connect_errno) {
 																		emailChangeToken = '{$_SESSION["emailChangeToken"]}',
 																		newEmail = '{$changeContent}'
 																		WHERE accountID = '{$_SESSION["userID"]}'";
-											$verificationEmailDOM = '
+											$verificationEmailDOM = "
 											<!DOCTYPE html>
 											<html>
 												<head>
-													<title>Username Change · Streetor</title>
-													<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
+													<title>Email Change · Streetor</title>
+													<link href='https://fonts.googleapis.com/css2?family=Baloo+Da+2&family=Montserrat&family=Roboto&display=swap' rel='stylesheet'>
 													<style>
 														body {
 															margin: 0;
@@ -461,18 +461,18 @@ if ($mysqliConnection -> connect_errno) {
 															background-color: #0e0f2c;
 															text-align: center;
 															color: #ffffff;
-															font-family: "Montserrat", Verdana, sans-serif;
+															font-family: 'Montserrat', Verdana, sans-serif;
 															font-size: 30px;
 														}
 														#bodyContainer > tr > td {
 															background-color: #ffffff;
 														}
 														#helloText {
-															font-family: "Roboto", Helvetica, sans-serif;
+															font-family: 'Roboto', Helvetica, sans-serif;
 														}
 														#infoText {
 															text-indent: 2em;
-															font-family: "Baloo Da 2", Arial, sans-serif;
+															font-family: 'Baloo Da 2', Arial, sans-serif;
 															padding-bottom: 20px;
 														}
 														#verificationLink {
@@ -482,14 +482,14 @@ if ($mysqliConnection -> connect_errno) {
 															width: 250px;
 															text-align: center;
 															vertical-align: middle;
-															font-family: "Roboto", Helvetica, sans-serif;
+															font-family: 'Roboto', Helvetica, sans-serif;
 															font-size: 24px;
 															background-color: #06BA00;
 															text-decoration: none;
 														}
 														#websiteLabel {
 															text-align: center;
-															font-family: "Montserrat", Verdana, sans-serif;
+															font-family: 'Montserrat', Verdana, sans-serif;
 														}
 														#footerContainer > tr > td {
 															color: #ffffff;
@@ -500,46 +500,46 @@ if ($mysqliConnection -> connect_errno) {
 														}
 														#contactCell {
 															text-align: center;
-															font-family: "Roboto", Helvetica, sans-serif;
+															font-family: 'Roboto', Helvetica, sans-serif;
 															padding-top: 10px;
 															padding-bottom: 10px;
 														}
 													</style>
 												</head>
 												<body>
-													<table id="outerContainer" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#38444a">
+													<table id='outerContainer' width='100%' border='0' cellspacing='0' cellpadding='0' align='center' bgcolor='#38444a'>
 														<tr>
-															<td id="outerMain">
-																<table id="mainContainer">
+															<td id='outerMain'>
+																<table id='mainContainer'>
 																	<thead>
 																		<tr>
-																			<td id="headerRow">STREETOR</td>
+																			<td id='headerRow'>STREETOR</td>
 																		</tr>
 																	</thead>
-																	<tbody id="bodyContainer">
+																	<tbody id='bodyContainer'>
 																		<tr>
 																			<td>
-																				<h1 id="helloText">Hello ' . $dbFirstName . ',</h1>
+																				<h1 id='helloText'>Hello {$dbFirstName},</h1>
 																			</td>
 																		</tr>
 																		<tr>
-																			<td id="infoText">An account, under the name of ' . $dbUsername . ', has requested to use this email address to receive updates/notifications. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
+																			<td id='infoText'>An account, under the name of {$dbUsername}, has requested to use this email address to receive updates/notifications. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
 																		</tr>
 																		<tr>
-																			<td align="center" style="padding-bottom: 20px;">
-																				<a id="verificationLink" href="https://www.streetor.sg/changeEmail/?email=' . $dbEmail . '&token=' . $_SESSION["emailChangeToken"] . '">
+																			<td align='center' style='padding-bottom: 20px;'>
+																				<a id='verificationLink' href='https://www.streetor.sg/changeEmail/?email={$dbEmail}&token={$_SESSION["emailChangeToken"]}'>
 																					Change Email
 																				</a>
 																			</td>
 																		</tr>
 																	</tbody>
-																	<tfoot id="footerContainer">
+																	<tfoot id='footerContainer'>
 																		<tr>
-																			<td id="websiteLabel">streetor.sg</td>
+																			<td id='websiteLabel'>streetor.sg</td>
 																		</tr>
 																		<tr>
-																			<td id="contactCell">
-																				<a href="mailto:support@streetor.sg">Contact Support</a>
+																			<td id='contactCell'>
+																				<a href='mailto:support@streetor.sg'>Contact Support</a>
 																			</td>
 																		</tr>
 																	</tfoot>
@@ -548,8 +548,8 @@ if ($mysqliConnection -> connect_errno) {
 														</tr>
 													</table>
 												</body>
-											</html>';
-											if ($updatedAccountDetails = $mysqliConnection -> query($updateAccountDetailsQuery)) {
+											</html>";
+											if ($mysqliConnection -> query($updateAccountDetailsQuery)) {
 												if (mail($changeContent, "Email Change", $verificationEmailDOM, implode(PHP_EOL, $emailHeaders))) {
 													$assocReturn["leftoverCooldown"] = 120;
 													$assocReturn["message"] = "An email has been sent to your new email address for verification.";
