@@ -30,7 +30,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			$cookieValues = json_decode($_COOKIE["logincookie"], true);
 			$rememberMeID = $mysqliConnection -> real_escape_string($cookieValues["remembermeid"]);
 			$remememberMeToken = $mysqliConnection -> real_escape_string($cookieValues["remembermetoken"]);
-			if (strlen($rememberMeID) === 30) {
+			if (strlen(trim($rememberMeID)) === 30) {
 				$selectAccountDetailsQuery = "
 				SELECT accountID, username, tokenHash, email
 				FROM accountdetails

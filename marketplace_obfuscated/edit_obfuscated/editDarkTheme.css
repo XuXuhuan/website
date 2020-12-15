@@ -500,9 +500,6 @@ main {
 	.selectedTab {
 		border-bottom: 3px solid white !important;
 	}
-	.infoRow, .infoColumnRow {
-		background-color: #2D2E32;
-	}
 	.optionButtons:hover {
 		border-bottom: 3px solid rgba(255, 255, 255, 0.4);
 	}
@@ -567,9 +564,6 @@ main {
 	.optionButtons:hover {
 		border-left: 3px solid rgba(255, 255, 255, 0.4);
 		--textSize: calc(100% + 3px);
-	}
-	.infoRow, .infoColumnRow {
-		background-color: var(--UIdefaultColor);
 	}
 	.optionsText {
 		position: absolute;
@@ -681,6 +675,7 @@ main {
 	display: -o-flex;
 	display: flex;
 	width: 100%;
+	background-color: var(--UIdefaultColor);
 	color: var(--UIdefaultTextColor);
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
@@ -697,6 +692,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	background-color: var(--UIdefaultColor);
 	color: var(--UIdefaultTextColor);
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
@@ -716,6 +712,11 @@ main {
 	color: #ff0000;
 	overflow: hidden;
 	height: 36.36px;
+}
+#fetchProductsError {
+	height: 18.18px;
+	max-height: 18.18px;
+	margin-bottom: 15px;
 }
 #newMarketNameError {
 	font-size: 10px;
@@ -934,7 +935,6 @@ main {
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
-	margin-bottom: 15px;
 }
 #productSearchField {
 	outline: none;
@@ -987,7 +987,6 @@ main {
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	padding: 15px 1em 15px 1em;
-	background-color: var(--UIdefaultColor);
 	margin-bottom: 10px;
 	border: 0 !important;
 	justify-content: center;

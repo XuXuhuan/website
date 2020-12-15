@@ -114,11 +114,11 @@ if ($mysqliConnection -> connect_errno) {
 		if (empty($receivedJSON["marketName"])) {
 			$assocReturn["marketNameError"] = "This field is required.";
 		}
-		else if (strlen($receivedJSON["marketName"]) < 3) {
+		else if (strlen(trim($receivedJSON["marketName"])) < 3) {
 			$assocReturn["marketNameError"] = "Market name must contain at least 3 characters.";
 		}
 		else if (strlen($receivedJSON["marketName"]) > 30) {
-			$assocReturn["marketNameError"] = "Market name has to be under 30 characters.";
+			$assocReturn["marketNameError"] = "Market name exceeds the 30 character limit.";
 		}
 		if (empty($assocReturn["marketNameError"]) && empty($assocReturn["message"])) {
 			$marketName = $mysqliConnection -> real_escape_string($receivedJSON["marketName"]);

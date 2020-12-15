@@ -34,6 +34,15 @@ if ($mysqliConnection -> connect_errno) {
 				} else {
 					$assocReturn["message"] = "An error occurred.";
 				}
+			} else {
+				$updateBioQuery = "UPDATE accountdetails
+				SET biography = NULL
+				WHERE accountID = '{$_SESSION["userID"]}'";
+				if ($mysqliConnection -> query($updateBioQuery)) {
+					$assocReturn["message"] = "Market info updated.";
+				} else {
+					$assocReturn["message"] = "An error occurred.";
+				}
 			}
 		} else {
 			switch($changeType) {
@@ -46,8 +55,11 @@ if ($mysqliConnection -> connect_errno) {
 					else if (empty(trim($changeContent))) {
 						$assocReturn["message"] = "This field is required.";
 					}
-					else if (strlen($changeContent) < 3 || strlen($changeContent) > 20) {
-						$assocReturn["message"] = "Username may only contain 3-20 characters.";
+					else if (strlen(trim($changeContent)) < 3) {
+						$assocReturn["message"] = "Username must contain at least 3 characters.";
+					}
+					else if (strlen($changeContent) > 20) {
+						$assocReturn["message"] = "Username exceeds the 20 character limit.";
 					} else {
 						$randomString = getRandomString(50);
 						$_SESSION["userChangeToken"] = isset($_SESSION["userChangeToken"]) ? $_SESSION["userChangeToken"] : $randomString;

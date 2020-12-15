@@ -459,9 +459,6 @@ main {
 	.selectedTab {
 		border-bottom: 3px solid black !important;
 	}
-	.infoRow, .infoColumnRow {
-		background-color: #F5F5F5;
-	}
 	.optionButtons:hover {
 		border-bottom: 3px solid rgba(0, 0, 0, 0.4);
 	}
@@ -524,9 +521,6 @@ main {
 	.optionButtons:hover {
 		border-left: 3px solid rgba(0, 0, 0, 0.4);
 		--textSize: calc(100% + 3px);
-	}
-	.infoRow, .infoColumnRow {
-		background-color: var(--UIdefaultColor);
 	}
 	.optionsText {
 		position: absolute;
@@ -603,6 +597,7 @@ main {
 	display: -o-flex;
 	display: flex;
 	width: 100%;
+	background-color: var(--UIdefaultColor);
 	color: var(--UIdefaultTextColor);
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;
@@ -619,6 +614,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	background-color: var(--UIdefaultColor);
 	color: var(--UIdefaultTextColor);
 	font-family: LatoReg, Arial, sans-serif;
 	font-size: 20px;

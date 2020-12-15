@@ -65,6 +65,15 @@ if ($mysqliConnection -> connect_errno) {
 								} else {
 									$assocReturn["message"] = "An error occurred.";
 								}
+							} else {
+								$updateBioQuery = "UPDATE marketdetails
+								SET biography = NULL
+								WHERE marketID = '{$escapedMarketID}'";
+								if ($mysqliConnection -> query($updateBioQuery)) {
+									$assocReturn["message"] = "Market info updated.";
+								} else {
+									$assocReturn["message"] = "An error occurred.";
+								}
 							}
 						break;
 						case 3:
