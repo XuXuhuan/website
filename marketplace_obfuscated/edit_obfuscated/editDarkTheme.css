@@ -74,7 +74,7 @@ body::after{
 	display: inline-flex;
 	text-align: center;
 	color: var(--UIdefaultTextColor);
-	font-family: MontserratMed, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratMed, Verdana, sans-serif;
 	margin: 0;
 }
 #menuToggle {
@@ -102,7 +102,7 @@ body::after{
 	text-decoration: none;
 	position: relative;
 	display: inline-block;
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	color: var(--UIdefaultTextColor);
 	cursor: pointer;
 }
@@ -150,7 +150,7 @@ body::after{
 	max-width: 700px;
 	background-color: var(--UIdefaultColor);
 	border-radius: 10px;
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	margin-top: 5vh;
 }
@@ -179,7 +179,7 @@ body::after{
 	margin: 10px;
 }
 #resendEmailError {
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	margin: 0 10px 10px 10px;
 	height: 67.2px;
 	font-size: 15px;
@@ -236,7 +236,7 @@ body::after{
 	display: inline-block;
 	color: var(--UIdefaultTextColor);
 	margin: 0;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	font-size: 22px;
 }
 .innerLinksCont > p::before {
@@ -607,7 +607,7 @@ main {
 	overflow: hidden;
 }
 #notificationText {
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 25px;
 	margin: 0;
 	color: var(--UIdefaultTextColor);
@@ -645,7 +645,7 @@ main {
 }
 .optionsText {
 	margin: 0;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	text-align: center;
 	font-size: 15px;
 }
@@ -655,11 +655,11 @@ main {
 }
 #marketInfoCont > h1 {
 	color: #ffffff;
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 }
 #cancelOperationOverlay {
 	display: none;
-	position: absolute;
+	position: fixed;
 	height: 100%;
 	width: 100%;
 	z-index: 3;
@@ -677,7 +677,7 @@ main {
 	width: 100%;
 	background-color: var(--UIdefaultColor);
 	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	border-bottom: 1px solid #ffffff;
 	padding: 15px 1em 15px 1em;
@@ -694,7 +694,7 @@ main {
 	width: 100%;
 	background-color: var(--UIdefaultColor);
 	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	border-bottom: 1px solid #ffffff;
 	padding: 15px 1em 15px 1em;
@@ -704,11 +704,15 @@ main {
 }
 #marketNameRow {
 	align-items: flex-start;
+	height: 57.91px;
+	-webkit-transition: height 0.3s ease-out;
+	-o-transition: height 0.3s ease-out;
+	transition: height 0.3s ease-out;
 }
 .inputErrorText {
 	margin: 0;
 	font-size: 15px;
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	color: #ff0000;
 	overflow: hidden;
 	height: 36.36px;
@@ -719,11 +723,9 @@ main {
 	margin-bottom: 15px;
 }
 #newMarketNameError {
-	font-size: 10px;
-	max-height: 24px;
-	height: 24px;
-	max-width: 165px;
-	width: 165px;
+	font-size: 11px;
+	height: 26.18px;
+	width: 100%;
 }
 .rowInfo {
 	margin: 0;
@@ -731,6 +733,14 @@ main {
 }
 #marketNameLabel {
 	margin-right: 10px;
+}
+#marketNameValue {
+	position: relative;
+	outline: none;
+}
+#marketNameDetailsCont {
+	flex-grow: 1;
+	justify-content: left;
 }
 .editIcon {
 	background-image: url("../../Assets/darkTheme/editIcon.png");
@@ -740,6 +750,7 @@ main {
 	min-width: 15px;
 	cursor: pointer;
 	margin-left: 10px;
+	align-self: center;
 }
 .detailsCont {
 	position: relative;
@@ -748,11 +759,10 @@ main {
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
-	align-items: center;
 }
 #marketBioField {
 	background-color: var(--UIdefaultInputColor);
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	padding: 8px;
 	border-radius: 6px;
 	border: 0;
@@ -821,7 +831,7 @@ main {
 #deleteMarketButton {
 	display: block;
 	margin: 8px auto 0 auto;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	font-size: 17px;
 	border-radius: 10px;
 	background-color: transparent;
@@ -846,7 +856,7 @@ main {
 	width: 200px;
 }
 #updateBioButton, #changeCategoryButton {
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	font-size: 17px;
 	border-radius: 10px;
 	background-color: transparent;
@@ -872,11 +882,9 @@ main {
 	outline: none;
 	background-color: var(--UIdefaultInputColor);
 	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 18px;
 	border: 0;
-	height: 30px;
-	max-width: 165px;
 }
 #marketLogoLabel {
 	margin-right: 10px;
@@ -913,7 +921,7 @@ main {
 }
 #marketLogoText {
 	color: var(--UIdefaultTextColor);
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	font-size: 13px;
 }
 #marketLogoUpload {
@@ -973,7 +981,7 @@ main {
 	position: relative;
 	height: 130px;
 	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	padding: 15px 1em 15px 1em;
 	background-color: var(--UIdefaultColor);
@@ -984,7 +992,7 @@ main {
 	position: relative;
 	height: auto;
 	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	padding: 15px 1em 15px 1em;
 	margin-bottom: 10px;
@@ -1026,7 +1034,7 @@ main {
 	margin: 0 auto 15px auto;
 	color: var(--UIdefaultTextColor);
 	text-decoration: none;
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	width: fit-content;
 	width: -moz-fit-content;
 }
@@ -1091,7 +1099,7 @@ main {
 	-moz-appearance: textfield;
 	width: 30px;
 	outline: none;
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	background-color: var(--UIdefaultColor);
 	color: var(--UIdefaultTextColor);
 	border: 0;
@@ -1105,7 +1113,7 @@ main {
 #resultCount {
 	font-size: 15px;
 	margin: 0;
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	color: var(--UIdefaultTextColor);
 }
 .ratingLabel {

@@ -64,7 +64,7 @@ body::after{
 	display: inline-flex;
 	text-align: center;
 	color: var(--UIdefaultTextColor);
-	font-family: MontserratMed, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratMed, Verdana, sans-serif;
 	margin: 0;
 }
 #menuToggle {
@@ -92,7 +92,7 @@ body::after{
 	text-decoration: none;
 	position: relative;
 	display: inline-block;
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	color: var(--UIdefaultTextColor);
 	cursor: pointer;
 }
@@ -140,7 +140,7 @@ body::after{
 	max-width: 700px;
 	background-color: var(--UIdefaultColor);
 	border-radius: 10px;
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	margin-top: 5vh;
 }
@@ -169,7 +169,7 @@ body::after{
 	margin: 10px;
 }
 #resendEmailError {
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	margin: 0 10px 10px 10px;
 	height: 67.2px;
 	font-size: 15px;
@@ -268,7 +268,7 @@ main {
 	flex-direction: column;
 	color: var(--UIdefaultTextColor);
 	background-color: var(--UIdefaultColor);
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	padding: 15px 1em 15px 1em;
 	margin: 25px auto 0 auto;
@@ -281,7 +281,7 @@ main {
 	height: 36.8px;
 	margin: 0;
 	font-size: 15px;
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	color: #ff0000;
 	overflow: hidden;
 }
@@ -289,7 +289,7 @@ main {
 	margin: 0;
 	height: 36.8px;
 	font-size: 15px;
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	text-align: center;
 }
 #newPasswordField, #confirmPasswordField {
@@ -325,7 +325,7 @@ main {
 	display: block;
 	background-color: #000000;
 	color: #ffffff;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	font-size: 18px;
 	width: 200px;
 	height: 40px;

@@ -80,7 +80,7 @@ body::after{
 	display: inline-flex;
 	text-align: center;
 	color: var(--UIdefaultTextColor);
-	font-family: MontserratMed, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratMed, Verdana, sans-serif;
 	margin: 0;
 }
 #menuToggle {
@@ -108,7 +108,7 @@ body::after{
 	text-decoration: none;
 	position: relative;
 	display: inline-block;
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	color: var(--UIdefaultTextColor);
 	cursor: pointer;
 }
@@ -156,7 +156,7 @@ body::after{
 	max-width: 700px;
 	background-color: var(--UIdefaultColor);
 	border-radius: 10px;
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	margin-top: 5vh;
 }
@@ -185,7 +185,7 @@ body::after{
 	margin: 10px;
 }
 #resendEmailError {
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	margin: 0 10px 10px 10px;
 	height: 67.2px;
 	font-size: 15px;
@@ -242,7 +242,7 @@ body::after{
 	position: relative;
 	display: inline-block;
 	margin: 0;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	font-size: 22px;
 }
 .innerLinksCont > p::before {

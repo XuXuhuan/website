@@ -89,12 +89,13 @@ refCancelOperationOverlay.addEventListener("mousedown", edit_cancelMarketNameCha
 function edit_cancelMarketNameChange() {
 	const refMarketNameDetailsRow = document.querySelector("#marketNameRow");
 	const refMarketNameDetailsCont = document.querySelector("#marketNameDetailsCont");
-	const refNewMarketNameField = document.querySelector("#newMarketNameField");
 	const refNewMarketNameError = document.querySelector("#newMarketNameError");
+	const refMarketNameValue = document.querySelector("#marketNameValue");
 	marketNameError = "";
 	marketNameFieldValue = "";
-	refNewMarketNameField.remove();
 	refNewMarketNameError.remove();
+	refMarketNameValue.removeAttribute("onkeyup");
+	refMarketNameValue.removeAttribute("onkeydown");
 	refMarketNameDetailsCont.style = 0;
 	refMarketNameDetailsRow.style = 0;
 	refCancelOperationOverlay.classList.remove("showOverlay");
@@ -104,14 +105,14 @@ function edit_cancelMarketNameChange() {
 	isMarketNameChangeInProgress = false;
 }
 function edit_validateMarketNameFieldKeyUp(key) {
-	const refNewMarketNameField = document.querySelector("#newMarketNameField");
+	const refNewMarketNameField = document.querySelector("#marketNameValue");
 	const refNewMarketNameError = document.querySelector("#newMarketNameError");
 	clearTimeout(checkMarketName);
 	if (key.keyCode === 27) {
 		edit_cancelMarketNameChange();
 	}
 	else if (key.keyCode === 13) {
-		if (refNewMarketNameField.value.trim().length > 0) {
+		if (refNewMarketNameField.innerHTML.trim().length > 0) {
 			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 			xhr.open("POST", "updateMarketDetails.php", true);
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -130,13 +131,15 @@ function edit_validateMarketNameFieldKeyUp(key) {
 					setNotification("An error occurred.", true);
 				}
 			}
-			xhr.send("type=1&value=" + encodeURIComponent(refNewMarketNameField.value) + "&id=" + encodeURIComponent(URLparameters.get("id")));
+			xhr.send("type=1&value=" + encodeURIComponent(refNewMarketNameField.innerHTML) + "&id=" + encodeURIComponent(URLparameters.get("id")));
 		} else {
 			refNewMarketNameError.innerHTML = "This field is required.";
 			marketNameError = "This field is required.";
 		}
 	} else {
-		if (refNewMarketNameField.value.trim().length > 0) {
+		if (refNewMarketNameField.innerHTML.trim().length > 0) {
+			refNewMarketNameError.innerHTML = "";
+			marketNameError = "";
 			checkMarketName = setTimeout(function() {
 				const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 				xhr.open("POST", "../register/marketNameTaken.php", true);
@@ -151,7 +154,7 @@ function edit_validateMarketNameFieldKeyUp(key) {
 						setNotification("An error occurred.", true);
 					}
 				}
-				xhr.send("type=1&value=" + encodeURIComponent(refNewMarketNameField.value) + "&id=" + encodeURIComponent(URLparameters.get("id")));
+				xhr.send("type=1&value=" + encodeURIComponent(refNewMarketNameField.innerHTML) + "&id=" + encodeURIComponent(URLparameters.get("id")));
 			}, 350);
 		} else {
 			refNewMarketNameError.innerHTML = "This field is required.";
@@ -189,10 +192,15 @@ function edit_validateMarketNameFieldKeyDown() {
 }
 function edit_marketNameEditIconClick() {
 	const refMarketNameDetailsCont = document.querySelector("#marketNameDetailsCont");
-	refMarketNameDetailsCont.innerHTML = `<input id="newMarketNameField" class="newDetailField inputMethod" onkeyup="edit_validateMarketNameFieldKeyUp(Event)" onkeydown="edit_validateMarketNameFieldKeyDown()">
-	<p id="newMarketNameError" class="inputErrorText">Enter to confirm, Esc/click outside to cancel</p>`;
+	refMarketNameDetailsCont.innerHTML = `
+	<p id="marketNameValue" class="rowInfo inputMethod" contenteditable="true" spellcheck="false">${marketName}</p>
+	<p id="newMarketNameError" class="inputErrorText inputMethod">Enter to confirm, Esc/click outside to cancel</p>`;
+	document.querySelector("#marketNameValue").click();
 	refMarketNameDetailsCont.style.flexDirection = "column";
 	refCancelOperationOverlay.classList.add("showOverlay");
+	document.querySelector("#marketNameRow").style.height = document.querySelector("#marketNameRow").getBoundingClientRect()["height"] + 26.18 + "px";
+	document.querySelector("#marketNameValue").onkeyup = edit_validateMarketNameFieldKeyUp;
+	document.querySelector("#marketNameValue").onkeydown = edit_validateMarketNameFieldKeyDown;
 	isMarketNameChangeInProgress = true;
 }
 function edit_marketLogoTextOverlayMouseEnter() {
@@ -405,8 +413,9 @@ refMarketDetailsButton.addEventListener("click", function() {
 		refSelectedTabLine.style.top = 0;
 		var marketNameDetailsContStyles = isMarketNameChangeInProgress === true ? "style='flex-direction: column'" : "";
 		var marketNameHTML = isMarketNameChangeInProgress === true ? 
-		`<input value="${marketNameFieldValue}" class="newDetailField inputMethod" id="newMarketNameField" onkeyup="edit_validateMarketNameFieldKeyUp(Event) onkeydown="edit_validateMarketNameFieldKeyDown()">
-		<p id="newMarketNameError" class="inputErrorText">${marketNameError}</p>` : `<p id="marketNameValue" class="rowInfo"></p>
+		`<p id="marketNameValue" class="rowInfo" contenteditable="true" spellcheck="false" onkeydown="edit_validateMarketNameFieldKeyDown()" onkeyup="edit_validateMarketNameFieldKeyUp()">${marketNameFieldValue}</p>
+		<p id="newMarketNameError" class="inputErrorText inputMethod">${marketNameError}</p>` :
+		`<p id="marketNameValue" class="rowInfo" contenteditable="false" spellcheck="false">${marketName}</p>
 		<div id="marketNameEditIcon" class="editIcon" onclick="edit_marketNameEditIconClick()"></div>`;
 		isMarketNameChangeInProgress === true && !refCancelOperationOverlay.classList.contains("showOverlay") ? refCancelOperationOverlay.classList.add("showOverlay") : null;
 		refMarketInfoCont.innerHTML = `
@@ -717,7 +726,8 @@ refProductsButton.addEventListener("click", function() {
 					<div id='productSearchImage'></div>
 				</button>
 			</div>
-			<p id="resultCount">0 of 0 results</p>
+			<p id="fetchProductsError" class="inputErrorText"></p>
+			<p id="resultCount">10 of 11 results</p>
 			<div id="productRowsContainer">
 				<div id="newProductCont">
 					<div class='productContentsRow infoRow' id="newProductRow">
@@ -727,12 +737,11 @@ refProductsButton.addEventListener("click", function() {
 						</div>
 					</div>
 				</div>
-				<p id="fetchProductsError" class="inputErrorText"></p>
 				<div id="existingProductsCont">
-				</div>
-				<div class='infoColumnRow' id='changePageWrapper'>
-					<div id='changePageCont'></div>
-					<p id='pageCount' class='notSelectable'><input type='number' value='1' max='1' min='1' value='1' id='currentPageCount' onkeyup='countFieldProductFetch(Event)'> of <span id='maxPagesCount'>0</span> pages</p>
+					<div class='infoColumnRow' id='changePageWrapper'>
+						<div id='changePageCont'></div>
+						<p id='pageCount' class='notSelectable'><input type='number' value='1' max='1' min='1' value='1' id='currentPageCount' onkeyup='countFieldProductFetch(Event)'> of <span id='maxPagesCount'>0</span> pages</p>
+					</div>
 				</div>
 			</div>
 		</div>`;

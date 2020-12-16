@@ -26,7 +26,7 @@ body::after{
 	color: #000000;
 	text-align: center;
 	font-size: 40px;
-	font-family: montserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 }
 #mainCont {
 	position: relative;
@@ -50,7 +50,7 @@ body::after{
 }
 #deleteText {
 	font-size: 20px;
-	font-family: robotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 }
 @font-face {
 	font-family: montserratReg;

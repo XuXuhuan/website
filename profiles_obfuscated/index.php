@@ -74,7 +74,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					} else {
 						$loginAlert = '
 						<div id="alertCont">
-							<p id="alertText">No records for this account were found in the database. Please either log in and try again, try again later or refresh the page. You are now browsing as a guest.</p>
+							<p id="alertText">Invalid login cookie. Please try to log in again.</p>
 						</div>';
 					}
 					$allNeededDetails -> free();

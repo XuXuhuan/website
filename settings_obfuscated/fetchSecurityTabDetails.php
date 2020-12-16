@@ -7,7 +7,7 @@ $assocReturn = array("concatText" => "",
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
 if ($mysqliConnection -> connect_error) {
     $assocReturn["username"] = $assocReturn["email"] = $assocReturn["emailVerifiedRowInfoText"] = "[A connection error occurred. Please try again later.]";
-    $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[A connection error occurred. Please try again later.]</p>';
+    $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: Segoe UI, LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[A connection error occurred. Please try again later.]</p>';
 } else {
     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
         $neededDetailsQuery = "

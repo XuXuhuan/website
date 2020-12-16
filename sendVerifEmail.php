@@ -67,18 +67,18 @@ if ($mysqliConnection -> connect_errno) {
 										background-color: #0e0f2c;
 										text-align: center;
 										color: #ffffff;
-										font-family: "Montserrat", Verdana, sans-serif;
+										font-family: Segoe UI, "Montserrat", Verdana, sans-serif;
 										font-size: 30px;
 									}
 									#bodyContainer > tr > td {
 										background-color: #ffffff;
 									}
 									#helloText {
-										font-family: "Roboto", Helvetica, sans-serif;
+										font-family: Segoe UI, "Roboto", Helvetica, sans-serif;
 									}
 									#infoText {
 										text-indent: 2em;
-										font-family: "Baloo Da 2", Arial, sans-serif;
+										font-family: Segoe UI, "Baloo Da 2", Arial, sans-serif;
 										padding-bottom: 20px;
 									}
 									#verificationLink {
@@ -88,14 +88,14 @@ if ($mysqliConnection -> connect_errno) {
 										width: 250px;
 										text-align: center;
 										vertical-align: middle;
-										font-family: "Roboto", Helvetica, sans-serif;
+										font-family: Segoe UI, "Roboto", Helvetica, sans-serif;
 										font-size: 24px;
 										background-color: #06BA00;
 										text-decoration: none;
 									}
 									#websiteLabel {
 										text-align: center;
-										font-family: "Montserrat", Verdana, sans-serif;
+										font-family: Segoe UI, "Montserrat", Verdana, sans-serif;
 									}
 									#footerContainer > tr > td {
 										color: #ffffff;
@@ -106,7 +106,7 @@ if ($mysqliConnection -> connect_errno) {
 									}
 									#contactCell {
 										text-align: center;
-										font-family: "Roboto", Helvetica, sans-serif;
+										font-family: Segoe UI, "Roboto", Helvetica, sans-serif;
 										padding-top: 10px;
 										padding-bottom: 10px;
 									}

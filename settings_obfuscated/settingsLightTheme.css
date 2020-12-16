@@ -80,7 +80,7 @@ body::after{
 	display: inline-flex;
 	text-align: center;
 	color: var(--UIdefaultTextColor);
-	font-family: MontserratMed, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratMed, Verdana, sans-serif;
 	margin: 0;
 }
 #menuToggle {
@@ -108,7 +108,7 @@ body::after{
 	text-decoration: none;
 	position: relative;
 	display: inline-block;
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	color: var(--UIdefaultTextColor);
 	cursor: pointer;
 }
@@ -156,7 +156,7 @@ body::after{
 	max-width: 700px;
 	background-color: var(--UIdefaultColor);
 	border-radius: 10px;
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	margin-top: 5vh;
 }
@@ -216,7 +216,7 @@ body::after{
 	display: inline-block;
 	color: var(--UIdefaultTextColor);
 	margin: 0;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	font-size: 22px;
 }
 .innerLinksCont > p::before {
@@ -577,7 +577,7 @@ main {
 }
 .optionsText {
 	margin: 0;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	text-align: center;
 	font-size: 15px;
 }
@@ -587,7 +587,7 @@ main {
 }
 #settingsInfoCont > h1 {
 	color: black;
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 }
 .infoRow {
 	position: relative;
@@ -599,7 +599,7 @@ main {
 	width: 100%;
 	background-color: var(--UIdefaultColor);
 	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	border-bottom: 1px solid #000000;
 	padding: 15px 1em 15px 1em;
@@ -616,7 +616,7 @@ main {
 	width: 100%;
 	background-color: var(--UIdefaultColor);
 	color: var(--UIdefaultTextColor);
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
 	border-bottom: 1px solid #000000;
 	padding: 15px 1em 15px 1em;
@@ -629,7 +629,7 @@ main {
 	word-break: break-word;
 }
 #changePasswordText, #changeUsernameText, #changeEmailText {
-	font-family: LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	width: fit-content;
 	width: -moz-fit-content;
 	border-radius: 7px;
@@ -725,7 +725,7 @@ main {
 	height: 36.8px;
 	margin: 0;
 	font-size: 15px;
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	color: #ff0000;
 }
 #confirmPasswordNewEmailError, #confirmPasswordChange2FAError {
@@ -737,7 +737,7 @@ main {
 #verifyEmailButton, #sendChangePasswordEmailButton, #sendChangeUsernameEmailButton, #sendChangeEmailEmailButton, #saveBioButton, #deleteAccountButton {
 	display: block;
 	margin: 0 auto 0 auto;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	font-size: 17px;
 	border-radius: 10px;
 	background-color: transparent;
@@ -775,7 +775,7 @@ main {
 }
 #bioInput {
 	background-color: var(--UIdefaultInputColor);
-	font-family: MontserratReg, Verdana, sans-serif;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	padding: 8px;
 	border-radius: 6px;
 	border: 0;

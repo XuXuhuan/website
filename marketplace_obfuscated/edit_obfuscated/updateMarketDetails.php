@@ -293,4 +293,6 @@ if ($mysqliConnection -> connect_errno) {
 		$assocReturn["message"] = "Please log in and try again.";
 	}
 }
+echo json_encode($assocReturn);
+$mysqliConnection -> close();
 ?>

@@ -74,7 +74,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					} else {
 						$loginAlert = '
 						<div id="alertCont">
-							<p id="alertText">No records for this account were found in the database. Please either log in and try again, try again later or refresh the page. You are now browsing as a guest.</p>
+							<p id="alertText">Invalid login cookie. Please try to log in again.</p>
 						</div>';
 					}
 					$allNeededDetails -> free();
@@ -223,7 +223,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		if ($queriedMarketDetails = $mysqliConnection -> query($selectMarketDetailsQuery)) {
 			if ($assocMarketDetails = $queriedMarketDetails -> fetch_assoc()) {
 				if (!empty($assocMarketDetails["marketID"])) {
-					$marketProfile = htmlspecialchars($assocMarketDetails["marketName"], ENT_QUOETS);
+					$marketProfile = htmlspecialchars($assocMarketDetails["marketName"], ENT_QUOTES);
 					$findMarketLogo = glob("../uploads/marketLogos/{$assocMarketDetails["marketID"]}.png");
 					$imageFileName = "../../Assets/global/imageNotFound.png";
 					$selectSubscriptionQuery = "SELECT subscribingUser

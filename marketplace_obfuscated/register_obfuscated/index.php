@@ -163,23 +163,6 @@ if ($mysqliConnection -> connect_errno) {
 										$_SESSION["userID"] = $dbAccountID;
 										$_SESSION["username"] = $dbUsername;
 										$_SESSION["email"] = $dbEmail;
-										$selectMarketsQuery = "SELECT marketName
-										FROM marketdetails
-										WHERE marketOwner = '{$_SESSION["userID"]}'";
-										if ($queriedMarkets = $mysqliConnection -> query($selectMarketsQuery)) {
-											if ($queriedMarkets -> num_rows > 0) {
-												$loginAlert = '
-												<div id="alertCont">
-													<p id="alertText">You already own a market. Each user is only allowed to own and manage 1 market.</p>
-												</div>';
-											}
-											$queriedMarkets -> free();
-										} else {
-											$loginAlert = '
-											<div id="alertCont">
-												<p id="alertText">An error occurred.</p>
-											</div>';
-										}
 									} else {
 										$loginAlert = '
 										<div id="alertCont">
@@ -198,7 +181,7 @@ if ($mysqliConnection -> connect_errno) {
 						} else {
 							$loginAlert = '
 							<div id="alertCont">
-								<p id="alertText">No records for this account were found in the database. Please either log in and try again, try again later or refresh the page. You are now browsing as a guest.</p>
+								<p id="alertText">Invalid login cookie. Please try to log in again.</p>
 							</div>';
 						}
 						$allNeededDetails -> free();
