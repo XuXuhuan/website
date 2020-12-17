@@ -206,6 +206,7 @@ function edit_marketNameEditIconClick() {
 function edit_marketLogoTextOverlayMouseEnter() {
 	const refMarketLogoText = document.querySelector("#marketLogoText");
 	const refMarketLogoTextOverlay = document.querySelector("#marketLogoTextOverlay");
+	const refMarketLogoImageDisplay = document.querySelector("#marketLogoImageDisplay");
 	if (marketLogoImageURL !== 'url("../../Assets/global/imageNotFound.png")') {
 		refMarketLogoText.innerHTML = "REMOVE IMAGE";
 		refMarketLogoTextOverlay.style.opacity = 1;
@@ -415,7 +416,7 @@ refMarketDetailsButton.addEventListener("click", function() {
 		var marketNameHTML = isMarketNameChangeInProgress === true ? 
 		`<p id="marketNameValue" class="rowInfo" contenteditable="true" spellcheck="false" onkeydown="edit_validateMarketNameFieldKeyDown()" onkeyup="edit_validateMarketNameFieldKeyUp()">${marketNameFieldValue}</p>
 		<p id="newMarketNameError" class="inputErrorText inputMethod">${marketNameError}</p>` :
-		`<p id="marketNameValue" class="rowInfo" contenteditable="false" spellcheck="false">${marketName}</p>
+		`<p id="marketNameValue" class="rowInfo" contenteditable="false" spellcheck="false"></p>
 		<div id="marketNameEditIcon" class="editIcon" onclick="edit_marketNameEditIconClick()"></div>`;
 		isMarketNameChangeInProgress === true && !refCancelOperationOverlay.classList.contains("showOverlay") ? refCancelOperationOverlay.classList.add("showOverlay") : null;
 		refMarketInfoCont.innerHTML = `
@@ -567,7 +568,8 @@ refMarketDetailsButton.addEventListener("click", function() {
 		const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 		const refMarketBioField = document.querySelector("#marketBioField");
 		const refMarketLogoImageDisplay = document.querySelector("#marketLogoImageDisplay");
-		xhr.open("GET", "fetchMarketDetails.php", true);
+		xhr.open("POST", "fetchMarketDetails.php", true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
 		xhr.responseType = "json";
 		xhr.onerror = function() {
 			marketName = "[Error.]";
@@ -579,14 +581,14 @@ refMarketDetailsButton.addEventListener("click", function() {
 		}
 		xhr.onload = function() {
 			if (xhr.status === 200) {
-				if (xhr.response["errormessage"].length === 0) {
+				if (xhr.response["message"].length === 0) {
 					if (isMarketNameChangeInProgress === false) {
-						marketNameHTML = `<p id="marketNameValue" class="rowInfo">${xhr.response["marketName"]}</p>
+						document.querySelector("#marketNameDetailsCont").innerHTML = `<p id="marketNameValue" class="rowInfo">${xhr.response["marketName"]}</p>
 						<div id="marketNameEditIcon" class="editIcon" onclick="edit_marketNameEditIconClick()"></div>`;
 					}
+					refMarketLogoImageDisplay.style.backgroundImage = 'url("' + xhr.response["marketLogoURL"] + '")';
+					refMarketBioField.innerHTML = xhr.response["marketInfo"];
 					marketName = xhr.response["marketName"];
-					marketBio = xhr.response["marketBio"];
-					marketImageURL = xhr.response["marketImageURL"];
 					document.querySelectorAll(".marketCategoryBox").forEach(function(eachBox, itemIndex) {
 						const checkIfHasCategory = xhr.response["marketCategories"].indexOf(availableCategories[itemIndex]);
 						if (checkIfHasCategory !== -1) {
@@ -610,7 +612,7 @@ refMarketDetailsButton.addEventListener("click", function() {
 				}
 			}
 		}
-		xhr.send();
+		xhr.send("id=" + encodeURIComponent(URLparameters.get("id")));
 	}
 });
 refProductsButton.addEventListener("click", function() {
@@ -623,7 +625,7 @@ refProductsButton.addEventListener("click", function() {
 			const refFetchProductsError = document.querySelector("#fetchProductsError");
 			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 			var URLdata;
-			xhr.open("POST", "fetchMarketProducts.php", true);
+			xhr.open("POST", "../products/fetchProductsDetails.php", true);
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.responseType = "json";
 			xhr.onload = function() {
@@ -653,8 +655,8 @@ refProductsButton.addEventListener("click", function() {
 							</div>`;
 						});
 						if (xhr.response["currentResults"] > 0 && xhr.response["maxResults"] > 0) {
-							refResultCount.innerHTML = xhr.response["currentResults"] + " of " + xhr.response["maxResults"] + " results";
-							refCurrentPageCountField.value = Math.ceil(xhr.response["currentResults"] / 10);
+							document.querySelector("#resultCount").innerHTML = xhr.response["currentResults"] + " of " + xhr.response["maxResults"] + " results";
+							document.querySelector("#currentPageCount").value = Math.ceil(xhr.response["currentResults"] / 10);
 							if (Math.ceil(xhr.response["maxResults"] / 10) === newPage) {
 								if (document.querySelector("#nextPageButton")) {
 									const refNextPageButton = document.querySelector("#nextPageButton");
@@ -697,11 +699,7 @@ refProductsButton.addEventListener("click", function() {
 					refFetchProductsError.innerHTML = "An error occurred.";
 				}
 			}
-			if (URLparameters.has("query")) {
-				URLdata = "hasQuery=1&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("marketid")) + "&query=" + encodeURIComponent(URLparameters.get("query"));
-			} else {
-				URLdata = "hasQuery=0&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("marketid"));
-			}
+			URLdata = "hasQuery=0&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("id"));
 			xhr.send(URLdata);
 		}
 		marketBioFieldValue = refMarketBioField.value;
@@ -738,14 +736,14 @@ refProductsButton.addEventListener("click", function() {
 					</div>
 				</div>
 				<div id="existingProductsCont">
-					<div class='infoColumnRow' id='changePageWrapper'>
-						<div id='changePageCont'></div>
-						<p id='pageCount' class='notSelectable'><input type='number' value='1' max='1' min='1' value='1' id='currentPageCount' onkeyup='countFieldProductFetch(Event)'> of <span id='maxPagesCount'>0</span> pages</p>
-					</div>
+				</div>
+				<div class='infoColumnRow' id='changePageWrapper'>
+					<div id='changePageCont'></div>
+					<p id='pageCount' class='notSelectable'><input type='number' value='1' max='1' min='1' value='1' id='currentPageCount' onkeyup='countFieldProductFetch(Event)'> of <span id='maxPagesCount'>0</span> pages</p>
 				</div>
 			</div>
 		</div>`;
-		fetchNewPage(currentProductsListPage + 1);
+		fetchNewPage(currentProductsListPage);
 	}
 });
 document.addEventListener("mousedown", function(event) {

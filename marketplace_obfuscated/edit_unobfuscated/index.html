@@ -56,7 +56,7 @@
 		</header>
 		<main>
 			<div id='mainCont'>
-				<div id="cancelOperationOverlay"></div>
+				<div id='cancelOperationOverlay'></div>
 				<nav id='editOptions'>
 					<ul id='optionsList'>
 						<li class='optionItems'>
@@ -72,33 +72,33 @@
 					</ul>
 					<div id='selectedTabLine'></div>
 				</nav>
-				<div id="marketInfoCont">
-					<h1 class="topHeaderInfo">Details</h1>
-					<div class="infoColumnRow" id="marketLogoRow">
-						<p class="rowInfo" id="marketLogoLabel">Market Logo:</p>
-						<div id="marketLogoImageDisplay" class="inputMethod" style="background-image: url('../../Assets/global/imageNotFound.png');">
-							<div id="marketLogoTextOverlay" onmouseout="edit_marketLogoTextOverlayMouseLeave(event)" onmouseover="edit_marketLogoTextOverlayMouseEnter()">
-								<p id="marketLogoText" class="notSelectable"></p>
+				<div id='marketInfoCont'>
+					<h1 class='topHeaderInfo'>Details</h1>
+					<div class='infoColumnRow' id='marketLogoRow'>
+						<p class='rowInfo' id='marketLogoLabel'>Market Logo:</p>
+						<div id='marketLogoImageDisplay' class='inputMethod' style='background-image: url("../../Assets/global/imageNotFound.png");'>
+							<div id='marketLogoTextOverlay' onmouseout='edit_marketLogoTextOverlayMouseLeave(event)' onmouseover='edit_marketLogoTextOverlayMouseEnter()'>
+								<p id='marketLogoText' class='notSelectable'></p>
 							</div>
 						</div>
 					</div>
-					<div class="infoRow" id="marketNameRow">
-						<p id="marketNameLabel" class="rowInfo">Market Name:</p>
-						<div class="detailsCont" id="marketNameDetailsCont">
-							<p id="marketNameValue" class="rowInfo" contenteditable="false" spellcheck="false">LoremIpsum</p>
-							<div id="marketNameEditIcon" class="editIcon" onclick="edit_marketNameEditIconClick()"></div>
+					<div class='infoRow' id='marketNameRow'>
+						<p id='marketNameLabel' class='rowInfo'>Market Name:</p>
+						<div class='detailsCont' id='marketNameDetailsCont'>
+							<p id='marketNameValue' class='rowInfo' contenteditable='false' spellcheck='false'>LoremIpsum</p>
+							<div id='marketNameEditIcon' class='editIcon' onclick='edit_marketNameEditIconClick()'></div>
 						</div>
 					</div>
-					<div class="infoColumnRow" id="marketBioRow">
-						<p id="marketBioLabel" class="rowInfo">Market Information (optional):</p>
-						<textarea id="marketBioField" class="inputMethod" rows="10" placeholder="Give information about your store in 500 characters." maxlength="500"></textarea>
-						<div id="updateBioButtonCont">
-							<button id="changeCategoryButton" class="inputMethod">Make Changes</button>
+					<div class='infoColumnRow' id='marketBioRow'>
+						<p id='marketBioLabel' class='rowInfo'>Market Information (optional):</p>
+						<textarea id='marketBioField' class='inputMethod' rows='10' placeholder='Give information about your store in 500 characters.' maxlength='500'></textarea>
+						<div id='updateBioButtonCont'>
+							<button id='changeCategoryButton' class='inputMethod'>Make Changes</button>
 						</div>
 					</div>
-					<div id="marketCategoryRow" class="infoColumnRow">
-						<p id="marketCategoryLabel" class="rowInfo">Categories:</p>
-						<div id="marketCategoryCont">
+					<div id='marketCategoryRow' class='infoColumnRow'>
+						<p id='marketCategoryLabel' class='rowInfo'>Categories:</p>
+						<div id='marketCategoryCont'>
 							<div class='categoryBoxCont'>
 								<p class='categoryLabel'>Automotive</p>
 								<div class='marketCategoryBox inputMethod' id='automotiveBox'></div>
@@ -192,16 +192,16 @@
 								<div class='marketCategoryBox inputMethod' id='gamesBox'></div>
 							</div>
 						</div>
-						<div id="changeCategoryButtonCont">
-							<button id="changeCategoryButton" class="inputMethod" onclick="edit_changeMarketCategory()">Make Changes</button>
+						<div id='changeCategoryButtonCont'>
+							<button id='changeCategoryButton' class='inputMethod' onclick='edit_changeMarketCategory()'>Make Changes</button>
 						</div>
 					</div>
-					<div id="deleteMarketRow" class="infoColumnRow">
-						<p id="deleteMarketLabel" class="rowInfo">Delete This Market</p>
-						<div id="deleteMarketButtonCont">
-							<button id="deleteMarketButton" class="inputMethod">Delete Market</button>
+					<div id='deleteMarketRow' class='infoColumnRow'>
+						<p id='deleteMarketLabel' class='rowInfo'>Delete This Market</p>
+						<div id='deleteMarketButtonCont'>
+							<button id='deleteMarketButton' class='inputMethod'>Delete Market</button>
 						</div>
-						<p id="deleteMarketError" class="inputErrorText"></p>
+						<p id='deleteMarketError' class='inputErrorText'></p>
 					</div>
 				</div>
 			</div>
