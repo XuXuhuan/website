@@ -286,11 +286,11 @@ if ($mysqliConnection -> connect_errno) {
 						</div>';
 					}
 				} else {
-						$loginAlert = '
-						<div id="alertCont">
-							<p id="alertText">An error occurred.</p>
-						</div>';
-					}
+					$loginAlert = '
+					<div id="alertCont">
+						<p id="alertText">An error occurred.</p>
+					</div>';
+				}
 				$queriedMarketDetails -> free();
 			} else {
 				$logoutOrLogin = "<a href='https://www.streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>";

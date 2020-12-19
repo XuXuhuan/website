@@ -33,25 +33,6 @@
 	font-family: RobotoReg;
 	src: url("../../Assets/Font-Import/Roboto/Roboto-Regular.ttf");
 }
-body::before{
-	position: absolute;
-	width: 0;
-	height: 0;
-	overflow: hidden;
-	z-index: -1;
-	content: url("../../Assets/darkTheme/close.png")
-	url("../../Assets/darkTheme/menu.png")
-	url("../../Assets/darkTheme/homeIcon.png")
-	url("../../Assets/darkTheme/person.png")
-	url("../../Assets/darkTheme/CogWheel.png")
-	url("../../Assets/global/market.png")
-	url("../../Assets/darkTheme/privacyLock.png")
-	url("../../Assets/darkTheme/loading.png")
-	url("../../Assets/darkTheme/search_magnifying_glass.png")
-	url("../../Assets/global/plusSign.png")
-	url("../../Assets/darkTheme/leftArrow.png")
-	url("../../Assets/darkTheme/rightArrow.png");
-}
 body {
 	margin: 0;
 	background-color: #232527;
@@ -711,8 +692,7 @@ main {
 	margin: 0;
 	font-size: 15px;
 	word-break: break-word;
-	max-height: 55.2px;
-	height: 55.2px;
+	height: 3em;
 	overflow: hidden;
 }
 .productImage {

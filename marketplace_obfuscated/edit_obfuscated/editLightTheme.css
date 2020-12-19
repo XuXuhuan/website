@@ -41,20 +41,6 @@ body::after{
 	url("../../Assets/global/market.png")
 	url("../../Assets/lightTheme/privacyLock.png");
  }
-body::after{
-	position:absolute;
-	width:0;
-	height:0;
-	overflow: hidden;
-	z-index: -1;
-	content: url("../../Assets/lightTheme/close.png")
-	url("../../Assets/lightTheme/menu.png")
-	url("../../Assets/lightTheme/homeIcon.png")
-	url("../../Assets/lightTheme/person.png")
-	url("../../Assets/lightTheme/CogWheel.png")
-	url("../../Assets/global/market.png")
-	url("../../Assets/lightTheme/privacyLock.png");
- }
 #topnav {
 	position: fixed;
 	display: -webkit-flex;

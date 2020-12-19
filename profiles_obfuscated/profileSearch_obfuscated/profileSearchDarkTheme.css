@@ -37,6 +37,20 @@ body {
 	margin: 0;
 	background-color: #232527;
 }
+body::after{
+	position:absolute;
+	width:0;
+	height:0;
+	overflow: hidden;
+	z-index: -1;
+	content: url("../Assets/darkTheme/close.png")
+	url("../Assets/darkTheme/menu.png")
+	url("../Assets/darkTheme/homeIcon.png")
+	url("../Assets/darkTheme/person.png")
+	url("../Assets/darkTheme/CogWheel.png")
+	url("../Assets/global/market.png")
+	url("../Assets/darkTheme/privacyLock.png");
+ }
 #topnav {
 	position: fixed;
 	display: -webkit-flex;
@@ -604,8 +618,7 @@ main {
 	margin: 10px 0 0 0;
 	font-size: 15px;
 	word-break: break-word;
-	max-height: 55.2px;
-	height: 55.2px;
+	height: 3em;
 	overflow: hidden;
 }
 #changePageWrapper {

@@ -722,14 +722,14 @@ main {
 	width: calc(1012 / 616 * 15px);
 }
 .inputErrorText {
-	height: 36.8px;
+	height: 2em;
 	margin: 0;
 	font-size: 15px;
 	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	color: #ff0000;
 }
 #confirmPasswordNewEmailError, #confirmPasswordChange2FAError {
-	height: 57.2px !important;
+	height: 3em !important;
 }
 #verifyEmailError {
 	text-align: center;

@@ -17,6 +17,7 @@
 	--UIdefaultInputColor: #141618;
 	--deleteMarketButtonHoverBgColor: #E60505;
 	--productSearchButtonBgColor: #2D2F31;
+	--popUpBgColor: #26272B;
 }
 @font-face {
 	font-family: MontserratReg;
@@ -715,11 +716,11 @@ main {
 	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	color: #ff0000;
 	overflow: hidden;
-	height: 36.36px;
+	height: 2em;
 }
 #fetchProductsError {
-	height: 18.18px;
-	max-height: 18.18px;
+	height: 20px;
+	max-height: 20px;
 	margin-bottom: 15px;
 }
 #newMarketNameError {
@@ -1043,8 +1044,7 @@ main {
 	margin: 0;
 	font-size: 15px;
 	word-break: break-word;
-	max-height: 55.2px;
-	height: 55.2px;
+	height: 40px;
 	overflow: hidden;
 }
 .productImage {
@@ -1172,4 +1172,56 @@ main {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+.productMenuButtonCont {
+	position: absolute;
+	top: 5px;
+	right: 7px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	z-index: 2;
+}
+.productMenuButtonDot {
+	fill: #ffffff;
+}
+.productMenuPopUp {
+	position: absolute;
+	right: 140%;
+	top: 10%;
+}
+.productMenuPopUpTail {
+	position: absolute;
+	width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+	border-left: 8px solid var(--popUpBgColor);
+	top: 0;
+	left: 100%;
+	line-height: 40px;
+}
+.productMenuPopUpLink {
+	display: inline-block;
+	position: relative;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
+	font-size: 17px;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	background-color: var(--popUpBgColor);
+	border-radius: 5px 0 5px 5px;
+	min-height: 40px;
+	min-width: 100px;
+	text-align: center;
+	line-height: 40px;
+}
+.hideProductMenuPopUp {
+	display: none !important;
 }

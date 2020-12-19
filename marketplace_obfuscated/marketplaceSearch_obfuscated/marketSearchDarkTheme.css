@@ -665,8 +665,7 @@ main {
 	margin: 0;
 	font-size: 15px;
 	word-break: break-word;
-	max-height: 55.2px;
-	height: 55.2px;
+	height: 3em;
 	overflow: hidden;
 }
 .marketLogoImage {

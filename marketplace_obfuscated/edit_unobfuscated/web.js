@@ -43,6 +43,7 @@ var checkMarketName;
 var checkDeleteMarket;
 var isMarketNameChangeInProgress = false;
 var marketDeletionEmailSent = false;
+var marketProductsFieldValue = "";
 var marketNameFieldValue = "";
 var marketNameError = "";
 var marketBioFieldValue = "";
@@ -57,6 +58,112 @@ function setNotification(message, isError) {
 	checkNotification = setTimeout(function() {
 		refNotificationCont.style.top = "-10vh";
 	}, 1000);
+}
+function fetchNewPage(newPage, query) {
+	const refExistingProductsCont = document.querySelector("#existingProductsCont");
+	const refFetchProductsError = document.querySelector("#fetchProductsError");
+	const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+	var URLdata;
+	xhr.open("POST", "../products/fetchProductsDetails.php", true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.responseType = "json";
+	xhr.onload = function() {
+		if (xhr.status === 200) {
+			if (xhr.response["errormessage"].length === 0 && xhr.response["productDetails"].length > 0) {
+				currentProductsListPage = newPage;
+				refExistingProductsCont.innerHTML = "";
+				xhr.response["productDetails"].forEach(function(item) {
+					refExistingProductsCont.innerHTML += `
+					<div class='productContentsRow infoRow'>
+						<img src='${item["productImageURL"]}' alt='Product Image' class='productImage'>
+						<div class='productNameAndInfoCont infoColumnRow'>
+							<a href='https://www.streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
+							<p class='productInfoText'>${item["productInfo"]}</p>
+							<div class='productRatingRow'>
+								<p class='ratingLabel'>${item["productRating"]}</p>
+								<svg height='18' width='18' class='productRatingStar'>
+									<defs>
+										<linearGradient id='starGradient'>
+											<stop offset='100%' stop-color='#e1c900'></stop>
+										</linearGradient>
+									</defs>
+									<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+								</svg>
+							</div>
+							<div class='productMenuButtonCont'>
+								<svg class='productMenuButton' width='5' height='20'>
+									<circle cx='2.5' cy='2.5' r='2.5' class='productMenuButtonDot'/>
+									<circle cx='2.5' cy='10' r='2.5' class='productMenuButtonDot'/>
+									<circle cx='2.5' cy='17.5' r='2.5' class='productMenuButtonDot'/>
+								</svg>
+								<span class='productMenuPopUp hideProductMenuPopUp'>
+									<a href='https://www.streetor.sg/marketplace/products/edit/?id=${item["productID"]}' class='notSelectable productMenuPopUpLink'>
+										Edit
+										<div class='productMenuPopUpTail'></div>
+									</a>
+								</span>
+							</div>
+						</div>
+					</div>`;
+				});
+				document.querySelectorAll(".productMenuButtonCont").forEach(function(item, index) {
+					const refPopUp = document.querySelectorAll(".productMenuPopUp");
+					item.addEventListener("click", function() {
+						refPopUp[index].classList.toggle("hideProductMenuPopUp");
+					});
+				});
+				if (xhr.response["currentResults"] > 0 && xhr.response["maxResults"] > 0) {
+					document.querySelector("#resultCount").innerHTML = xhr.response["currentResults"] + " of " + xhr.response["maxResults"] + " results";
+					document.querySelector("#currentPageCount").value = Math.ceil(xhr.response["currentResults"] / 10);
+					document.querySelector("#maxPagesCount").innerHTML = Math.ceil(xhr.response["maxResults"] / 10);
+					if (Math.ceil(xhr.response["maxResults"] / 10) === newPage) {
+						if (document.querySelector("#nextPageButton")) {
+							const refNextPageButton = document.querySelector("#nextPageButton");
+							refNextPageButton.remove();
+						}
+					}
+					if (newPage === 1) {
+						if (document.querySelector("#prevPageButton")) {
+							const refPrevPageButton = document.querySelector("#prevPageButton");
+							refPrevPageButton.remove();
+						}
+					}
+					if (newPage > 1) {
+						const refChangePageCont = document.querySelector("#changePageCont");
+						const refCreatePrevPageButton = document.createElement("button");
+						const refCreatePrevPageImage = document.createElement("div");
+						refCreatePrevPageButton.id = "prevPageButton";
+						refCreatePrevPageButton.onclick = function(triggered) {leftArrowProductFetch(triggered)};
+						refCreatePrevPageImage.id = "leftArrowCont";
+						refCreatePrevPageImage.classList.add("changePageArrowCont");
+						refCreatePrevPageButton.appendChild(refCreatePrevPageImage);
+						refChangePageCont.appendChild(refCreatePrevPageButton);
+					}
+					if (Math.ceil(xhr.response["maxResults"] / 10) > newPage) {
+						const refChangePageCont = document.querySelector("#changePageCont");
+						const refCreateNextPageButton = document.createElement("button");
+						const refCreateNextPageImage = document.createElement("div");
+						refCreateNextPageButton.id = "nextPageButton";
+						refCreateNextPageButton.onclick = function(triggered) {rightArrowProductFetch(triggered)};
+						refCreateNextPageImage.id = "rightArrowCont";
+						refCreateNextPageImage.classList.add("changePageArrowCont");
+						refCreateNextPageButton.appendChild(refCreateNextPageImage);
+						refChangePageCont.appendChild(refCreateNextPageButton);
+					}
+				}
+			} else {
+				refFetchProductsError.innerHTML = xhr.response["errormessage"];
+			}
+		} else {
+			refFetchProductsError.innerHTML = "An error occurred.";
+		}
+	}
+	if (query.trim().length > 0) {
+		URLdata = "hasQuery=1&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("id")) + "&query=" + encodeURIComponent(query);
+	} else {
+		URLdata = "hasQuery=0&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("id"));
+	}
+	xhr.send(URLdata);
 }
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
@@ -192,15 +299,17 @@ function edit_validateMarketNameFieldKeyDown() {
 }
 function edit_marketNameEditIconClick() {
 	const refMarketNameDetailsCont = document.querySelector("#marketNameDetailsCont");
+	const refMarketNameRow = document.querySelector("#marketNameRow");
 	refMarketNameDetailsCont.innerHTML = `
 	<p id="marketNameValue" class="rowInfo inputMethod" contenteditable="true" spellcheck="false">${marketName}</p>
 	<p id="newMarketNameError" class="inputErrorText inputMethod">Enter to confirm, Esc/click outside to cancel</p>`;
-	document.querySelector("#marketNameValue").click();
+	const refMarketNameValue = document.querySelector("#marketNameValue");
 	refMarketNameDetailsCont.style.flexDirection = "column";
 	refCancelOperationOverlay.classList.add("showOverlay");
-	document.querySelector("#marketNameRow").style.height = document.querySelector("#marketNameRow").getBoundingClientRect()["height"] + 26.18 + "px";
-	document.querySelector("#marketNameValue").onkeyup = edit_validateMarketNameFieldKeyUp;
-	document.querySelector("#marketNameValue").onkeydown = edit_validateMarketNameFieldKeyDown;
+	refMarketNameRow.style.height = document.querySelector("#marketNameRow").getBoundingClientRect()["height"] + 26.18 + "px";
+	refMarketNameValue.onkeyup = edit_validateMarketNameFieldKeyUp;
+	refMarketNameValue.onkeydown = edit_validateMarketNameFieldKeyDown;
+	refMarketNameValue.focus();
 	isMarketNameChangeInProgress = true;
 }
 function edit_marketLogoTextOverlayMouseEnter() {
@@ -390,19 +499,32 @@ function edit_deleteMarket() {
 		}, 350);
 	}
 }
+function edit_searchProducts(event) {
+	const refProductSearchField = document.querySelector("#productSearchField");
+	if (event.keyCode) {
+		if (event.keyCode === 13) {
+			if (refProductSearchField.value.trim().length > 0) {
+				fetchNewPage(1, refProductSearchField.value);
+			}
+		}
+	}
+	else if (refProductSearchField.value.trim().length > 0) {
+		fetchNewPage(1, refProductSearchField.value);
+	}
+}
 function countFieldProductFetch(event) {
 	if (/[^0-9]/.test(currentProductsListPage) === false && event.keyCode === 13 && refCurrentPageCountField.value.trim().length > 0) {
-		fetchNewPage(refCurrentPageCountField.value.trim());
+		fetchNewPage(refCurrentPageCountField.value.trim(), "");
 	}
 }
 function leftArrowProductFetch(event) {
 	if (/[^0-9]/.test(currentProductsListPage) === false && currentProductsListPage > 1 && event.button === 0) {
-		fetchNewPage(currentProductsListPage - 1);
+		fetchNewPage(currentProductsListPage - 1, "");
 	}
 }
 function rightArrowProductFetch(event) {
 	if (/[^0-9]/.test(currentProductsListPage) === false && event.button === 0) {
-		fetchNewPage(currentProductsListPage + 1);
+		fetchNewPage(currentProductsListPage + 1, "");
 	}
 }
 refMarketDetailsButton.addEventListener("click", function() {
@@ -410,6 +532,9 @@ refMarketDetailsButton.addEventListener("click", function() {
 		refMarketDetailsButton.classList.add("selectedTab");
 		if (refProductsButton.classList.contains("selectedTab")) {
 			refProductsButton.classList.remove("selectedTab");
+		}
+		if (document.querySelector("#productSearchField")) {
+			marketProductsFieldValue = document.querySelector("#productSearchField").value;
 		}
 		refSelectedTabLine.style.top = 0;
 		var marketNameDetailsContStyles = isMarketNameChangeInProgress === true ? "style='flex-direction: column'" : "";
@@ -620,88 +745,6 @@ refProductsButton.addEventListener("click", function() {
 		const refNewMarketNameField = document.querySelector("#newMarketNameField");
 		const refNewMarketNameError = document.querySelector("#newMarketNameError");
 		const refMarketBioField = document.querySelector("#marketBioField");
-		function fetchNewPage(newPage) {
-			const refExistingProductsCont = document.querySelector("#existingProductsCont");
-			const refFetchProductsError = document.querySelector("#fetchProductsError");
-			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-			var URLdata;
-			xhr.open("POST", "../products/fetchProductsDetails.php", true);
-			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhr.responseType = "json";
-			xhr.onload = function() {
-				if (xhr.status === 200) {
-					if (xhr.response["errormessage"].length === 0 && xhr.response["productDetails"].length > 0) {
-						currentProductsListPage = newPage;
-						refExistingProductsCont.innerHTML = "";
-						xhr.response["productDetails"].forEach(function(item) {
-							refExistingProductsCont.innerHTML += `
-							<div class='productContentsRow infoRow'>
-								<img src='${item["productImageURL"]}' alt='Product Image' class='productImage'>
-								<div class='productNameAndInfoCont infoColumnRow'>
-									<a href='https://www.streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
-									<p class='productInfoText'>${item["productInfo"]}</p>
-									<div class='productRatingRow'>
-										<p class='ratingLabel'>${item["productRating"]}</p>
-										<svg height='18' width='18' class='productRatingStar'>
-											<defs>
-												<linearGradient id='starGradient'>
-													<stop offset='100%' stop-color='#e1c900'></stop>
-												</linearGradient>
-											</defs>
-											<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
-										</svg>
-									</div>
-								</div>
-							</div>`;
-						});
-						if (xhr.response["currentResults"] > 0 && xhr.response["maxResults"] > 0) {
-							document.querySelector("#resultCount").innerHTML = xhr.response["currentResults"] + " of " + xhr.response["maxResults"] + " results";
-							document.querySelector("#currentPageCount").value = Math.ceil(xhr.response["currentResults"] / 10);
-							if (Math.ceil(xhr.response["maxResults"] / 10) === newPage) {
-								if (document.querySelector("#nextPageButton")) {
-									const refNextPageButton = document.querySelector("#nextPageButton");
-									refNextPageButton.remove();
-								}
-							}
-							if (newPage === 1) {
-								if (document.querySelector("#prevPageButton")) {
-									const refPrevPageButton = document.querySelector("#prevPageButton");
-									refPrevPageButton.remove();
-								}
-							}
-							if (newPage > 1) {
-								const refChangePageCont = document.querySelector("#changePageCont");
-								const refCreatePrevPageButton = document.createElement("button");
-								const refCreatePrevPageImage = document.createElement("div");
-								refCreatePrevPageButton.id = "prevPageButton";
-								refCreatePrevPageButton.onclick = function(triggered) {leftArrowProductFetch(triggered)};
-								refCreatePrevPageImage.id = "leftArrowCont";
-								refCreatePrevPageImage.classList.add("changePageArrowCont");
-								refCreatePrevPageButton.appendChild(refCreatePrevPageImage);
-								refChangePageCont.appendChild(refCreatePrevPageButton);
-							}
-							if (Math.ceil(xhr.response["maxResults"] / 10) > newPage) {
-								const refChangePageCont = document.querySelector("#changePageCont");
-								const refCreateNextPageButton = document.createElement("button");
-								const refCreateNextPageImage = document.createElement("div");
-								refCreateNextPageButton.id = "nextPageButton";
-								refCreateNextPageButton.onclick = function(triggered) {rightArrowProductFetch(triggered)};
-								refCreateNextPageImage.id = "rightArrowCont";
-								refCreateNextPageImage.classList.add("changePageArrowCont");
-								refCreateNextPageButton.appendChild(refCreateNextPageImage);
-								refChangePageCont.appendChild(refCreateNextPageButton);
-							}
-						}
-					} else {
-						refFetchProductsError.innerHTML = xhr.response["errormessage"];
-					}
-				} else {
-					refFetchProductsError.innerHTML = "An error occurred.";
-				}
-			}
-			URLdata = "hasQuery=0&page=" + encodeURIComponent(newPage) + "&marketid=" + encodeURIComponent(URLparameters.get("id"));
-			xhr.send(URLdata);
-		}
 		marketBioFieldValue = refMarketBioField.value;
 		refProductsButton.classList.add("selectedTab");
 		if (refMarketDetailsButton.classList.contains("selectedTab")) {
@@ -719,13 +762,13 @@ refProductsButton.addEventListener("click", function() {
 		<h1 class="topHeaderInfo">Products</h1>
 		<div id="productListCont">
 			<div id="productSearchBarContainer">
-				<input type='text' id='productSearchField' placeholder='Search'>
+				<input type='text' value='${marketProductsFieldValue}' id='productSearchField' placeholder='Search'>
 				<button id='productSearchButton' type='submit'>
 					<div id='productSearchImage'></div>
 				</button>
 			</div>
 			<p id="fetchProductsError" class="inputErrorText"></p>
-			<p id="resultCount">10 of 11 results</p>
+			<p id="resultCount">0 of 0 results</p>
 			<div id="productRowsContainer">
 				<div id="newProductCont">
 					<div class='productContentsRow infoRow' id="newProductRow">
@@ -739,11 +782,17 @@ refProductsButton.addEventListener("click", function() {
 				</div>
 				<div class='infoColumnRow' id='changePageWrapper'>
 					<div id='changePageCont'></div>
-					<p id='pageCount' class='notSelectable'><input type='number' value='1' max='1' min='1' value='1' id='currentPageCount' onkeyup='countFieldProductFetch(Event)'> of <span id='maxPagesCount'>0</span> pages</p>
+					<p id='pageCount' class='notSelectable'><input type='number' value='1' value='1' id='currentPageCount' onkeyup='countFieldProductFetch(Event)'> of <span id='maxPagesCount'>0</span> pages</p>
 				</div>
 			</div>
 		</div>`;
-		fetchNewPage(currentProductsListPage);
+		document.querySelector("#productSearchField").onkeydown = edit_searchProducts;
+		document.querySelector("#productSearchButton").onclick = edit_searchProducts;
+		if (marketProductsFieldValue.trim().length > 0) {
+			fetchNewPage(currentProductsListPage, marketProductsFieldValue);
+		} else {
+			fetchNewPage(currentProductsListPage, "");
+		}
 	}
 });
 document.addEventListener("mousedown", function(event) {
