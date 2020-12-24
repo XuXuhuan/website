@@ -253,7 +253,7 @@ if ($mysqliConnection -> connect_errno) {
 									<p id='marketBioLabel' class='rowInfo'>Market Information (optional):</p>
 									<textarea id='marketBioField' class='inputMethod' rows='10' placeholder='Give information about your store in 500 characters.' maxlength='500'>{$escapedBiography}</textarea>
 									<div id='updateBioButtonCont'>
-										<button id='changeCategoryButton' class='inputMethod'>Make Changes</button>
+										<button id='changeCategoryButton' class='inputMethod' onclick='edit_updateMarketBio()'>Make Changes</button>
 									</div>
 								</div>
 								<div id='marketCategoryRow' class='infoColumnRow'>

@@ -62,8 +62,10 @@ if ($mysqliConnection -> connect_errno) {
 								WHERE marketID = '{$escapedMarketID}'";
 								if ($mysqliConnection -> query($updateBioQuery)) {
 									$assocReturn["message"] = "Market info updated.";
+									$assocReturn["isError"] = false;
 								} else {
 									$assocReturn["message"] = "An error occurred.";
+									$assocReturn["isError"] = true;
 								}
 							} else {
 								$updateBioQuery = "UPDATE marketdetails
@@ -71,8 +73,10 @@ if ($mysqliConnection -> connect_errno) {
 								WHERE marketID = '{$escapedMarketID}'";
 								if ($mysqliConnection -> query($updateBioQuery)) {
 									$assocReturn["message"] = "Market info updated.";
+									$assocReturn["isError"] = false;
 								} else {
 									$assocReturn["message"] = "An error occurred.";
+									$assocReturn["isError"] = true;
 								}
 							}
 						break;
@@ -103,11 +107,11 @@ if ($mysqliConnection -> connect_errno) {
 								"games"
 							);
 							$updateLines = array();
-							foreach($usedMethod["categories"] as $categorySelected) {
-								if (in_array($categorySelected, $availableCategories)) {
-									$updateLines .= "{$availableCategories} = 1";
+							foreach($availableCategories as $category) {
+								if (in_array($category, $usedMethod["categories"])) {
+									$updateLines[] = "{$category} = 1";
 								} else {
-									$updateLines .= "{$availableCategories} = 0";
+									$updateLines[] = "{$category} = 0";
 								}
 							}
 							$formattedUpdateLines = implode(",\n", $updateLines);
@@ -116,8 +120,10 @@ if ($mysqliConnection -> connect_errno) {
 							WHERE marketID = {$usedMethod["id"]}";
 							if ($mysqliConnection -> query($updateMarketCategories)) {
 								$assocReturn["message"] = "Categories updated.";
+								$assocReturn["isError"] = false;
 							} else {
 								$assocReturn["message"] = "An error occurred.";
+								$assocReturn["isError"] = true;
 							}
 						break;
 						case 4:
@@ -283,6 +289,9 @@ if ($mysqliConnection -> connect_errno) {
 					}
 				} else {
 					$assocReturn["message"] = "Market unavailable.";
+					if ($usedMethod["type"] == 2 || $usedMethod["type"] == 3) {
+						$assocReturn["isError"] = true;
+					}
 				}
 				$queriedUserIsOwner -> free();
 			} else {

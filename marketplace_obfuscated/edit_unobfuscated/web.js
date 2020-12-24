@@ -35,8 +35,7 @@ const availableCategories = [
 	"tools",
 	"toys",
 	"games"];
-var marketCategories = [];
-var marketLogoImageURL = document.querySelector("#marketLogoImageDisplay").style.backgroundImage;
+var marketLogoUploaded = document.querySelector("#marketLogoImageDisplay").style.backgroundImage !== 'url("../../Assets/global/imageNotFound.png")';
 var marketName = document.querySelector("#marketNameValue").innerHTML;
 var checkNotification;
 var checkMarketName;
@@ -167,6 +166,7 @@ function fetchNewPage(newPage, query) {
 }
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
+edit_marketLogoTextOverlaySet();
 refMenuButton.addEventListener("click", function() {
 	if (refSideNav.classList.contains("openedSideNav") || refMenuButton.style.animationName === "menuAnimationOpen") {
 		refSideNav.classList.remove("openedSideNav");
@@ -176,19 +176,10 @@ refMenuButton.addEventListener("click", function() {
 		refMenuButton.style.animationName = "menuAnimationOpen";
 	}
 });
-document.querySelectorAll(".marketCategoryBox").forEach(function(eachBox, itemIndex) {
+document.querySelectorAll(".marketCategoryBox").forEach(function(eachBox) {
 	eachBox.addEventListener("mouseup", function(triggered) {
 		if (triggered.button === 0) {
-			const findItemInSelectedCategories = marketCategories.indexOf(availableCategories[itemIndex]);
-			if (findItemInSelectedCategories === -1) {
-				marketCategories.push(availableCategories[itemIndex]);
-			} else {
-				marketCategories.splice(findItemInSelectedCategories, 1);
-			}
 			eachBox.classList.toggle("tickedCategoryBox");
-			if (marketCategories.length === 0) {
-				setNotification("Please select at least one category.", true);
-			}
 		}
 	});
 });
@@ -256,12 +247,13 @@ function edit_validateMarketNameFieldKeyUp(key) {
 				}
 				xhr.onload = function() {
 					if (xhr.status === 200) {
-						setNotification(xhr.responseText, true);
+						refNewMarketNameError.innerHTML = xhr.responseText;
+						marketNameError = xhr.responseText;
 					} else {
 						setNotification("An error occurred.", true);
 					}
 				}
-				xhr.send("type=1&value=" + encodeURIComponent(refNewMarketNameField.innerHTML) + "&id=" + encodeURIComponent(URLparameters.get("id")));
+				xhr.send("marketname=" + encodeURIComponent(refNewMarketNameField.innerHTML));
 			}, 350);
 		} else {
 			refNewMarketNameError.innerHTML = "This field is required.";
@@ -270,23 +262,29 @@ function edit_validateMarketNameFieldKeyUp(key) {
 	}
 }
 function edit_changeMarketCategory() {
+	var marketCategories = [];
+	document.querySelectorAll(".marketCategoryBox").forEach(function(item, index) {
+		if (item.classList.contains("tickedCategoryBox")) {
+			marketCategories.push(availableCategories[index]);
+		}
+	});
 	if (marketCategories.length > 0) {
 		const requestJSON = {
-			"type" : 4,
+			"type" : 3,
 			"categories" : marketCategories,
 			"id" : URLparameters.get("id")
 		}
 		const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-		xhr.open("POST", "registerMarketplace.php", true);
+		xhr.open("POST", "updateMarketDetails.php", true);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.responseType = "json";
 		document.querySelector("#changeCategoryButtonCont").innerHTML = '<div id="loadingImageCont"></div>';
 		xhr.onload = function() {
 			if (xhr.status === 200) {
-				if (xhr.response["message"] === "Success!") {
+				if (xhr.response["message"] === "Categories updated.") {
 					setNotification(xhr.response["message"], false);
 				}
-				document.querySelector("#changeCategoryButtonCont").innerHTML = '<button id="marketRegisterButton" onmouseup="submitMarketRegister(event)" onmousedown="cancelMarketRegisterTimeout(event)">Register</button>';
+				document.querySelector("#changeCategoryButtonCont").innerHTML = "<button id='changeCategoryButton' class='inputMethod' onclick='edit_updateMarketBio()'>Make Changes</button>";
 			} else {
 				setNotification("An error occurred.", true);
 			}
@@ -312,38 +310,44 @@ function edit_marketNameEditIconClick() {
 	refMarketNameValue.focus();
 	isMarketNameChangeInProgress = true;
 }
-function edit_marketLogoTextOverlayMouseEnter() {
+function marketLogoTextOverlayClicked() {
+	const refMarketLogoImageDisplay = document.querySelector("#marketLogoImageDisplay");
+	var dataForm = new FormData();
+	dataForm.append("type", 1);
+	dataForm.append("id", URLparameters.get("id"));
+	const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+	xhr.open("POST", "changeMarketLogo.php", true);
+	xhr.responseType = "json";
+	xhr.onerror = function() {
+		setNotification("An error occurred.", true);
+	}
+	xhr.onload = function() {
+		if (xhr.status === 200) {
+			if (xhr.response["errormessage"].length === 0) {
+				refMarketLogoImageDisplay.style.backgroundImage = 'url("../../Assets/global/imageNotFound.png")';
+				marketLogoUploaded = false;
+				edit_marketLogoTextOverlaySet();
+			} else {
+				setNotification(xhr.response["errormessage"], 1);
+			}
+		} else {
+			setNotification("An error occurred.", true);
+		}
+	}
+	xhr.send(dataForm);
+}
+function edit_marketLogoTextOverlaySet() {
 	const refMarketLogoText = document.querySelector("#marketLogoText");
 	const refMarketLogoTextOverlay = document.querySelector("#marketLogoTextOverlay");
-	const refMarketLogoImageDisplay = document.querySelector("#marketLogoImageDisplay");
-	if (marketLogoImageURL !== 'url("../../Assets/global/imageNotFound.png")') {
+	if (marketLogoUploaded === true) {
+		if (document.querySelector("#marketLogoUpload")) {
+			const refFileInputElement = document.querySelector("#marketLogoUpload");
+			refFileInputElement.remove();
+		}
 		refMarketLogoText.innerHTML = "REMOVE IMAGE";
-		refMarketLogoTextOverlay.style.opacity = 1;
-		refMarketLogoTextOverlay.addEventListener("click", function() {
-			var dataForm = new FormData();
-			dataForm.append("type", 1);
-			dataForm.append("id", URLparameters.get("id"));
-			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-			xhr.open("POST", "changeMarketLogo.php", true);
-			xhr.responseType = "json";
-			xhr.onerror = function() {
-				setNotification("An error occurred.", true);
-			}
-			xhr.onload = function() {
-				if (xhr.status === 200) {
-					if (xhr.response["errormessage"].length === 0) {
-						refMarketLogoImageDisplay.style.backgroundImage = 'url("../../Assets/global/imageNotFound.png")';
-						marketLogoImageURL = refMarketLogoImageDisplay.style.backgroundImage;
-					} else {
-						setNotification(xhr.response["errormessage"], 1);
-					}
-				} else {
-					setNotification("An error occurred.", true);
-				}
-			}
-			xhr.send(dataForm);
-		});
+		refMarketLogoTextOverlay.addEventListener("click", marketLogoTextOverlayClicked);
 	} else {
+		refMarketLogoTextOverlay.removeEventListener("click", marketLogoTextOverlayClicked);
 		if (!document.querySelector("#marketLogoUpload")) {
 			const createFileInputElement = document.createElement("input");
 			createFileInputElement.id = "marketLogoUpload";
@@ -355,17 +359,16 @@ function edit_marketLogoTextOverlayMouseEnter() {
 			createFileInputElement.addEventListener("input", edit_uploadImageFile);
 		}
 		refMarketLogoText.innerHTML = "UPLOAD IMAGE";
-		refMarketLogoTextOverlay.style.opacity = 1;
 	}
+}
+function edit_marketLogoTextOverlayMouseEnter() {
+	const refMarketLogoTextOverlay = document.querySelector("#marketLogoTextOverlay");
+	refMarketLogoTextOverlay.style.opacity = 1;
 }
 function edit_marketLogoTextOverlayMouseLeave(event) {
 	const refMarketLogoTextOverlay = document.querySelector("#marketLogoTextOverlay");
 	var e = event.toElement || event.relatedTarget;
 	if (!e || e.parentNode != refMarketLogoTextOverlay) {
-		if (document.querySelector("#marketLogoUpload")) {
-			const refMarketLogoUpload = document.querySelector("#marketLogoUpload");
-			refMarketLogoUpload.remove();
-		}
 		refMarketLogoTextOverlay.style.opacity = 0;
 	}
 }
@@ -389,8 +392,10 @@ function edit_uploadImageFile() {
 				xhr.onload = function() {
 					if (xhr.status === 200) {
 						if (xhr.response["errormessage"].length === 0) {
+							refMarketLogoImageDisplay.style.backgroundImage = "";
 							refMarketLogoImageDisplay.style.backgroundImage = 'url("' + xhr.response["newMarketLogoURL"] + '")';
-							marketLogoImageURL = refMarketLogoImageDisplay.style.backgroundImage;
+							marketLogoUploaded = true;
+							edit_marketLogoTextOverlaySet();
 						} else {
 							setNotification(xhr.response["errormessage"], 1);
 						}
@@ -411,31 +416,29 @@ function edit_uploadImageFile() {
 }
 function edit_updateMarketBio() {
 	const refMarketBioField = document.querySelector("#marketBioField");
-	clearTimeout(checkMarketBio);
-	checkMarketBio = setTimeout(function() {
-		const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-		xhr.open("POST", "updateMarketDetails.php", true);
-		xhr.setRequestHeader("Content-type", "application/json");
-		xhr.responseType = "json";
-		xhr.onerror = function() {
+	const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+	xhr.open("POST", "updateMarketDetails.php", true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.responseType = "json";
+	xhr.onerror = function() {
+		setNotification("An error occurred.", true);
+	}
+	xhr.onload = function() {
+		if (xhr.status === 200) {
+			setNotification(xhr.response["message"], xhr.response["isError"]);
+		} else {
 			setNotification("An error occurred.", true);
 		}
-		xhr.onload = function() {
-			if (xhr.status === 200) {
-				setNotification(xhr.response["message"], xhr.response["isError"]);
-			} else {
-				setNotification("An error occurred.", true);
+	}
+	xhr.send(
+		JSON.stringify(
+			{
+				"type" : 2,
+				"id" : URLparameters.get("id"),
+				"value" : refMarketBioField.value
 			}
-		}
-		xhr.send(
-			JSON.stringify(
-				{
-					"type" : 2,
-					"value" : refMarketBioField.value
-				}
-			)
-		);
-	}, 350);
+		)
+	);
 }
 function edit_deleteMarket() {
 	if (marketDeletionEmailSent === false) {
@@ -564,7 +567,7 @@ refMarketDetailsButton.addEventListener("click", function() {
 			<p id="marketBioLabel" class="rowInfo">Market Information (optional):</p>
 			<textarea id="marketBioField" class="inputMethod" rows="10" placeholder="Give information about your store in 500 characters." maxlength="500"></textarea>
 			<div id="updateBioButtonCont">
-				<button id="changeCategoryButton" class="inputMethod">Make Changes</button>
+				<button id="changeCategoryButton" class="inputMethod" onclick='edit_updateMarketBio()'>Make Changes</button>
 			</div>
 		</div>
 		<div id="marketCategoryRow" class="infoColumnRow">
@@ -674,19 +677,10 @@ refMarketDetailsButton.addEventListener("click", function() {
 			</div>
 			<p id="deleteMarketError" class="inputErrorText">${marketDeletionError}</p>
 		</div>`;
-		document.querySelectorAll(".marketCategoryBox").forEach(function(eachBox, itemIndex) {
+		document.querySelectorAll(".marketCategoryBox").forEach(function(eachBox) {
 			eachBox.addEventListener("mouseup", function(triggered) {
 				if (triggered.button === 0) {
-					const findItemInSelectedCategories = marketCategories.indexOf(availableCategories[itemIndex]);
-					if (findItemInSelectedCategories === -1) {
-						marketCategories.push(availableCategories[itemIndex]);
-					} else {
-						marketCategories.splice(findItemInSelectedCategories, 1);
-					}
 					eachBox.classList.toggle("tickedCategoryBox");
-					if (marketCategories.length === 0) {
-						setNotification("Please select at least one category.", true);
-					}
 				}
 			});
 		});
@@ -711,7 +705,10 @@ refMarketDetailsButton.addEventListener("click", function() {
 						document.querySelector("#marketNameDetailsCont").innerHTML = `<p id="marketNameValue" class="rowInfo">${xhr.response["marketName"]}</p>
 						<div id="marketNameEditIcon" class="editIcon" onclick="edit_marketNameEditIconClick()"></div>`;
 					}
+					refMarketLogoImageDisplay.style.backgroundImage = "";
 					refMarketLogoImageDisplay.style.backgroundImage = 'url("' + xhr.response["marketLogoURL"] + '")';
+					marketLogoUploaded = document.querySelector("#marketLogoImageDisplay").style.backgroundImage !== 'url("../../Assets/global/imageNotFound.png")';
+					edit_marketLogoTextOverlaySet();
 					refMarketBioField.innerHTML = xhr.response["marketInfo"];
 					marketName = xhr.response["marketName"];
 					document.querySelectorAll(".marketCategoryBox").forEach(function(eachBox, itemIndex) {
