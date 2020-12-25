@@ -43,7 +43,7 @@ else if (!empty($searchQuery) && !empty($pageCount) && !preg_match("/[^0-9]/", $
 								"marketLogoURL" => $marketImageURL,
 								"marketID" => $assocMarketsDetails["marketID"],
 								"marketName" => htmlspecialchars($assocMarketsDetails["marketName"], ENT_QUOTES),
-								"biography" => htmlspecialchars($assocMarketsDetails["biography"], ENT_QUOTES)
+								"biography" => nl2br(htmlspecialchars($assocMarketsDetails["biography"], ENT_QUOTES))
 							);
 						}
 					}

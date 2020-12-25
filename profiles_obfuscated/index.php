@@ -130,7 +130,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				if ($assocProfileDetails = $queriedProfileDetails -> fetch_assoc()) {
 					$profileUsername = htmlspecialchars($assocProfileDetails["username"], ENT_QUOTES);
 					$profileBio = nl2br(htmlspecialchars($assocProfileDetails["biography"], ENT_QUOTES));
-					$userProfile = $assocProfileDetails["username"];
+					$userProfile = $profileUsername;
 					if (empty($loginAlert)) {
 						$profilesPageHTML = "
 						<div id='profileContents'>

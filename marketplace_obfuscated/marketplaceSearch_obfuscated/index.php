@@ -9,6 +9,7 @@ $searchQuery = $_GET["query"];
 $maxResults = 0;
 $marketRows = "";
 $searchError = "";
+$marketplacePageHTML;
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
 function getRandomString($stringLength) {
 	return bin2hex(random_bytes($stringLength / 2));
@@ -149,7 +150,7 @@ if ($mysqliConnection -> connect_errno) {
 						<div class='changePageArrowCont' id='rightArrowCont'></div>
 					</button>") . "
 				</div>
-				<p id='pageCount' class='notSelectable'><input type='number' value='1' max='{$numberOfPages}' min='1' value='1' id='currentPageCount' onkeyup='countFieldMarketFetch(Event)' onkeydown='cancelCountFieldIncrementTimeout(Event)'> of <span id='maxPagesCount'>{$numberOfPages}</span> pages</p>
+				<p id='pageCount' class='notSelectable'><input type='number' value='1' value='1' id='currentPageCount' onkeyup='countFieldMarketFetch(Event)' onkeydown='cancelCountFieldIncrementTimeout(Event)'> of <span id='maxPagesCount'>{$numberOfPages}</span> pages</p>
 			</div>";
 			$marketplacePageHTML = "
 			<div id='mainCont'>

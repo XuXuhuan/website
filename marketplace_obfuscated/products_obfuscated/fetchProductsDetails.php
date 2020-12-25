@@ -70,7 +70,7 @@ $_POST["page"] > 0 &&
 								"productImageURL" => $productImageURL,
 								"productID" => $assocProductsDetails["productID"],
 								"productName" => htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES),
-								"productInfo" => htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES),
+								"productInfo" => nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES)),
 								"productRating" => $productRating
 							);
 						}

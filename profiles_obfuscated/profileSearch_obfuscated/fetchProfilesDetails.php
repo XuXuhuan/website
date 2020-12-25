@@ -36,7 +36,7 @@ else if (!empty($searchQuery) && !empty($pageCount) && preg_match("/[^0-9]/", $p
 						} else {
 							$assocReturn["profileDetails"][] = array("profileID" => $assocProfilesDetails["accountID"],
 								"profileUsername" => htmlspecialchars($assocProfilesDetails["username"], ENT_QUOTES),
-								"profileBiography" => htmlspecialchars($assocProfilesDetails["biography"], ENT_QUOTES)
+								"profileBiography" => nl2br(htmlspecialchars($assocProfilesDetails["biography"], ENT_QUOTES))
 							);
 						}
 					}

@@ -35,7 +35,7 @@ if ($mysqliConnection -> connect_errno) {
 		$getEmail = $mysqliConnection -> real_escape_string($_GET["email"]);
 		$getVerifToken = $mysqliConnection -> real_escape_string($_GET["token"]);
 		$selectEmailUsersQuery = "
-		SELECT username, accountID
+		SELECT username
 		FROM accountdetails
 		WHERE email = '{$getEmail}'
 		AND accountDeletionToken = '{$getVerifToken}'
@@ -43,8 +43,7 @@ if ($mysqliConnection -> connect_errno) {
 		if ($queriedEmailUsers = $mysqliConnection -> query($selectEmailUsersQuery)) {
 			if ($queriedEmailUsers -> num_rows > 0) {
 				if ($assocEmailUsers = $queriedEmailUsers -> fetch_assoc()) {
-					$dbUsername = $assocEmailUsers["username"];
-					$dbAccountID = $assocEmailUsers["accountID"];
+					$dbUsername = htmlspecialchars($assocEmailUsers["username"], ENT_QUOTES);
 					$updateVerificationQuery = "
 					DELETE FROM accountdetails
 					WHERE accountDeletionToken = '{$getVerifToken}'

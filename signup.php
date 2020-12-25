@@ -8,6 +8,9 @@ $getPass = $mysqliConnection -> real_escape_string($_POST["password"]);
 $getfName = $mysqliConnection -> real_escape_string($_POST["fName"]);
 $getlName = $mysqliConnection -> real_escape_string($_POST["lName"]);
 $getEmail = $mysqliConnection -> real_escape_string($_POST["email"]);
+$escapedUsername = htmlspecialchars($_POST["username"]);
+$escapedFname = htmlspecialchars($_POST["fName"]);
+$encodedEmail = urlencode($_POST["email"]);
 function getRandomString($stringLength) {
 	return bin2hex(random_bytes($stringLength / 2));
 }
@@ -26,12 +29,12 @@ $assocReturn = array(
 		"emailError" => ""),
 	"message" => ""
 );
-$emailDOM = '
+$emailDOM = "
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Email Verification · Streetor</title>
-		<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
+		<link href='https://fonts.googleapis.com/css2?family=Baloo+Da+2&family=Montserrat&family=Roboto&display=swap' rel='stylesheet'>
 		<style>
 			body {
 				margin: 0;
@@ -59,18 +62,18 @@ $emailDOM = '
 				background-color: #0e0f2c;
 				text-align: center;
 				color: #ffffff;
-				font-family: Segoe UI, "Montserrat", Verdana, sans-serif;
+				font-family: Segoe UI, 'Montserrat', Verdana, sans-serif;
 				font-size: 30px;
 			}
 			#bodyContainer > tr > td {
 				background-color: #ffffff;
 			}
 			#helloText {
-				font-family: Segoe UI, "Roboto", Helvetica, sans-serif;
+				font-family: Segoe UI, 'Roboto', Helvetica, sans-serif;
 			}
 			#infoText {
 				text-indent: 2em;
-				font-family: Segoe UI, "Baloo Da 2", Arial, sans-serif;
+				font-family: Segoe UI, 'Baloo Da 2', Arial, sans-serif;
 				padding-bottom: 20px;
 			}
 			#verificationLink {
@@ -80,14 +83,14 @@ $emailDOM = '
 				width: 250px;
 				text-align: center;
 				vertical-align: middle;
-				font-family: Segoe UI, "Roboto", Helvetica, sans-serif;
+				font-family: Segoe UI, 'Roboto', Helvetica, sans-serif;
 				font-size: 24px;
 				background-color: #06BA00;
 				text-decoration: none;
 			}
 			#websiteLabel {
 				text-align: center;
-				font-family: Segoe UI, "Montserrat", Verdana, sans-serif;
+				font-family: Segoe UI, 'Montserrat', Verdana, sans-serif;
 			}
 			#footerContainer > tr > td {
 				color: #ffffff;
@@ -98,46 +101,46 @@ $emailDOM = '
 			}
 			#contactCell {
 				text-align: center;
-				font-family: Segoe UI, "Roboto", Helvetica, sans-serif;
+				font-family: Segoe UI, 'Roboto', Helvetica, sans-serif;
 				padding-top: 10px;
 				padding-bottom: 10px;
 			}
 		</style>
 	</head>
 	<body>
-		<table id="outerContainer" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#38444a">
+		<table id='outerContainer' width='100%' border='0' cellspacing='0' cellpadding='0' align='center' bgcolor='#38444a'>
 			<tr>
-				<td id="outerMain">
-					<table id="mainContainer">
+				<td id='outerMain'>
+					<table id='mainContainer'>
 						<thead>
 							<tr>
-								<td id="headerRow">STREETOR</td>
+								<td id='headerRow'>STREETOR</td>
 							</tr>
 						</thead>
-						<tbody id="bodyContainer">
+						<tbody id='bodyContainer'>
 							<tr>
 								<td>
-									<h1 id="helloText">Hello ' . $getfName . ',</h1>
+									<h1 id='helloText'>Hello {$escapedFname},</h1>
 								</td>
 							</tr>
 							<tr>
-								<td id="infoText">An account, under the name of ' . $getUser . ', has been registered under your email. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
+								<td id='infoText'>An account, under the name of {$escapedUsername}, has been registered under your email. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
 							</tr>
 							<tr>
-								<td align="center" style="padding-bottom: 20px;">
-									<a id="verificationLink" href="https://www.streetor.sg/emailVerification/?email=' . $getEmail . '&token=' . $randomString . '">
+								<td align='center' style='padding-bottom: 20px;'>
+									<a id='verificationLink' href='https://www.streetor.sg/emailVerification/?email={$encodedEmail}&token={$randomString}'>
 										Verify your email
 									</a>
 								</td>
 							</tr>
 						</tbody>
-						<tfoot id="footerContainer">
+						<tfoot id='footerContainer'>
 							<tr>
-								<td id="websiteLabel">streetor.sg</td>
+								<td id='websiteLabel'>streetor.sg</td>
 							</tr>
 							<tr>
-								<td id="contactCell">
-									<a href="mailto:support@streetor.sg">Contact Support</a>
+								<td id='contactCell'>
+									<a href='mailto:support@streetor.sg'>Contact Support</a>
 								</td>
 							</tr>
 						</tfoot>
@@ -146,7 +149,7 @@ $emailDOM = '
 			</tr>
 		</table>
 	</body>
-</html>';
+</html>";
 if ($mysqliConnection -> connect_errno) {
 	$assocReturn["message"] = "A connection error occurred. Please try again later.";
 } else {
@@ -229,7 +232,7 @@ if ($mysqliConnection -> connect_errno) {
 				ON DUPLICATE KEY UPDATE
 				rememberID = '{$onDuplicateRememberID}'";
 				if ($insertedData = $mysqliConnection -> query($insertDataQuery)) {
-					if (mail($getEmail, "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
+					if (mail($_POST["email"], "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
 						$assocReturn["message"] = "An email has been sent to your email address for verification.";
 					} else {
 						$assocReturn["message"] = "An error occurred and a verification email was not sent to the input email address. You can go to the <a href='https://www.streetor.sg/login/'>log in</a> page or settings page to re-send the email.";

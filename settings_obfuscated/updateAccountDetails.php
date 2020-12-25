@@ -49,7 +49,7 @@ if ($mysqliConnection -> connect_errno) {
 				case "1": //change username
 					$changeContent = $mysqliConnection -> real_escape_string($_POST["content"]);
 					$assocReturn["leftoverCooldown"] = 0;
-					if (preg_match("/[^a-z0-9._]/i", $changeContent) == true) {
+					if (preg_match("/[^a-z0-9._]/i", $_POST["content"]) == true) {
 						$assocReturn["message"] = "Username may only contain letters, numbers, . and _.";
 					}
 					else if (empty(trim($changeContent))) {
@@ -69,9 +69,9 @@ if ($mysqliConnection -> connect_errno) {
 						if ($queriedNeededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 							if ($queriedNeededDetails -> num_rows > 0) {
 								if ($assocNeededDetails = $queriedNeededDetails -> fetch_assoc()) {
-									$dbUsername = $assocNeededDetails["username"];
-									$dbFirstName = $assocNeededDetails["firstName"];
-									$dbEmail = $assocNeededDetails["email"];
+									$dbUsername = htmlspecialchars($assocNeededDetails["username"], ENT_QUOTES);
+									$dbFirstName = htmlspecialchars($assocNeededDetails["firstName"], ENT_QUOTES);
+									$dbEmail = urlencode($assocNeededDetails["email"]);
 									$dbLastSentTime = $assocNeededDetails["userChangeTime"];
 									if ((time() - 120) < strtotime($dbLastSentTime)) {
 										$assocReturn["leftoverCooldown"] = strtotime($dbLastSentTime) + 120 - time();
@@ -204,7 +204,7 @@ if ($mysqliConnection -> connect_errno) {
 											</body>
 										</html>";
 										if ($mysqliConnection -> query($updateAccountDetailsQuery)) {
-											if (mail($dbEmail, "Username Change", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
+											if (mail($assocNeededDetails["email"], "Username Change", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
 												$assocReturn["message"] = "An email has been sent to your email address for verification.";
 												$assocReturn["leftoverCooldown"] = 120;
 											} else {
@@ -229,7 +229,7 @@ if ($mysqliConnection -> connect_errno) {
 				case "2": //change password
 					$changeContent = $mysqliConnection -> real_escape_string($_POST["content"]);
 					$assocReturn["leftoverCooldown"] = 0;
-					if (empty(preg_replace("/(strong(er)*)*(complex)*(password[0-9]{0,3})/i", "", $changeContent))) {
+					if (empty(preg_replace("/(strong(er)*)*(complex)*(password[0-9]{0,3})/i", "", $_POST["content"]))) {
 						$assocReturn["newPassError"] = "Please create a stronger password.";
 					}
 					else if (empty(trim($changeContent))) {
@@ -246,9 +246,9 @@ if ($mysqliConnection -> connect_errno) {
 						if ($queriedNeededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 							if ($queriedNeededDetails -> num_rows > 0) {
 								if ($assocNeededDetails = $queriedNeededDetails -> fetch_assoc()) {
-									$dbUsername = $assocNeededDetails["username"];
-									$dbFirstName = $assocNeededDetails["firstName"];
-									$dbEmail = $assocNeededDetails["email"];
+									$dbUsername = htmlspecialchars($assocNeededDetails["username"], ENT_QUOTES);
+									$dbFirstName = htmlspecialchars($assocNeededDetails["firstName"], ENT_QUOTES);
+									$dbEmail = urlencode($assocNeededDetails["email"]);
 									$dbLastSentTime = $assocNeededDetails["passChangeTime"];
 									if ((time() - 120) < strtotime($dbLastSentTime)) {
 										$assocReturn["leftoverCooldown"] = strtotime($dbLastSentTime) + 120 - time();
@@ -382,7 +382,7 @@ if ($mysqliConnection -> connect_errno) {
 											</body>
 										</html>";
 										if ($mysqliConnection -> query($updateAccountDetailsQuery)) {
-											if (mail($dbEmail, "Password Change", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
+											if (mail($assocNeededDetails["email"], "Password Change", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
 												$assocReturn["message"] = "An email has been sent to your email address for verification.";
 												$assocReturn["leftoverCooldown"] = 120;
 											} else {
@@ -425,10 +425,10 @@ if ($mysqliConnection -> connect_errno) {
 						if ($queriedNeededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 							if ($queriedNeededDetails -> num_rows > 0) {
 								if ($assocNeededDetails = $queriedNeededDetails -> fetch_assoc()) {
-									$dbUsername = $assocNeededDetails["username"];
+									$dbUsername = htmlspecialchars($assocNeededDetails["username"], ENT_QUOTES);
 									$dbPassword = $assocNeededDetails["password"];
-									$dbFirstName = $assocNeededDetails["firstName"];
-									$dbEmail = $assocNeededDetails["email"];
+									$dbFirstName = htmlspecialchars($assocNeededDetails["firstName"], ENT_QUOTES);
+									$dbEmail = urlencode($assocNeededDetails["email"]);
 									$dbLastSentTime = $assocNeededDetails["emailChangeTime"];
 									if (password_verify(base64_encode(hash("sha512", $_POST["content2"], true)), $dbPassword) === true) {
 										if ((time() - 120) < strtotime($dbLastSentTime)) {
@@ -562,11 +562,11 @@ if ($mysqliConnection -> connect_errno) {
 												</body>
 											</html>";
 											if ($mysqliConnection -> query($updateAccountDetailsQuery)) {
-												if (mail($changeContent, "Email Change", $verificationEmailDOM, implode(PHP_EOL, $emailHeaders))) {
+												if (mail($assocNeededDetails["email"], "Email Change", $verificationEmailDOM, implode(PHP_EOL, $emailHeaders))) {
 													$assocReturn["leftoverCooldown"] = 120;
 													$assocReturn["message"] = "An email has been sent to your new email address for verification.";
 												} else {
-													$assocReturn["message"] = "An error occurred and emails could not be sent to your email addresses.";
+													$assocReturn["message"] = "An error occurred and an email could not be sent to your email address.";
 												}
 											} else {
 												$assocReturn["message"] = "An error occurred.";

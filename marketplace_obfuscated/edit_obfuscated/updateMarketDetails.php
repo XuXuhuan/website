@@ -135,6 +135,9 @@ if ($mysqliConnection -> connect_errno) {
 							if ($queriedNeededDetailsQuery = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 								if ($queriedNeededDetailsQuery -> num_rows > 0) {
 									if ($assocNeededDetailsQuery = $queriedNeededDetailsQuery -> fetch_assoc()) {
+										$dbFirstName = htmlspecialchars($assocNeededDetailsQuery["firstName"], ENT_QUOTES);
+										$dbMarketName = htmlspecialchars($assocNeededDetailsQuery["marketName"], ENT_QUOTES);
+
 										$randomString = getRandomString(50);
 										$_SESSION["marketDeletionToken"] = isset($_SESSION["marketDeletionToken"]) ? $_SESSION["marketDeletionToken"] : $randomString;
 										$verificationEmailDOM = "
@@ -228,11 +231,11 @@ if ($mysqliConnection -> connect_errno) {
 																<tbody id='bodyContainer'>
 																	<tr>
 																		<td>
-																			<h1 id='helloText'>Hello {$assocNeededDetailsQuery["firstName"]},</h1>
+																			<h1 id='helloText'>Hello {$dbFirstName},</h1>
 																		</td>
 																	</tr>
 																	<tr>
-																		<td id='infoText'>Your market, {$assocNeededDetailsQuery["marketName"]}, has been requested for deletion. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
+																		<td id='infoText'>Your market, {$dbMarketName}, has been requested for deletion. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
 																	</tr>
 																	<tr>
 																		<td align='center' style='padding-bottom: 20px;'>

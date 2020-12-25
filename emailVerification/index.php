@@ -43,7 +43,7 @@ if ($mysqliConnection -> connect_errno) {
 		if ($queriedEmailUsers = $mysqliConnection -> query($selectEmailUsersQuery)) {
 			if ($queriedEmailUsers -> num_rows > 0) {
 				if ($assocEmailUsers = $queriedEmailUsers -> fetch_assoc()) {
-					$dbUsername = $assocEmailUsers["username"];
+					$dbUsername = htmlspecialchars($assocEmailUsers["username"], ENT_QUOTES);
 					$updateVerificationQuery = "
 					UPDATE accountdetails
 					SET emailVerified = 1,

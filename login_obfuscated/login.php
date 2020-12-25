@@ -2,9 +2,10 @@
 session_start();
 date_default_timezone_set("MST");
 $AssocReturn = array("errormessages" => array(
-					"usernameError" => "",
-					"passwordError" => "",
-					"loginError" => ""),
+						"usernameError" => "",
+						"passwordError" => "",
+						"loginError" => ""
+					),
 					"successmessage" => "",
 					"successURL" => "");
 function getRandomString($stringLength) {
@@ -23,9 +24,9 @@ if ($mysqliConnection -> connect_errno) {
 		if (empty(trim($getPass))) {
 			$AssocReturn["errormessages"]["passwordError"] = "This field is required.";
 		}
-		if (empty($AssocReturn["errormessages"]["usernameError"]) === true &&
-			empty($AssocReturn["errormessages"]["paswordError"]) === true &&
-			empty($AssocReturn["errormessages"]["loginError"]) === true) {
+		if (empty($AssocReturn["errormessages"]["usernameError"]) &&
+			empty($AssocReturn["errormessages"]["paswordError"]) &&
+			empty($AssocReturn["errormessages"]["loginError"])) {
 			$checkDetailsQuery = "
 			SELECT accountID, username, password, email, emailVerified, rememberID, 2FAenabled, biography
 			FROM accountdetails

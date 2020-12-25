@@ -21,10 +21,10 @@ if ($mysqliConnection -> connect_errno) {
 		if ($neededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 			if ($neededDetails -> num_rows > 0) {
 				if ($assocNeededDetails = $neededDetails -> fetch_assoc()) {
-				$dbUsername = $assocNeededDetails["username"];
+				$dbUsername = htmlspecialchars($assocNeededDetails["username"], ENT_QUOTES);
 				$dbTokenHash = $assocNeededDetails["tokenHash"];
-				$dbFirstName = $assocNeededDetails["firstName"];
-				$dbEmail = $assocNeededDetails["email"];
+				$dbFirstName = htmlspecialchars($assocNeededDetails["firstName"], ENT_QUOTES);
+				$dbEmail = urlencode($assocNeededDetails["email"]);
 				$dbEmailVerif = $assocNeededDetails["emailVerified"];
 				$dbLastSentTime = $assocNeededDetails["emailVerificationTime"];
 					if ($dbEmailVerif == true) {
@@ -34,12 +34,12 @@ if ($mysqliConnection -> connect_errno) {
 						$assocReturn["leftoverCooldown"] = strtotime($dbLastSentTime) + 120 - time();
 						$assocReturn["message"] = "Please wait until the cooldown is over!";
 					} else {
-						$emailDOM = '
+						$emailDOM = "
 						<!DOCTYPE html>
 						<html>
 							<head>
 								<title>Email Verification · Streetor</title>
-								<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2&family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
+								<link href='https://fonts.googleapis.com/css2?family=Baloo+Da+2&family=Montserrat&family=Roboto&display=swap' rel='stylesheet'>
 								<style>
 									body {
 										margin: 0;
@@ -67,18 +67,18 @@ if ($mysqliConnection -> connect_errno) {
 										background-color: #0e0f2c;
 										text-align: center;
 										color: #ffffff;
-										font-family: Segoe UI, "Montserrat", Verdana, sans-serif;
+										font-family: Segoe UI, 'Montserrat', Verdana, sans-serif;
 										font-size: 30px;
 									}
 									#bodyContainer > tr > td {
 										background-color: #ffffff;
 									}
 									#helloText {
-										font-family: Segoe UI, "Roboto", Helvetica, sans-serif;
+										font-family: Segoe UI, 'Roboto', Helvetica, sans-serif;
 									}
 									#infoText {
 										text-indent: 2em;
-										font-family: Segoe UI, "Baloo Da 2", Arial, sans-serif;
+										font-family: Segoe UI, 'Baloo Da 2', Arial, sans-serif;
 										padding-bottom: 20px;
 									}
 									#verificationLink {
@@ -88,14 +88,14 @@ if ($mysqliConnection -> connect_errno) {
 										width: 250px;
 										text-align: center;
 										vertical-align: middle;
-										font-family: Segoe UI, "Roboto", Helvetica, sans-serif;
+										font-family: Segoe UI, 'Roboto', Helvetica, sans-serif;
 										font-size: 24px;
 										background-color: #06BA00;
 										text-decoration: none;
 									}
 									#websiteLabel {
 										text-align: center;
-										font-family: Segoe UI, "Montserrat", Verdana, sans-serif;
+										font-family: Segoe UI, 'Montserrat', Verdana, sans-serif;
 									}
 									#footerContainer > tr > td {
 										color: #ffffff;
@@ -106,46 +106,46 @@ if ($mysqliConnection -> connect_errno) {
 									}
 									#contactCell {
 										text-align: center;
-										font-family: Segoe UI, "Roboto", Helvetica, sans-serif;
+										font-family: Segoe UI, 'Roboto', Helvetica, sans-serif;
 										padding-top: 10px;
 										padding-bottom: 10px;
 									}
 								</style>
 							</head>
 							<body>
-								<table id="outerContainer" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#38444a">
+								<table id='outerContainer' width='100%' border='0' cellspacing='0' cellpadding='0' align='center' bgcolor='#38444a'>
 									<tr>
-										<td id="outerMain">
-											<table id="mainContainer">
+										<td id='outerMain'>
+											<table id='mainContainer'>
 												<thead>
 													<tr>
-														<td id="headerRow">STREETOR</td>
+														<td id='headerRow'>STREETOR</td>
 													</tr>
 												</thead>
-												<tbody id="bodyContainer">
+												<tbody id='bodyContainer'>
 													<tr>
 														<td>
-															<h1 id="helloText">Hello ' . $dbFirstName . ',</h1>
+															<h1 id='helloText'>Hello {$dbFirstName},</h1>
 														</td>
 													</tr>
 													<tr>
-														<td id="infoText">An account, under the name of ' . $dbUsername . ', has been registered under your email. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
+														<td id='infoText'>An account, under the name of {$dbUsername}, has been registered under your email. To verify that this is you, click the link shown below. This link is valid for 10 minutes.</td>
 													</tr>
 													<tr>
-														<td align="center" style="padding-bottom: 20px;">
-															<a id="verificationLink" href="https://www.streetor.sg/emailVerification/?email=' . $dbEmail . '&token=' . $_SESSION["emailVerifToken"] . '">
+														<td align='center' style='padding-bottom: 20px;'>
+															<a id='verificationLink' href='https://www.streetor.sg/emailVerification/?email={$dbEmail}&token={$_SESSION['emailVerifToken']}'>
 																Verify your email
 															</a>
 														</td>
 													</tr>
 												</tbody>
-												<tfoot id="footerContainer">
+												<tfoot id='footerContainer'>
 													<tr>
-														<td id="websiteLabel">streetor.sg</td>
+														<td id='websiteLabel'>streetor.sg</td>
 													</tr>
 													<tr>
-														<td id="contactCell">
-															<a href="mailto:support@streetor.sg">Contact Support</a>
+														<td id='contactCell'>
+															<a href='mailto:support@streetor.sg'>Contact Support</a>
 														</td>
 													</tr>
 												</tfoot>
@@ -154,11 +154,11 @@ if ($mysqliConnection -> connect_errno) {
 									</tr>
 								</table>
 							</body>
-						</html>';
+						</html>";
 						$emailHeaders[] = "MIME-Version: 1.0";
 						$emailHeaders[] = "Content-type:text/html; charset=utf-8";
 						$emailHeaders[] = "From: <noreply@streetor.sg>";
-						if (mail($dbEmail, "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
+						if (mail($assocNeededDetails["email"], "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
 							$updateVerificationEmailTimeQuery = "
 							UPDATE accountdetails
 							SET emailVerificationTime = NOW(),

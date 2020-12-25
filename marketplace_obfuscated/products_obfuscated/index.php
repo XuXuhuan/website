@@ -123,7 +123,8 @@ if ($mysqliConnection -> connect_errno) {
 							$fifthStarGradient = $averageRating === 5 ? 100 : ($averageRating - 4) * 100;
 							$pageTitle = htmlspecialchars($assocProductDetails["productName"], ENT_QUOTES);
 							$escapedProductName = htmlspecialchars($assocProductDetails["productName"], ENT_QUOTES);
-							$productInfo = empty($assocProductDetails["productInfo"]) ? "No product information found." : htmlspecialchars($assocProductDetails["productInfo"], ENT_QUOTES);
+							$marketName = htmlspecialchars($assocProductDetails["marketName"], ENT_QUOTES);
+							$productInfo = empty($assocProductDetails["productInfo"]) ? "No product information found." : nl2br(htmlspecialchars($assocProductDetails["productInfo"], ENT_QUOTES));
 							if (!empty($foundProductImages)) {
 								$firstProductImageURL = "url({$foundProductImages[0]})";
 								foreach($foundProductImages as $eachImageURL) {
@@ -156,7 +157,7 @@ if ($mysqliConnection -> connect_errno) {
 										<div id='searchForm'>
 											<label for='productSearchField' id='productSearchLabel'>Search</label>
 											<div id='searchBarCont'>
-												<input autocomplete='off' type='text' name='query' id='productSearchField' placeholder='Search In {$assocProductDetails["marketName"]}'>
+												<input autocomplete='off' type='text' name='query' id='productSearchField' placeholder='Search In {$marketName}'>
 												<button id='productSearchButton' type='submit'>
 													<div id='productSearchImage'></div>
 												</button>
@@ -337,8 +338,8 @@ if ($mysqliConnection -> connect_errno) {
 					if ($queriedMarketName = $mysqliConnection -> query($selectMarketNameQuery)) {
 						if ($queriedMarketName -> num_rows > 0) {
 							if ($assocMarketName = $queriedMarketName -> fetch_assoc()) {
-								$pageTitle = $assocMarketName["marketName"];
-								$marketName = $assocMarketName["marketName"];
+								$pageTitle = htmlspecialchars($assocMarketName["marketName"], ENT_QUOTES);
+								$marketName = htmlspecialchars($assocMarketName["marketName"], ENT_QUOTES);
 							} else {
 								$loginAlert = '
 								<div id="alertCont">
@@ -486,8 +487,8 @@ if ($mysqliConnection -> connect_errno) {
 					if ($queriedMarketName = $mysqliConnection -> query($selectMarketNameQuery)) {
 						if ($queriedMarketName -> num_rows > 0) {
 							if ($assocMarketName = $queriedMarketName -> fetch_assoc()) {
-								$pageTitle = $assocMarketName["marketName"];
-								$marketName = $assocMarketName["marketName"];
+								$pageTitle = htmlspecialchars($assocMarketName["marketName"], ENT_QUOTES);
+								$marketName = htmlspecialchars($assocMarketName["marketName"], ENT_QUOTES);
 							} else {
 								$loginAlert = '
 								<div id="alertCont">
