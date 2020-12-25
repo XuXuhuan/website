@@ -10,7 +10,7 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true && isset($_SE
 	$hashedNewToken = hash("sha512", getRandomString(50));
     $updateTokenHashQuery = "
     UPDATE accountdetails
-    SET tokenHash = '{$updateTokenHashQuery}'
+    SET tokenHash = '{$hashedNewToken}'
 	WHERE accountID = '{$_SESSION["userID"]}'";
 	$mysqliConnection -> query($updateTokenHashQuery);
 }

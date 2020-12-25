@@ -18,7 +18,7 @@ if ($mysqliConnection -> connect_error) {
         $neededDetailsQuery = "
         SELECT emailVerified, biography
         FROM accountdetails
-        WHERE accountID = " . $_SESSION["userID"];
+        WHERE accountID = {$_SESSION["userID"]}";
         if ($allNeededDetails = $mysqliConnection -> query($neededDetailsQuery)) {
             if ($allNeededDetails -> num_rows > 0) {
                 if ($assocNeededDetails = $allNeededDetails -> fetch_assoc()) {

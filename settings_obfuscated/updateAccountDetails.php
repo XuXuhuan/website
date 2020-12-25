@@ -52,13 +52,13 @@ if ($mysqliConnection -> connect_errno) {
 					if (preg_match("/[^a-z0-9._]/i", $_POST["content"]) == true) {
 						$assocReturn["message"] = "Username may only contain letters, numbers, . and _.";
 					}
-					else if (empty(trim($changeContent))) {
+					else if (empty(trim($_POST["content"]))) {
 						$assocReturn["message"] = "This field is required.";
 					}
-					else if (strlen(trim($changeContent)) < 3) {
+					else if (strlen(trim($_POST["content"])) < 3) {
 						$assocReturn["message"] = "Username must contain at least 3 characters.";
 					}
-					else if (strlen($changeContent) > 20) {
+					else if (strlen($_POST["content"]) > 20) {
 						$assocReturn["message"] = "Username exceeds the 20 character limit.";
 					} else {
 						$randomString = getRandomString(50);
@@ -254,7 +254,7 @@ if ($mysqliConnection -> connect_errno) {
 										$assocReturn["leftoverCooldown"] = strtotime($dbLastSentTime) + 120 - time();
 										$assocReturn["message"] = "Please wait until the cooldown is over!";
 									} else {
-										$hashedNewPassword = password_hash(base64_encode(hash("sha512", $changeContent, true)), PASSWORD_DEFAULT);
+										$hashedNewPassword = $mysqliConnection -> real_escape_string(password_hash(base64_encode(hash("sha512", $changeContent, true)), PASSWORD_DEFAULT));
 										$updateAccountDetailsQuery = "UPDATE accountdetails
 										SET passChangeTime = NOW(),
 										passChangeToken = '{$_SESSION["passChangeToken"]}',

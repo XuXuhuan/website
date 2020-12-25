@@ -35,7 +35,7 @@ if ($mysqliConnection -> connect_errno) {
 								if ($queriedMarketName -> num_rows === 0) {
 									$updateMarketNameQuery = "UPDATE marketdetails
 									SET marketName = '{$escapedContent}'
-									WHERE marketID = '{$usedMethod["id"]}'";
+									WHERE marketID = '{$escapedMarketID}'";
 									if ($mysqliConnection -> query($updateMarketNameQuery)) {
 										$assocReturn["message"] = "Market name updated.";
 									} else {
@@ -264,7 +264,7 @@ if ($mysqliConnection -> connect_errno) {
 										$updateMarketDetailsQuery = "UPDATE marketdetails
 										SET marketDeletionToken = '{$_SESSION["marketDeletionToken"]}',
 										marketDeletionTime = NOW()
-										WHERE marketID = '{$usedMethod["id"]}'";
+										WHERE marketID = '{$escapedMarketID}'";
 										if ($mysqliConnection -> query($updateMarketDetailsQuery)) {
 											if (mail($assocNeededDetailsQuery["email"], "Market Deletion", $verificationEmailDOM, implode(PHP_EOL, $emailHeaders))) {
 												$assocReturn["leftoverCooldown"] = 120;

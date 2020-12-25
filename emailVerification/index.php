@@ -34,7 +34,7 @@ if ($mysqliConnection -> connect_errno) {
 		$getEmail = $mysqliConnection -> real_escape_string($_GET["email"]);
 		$getVerifToken = $mysqliConnection -> real_escape_string($_GET["token"]);
 		$selectEmailUsersQuery = "
-		SELECT username
+		SELECT username, accountID
 		FROM accountdetails
 		WHERE email = '{$getEmail}'
 		AND emailVerificationToken = '{$getVerifToken}'
@@ -48,7 +48,7 @@ if ($mysqliConnection -> connect_errno) {
 					UPDATE accountdetails
 					SET emailVerified = 1,
 					emailVerificationToken = NULL
-					WHERE username = '{$dbUsername}'";
+					WHERE username = '{$assocEmailUsers["accountID"]}'";
 					if ($updatedVerification = $mysqliConnection -> query($updateVerificationQuery)) {
 						$DOMtitle = "Email Verified! · Streetor";
 						$imageURL = "../Assets/global/CheckMark.png";
