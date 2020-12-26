@@ -51,7 +51,12 @@ body::after{
 	url("../../Assets/darkTheme/person.png")
 	url("../../Assets/darkTheme/CogWheel.png")
 	url("../../Assets/global/market.png")
-	url("../../Assets/darkTheme/privacyLock.png");
+	url("../../Assets/darkTheme/privacyLock.png")
+	url("../../Assets/darkTheme/loading.png")
+	url("../../Assets/darkTheme/search_magnifying_glass.png")
+	url("../../Assets/global/plusSign.png")
+	url("../../Assets/darkTheme/leftArrow.png")
+	url("../../Assets/darkTheme/rightArrow.png");
  }
 #topnav {
 	position: fixed;

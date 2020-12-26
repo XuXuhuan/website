@@ -280,7 +280,7 @@ if ($mysqliConnection -> connect_errno) {
 				LEFT JOIN ratings
 				ON marketproducts.productID = ratings.productID
 				WHERE marketID = '{$escapedMarketID}'
-				ORDER BY ratings.rating DESC
+				ORDER BY ratings.rating DESC, marketproducts.productName
 				LIMIT 10;";
 				$selectProductsDetailsQuery .= "SELECT COUNT(marketID = '{$escapedMarketID}') AS maxResults
 				FROM marketproducts
@@ -426,7 +426,7 @@ if ($mysqliConnection -> connect_errno) {
 				ON marketproducts.productID = ratings.productID
 				WHERE productName LIKE '%{$escapedSearchQuery}%'
 				AND marketID = '{$escapedMarketID}'
-				ORDER BY ratings.rating DESC
+				ORDER BY ratings.rating DESC, marketproducts.productName
 				LIMIT 10;";
 				$selectProductsDetailsQuery .= "SELECT COUNT(productName LIKE '%{$escapedSearchQuery}%') AS maxResults
 				FROM marketproducts

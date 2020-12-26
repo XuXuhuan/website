@@ -565,7 +565,7 @@ main {
 	display: -o-flex;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: baseline;
 	top: 5px;
 	right: 10px;
 	color: var(--UIdefaultTextColor);

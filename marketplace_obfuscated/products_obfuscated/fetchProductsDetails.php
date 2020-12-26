@@ -33,7 +33,7 @@ $_POST["page"] > 0 &&
 		ON marketproducts.productID = ratings.productID
 		WHERE productName LIKE '%{$escapedSearchQuery}%'
 		AND marketID = '{$escapedMarketID}'
-		ORDER BY ratings.rating DESC
+		ORDER BY ratings.rating DESC, marketproducts.productName
 		LIMIT {$escapedMinResults}, {$escapedPageCount};";
 		$selectProductsDetailsQuery .= "SELECT COUNT(productName LIKE '%{$escapedSearchQuery}%' AND marketID = '{$escapedMarketID}') AS maxResults
 		FROM marketproducts
@@ -45,7 +45,7 @@ $_POST["page"] > 0 &&
 		LEFT JOIN ratings
 		ON marketproducts.productID = ratings.productID
 		WHERE marketID = '{$escapedMarketID}'
-		ORDER BY ratings.rating DESC
+		ORDER BY ratings.rating DESC, marketproducts.productName
 		LIMIT {$escapedMinResults}, {$escapedPageCount};";
 		$selectProductsDetailsQuery .= "SELECT COUNT(marketID = '{$escapedMarketID}') AS maxResults
 		FROM marketproducts
