@@ -679,6 +679,18 @@ main {
 	width: fit-content;
 	width: -moz-fit-content;
 }
+#pricingLabel {
+	font-size: 22px;
+	color: #40AF00;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	margin: 0;
+}
+.pricingInfoLabel {
+	font-size: 17px;
+	color: #40AF00;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	margin: 0;
+}
 .productInfoText {
 	font-size: 18px;
 	margin: 0;
@@ -757,7 +769,7 @@ main {
 	color: var(--UIdefaultTextColor);
 }
 #productNameLabel {
-	margin: 0 0 5px 0;
+	margin: 0;
 	color: var(--UIdefaultTextColor);
 	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 27px;

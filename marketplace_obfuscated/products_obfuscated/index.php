@@ -96,7 +96,7 @@ if ($mysqliConnection -> connect_errno) {
 		if (!empty($_GET["prodid"])) {
 			if (!preg_match("/[^0-9]/i", $_GET["prodid"])) {
 				$escapedProductID = $mysqliConnection -> real_escape_string($_GET["prodid"]);
-				$selectProductDetailsQuery = "SELECT marketdetails.marketName, marketproducts.marketID, marketproducts.productID, marketproducts.productName, marketproducts.productInfo, COUNT(ratings.productID = '{$escapedProductID}') AS numberOfRatings, AVG(ratings.rating) AS averageRating
+				$selectProductDetailsQuery = "SELECT marketdetails.marketName, marketproducts.marketID, marketproducts.productID, marketproducts.productName, marketproducts.productInfo, marketproducts.pricing, COUNT(ratings.productID = '{$escapedProductID}') AS numberOfRatings, AVG(ratings.rating) AS averageRating
 				FROM marketproducts
 				JOIN ratings
 				ON ratings.productID = marketproducts.productID
@@ -116,6 +116,7 @@ if ($mysqliConnection -> connect_errno) {
 							$numberOfRatings = $assocProductDetails["numberOfRatings"];
 							$averageRating = empty($assocProductDetails["averageRating"]) ? 0 : $assocProductDetails["averageRating"];
 							$foundProductImages = glob("../../uploads/productPictures/{$assocProductDetails["productID"]}/*.png");
+							$productPricing = number_format($assocProductDetails["pricing"], 2);
 							$firstStarGradient = $averageRating >= 1 ? 100 : $averageRating * 100;
 							$secondStarGradient = $averageRating >= 2 ? 100 : ($averageRating - 1) * 100;
 							$thirdStarGradient = $averageRating >= 3 ? 100 : ($averageRating - 2) * 100;
@@ -169,6 +170,7 @@ if ($mysqliConnection -> connect_errno) {
 										<div id='mainDetailsCont'>
 											<div id='productImageScroller' style='background-image: {$firstProductImageURL}'></div>
 											<h2 id='productNameLabel'>{$escapedProductName}</h2>
+											<p id='pricingLabel'>SGD {$productPricing}</p>
 											<p id='productInfoText'>{$productInfo}</p>
 										</div>
 										<div id='ratingStarRow'>
@@ -273,7 +275,7 @@ if ($mysqliConnection -> connect_errno) {
 		else if (!empty($_GET["marketid"]) && empty($_GET["query"])) {
 			if (!preg_match("/[^0-9]/i", $_GET["marketid"])) {
 				$escapedMarketID = $mysqliConnection -> real_escape_string($_GET["marketid"]);
-				$selectProductsDetailsQuery = "SELECT marketproducts.productID, marketproducts.productName, marketproducts.productInfo, ratings.rating
+				$selectProductsDetailsQuery = "SELECT marketproducts.productID, marketproducts.productName, marketproducts.productInfo, marketproducts.pricing, ratings.rating
 				FROM marketproducts
 				LEFT JOIN ratings
 				ON marketproducts.productID = ratings.productID
@@ -297,6 +299,7 @@ if ($mysqliConnection -> connect_errno) {
 										$escapedProductName = htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES);
 										$escapedProductInfo = empty($assocProductsDetails["productInfo"]) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES));
 										$productRating = empty($assocProductsDetails["rating"]) ? 0 : $assocProductsDetails["rating"];
+										$productPricing = number_format($assocProductsDetails["pricing"], 2);
 										if (!empty($findProductImage)) {
 											$imageFileName = $findProductImage[0];
 										}
@@ -305,6 +308,7 @@ if ($mysqliConnection -> connect_errno) {
 											<img src='{$imageFileName}' alt='Product Image' class='productImage'>
 											<div class='productNameAndInfoCont infoColumnRow'>
 												<a href='https://www.streetor.sg/marketplace/products/?prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
+												<p class='pricingInfoLabel'>SGD {$productPricing}</p>
 												<p class='productInfoText'>{$escapedProductInfo}</p>
 												<div class='productRatingRow'>
 													<p class='ratingLabel'>{$productRating}</p>
@@ -416,7 +420,7 @@ if ($mysqliConnection -> connect_errno) {
 			if (!preg_match("/[^0-9]/i", $_GET["marketid"])) {
 				$escapedSearchQuery = $mysqliConnection -> real_escape_string($_GET["query"]);
 				$escapedMarketID = $mysqliConnection -> real_escape_string($_GET["marketid"]);
-				$selectProductsDetailsQuery = "SELECT marketproducts.productID, marketproducts.productName, marketproducts.productInfo, ratings.rating
+				$selectProductsDetailsQuery = "SELECT marketproducts.productID, marketproducts.productName, marketproducts.productInfo, marketproducts.pricing, ratings.rating
 				FROM marketproducts
 				LEFT JOIN ratings
 				ON marketproducts.productID = ratings.productID
@@ -442,6 +446,7 @@ if ($mysqliConnection -> connect_errno) {
 											$escapedProductName = htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES);
 											$escapedProductInfo = empty($assocProductsDetails["productInfo"]) ? '<b>No description found.</b>' : nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES));
 											$productRating = empty($assocProductsDetails["rating"]) ? 0 : $assocProductsDetails["rating"];
+											$productPricing = number_format($assocProductsDetails["pricing"], 2);
 											if (!empty($findProductImage)) {
 												$imageFileName = $findProductImage[0];
 											}
@@ -450,6 +455,7 @@ if ($mysqliConnection -> connect_errno) {
 												<img src='{$imageFileName}' alt='Product Image' class='productImage'>
 												<div class='productNameAndInfoCont infoColumnRow'>
 													<a href='https://www.streetor.sg/marketplace/products/?prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
+													<p class='pricingInfoLabel'>SGD {$productPricing}</p>
 													<p class='productInfoText'>{$escapedProductInfo}</p>
 													<div class='productRatingRow'>
 														<p class='ratingLabel'>{$productRating}</p>

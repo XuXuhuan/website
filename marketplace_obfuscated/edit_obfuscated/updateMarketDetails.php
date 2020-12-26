@@ -81,48 +81,53 @@ if ($mysqliConnection -> connect_errno) {
 							}
 						break;
 						case 3:
-							$availableCategories = array(
-								"automotive",
-								"babyCare",
-								"books",
-								"CDandVinyl",
-								"clothesAndAccessories",
-								"electronics",
-								"gardening",
-								"outdoorsAndSports",
-								"groceries",
-								"health",
-								"household",
-								"personalCare",
-								"kitchenAndDining",
-								"travelSupplies",
-								"beauty",
-								"moviesAndTV",
-								"musicalInstruments",
-								"officeSupplies",
-								"petSupplies",
-								"software",
-								"tools",
-								"toys",
-								"games"
-							);
-							$updateLines = array();
-							foreach($availableCategories as $category) {
-								if (in_array($category, $usedMethod["categories"])) {
-									$updateLines[] = "{$category} = 1";
-								} else {
-									$updateLines[] = "{$category} = 0";
+							if (count($usedMethod["categories"]) > 0) {
+								$availableCategories = array(
+									"automotive",
+									"babyCare",
+									"books",
+									"CDandVinyl",
+									"clothesAndAccessories",
+									"electronics",
+									"gardening",
+									"outdoorsAndSports",
+									"groceries",
+									"health",
+									"household",
+									"personalCare",
+									"kitchenAndDining",
+									"travelSupplies",
+									"beauty",
+									"moviesAndTV",
+									"musicalInstruments",
+									"officeSupplies",
+									"petSupplies",
+									"software",
+									"tools",
+									"toys",
+									"games"
+								);
+								$updateLines = array();
+								foreach($availableCategories as $category) {
+									if (in_array($category, $usedMethod["categories"])) {
+										$updateLines[] = "{$category} = 1";
+									} else {
+										$updateLines[] = "{$category} = 0";
+									}
 								}
-							}
-							$formattedUpdateLines = implode(",\n", $updateLines);
-							$updateMarketCategories = "UPDATE marketdetails
-							SET {$formattedUpdateLines}
-							WHERE marketID = {$usedMethod["id"]}";
-							if ($mysqliConnection -> query($updateMarketCategories)) {
-								$assocReturn["message"] = "Categories updated.";
-								$assocReturn["isError"] = false;
+								$formattedUpdateLines = implode(",\n", $updateLines);
+								$updateMarketCategories = "UPDATE marketdetails
+								SET {$formattedUpdateLines}
+								WHERE marketID = {$usedMethod["id"]}";
+								if ($mysqliConnection -> query($updateMarketCategories)) {
+									$assocReturn["message"] = "Categories updated.";
+									$assocReturn["isError"] = false;
+								} else {
+									$assocReturn["message"] = "An error occurred.";
+									$assocReturn["isError"] = true;
+								}
 							} else {
-								$assocReturn["message"] = "An error occurred.";
+								$assocReturn["message"] = "Please select at least one category.";
 								$assocReturn["isError"] = true;
 							}
 						break;
@@ -137,7 +142,6 @@ if ($mysqliConnection -> connect_errno) {
 									if ($assocNeededDetailsQuery = $queriedNeededDetailsQuery -> fetch_assoc()) {
 										$dbFirstName = htmlspecialchars($assocNeededDetailsQuery["firstName"], ENT_QUOTES);
 										$dbMarketName = htmlspecialchars($assocNeededDetailsQuery["marketName"], ENT_QUOTES);
-
 										$randomString = getRandomString(50);
 										$_SESSION["marketDeletionToken"] = isset($_SESSION["marketDeletionToken"]) ? $_SESSION["marketDeletionToken"] : $randomString;
 										$verificationEmailDOM = "

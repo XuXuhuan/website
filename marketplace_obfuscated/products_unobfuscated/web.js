@@ -57,6 +57,7 @@ function fetchNewPage(newPage) {
 					<img src='${item["productImageURL"]}' alt='Product Image' class='productImage'>
 					<div class='productNameAndInfoCont infoColumnRow'>
 						<a href='https://www.streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
+						<p class='pricingInfoLabel'>SGD ${item["productPricing"]}</p>
 						<p class='productInfoText'>${item["productInfo"]}</p>
 						<div class='productRatingRow'>
 							<p class='ratingLabel'>${item["productRating"]}</p>
@@ -388,7 +389,7 @@ if (URLparameters.has("marketid")) {
 	marketID = URLparameters.get("marketid");
 } else {
 	if (document.querySelector("#marketID")) {
-		marketID = document.querySelector("#marketID");
+		marketID = document.querySelector("#marketID").innerHTML;
 	}
 }
 refProductSearchField.addEventListener("keyup", function(key) {

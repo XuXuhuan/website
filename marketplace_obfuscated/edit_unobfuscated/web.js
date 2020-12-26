@@ -58,6 +58,13 @@ function setNotification(message, isError) {
 		refNotificationCont.style.top = "-10vh";
 	}, 1000);
 }
+function escapeText(text) {
+	return text.replace(/&/g, "&amp;")
+	.replace(/</g, "&lt;")
+	.replace(/>/g, "&gt;")
+	.replace(/"/g, "&quot;")
+	.replace(/'/g, "&#039;");
+}
 function fetchNewPage(newPage, query) {
 	const refExistingProductsCont = document.querySelector("#existingProductsCont");
 	const refFetchProductsError = document.querySelector("#fetchProductsError");
@@ -77,6 +84,7 @@ function fetchNewPage(newPage, query) {
 						<img src='${item["productImageURL"]}' alt='Product Image' class='productImage'>
 						<div class='productNameAndInfoCont infoColumnRow'>
 							<a href='https://www.streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
+							<p class='pricingInfoLabel'>SGD ${item["productPricing"]}</p>
 							<p class='productInfoText'>${item["productInfo"]}</p>
 							<div class='productRatingRow'>
 								<p class='ratingLabel'>${item["productRating"]}</p>
@@ -279,6 +287,9 @@ function edit_changeMarketCategory() {
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.responseType = "json";
 		document.querySelector("#changeCategoryButtonCont").innerHTML = '<div id="loadingImageCont"></div>';
+		xhr.onerror = function() {
+			setNotification("An error occurred.", true);
+		}
 		xhr.onload = function() {
 			if (xhr.status === 200) {
 				if (xhr.response["message"] === "Categories updated.") {
@@ -420,12 +431,14 @@ function edit_updateMarketBio() {
 	xhr.open("POST", "updateMarketDetails.php", true);
 	xhr.setRequestHeader("Content-type", "application/json");
 	xhr.responseType = "json";
+	document.querySelector("#updateBioButtonCont").innerHTML = '<div id="loadingImageCont"></div>';
 	xhr.onerror = function() {
 		setNotification("An error occurred.", true);
 	}
 	xhr.onload = function() {
 		if (xhr.status === 200) {
 			setNotification(xhr.response["message"], xhr.response["isError"]);
+			document.querySelector("#updateBioButtonCont").innerHTML = "<button id='changeCategoryButton' class='inputMethod' onclick='edit_updateMarketBio()'>Make Changes</button>";
 		} else {
 			setNotification("An error occurred.", true);
 		}
@@ -759,7 +772,7 @@ refProductsButton.addEventListener("click", function() {
 		<h1 class="topHeaderInfo">Products</h1>
 		<div id="productListCont">
 			<div id="productSearchBarContainer">
-				<input type='text' value='${marketProductsFieldValue}' id='productSearchField' placeholder='Search'>
+				<input type='text' value='${escapeText(marketProductsFieldValue)}' id='productSearchField' placeholder='Search'>
 				<button id='productSearchButton' type='submit'>
 					<div id='productSearchImage'></div>
 				</button>
@@ -779,7 +792,7 @@ refProductsButton.addEventListener("click", function() {
 				</div>
 				<div class='infoColumnRow' id='changePageWrapper'>
 					<div id='changePageCont'></div>
-					<p id='pageCount' class='notSelectable'><input type='number' value='1' value='1' id='currentPageCount' onkeyup='countFieldProductFetch(Event)'> of <span id='maxPagesCount'>0</span> pages</p>
+					<p id='pageCount' class='notSelectable'><input type='number' value='1' id='currentPageCount' onkeyup='countFieldProductFetch(Event)'> of <span id='maxPagesCount'>0</span> pages</p>
 				</div>
 			</div>
 		</div>`;

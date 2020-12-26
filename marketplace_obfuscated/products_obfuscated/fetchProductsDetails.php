@@ -27,7 +27,7 @@ $_POST["page"] > 0 &&
 	$selectProductsDetailsQuery;
 	if ($_POST["hasQuery"] == 1) {
 		$escapedSearchQuery = $mysqliConnection -> real_escape_string($_POST["query"]);
-		$selectProductsDetailsQuery = "SELECT marketproducts.productID, marketproducts.productName, marketproducts.productInfo, ratings.rating
+		$selectProductsDetailsQuery = "SELECT marketproducts.productID, marketproducts.productName, marketproducts.productInfo, marketproducts.pricing, ratings.rating
 		FROM marketproducts
 		LEFT JOIN ratings
 		ON marketproducts.productID = ratings.productID
@@ -40,7 +40,7 @@ $_POST["page"] > 0 &&
 		WHERE productName LIKE '%{$escapedSearchQuery}%'
 		AND marketID = '{$escapedMarketID}'";
 	} else {
-		$selectProductsDetailsQuery = "SELECT marketproducts.productID, marketproducts.productName, marketproducts.productInfo, ratings.rating
+		$selectProductsDetailsQuery = "SELECT marketproducts.productID, marketproducts.productName, marketproducts.productInfo, marketproducts.pricing, ratings.rating
 		FROM marketproducts
 		LEFT JOIN ratings
 		ON marketproducts.productID = ratings.productID
@@ -69,6 +69,7 @@ $_POST["page"] > 0 &&
 							$assocReturn["productDetails"][] = array(
 								"productImageURL" => $productImageURL,
 								"productID" => $assocProductsDetails["productID"],
+								"productPricing" => number_format($assocProductsDetails["pricing"], 2),
 								"productName" => htmlspecialchars($assocProductsDetails["productName"], ENT_QUOTES),
 								"productInfo" => nl2br(htmlspecialchars($assocProductsDetails["productInfo"], ENT_QUOTES)),
 								"productRating" => $productRating

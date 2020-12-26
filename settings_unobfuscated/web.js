@@ -61,6 +61,13 @@ refMenuButton.addEventListener("click", function() {
 		refMenuButton.style.animationName = "menuAnimationOpen";
 	}
 });
+function escapeText(text) {
+	return text.replace(/&/g, "&amp;")
+	.replace(/</g, "&lt;")
+	.replace(/>/g, "&gt;")
+	.replace(/"/g, "&quot;")
+	.replace(/'/g, "&#039;");
+}
 function getCookie(cookieName) {
 	var name = cookieName + "=";
 	var decodedCookie = decodeURIComponent(document.cookie);
@@ -901,7 +908,7 @@ refAccountButton.addEventListener("click", function() {
 			<div id="changeUserCont">
 				<div id="newUserCont" style="margin-bottom: 5px;">
 					<label for="newUsername" id="newUsernameLabel">New Username</label>
-					<input type="text" value="${newUsernameText}" onkeyup="validateChangeUserField(Event)" onkeydown="cancelChangeUserFieldTimeout()" placeholder="New Username" autocomplete="off" id="newUsernameField">
+					<input type="text" value="${escapeText(newUsernameText)}" onkeyup="validateChangeUserField(Event)" onkeydown="cancelChangeUserFieldTimeout()" placeholder="New Username" autocomplete="off" id="newUsernameField">
 					<p id="newUsernameError" class="inputErrorText">${newUsernameChangeError}</p>
 				</div>
 				<div class="sendEmailButtonCont" style="height: 40px;">
@@ -924,7 +931,7 @@ refAccountButton.addEventListener("click", function() {
 			<div id="changePassCont">
 				<div id="newPassCont">
 					<label for="newPassword" id="newPasswordLabel">New Password</label>
-					<input type="password" value="${newPasswordText}" onkeyup="validateChangePassFields(Event)" placeholder="New Password" autocomplete="off" id="newPasswordField">
+					<input type="password" value="${escapeText(newPasswordText)}" onkeyup="validateChangePassFields(Event)" placeholder="New Password" autocomplete="off" id="newPasswordField">
 					<button id="newPassShowButton" class="passwordShowButton notSelectable" onclick="newPassFieldShowToggle()">
 						<div class="showPassImage" id="newPassImage"></div>
 					</button>
@@ -933,7 +940,7 @@ refAccountButton.addEventListener("click", function() {
 				<div id="innerConfirmPassCont">
 					<div id="confirmPassCont">
 						<label for="confirmPassword" id="confirmPasswordLabel">Confirm Password</label>
-						<input type="password" value="${confirmPasswordText}" onkeyup="validateChangePassFields(Event)" placeholder="Confirm Password" autocomplete="off" id="confirmPasswordField">
+						<input type="password" value="${escapeText(confirmPasswordText)}" onkeyup="validateChangePassFields(Event)" placeholder="Confirm Password" autocomplete="off" id="confirmPasswordField">
 						<button id="confirmPassShowButton" class="passwordShowButton notSelectable" onclick="confirmPassFieldShowToggle()">
 							<div class="showPassImage" id="confirmPassImage"></div>
 						</button>
@@ -960,12 +967,12 @@ refAccountButton.addEventListener("click", function() {
 			<div id="changeEmailCont">
 				<div id="newEmailCont" style="margin-bottom: 5px;">
 					<label for="newEmail" id="newEmailLabel">New Email</label>
-					<input type="text" value="${newEmailText}" onkeyup="validateChangeEmailField(Event)" onkeydown="cancelChangeEmailFieldTimeout()" placeholder="New Email" autocomplete="off" id="newEmailField">
+					<input type="text" value="${escapeText(newEmailText)}" onkeyup="validateChangeEmailField(Event)" onkeydown="cancelChangeEmailFieldTimeout()" placeholder="New Email" autocomplete="off" id="newEmailField">
 					<p id="newEmailError" class="inputErrorText">${newEmailChangeError}</p>
 				</div>
 				<div id="confirmPasswordNewEmailCont">
 					<label for="newEmailConfirmPassword" id="newEmailConfirmPasswordLabel">Password</label>
-					<input type="password" value="${newEmailConfirmPasswordText}" placeholder="Password" autocomplete="off" id="confirmPasswordNewEmailField" onkeyup="validateNewEmailPasswordField(Event)">
+					<input type="password" value="${escapeText(newEmailConfirmPasswordText)}" placeholder="Password" autocomplete="off" id="confirmPasswordNewEmailField" onkeyup="validateNewEmailPasswordField(Event)">
 					<button id="newEmailConfirmPassShowButton" class="passwordShowButton notSelectable" onclick="newEmailConfirmPassFieldShowToggle()">
 						<div class="showPassImage" id="newEmailConfirmPassImage"></div>
 					</button>
@@ -1065,7 +1072,7 @@ refSecurityButton.addEventListener("click", function() {
 			</div>
 			<div id="confirmPasswordChange2FACont">
 				<label for="change2FAConfirmPassword" id="change2FAConfirmPasswordLabel">Password</label>
-				<input value="${twoFactorAuthConfirmPasswordText}" type="password" placeholder="Password" autocomplete="off" id="confirmPasswordChange2FAField" onkeyup="validateChange2FAPasswordField(Event)">
+				<input value="${escapeText(twoFactorAuthConfirmPasswordText)}" type="password" placeholder="Password" autocomplete="off" id="confirmPasswordChange2FAField" onkeyup="validateChange2FAPasswordField(Event)">
 				<button id="change2FAConfirmPassShowButton" class="passwordShowButton notSelectable" onclick="change2FAConfirmPassFieldShowToggle()">
 					<div class="showPassImage" id="change2FAConfirmPassImage"></div>
 				</button>

@@ -1039,12 +1039,24 @@ main {
 	width: fit-content;
 	width: -moz-fit-content;
 }
+#pricingLabel {
+	font-size: 22px;
+	color: #40AF00;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	margin: 0;
+}
+.pricingInfoLabel {
+	font-size: 17px;
+	color: #40AF00;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	margin: 0;
+}
 .productInfoText {
 	font-size: 18px;
 	margin: 0;
 	font-size: 15px;
 	word-break: break-word;
-	height: 40px;
+	height: 20px;
 	overflow: hidden;
 }
 .productImage {
