@@ -130,7 +130,7 @@ $mysqliConnection -> close();
 if (empty($loginAlert)) {
 	$escapedUsername = htmlspecialchars($_SESSION['username'], ENT_QUOTES);
 	$escapedEmail = htmlspecialchars($_SESSION['email'], ENT_QUOTES);
-	$escapedBiography = nl2br(htmlspecialchars($userBiography, ENT_QUOTES));
+	$escapedBiography = htmlspecialchars($userBiography, ENT_QUOTES);
 	$emailVerificationHTML = $emailIsVerified === "No" ?
 	'<div id="verifyEmailButtonCont" style="height: 40px;">
 		<button class="notSelectable" id="verifyEmailButton" onclick="sendEmailVerification()">Verify Email</button>

@@ -660,7 +660,7 @@ main {
 	flex-direction: column;
 }
 #marketInfoCont > h1 {
-	color: #ffffff;
+	color: var(--UIdefaultTextColor);
 	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 }
 #cancelOperationOverlay {

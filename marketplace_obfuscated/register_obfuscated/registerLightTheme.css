@@ -9,6 +9,7 @@
 	--textFieldColor: #D7D7D7;
 	--defaultButtonTextColor: #ffffff;
 	--showPassLink: url("../../Assets/lightTheme/PasswordVisible.png");
+	--checkBoxBgColor: #46484A;
 }
 @font-face {
 	font-family: MontserratReg;
@@ -594,7 +595,7 @@ main {
 .marketCategoryBox {
 	height: 20px;
 	width: 20px;
-	background-color: var(--textFieldColor);
+	background-color: var(--checkBoxBgColor);
 	cursor: pointer;
 	border-radius: 3px;
 	background-size: 15px;

@@ -57,7 +57,7 @@ if ($mysqliConnection -> connect_errno) {
 						$assocReturn["marketName"] = htmlspecialchars($assocMarketDetails["marketName"], ENT_QUOTES);
 						$findMarketLogo = glob("../../uploads/marketLogos/{$assocMarketDetails["marketID"]}.png");
 						$imageFileName = "../../Assets/global/imageNotFound.png";
-						$assocReturn["marketInfo"] = nl2br(htmlspecialchars($assocMarketDetails['biography'], ENT_QUOTES));
+						$assocReturn["marketInfo"] = htmlspecialchars($assocMarketDetails['biography'], ENT_QUOTES);
 						if (!empty($findMarketLogo)) {
 							$imageFileName = $findMarketLogo[0];
 						}

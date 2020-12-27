@@ -6,6 +6,11 @@
 	--sideMenuTextTransform: scaleX(0);
 	--UIdefaultTextColor: #000000;
 	--UIdefaultColor: #ffffff;
+	--productSearchButtonBgColor: #E6E6E6;
+	--deleteMarketButtonHoverBgColor: #E60505;
+	--UIdefaultInputColor: #E6E6E6;
+	--popUpBgColor: #E1E1E1;
+	--checkBoxBgColor: #919395;
 }
 @font-face {
 	font-family: MontserratReg;
@@ -39,7 +44,12 @@ body::after{
 	url("../../Assets/lightTheme/person.png")
 	url("../../Assets/lightTheme/CogWheel.png")
 	url("../../Assets/global/market.png")
-	url("../../Assets/lightTheme/privacyLock.png");
+	url("../../Assets/lightTheme/privacyLock.png")
+	url("../../Assets/lightTheme/loading.png")
+	url("../../Assets/lightTheme/search_magnifying_glass.png")
+	url("../../Assets/global/plusSign.png")
+	url("../../Assets/lightTheme/leftArrow.png")
+	url("../../Assets/lightTheme/rightArrow.png");
  }
 #topnav {
 	position: fixed;
@@ -429,12 +439,79 @@ main {
 	top: 10vh;
 	z-index: -999;
 }
-@media only screen and (min-width: 425px) {
+@media only screen and (max-width: 426px) {
+	.infoColumnRow, .infoRow {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	#marketLogoImageDisplay {
+		width: 100% !important;
+	}
+}
+@media only screen and (min-width: 427px) {
 	#topnav {
 		padding: 0 2em 0 2em;
 	}
 	#logLabel {
 		font-size: 150%;
+	}
+}
+@media only screen and (max-width: 720px) {
+	#alertCont {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+@media only screen and (min-width: 427px) and (max-width: 768px) {
+	#marketLogoImageDisplay {
+		width: calc(100% + 2em) !important;
+	}
+}
+@media only screen and (max-width: 768px) {
+	#marketLogoRow {
+		justify-content: center;
+		align-items: center;
+		flex-direction: column !important;
+		padding-bottom: 0;
+		border-bottom: 0;
+	}
+	#topnav {
+		padding: 0 1em 0 1em;
+	}
+	#logLabel {
+		font-size: 125%;
+	}
+	#sidenav {
+		width: 100%;
+		height: 90vh;
+		left: -100%;
+	}
+	#editOptions {
+		width: 100%;
+	}
+	#mainCont {
+		flex-direction: column;
+	}
+	#optionsList {
+		flex-direction: row;
+		justify-content: space-around;
+	}
+	.optionButtons {
+		padding: 0 15px 0 15px;
+	}
+	.selectedTab {
+		border-bottom: 3px solid black !important;
+	}
+	.optionButtons:hover {
+		border-bottom: 3px solid rgba(0, 0, 0, 0.4);
+	}
+	.optionsText {
+		padding-top: 15.8px;
+		padding-bottom: 15.8px;
+		width: 100%;
+	}
+	.passwordShowButton {
+		background-color: #E6E6E6;
 	}
 }
 @media only screen and (min-width: 768px) {
@@ -444,10 +521,63 @@ main {
 		max-width: 350px;
 	}
 }
-@media only screen and (max-width: 720px) {
-	#alertCont {
-		margin-left: 10px;
-		margin-right: 10px;
+@media only screen and (min-width: 769px) {
+	#selectedTabLine {
+		position: absolute;
+		background-color: #000000;
+		top: 0;
+		height: 50px;
+		width: 3px;
+		-webkit-transition: top 0.15s ease-out;
+		-o-transition: top 0.15s ease-out;
+		transition: top 0.15s ease-out;
+	}
+	#optionsList {
+		background-color: var(--UIdefaultColor);
+		flex-direction: column;
+		margin-left: 3px;
+	}
+	#editOptions {
+		position: relative;
+		vertical-align: top;
+		height: 100px;
+		width: 200px;
+		margin-left: 1em;
+		margin-right: 1em;
+	}
+	#marketInfoCont {
+		vertical-align: top;
+		margin-top: 30px;
+		margin-right: 2em;
+		height: fit-content;
+		height: -moz-fit-content;
+		width: calc(100% - 4em - 200px);
+	}
+	.topHeaderInfo {
+		margin-top: 0;
+	}
+	.optionButtons {
+		position: relative;
+		padding: 0;
+		border-bottom: 0 !important;
+		border-right: 0 !important;
+		border-top: 0 !important;
+	}
+	.optionButtons:hover {
+		border-left: 3px solid rgba(0, 0, 0, 0.4);
+		--textSize: calc(100% + 3px);
+	}
+	.optionsText {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		padding-top: 15.8px;
+		padding-bottom: 15.8px;
+		width: var(--textSize, 100%);
+	}
+	.passwordShowButton {
+		background-color: #2D2F31;
 	}
 }
 @media only screen and (max-width: 1024px) {
@@ -460,16 +590,651 @@ main {
 		font-size: 200%;
 	}
 }
-@media only screen and (max-width: 768px) {
-	#topnav {
-		padding: 0 1em 0 1em;
+#notificationCont {
+	position: fixed;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 10vh;
+	z-index: 2;
+	top: -10vh;
+	-webkit-transition: top 0.2s linear;
+	-o-transition: top 0.2s linear;
+	transition: top 0.2s linear;
+	overflow: hidden;
+}
+#notificationText {
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	font-size: 25px;
+	margin: 0;
+	color: var(--UIdefaultTextColor);
+}
+#editOptions {
+	margin-top: 30px;
+	z-index: 4;
+}
+#optionsList {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	height: 100%;
+	width: 100%;
+	background-color: var(--UIdefaultColor);
+	margin: 0;
+	list-style: none;
+	padding: 0;
+}
+.optionButtons {
+	display: block;
+	background-color: transparent;
+	justify-content: center;
+	align-items: center;
+	color: var(--UIdefaultTextColor);
+	height: 50px;
+	border: 0;
+	width: 100%;
+	outline: none;
+}
+.optionButtons:hover {
+	cursor: pointer;
+}
+.optionsText {
+	margin: 0;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
+	text-align: center;
+	font-size: 15px;
+}
+#marketInfoCont {
+	position: relative;
+	flex-direction: column;
+}
+#marketInfoCont > h1 {
+	color: var(--UIdefaultTextColor);
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
+}
+#cancelOperationOverlay {
+	display: none;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	z-index: 3;
+}
+.showOverlay {
+	display: block !important;
+}
+.infoRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	width: 100%;
+	background-color: var(--UIdefaultColor);
+	color: var(--UIdefaultTextColor);
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	border-bottom: 1px solid #000000;
+	padding: 15px 1em 15px 1em;
+	align-items: center;
+}
+.infoColumnRow {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	background-color: var(--UIdefaultColor);
+	color: var(--UIdefaultTextColor);
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	border-bottom: 1px solid #000000;
+	padding: 15px 1em 15px 1em;
+}
+.infoColumnRow:nth-last-child(1) {
+	border: 0 !important;
+}
+#marketNameRow {
+	align-items: flex-start;
+	height: 57.91px;
+	-webkit-transition: height 0.3s ease-out;
+	-o-transition: height 0.3s ease-out;
+	transition: height 0.3s ease-out;
+}
+.inputErrorText {
+	margin: 0;
+	font-size: 15px;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
+	color: #ff0000;
+	overflow: hidden;
+	height: 2em;
+}
+#fetchProductsError {
+	height: 20px;
+	max-height: 20px;
+	margin-bottom: 15px;
+}
+#newMarketNameError {
+	font-size: 11px;
+	height: 26.18px;
+	width: 100%;
+}
+.rowInfo {
+	margin: 0;
+	word-break: break-word;
+}
+#marketNameLabel {
+	margin-right: 10px;
+}
+#marketNameValue {
+	position: relative;
+	outline: none;
+}
+#marketNameDetailsCont {
+	flex-grow: 1;
+	justify-content: left;
+}
+.editIcon {
+	background-image: url("../../Assets/lightTheme/editIcon.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	min-height: 15px;
+	min-width: 15px;
+	cursor: pointer;
+	margin-left: 10px;
+	align-self: center;
+}
+.detailsCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+#marketBioField {
+	background-color: var(--UIdefaultInputColor);
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
+	padding: 8px;
+	border-radius: 6px;
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	outline: none;
+	width: 100%;
+	resize: vertical;
+	margin-top: 7px;
+	margin-bottom: 15px;
+}
+#marketBioField::placeholder {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+#marketCategoryCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	margin-bottom: 30px;
+}
+.marketCategoryBox {
+	height: 20px;
+	width: 20px;
+	background-color: var(--checkBoxBgColor);
+	cursor: pointer;
+	border-radius: 3px;
+	background-size: 15px;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.tickedCategoryBox {
+	background-image: url("../../Assets/global/checkBoxCheck.png");
+}
+.categoryBoxCont {
+	width: fit-content;
+	width: -moz-fit-content;
+	margin-right: 20px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.categoryBoxCont:nth-last-child(1) {
+	margin: 0 !important;
+}
+.categoryLabel {
+	margin: 0;
+	font-size: 13px;
+}
+#marketCategoryLabel {
+	margin-bottom: 10px;
+	font-size: 18px;
+}
+#deleteMarketButton {
+	display: block;
+	margin: 8px auto 0 auto;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
+	font-size: 17px;
+	border-radius: 10px;
+	background-color: transparent;
+	color: var(--UIdefaultTextColor);
+	cursor: pointer;
+	outline: none;
+	border: 2px solid #E60505;
+	height: 40px;
+	width: 200px;
+	-webkit-transition: background-color 0.3s ease-out;
+	-o-transition: background-color 0.3s ease-out;
+	transition: background-color 0.3s ease-out;
+}
+#deleteMarketButton:hover {
+	background-color: var(--deleteMarketButtonHoverBgColor);
+}
+#updateBioButtonCont, #changeCategoryButtonCont, #deleteMarketButtonCont {
+	display: block;
+	margin: 0 auto 0 auto;
+	position: relative;
+	height: 40px;
+	width: 200px;
+}
+#updateBioButton, #changeCategoryButton {
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
+	font-size: 17px;
+	border-radius: 10px;
+	background-color: transparent;
+	color: var(--UIdefaultTextColor);
+	cursor: pointer;
+	outline: none;
+	border: 2px solid #40AF00;
+	height: 100%;
+	width: 100%;
+	-webkit-transition: background-color 0.3s ease-out;
+	-o-transition: background-color 0.3s ease-out;
+	transition: background-color 0.3s ease-out;
+}
+#changeCategoryButton:hover {
+	background-color: #40AF00;
+}
+#deleteMarketRow {
+	justify-content: center;
+	align-items: center;
+}
+.newDetailField {
+	position: relative;
+	outline: none;
+	background-color: var(--UIdefaultInputColor);
+	color: var(--UIdefaultTextColor);
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	font-size: 18px;
+	border: 0;
+}
+#marketLogoLabel {
+	margin-right: 10px;
+}
+#marketLogoRow {
+	flex-direction: row;
+}
+#marketLogoImageDisplay {
+	position: relative;
+	height: 300px;
+	width: 400px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: #000000;
+	background-position: center;
+}
+#marketLogoTextOverlay {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.7);
+	opacity: 0;
+	-webkit-transition: opacity 0.2s ease-out;
+	-o-transition: opacity 0.2s ease-out;
+	transition: opacity 0.2s ease-out;
+	cursor: pointer;
+}
+#marketLogoText {
+	color: var(--UIdefaultTextColor);
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
+	font-size: 13px;
+}
+#marketLogoUpload {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+.inputMethod {
+	z-index: 4;
+}
+#productListCont {
+	width: 100%;
+}
+#productSearchBarContainer {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+#productSearchField {
+	outline: none;
+	height: 30px;
+	vertical-align: top;
+	background-color: #ffffff;
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	font-size: 15px;
+	border-radius: 4px 0 0 4px;
+	height: 35px;
+	min-width: 238px;
+	flex-grow: 1;
+	padding: 0 0 0 5px;
+}
+#productSearchButton {
+	outline: none;
+	float: right;
+	border: 0;
+	padding: 10px 12.5px;
+	background-color: var(--productSearchButtonBgColor);
+	cursor: pointer;
+	border-radius: 0 4px 4px 0;
+}
+#productSearchImage {
+	background-image: url("../../Assets/lightTheme/search_magnifying_glass.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 15px;
+	width: calc(733 / 680 * 15px);
+}
+#newProductCont {
+	margin-bottom: 15px;
+}
+.productContentsRow {
+	position: relative;
+	height: 130px;
+	color: var(--UIdefaultTextColor);
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	background-color: var(--UIdefaultColor);
+	margin-bottom: 10px;
+	border: 0 !important;
+}
+#newProductRow {
+	position: relative;
+	height: auto;
+	color: var(--UIdefaultTextColor);
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	padding: 15px 1em 15px 1em;
+	margin-bottom: 10px;
+	border: 0 !important;
+	justify-content: center;
+}
+.productContentsRow:nth-last-child(1) {
+	margin-bottom: 0 !important;
+}
+.productNameAndInfoCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	padding: 0 0 0 10px !important;
+	height: 100%;
+}
+#newProductInfoCont {
+	height: 100%;
+}
+.productName {
+	position: relative;
+	margin: 0;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	font-size: 25px;
+	width: fit-content;
+	width: -moz-fit-content;
+}
+#newProductLabel {
+	font-size: 20px;
+}
+#pageHeader {
+	display: block;
+	position: relative;
+	margin: 0 auto 15px auto;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	width: fit-content;
+	width: -moz-fit-content;
+}
+#pricingLabel {
+	font-size: 22px;
+	color: #40AF00;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	margin: 0;
+}
+.pricingInfoLabel {
+	font-size: 17px;
+	color: #40AF00;
+	font-family: RobotoReg, Helvetica, sans-serif;
+	margin: 0;
+}
+.productInfoText {
+	font-size: 18px;
+	margin: 0;
+	font-size: 15px;
+	word-break: break-word;
+	height: 20px;
+	overflow: hidden;
+}
+.productImage {
+	height: 100px;
+	min-height: 100px;
+	max-width: 200px;
+}
+#changePageWrapper {
+	background-color: transparent;
+	align-items: center;
+}
+#changePageCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+#nextPageButton, #prevPageButton {
+	cursor: pointer;
+	background-color: var(--UIdefaultColor);
+	outline: none;
+	border: 0;
+	padding: 9px 10px;
+	border-radius: 3px;
+}
+#nextPageButton {
+	margin-left: 10px;
+}
+#prevPageButton {
+	margin-right: 10px;
+}
+.changePageArrowCont {
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 15px;
+	width: calc(354 / 566 * 15px);
+	cursor: pointer;
+}
+#leftArrowCont {
+	background-image: url("../../Assets/lightTheme/leftArrow.png");
+}
+#rightArrowCont {
+	background-image: url("../../Assets/lightTheme/rightArrow.png");
+}
+#pageCount {
+	font-size: 15px;
+	margin-top: 15px;
+}
+#currentPageCount {
+	-moz-appearance: textfield;
+	width: 30px;
+	outline: none;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	background-color: var(--UIdefaultColor);
+	color: var(--UIdefaultTextColor);
+	border: 0;
+	padding-left: 5px;
+	border-radius: 3px;
+}
+#currentPageCount::-webkit-outer-spin-button, #currentPageCount::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+#resultCount {
+	font-size: 15px;
+	margin: 0;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
+}
+.ratingLabel {
+	display: table-cell;
+	vertical-align: middle;
+	margin: 0 5px 0 0;
+	font-size: 15px;
+	height: 18px;
+}
+.productRatingRow {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+#newProductIcon {
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("../../Assets/lightTheme/newIcon.png");
+	min-height: 19px;
+	min-width: 19px;
+}
+#loadingImageCont {
+	display: block;
+	margin: 0 auto 0 auto;
+	position: relative;
+	background-image: url("../../Assets/lightTheme/loading.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 30px;
+	width: 30px;
+	animation-name: loadingSpin;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: normal;
+}
+@keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
 	}
-	#logLabel {
-		font-size: 125%;
+}
+@-o-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
 	}
-	#sidenav {
-		width: 100%;
-		height: 90vh;
-		left: -100%;
+}
+@-moz-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
 	}
+}
+@-webkit-keyframes loadingSpin {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+.productMenuButtonCont {
+	position: absolute;
+	top: 5px;
+	right: 7px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	z-index: 2;
+}
+.productMenuButtonDot {
+	fill: #000000;
+}
+.productMenuPopUp {
+	position: absolute;
+	right: 140%;
+	top: 10%;
+}
+.productMenuPopUpTail {
+	position: absolute;
+	width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+	border-left: 8px solid var(--popUpBgColor);
+	top: 0;
+	left: 100%;
+	line-height: 40px;
+}
+.productMenuPopUpLink {
+	display: inline-block;
+	position: relative;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
+	font-size: 17px;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	background-color: var(--popUpBgColor);
+	border-radius: 5px 0 5px 5px;
+	min-height: 40px;
+	min-width: 100px;
+	text-align: center;
+	line-height: 40px;
+}
+.hideProductMenuPopUp {
+	display: none !important;
 }

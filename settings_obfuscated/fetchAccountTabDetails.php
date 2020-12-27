@@ -24,7 +24,7 @@ if ($mysqliConnection -> connect_error) {
                 if ($assocNeededDetails = $allNeededDetails -> fetch_assoc()) {
                     $assocReturn["username"] = htmlspecialchars($_SESSION["username"], ENT_QUOTES);
                     $assocReturn["email"] = htmlspecialchars($_SESSION["email"], ENT_QUOTES);
-                    $assocReturn["biographyHTML"] = '<textarea id="bioInput" onkeyup="changeBioValue()" placeholder="Share about yourself in 200 characters." maxlength="200" rows="10">' . nl2br(htmlspecialchars($assocNeededDetails["biography"], ENT_QUOTES)) . '</textarea>';
+                    $assocReturn["biographyHTML"] = '<textarea id="bioInput" onkeyup="changeBioValue()" placeholder="Share about yourself in 200 characters." maxlength="200" rows="10">' . htmlspecialchars($assocNeededDetails["biography"], ENT_QUOTES) . '</textarea>';
                     if ($assocNeededDetails["emailVerified"] == false) {
                         $assocReturn["emailVerifiedRowStyle"] = "padding-bottom: 0;";
                         $assocReturn["emailVerifiedRowInfoStyle"] = "margin-bottom: 10px;";
