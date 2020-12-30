@@ -69,7 +69,7 @@ const _0x49e1 = [
     'preventDefault',
     'onmouseup',
     'search',
-    '</a>\x0a\x09\x09\x09\x09\x09\x09<p\x20class=\x27pricingInfoLabel\x27>SGD\x20',
+    '</a>\x0a\x09\x09\x09\x09\x09\x09<p\x20class=\x27pricingInfoLabel\x27>S$',
     'backgroundColor',
     'rightArrowCont',
     '&rating=',

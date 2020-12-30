@@ -57,11 +57,13 @@ else if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 							if (!file_exists("../../uploads/marketLogos/{$_POST["id"]}.png")) {
 								$fileInfoResource = new finfo(FILEINFO_MIME_TYPE);
 								$fileMIME = $fileInfoResource -> file($_FILES["image"]["tmp_name"]);
-								if (in_array(
+								if (
+									in_array(
 										strtolower(
 											$fileMIME
-										), $acceptedMIMEtypes)
-									) {
+										), $acceptedMIMEtypes
+									)
+								) {
 									if (getimagesize($_FILES["image"]["tmp_name"])[0] >= 150 && getimagesize($_FILES["image"]["tmp_name"])[1] >= 150) {
 										$processedImage;
 										if ($fileMIME === "image/png") {

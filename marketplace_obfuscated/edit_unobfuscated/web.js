@@ -84,7 +84,7 @@ function fetchNewPage(newPage, query) {
 						<img src='${item["productImageURL"]}' alt='Product Image' class='productImage'>
 						<div class='productNameAndInfoCont infoColumnRow'>
 							<a href='https://www.streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
-							<p class='pricingInfoLabel'>SGD ${item["productPricing"]}</p>
+							<p class='pricingInfoLabel'>S$${item["productPricing"]}</p>
 							<p class='productInfoText'>${item["productInfo"]}</p>
 							<div class='productRatingRow'>
 								<p class='ratingLabel'>${item["productRating"]}</p>
@@ -386,41 +386,45 @@ function edit_marketLogoTextOverlayMouseLeave(event) {
 function edit_uploadImageFile() {
 	const refMarketLogoImageDisplay = document.querySelector("#marketLogoImageDisplay");
 	if (acceptedImageFileTypes.test(document.querySelector("#marketLogoUpload").value)) {
-		var pseudoImage = new Image();
-		var newObjectURL = adaptedURL.createObjectURL(document.querySelector("#marketLogoUpload").files[0]);
-		pseudoImage.onload = function () {
-			if (pseudoImage.width >= 150 && pseudoImage.height >= 150) {
-				var dataForm = new FormData();
-				dataForm.append("type", 2);
-				dataForm.append("id", URLparameters.get("id"));
-				dataForm.append("image", document.querySelector("#marketLogoUpload").files[0]);
-				const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-				xhr.open("POST", "changeMarketLogo.php", true);
-				xhr.responseType = "json";
-				xhr.onerror = function() {
-					setNotification("An error occurred.", true);
-				}
-				xhr.onload = function() {
-					if (xhr.status === 200) {
-						if (xhr.response["errormessage"].length === 0) {
-							refMarketLogoImageDisplay.style.backgroundImage = "";
-							refMarketLogoImageDisplay.style.backgroundImage = 'url("' + xhr.response["newMarketLogoURL"] + '")';
-							marketLogoUploaded = true;
-							edit_marketLogoTextOverlaySet();
-						} else {
-							setNotification(xhr.response["errormessage"], 1);
-						}
-					} else {
+		if (document.querySelector("#marketLogoUpload").files[0]["size"] <= 4000000) {
+			var pseudoImage = new Image();
+			var newObjectURL = adaptedURL.createObjectURL(document.querySelector("#marketLogoUpload").files[0]);
+			pseudoImage.onload = function() {
+				if (pseudoImage.width >= 150 && pseudoImage.height >= 150) {
+					var dataForm = new FormData();
+					dataForm.append("type", 2);
+					dataForm.append("id", URLparameters.get("id"));
+					dataForm.append("image", document.querySelector("#marketLogoUpload").files[0]);
+					const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+					xhr.open("POST", "changeMarketLogo.php", true);
+					xhr.responseType = "json";
+					xhr.onerror = function() {
 						setNotification("An error occurred.", true);
 					}
+					xhr.onload = function() {
+						if (xhr.status === 200) {
+							if (xhr.response["errormessage"].length === 0) {
+								refMarketLogoImageDisplay.style.backgroundImage = "";
+								refMarketLogoImageDisplay.style.backgroundImage = 'url("' + xhr.response["newMarketLogoURL"] + '")';
+								marketLogoUploaded = true;
+								edit_marketLogoTextOverlaySet();
+							} else {
+								setNotification(xhr.response["errormessage"], 1);
+							}
+						} else {
+							setNotification("An error occurred.", true);
+						}
+					}
+					xhr.send(dataForm);
+				} else {
+					setNotification("Image must have dimensions of at least 150px by 150px.", true);
 				}
-				xhr.send(dataForm);
-			} else {
-				setNotification("Image must have dimensions of at least 150px by 150px.", true);
+				adaptedURL.revokeObjectURL(newObjectURL);
 			}
-			adaptedURL.revokeObjectURL(newObjectURL);
+			pseudoImage.src = newObjectURL;
+		} else {
+			setNotification("File size too large. Maximum file size is 4MB.", true);
 		}
-		pseudoImage.src = newObjectURL;
 	} else {
 		setNotification("Only JPEG or PNG files are accepted.", true);
 	}
@@ -784,7 +788,7 @@ refProductsButton.addEventListener("click", function() {
 					<div class='productContentsRow infoRow' id="newProductRow">
 						<div id="newProductIcon"></div>
 						<div class='productNameAndInfoCont infoColumnRow' id="newProductInfoCont">
-							<a href='https://www.streetor.sg/marketplace/createProduct/?id=${URLparameters.get("id")}' class='productName' id="newProductLabel">New Product</a>
+							<a href='https://www.streetor.sg/marketplace/products/create/?id=${URLparameters.get("id")}' class='productName' id="newProductLabel">New Product</a>
 						</div>
 					</div>
 				</div>

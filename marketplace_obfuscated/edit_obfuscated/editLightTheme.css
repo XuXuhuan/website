@@ -922,7 +922,7 @@ main {
 	cursor: pointer;
 }
 #marketLogoText {
-	color: var(--UIdefaultTextColor);
+	color: #ffffff;
 	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	font-size: 13px;
 }

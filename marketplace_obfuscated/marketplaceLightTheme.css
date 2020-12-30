@@ -691,7 +691,7 @@ main {
 	width: -moz-fit-content;
 	bottom: 8px;
 	right: 8px;
-	color: rgba(255, 255, 255, var(--textTransparency));
+	color: rgba(255, 255, 255, var(--textTransparency, 1));
 }
 .recommendedMarket {
 	position: relative;
@@ -729,7 +729,7 @@ main {
 	-webkit-transition: border 0.2s linear;
 	-o-transition: border 0.2s linear;
 	transition: border 0.2s linear;
-	border: 0 solid var(--UIdefaultTextColor);
+	border: 0 solid #ffffff;
 }
 #marketplaceSearchButton {
 	outline: none;

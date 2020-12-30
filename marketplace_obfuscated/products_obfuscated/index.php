@@ -170,7 +170,7 @@ if ($mysqliConnection -> connect_errno) {
 										<div id='mainDetailsCont'>
 											<div id='productImageScroller' style='background-image: {$firstProductImageURL}'></div>
 											<h2 id='productNameLabel'>{$escapedProductName}</h2>
-											<p id='pricingLabel'>SGD {$productPricing}</p>
+											<p id='pricingLabel'>S\${$productPricing}</p>
 											<p id='productInfoText'>{$productInfo}</p>
 										</div>
 										<div id='ratingStarRow'>
@@ -308,7 +308,7 @@ if ($mysqliConnection -> connect_errno) {
 											<img src='{$imageFileName}' alt='Product Image' class='productImage'>
 											<div class='productNameAndInfoCont infoColumnRow'>
 												<a href='https://www.streetor.sg/marketplace/products/?prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
-												<p class='pricingInfoLabel'>SGD {$productPricing}</p>
+												<p class='pricingInfoLabel'>S\${$productPricing}</p>
 												<p class='productInfoText'>{$escapedProductInfo}</p>
 												<div class='productRatingRow'>
 													<p class='ratingLabel'>{$productRating}</p>
@@ -455,7 +455,7 @@ if ($mysqliConnection -> connect_errno) {
 												<img src='{$imageFileName}' alt='Product Image' class='productImage'>
 												<div class='productNameAndInfoCont infoColumnRow'>
 													<a href='https://www.streetor.sg/marketplace/products/?prodid={$assocProductsDetails["productID"]}' class='productName'>{$escapedProductName}</a>
-													<p class='pricingInfoLabel'>SGD {$productPricing}</p>
+													<p class='pricingInfoLabel'>S\${$productPricing}</p>
 													<p class='productInfoText'>{$escapedProductInfo}</p>
 													<div class='productRatingRow'>
 														<p class='ratingLabel'>{$productRating}</p>
