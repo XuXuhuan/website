@@ -531,7 +531,7 @@ label[for="productImagesLabel"] {
 	margin-bottom: 10px;
 }
 #uploadProductImageField {
-	position: relative;
+	position: absolute;
 	height: 100%;
 	width: 100%;
 	opacity: 0;
@@ -551,6 +551,7 @@ label[for="productImagesLabel"] {
 	background-size: 50px;
 }
 .productImageDisplay {
+	position: relative;
 	height: 160px;
 	width: 120px;
 	background-color: #000000;

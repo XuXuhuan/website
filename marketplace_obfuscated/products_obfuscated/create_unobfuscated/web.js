@@ -16,16 +16,16 @@ const refProductCreationButtonCont = document.querySelector("#productCreationBut
 const refCreationMessage = document.querySelector("#creationMessage");
 const adaptedURL = window.URL || window.webkitURL;
 const acceptedImageFileTypes = /(\.jpg|\.png|\.jpeg)$/i;
+const URLparameters = new URLSearchParams(window.location.search);
 var uploadedImages = [];
-var uploadedImageFiles = [];
 var checkNotification;
+var checkProductName;
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
 function deleteImage(index) {
 	const refProductImageDisplays = document.querySelectorAll(".customProductImageCont");
 	refProductImageDisplays[index].remove();
 	uploadedImages.splice(index, 1);
-	uploadedImageFiles.splice(index, 1);
 }
 function setNotification(message, isError) {
 	refNotificationCont.style.top = 0;
@@ -55,7 +55,6 @@ refImageUploadField.addEventListener("input", function() {
 					pseudoImage.onload = function() {
 						if (pseudoImage.width >= 150 && pseudoImage.height >= 150) {
 							uploadedImages.push(newObjectURL);
-							uploadedImageFiles.push(item);
 							var newImageCont = document.createElement("div");
 							newImageCont.classList.add("productImageDisplay");
 							newImageCont.classList.add("customProductImageCont");
@@ -81,7 +80,11 @@ refImageUploadField.addEventListener("input", function() {
 		setNotification("Please upload a maximum of 10 images.");
 	}
 });
-refProductNameField.addEventListener("input", function() {
+refProductNameField.addEventListener("keydown", function() {
+	clearTimeout(checkProductName);
+});
+refProductNameField.addEventListener("keyup", function() {
+	clearTimeout(checkProductName);
 	if (refProductNameField.value.trim().length === 0) {
 		refProductNameError.innerHTML = "This field is required.";
 	}
@@ -89,6 +92,23 @@ refProductNameField.addEventListener("input", function() {
 		refProductNameError.innerHTML = "Product name must be under 30 characters long.";
 	} else {
 		refProductNameError.innerHTML = "";
+		checkProductName = setTimeout(function() {
+			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+			xhr.open("POST", "productNameTaken.php", true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.responseType = "text";
+			xhr.onerror = function() {
+				refProductNameError.innerHTML = "An error occurred.";
+			}
+			xhr.onload = function() {
+				if (xhr.status === 200) {
+					refProductNameError.innerHTML = xhr.responseText;
+				} else {
+					refProductNameError.innerHTML = "An error occurred.";
+				}
+			}
+			xhr.send("id=" + encodeURIComponent(URLparameters.get("id")) + "&name=" + encodeURIComponent(refProductNameField.value));
+		}, 350);
 	}
 });
 refProductPriceDollarsField.addEventListener("input", function() {
@@ -99,36 +119,46 @@ refProductPriceDollarsField.addEventListener("input", function() {
 	}
 });
 function create_createProduct() {
-	if (refProductNameField.value.trim() > 0 && parseInt(refProductPriceDollarsField.value) > 0) {
-		const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+	if (refProductNameField.value.trim().length > 0 && parseInt(refProductPriceDollarsField.value) > 0) {
 		refProductCreationButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
-		xhr.open("POST", "createProduct.php", true);
-		xhr.responseType = "json";
+		var placeholderUploadedImages = uploadedImages;
 		var formData = new FormData();
 		var cents = parseInt(refProductPriceCentsField.value) > 0 ? parseInt(refProductPriceCentsField.value) : 0;
-		formData.append("images", uploadedImageFiles);
+		formData.append("id", URLparameters.get("id"));
 		formData.append("name", refProductNameField.value);
 		formData.append("info", refProductInfoField.value);
 		formData.append("priceDollars", parseInt(refProductPriceDollarsField.value));
 		formData.append("priceCents", cents);
-		xhr.onerror = function() {
-			refCreationMessage.innerHTML = "An error occurred.";
-			setNotification("An error occurred.", true);
-		}
-		xhr.onload = function() {
-			if (xhr.status === 200) {
-				if (xhr.response["message"] === "Product Created!") {
-					setNotification(xhr.response["message"], false);
-				}
-				refImageUploadError.innerHTML = xhr.response["productImagesError"];
-				refProductNameError.innerHTML = xhr.response["productNameError"];
-				refProductPriceError.innerHTML = xhr.response["productPriceError"];
-				refCreationMessage.innerHTML = xhr.response["message"];
-				refProductCreationButtonCont.innerHTML = "<button id='productCreationButton' onclick='create_createProduct()'>Create</button>";
-			} else {
-				refCreationMessage.innerHTML = "An error occurred.";
+		placeholderUploadedImages.forEach(async function(item, index) {
+			let fetchImage = await fetch(item).then(response => response.blob());
+			formData.append("image" + (index + 1), fetchImage);
+			if (index === uploadedImages.length - 1) {
+				submitXHR();
 			}
+		});
+		function submitXHR() {
+			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+			xhr.open("POST", "createProduct.php", true);
+			xhr.responseType = "json";
+			xhr.onerror = function() {
+				refCreationMessage.innerHTML = "An error occurred.";
+				setNotification("An error occurred.", true);
+			}
+			xhr.onload = function() {
+				if (xhr.status === 200) {
+					if (xhr.response["message"] === "Product Created!") {
+						setNotification(xhr.response["message"], false);
+					}
+					refImageUploadError.innerHTML = xhr.response["imagesError"];
+					refProductNameError.innerHTML = xhr.response["nameError"];
+					refProductPriceError.innerHTML = xhr.response["priceError"];
+					refCreationMessage.innerHTML = xhr.response["message"];
+					refProductCreationButtonCont.innerHTML = "<button id='productCreationButton' onclick='create_createProduct()'>Create</button>";
+				} else {
+					refCreationMessage.innerHTML = "An error occurred.";
+				}
+			}
+			xhr.send(formData);
 		}
-		xhr.send(formData);
 	}
 }

@@ -285,13 +285,13 @@ if ($mysqliConnection -> connect_errno) {
 							<p id="alertText">No markets owned by you with this ID were found.</p>
 						</div>';
 					}
+					$queriedMarketDetails -> free();
 				} else {
 					$loginAlert = '
 					<div id="alertCont">
 						<p id="alertText">An error occurred.</p>
 					</div>';
 				}
-				$queriedMarketDetails -> free();
 			} else {
 				$logoutOrLogin = "<a href='https://www.streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>";
 				$loginAlert = '

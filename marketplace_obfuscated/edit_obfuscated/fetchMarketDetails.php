@@ -68,6 +68,7 @@ if ($mysqliConnection -> connect_errno) {
 				} else {
 					$assocReturn["message"] = "An error occurred.";
 				}
+				$queriedMarketDetails -> free();
 			} else {
 				$assocReturn["message"] = "No markets owned by you with this ID were found.";
 			}

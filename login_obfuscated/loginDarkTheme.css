@@ -340,7 +340,7 @@ main {
 #logInButton:hover {
 	border-color: #ffffff;
 }
-#signUpLink {
+#signUpLink, #homeLink {
 	display: block;
 	margin: 0 auto;
 	color: #4486f4;
@@ -373,6 +373,12 @@ main {
 	animation-timing-function: linear;
 	animation-iteration-count: infinite;
 	animation-direction: normal;
+}
+#midLabel {
+	margin: 10px auto;
+	font-family: MontserratReg, Verdana, sans-serif;
+	font-size: 15px;
+	color: var(--UIdefaultTextColor);
 }
 @keyframes loadingSpin {
 	100% {

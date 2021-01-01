@@ -343,7 +343,7 @@ main {
 #signUpButton:hover {
 	border-color: #ffffff;
 }
-#loginLink {
+#loginLink, #homeLink {
 	display: block;
 	margin: 0 auto;
 	color: #4486f4;
@@ -351,6 +351,12 @@ main {
 	font-size: 15px;
 	width: fit-content;
 	width: -moz-fit-content;
+}
+#midLabel {
+	margin: 10px auto;
+	font-family: MontserratReg, Verdana, sans-serif;
+	font-size: 15px;
+	color: var(--UIdefaultTextColor);
 }
 #signUpButtonCont {
 	position: relative;

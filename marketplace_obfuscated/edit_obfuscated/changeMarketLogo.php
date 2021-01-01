@@ -29,7 +29,7 @@ else if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 						if ($errorCode !== UPLOAD_ERR_OK) {
 							switch($errorCode) {
 								case UPLOAD_ERR_INI_SIZE:
-									$assocReturn["errormessage"] = "Image is larger than file size limit (8MB)";
+									$assocReturn["errormessage"] = "Image is larger than file size limit (4MB)";
 								break;
 								case UPLOAD_ERR_FORM_SIZE:
 									$assocReturn["errormessage"] = "Image exceeds maximum file size directive in form.";
@@ -66,13 +66,15 @@ else if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 								) {
 									if (getimagesize($_FILES["image"]["tmp_name"])[0] >= 150 && getimagesize($_FILES["image"]["tmp_name"])[1] >= 150) {
 										$processedImage;
-										if ($fileMIME === "image/png") {
+										if (strtolower($fileMIME) === "image/png") {
 											$processedImage = imagecreatefrompng($_FILES["image"]["tmp_name"]);
 										}
-										else if ($fileMIME === "image/jpg" || $fileMIME === "image/jpeg") {
+										else if (strtolower($fileMIME) === "image/jpg" || strtolower($fileMIME) === "image/jpeg") {
 											$processedImage = imagecreatefromjpeg($_FILES["image"]["tmp_name"]);
 										}
+										imagesavealpha($processedImage, true);
 										imagepng($processedImage, "../../uploads/marketLogos/{$_POST["id"]}.png");
+										imagedestroy($processedImage);
 										$assocReturn["newMarketLogoURL"] = "../../uploads/marketLogos/{$_POST["id"]}.png";
 									} else {
 										$assocReturn["errormessage"] = "Image must have dimensions of at least 150px by 150px.";

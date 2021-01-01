@@ -215,7 +215,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 	} else {
 		$marketID = $mysqliConnection -> real_escape_string($_GET["id"]);
 		$selectMarketDetailsQuery = "SELECT marketID, marketName, biography,
-		(SELECT COUNT(marketID = '{$marketID}') FROM marketproducts) AS productCount,
+		(SELECT COUNT(marketID = '{$marketID}') FROM marketproducts WHERE marketID = '{$marketID}') AS productCount,
 		(SELECT COUNT(subscribedMarket = '{$marketID}') FROM subscriptions WHERE subscribedMarket = '{$marketID}') AS subscribers,
 		(SELECT COUNT(marketOwner = '{$_SESSION["userID"]}') AS isUserOwner FROM marketdetails WHERE marketID = '{$marketID}' AND marketOwner = '{$_SESSION["userID"]}') AS isUserOwner
 		FROM marketdetails
@@ -224,8 +224,6 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			if ($assocMarketDetails = $queriedMarketDetails -> fetch_assoc()) {
 				if (!empty($assocMarketDetails["marketID"])) {
 					$marketProfile = htmlspecialchars($assocMarketDetails["marketName"], ENT_QUOTES);
-					$findMarketLogo = glob("../uploads/marketLogos/{$assocMarketDetails["marketID"]}.png");
-					$imageFileName = "../../Assets/global/imageNotFound.png";
 					$selectSubscriptionQuery = "SELECT subscribingUser
 					FROM subscriptions
 					WHERE subscribingUser = '{$_SESSION["userID"]}'";
@@ -236,6 +234,8 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 						$subscribeButtonText = "Subscribe";
 						$escapedMarketName = htmlspecialchars($assocMarketDetails['marketName'], ENT_QUOTES);
 						$escapedBiography = empty($assocMarketDetails["biography"]) ? '<b>No information found.</b>' : nl2br(htmlspecialchars($assocMarketDetails['biography'], ENT_QUOTES));
+						$findMarketLogo = glob("../uploads/marketLogos/{$assocMarketDetails["marketID"]}.png");
+						$imageFileName = "../../Assets/global/imageNotFound.png";
 						if (!empty($findMarketLogo)) {
 							$imageFileName = $findMarketLogo[0];
 						}

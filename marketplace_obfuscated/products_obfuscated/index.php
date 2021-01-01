@@ -87,10 +87,6 @@ if ($mysqliConnection -> connect_errno) {
 				}
 			} else {
 				$logoutOrLogin = "<a href='https://www.streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>";
-				$loginAlert = '
-				<div id="alertCont">
-					<p id="alertText">You are logged out. You are now browsing as a guest.</p>
-				</div>';
 			}
 		}
 		if (!empty($_GET["prodid"])) {
@@ -113,139 +109,146 @@ if ($mysqliConnection -> connect_errno) {
 				if ($queriedProductDetails = $mysqliConnection -> query($selectProductDetailsQuery)) {
 					if ($queriedProductDetails -> num_rows > 0) {
 						if ($assocProductDetails = $queriedProductDetails -> fetch_assoc()) {
-							$numberOfRatings = $assocProductDetails["numberOfRatings"];
-							$averageRating = empty($assocProductDetails["averageRating"]) ? 0 : $assocProductDetails["averageRating"];
-							$foundProductImages = glob("../../uploads/productPictures/{$assocProductDetails["productID"]}/*.png");
-							$productPricing = number_format($assocProductDetails["pricing"], 2);
-							$firstStarGradient = $averageRating >= 1 ? 100 : $averageRating * 100;
-							$secondStarGradient = $averageRating >= 2 ? 100 : ($averageRating - 1) * 100;
-							$thirdStarGradient = $averageRating >= 3 ? 100 : ($averageRating - 2) * 100;
-							$fourthStarGradient = $averageRating >= 4 ? 100 : ($averageRating - 3) * 100;
-							$fifthStarGradient = $averageRating === 5 ? 100 : ($averageRating - 4) * 100;
-							$pageTitle = htmlspecialchars($assocProductDetails["productName"], ENT_QUOTES);
-							$escapedProductName = htmlspecialchars($assocProductDetails["productName"], ENT_QUOTES);
-							$marketName = htmlspecialchars($assocProductDetails["marketName"], ENT_QUOTES);
-							$productInfo = empty($assocProductDetails["productInfo"]) ? "No product information found." : nl2br(htmlspecialchars($assocProductDetails["productInfo"], ENT_QUOTES));
-							if (!empty($foundProductImages)) {
-								$firstProductImageURL = "url({$foundProductImages[0]})";
-								foreach($foundProductImages as $eachImageURL) {
-									$productImageURLs .= " url({$eachImageURL})";
+							if (!empty($assocProductDetails["productID"])) {
+								$numberOfRatings = $assocProductDetails["numberOfRatings"];
+								$averageRating = empty($assocProductDetails["averageRating"]) ? 0 : $assocProductDetails["averageRating"];
+								$foundProductImages = glob("../../uploads/productPictures/{$assocProductDetails["productID"]}/*.png");
+								$productPricing = number_format($assocProductDetails["pricing"], 2);
+								$firstStarGradient = $averageRating >= 1 ? 100 : $averageRating * 100;
+								$secondStarGradient = $averageRating >= 2 ? 100 : ($averageRating - 1) * 100;
+								$thirdStarGradient = $averageRating >= 3 ? 100 : ($averageRating - 2) * 100;
+								$fourthStarGradient = $averageRating >= 4 ? 100 : ($averageRating - 3) * 100;
+								$fifthStarGradient = $averageRating === 5 ? 100 : ($averageRating - 4) * 100;
+								$pageTitle = htmlspecialchars($assocProductDetails["productName"], ENT_QUOTES);
+								$escapedProductName = htmlspecialchars($assocProductDetails["productName"], ENT_QUOTES);
+								$marketName = htmlspecialchars($assocProductDetails["marketName"], ENT_QUOTES);
+								$productInfo = empty($assocProductDetails["productInfo"]) ? "No product information found." : nl2br(htmlspecialchars($assocProductDetails["productInfo"], ENT_QUOTES));
+								if (!empty($foundProductImages)) {
+									$firstProductImageURL = "url({$foundProductImages[0]})";
+									foreach($foundProductImages as $eachImageURL) {
+										$productImageURLs .= " url({$eachImageURL})";
+									}
+								} else {
+									$productImageURLs = "url(../../Assets/global/imageNotFound.png)";
+									$firstProductImageURL = "url(../../Assets/global/imageNotFound.png)";
 								}
+								$headStyles = "
+								<style>
+									body::before{
+										position: absolute;
+										width: 0;
+										height: 0;
+										overflow: hidden;
+										z-index: -1;
+										content:{$productImageURLs};
+									}
+								</style>";
+								$productPageHTML = "
+								<div id='mainCont'>
+									<p id='marketID' style='display: none'>{$assocProductDetails["marketID"]}</p>
+									<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
+										<div id='registerMarketplaceImageCont'></div>
+										Register
+									</a>
+									<div id='productContents'>
+										<div id='searchFormCont'>
+											<div id='searchForm'>
+												<label for='productSearchField' id='productSearchLabel'>Search</label>
+												<div id='searchBarCont'>
+													<input autocomplete='off' type='text' name='query' id='productSearchField' placeholder='Search In {$marketName}'>
+													<button id='productSearchButton' type='submit'>
+														<div id='productSearchImage'></div>
+													</button>
+												</div>
+												<p class='inputErrorText' id='searchErrorText'></p>
+											</div>
+										</div>
+										<div id='productDetailsContainer'>
+											<div id='mainDetailsCont'>
+												<div id='productImageScroller' style='background-image: {$firstProductImageURL}'></div>
+												<h2 id='productNameLabel'>{$escapedProductName}</h2>
+												<p id='pricingLabel'>S\${$productPricing}</p>
+												<p id='productInfoText'>{$productInfo}</p>
+											</div>
+											<div id='ratingStarRow'>
+												<p id='ratingLabel'>{$averageRating} ({$numberOfRatings})</p>
+												<div id='ratingStarCont'>
+													<div id='firstStarOuterCont'>
+														<svg height='18' width='18' id='firstStar' class='ratingStar'>
+															<defs>
+																<linearGradient class='starGradient' id='firstStarGradient'>
+																	<stop offset='{$firstStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																	<stop offset='{$firstStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+																</linearGradient>
+															</defs>
+															<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#firstStarGradient);'></polygon>
+														</svg>
+														<div id='firstStarLeftHalf' class='ratingStarLeftHalf'></div>
+														<div id='firstStarRightHalf' class='ratingStarRightHalf'></div>
+													</div>
+													<div id='secondStarOuterCont'>
+														<svg height='18' width='18' id='secondStar' class='ratingStar'>
+															<defs>
+																<linearGradient class='starGradient' id='secondStarGradient'>
+																	<stop offset='{$secondStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																	<stop offset='{$secondStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+																</linearGradient>
+															</defs>
+															<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#secondStarGradient);'></polygon>
+														</svg>
+														<div id='secondStarLeftHalf' class='ratingStarLeftHalf'></div>
+														<div id='secondStarRightHalf' class='ratingStarRightHalf'></div>
+													</div>
+													<div id='thirdStarOuterCont'>
+														<svg height='18' width='18' id='thirdStar' class='ratingStar'>
+															<defs>
+																<linearGradient class='starGradient' id='thirdStarGradient'>
+																	<stop offset='{$thirdStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																	<stop offset='{$thirdStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+																</linearGradient>
+															</defs>
+															<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#thirdStarGradient);'></polygon>
+														</svg>
+														<div id='thirdStarLeftHalf' class='ratingStarLeftHalf'></div>
+														<div id='thirdStarRightHalf' class='ratingStarRightHalf'></div>
+													</div>
+													<div id='fourthStarOuterCont'>
+														<svg height='18' width='18' id='fourthStar' class='ratingStar'>
+															<defs>
+																<linearGradient class='starGradient' id='fourthStarGradient'>
+																	<stop offset='{$fourthStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																	<stop offset='{$fourthStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+																</linearGradient>
+															</defs>
+															<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#fourthStarGradient);'></polygon>
+														</svg>
+														<div id='fourthStarLeftHalf' class='ratingStarLeftHalf'></div>
+														<div id='fourthStarRightHalf' class='ratingStarRightHalf'></div>
+													</div>
+													<div id='fifthStarOuterCont'>
+														<svg height='18' width='18' id='fifthStar' class='ratingStar'>
+															<defs>
+																<linearGradient class='starGradient' id='fifthStarGradient'>
+																	<stop offset='{$fifthStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
+																	<stop offset='{$fifthStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
+																</linearGradient>
+															</defs>
+															<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#fifthStarGradient);'></polygon>
+														</svg>
+														<div id='fifthStarLeftHalf' class='ratingStarLeftHalf'></div>
+														<div id='fifthStarRightHalf' class='ratingStarRightHalf'></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>";
 							} else {
-								$productImageURLs = "url(../../Assets/global/imageNotFound.png)";
-								$firstProductImageURL = "url(../../Assets/global/imageNotFound.png)";
+								$loginAlert = '
+								<div id="alertCont">
+									<p id="alertText">An error occurred.</p>
+								</div>';
 							}
-							$headStyles = "
-							<style>
-								body::before{
-									position: absolute;
-									width: 0;
-									height: 0;
-									overflow: hidden;
-									z-index: -1;
-									content:{$productImageURLs};
-								}
-							</style>";
-							$productPageHTML = "
-							<div id='mainCont'>
-								<p id='marketID' style='display: none'>{$assocProductDetails["marketID"]}</p>
-								<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
-									<div id='registerMarketplaceImageCont'></div>
-									Register
-								</a>
-								<div id='productContents'>
-									<div id='searchFormCont'>
-										<div id='searchForm'>
-											<label for='productSearchField' id='productSearchLabel'>Search</label>
-											<div id='searchBarCont'>
-												<input autocomplete='off' type='text' name='query' id='productSearchField' placeholder='Search In {$marketName}'>
-												<button id='productSearchButton' type='submit'>
-													<div id='productSearchImage'></div>
-												</button>
-											</div>
-											<p class='inputErrorText' id='searchErrorText'></p>
-										</div>
-									</div>
-									<div id='productDetailsContainer'>
-										<div id='mainDetailsCont'>
-											<div id='productImageScroller' style='background-image: {$firstProductImageURL}'></div>
-											<h2 id='productNameLabel'>{$escapedProductName}</h2>
-											<p id='pricingLabel'>S\${$productPricing}</p>
-											<p id='productInfoText'>{$productInfo}</p>
-										</div>
-										<div id='ratingStarRow'>
-											<p id='ratingLabel'>{$averageRating} ({$numberOfRatings})</p>
-											<div id='ratingStarCont'>
-												<div id='firstStarOuterCont'>
-													<svg height='18' width='18' id='firstStar' class='ratingStar'>
-														<defs>
-															<linearGradient class='starGradient' id='firstStarGradient'>
-																<stop offset='{$firstStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
-																<stop offset='{$firstStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
-															</linearGradient>
-														</defs>
-														<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#firstStarGradient);'></polygon>
-													</svg>
-													<div id='firstStarLeftHalf' class='ratingStarLeftHalf'></div>
-													<div id='firstStarRightHalf' class='ratingStarRightHalf'></div>
-												</div>
-												<div id='secondStarOuterCont'>
-													<svg height='18' width='18' id='secondStar' class='ratingStar'>
-														<defs>
-															<linearGradient class='starGradient' id='secondStarGradient'>
-																<stop offset='{$secondStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
-																<stop offset='{$secondStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
-															</linearGradient>
-														</defs>
-														<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#secondStarGradient);'></polygon>
-													</svg>
-													<div id='secondStarLeftHalf' class='ratingStarLeftHalf'></div>
-													<div id='secondStarRightHalf' class='ratingStarRightHalf'></div>
-												</div>
-												<div id='thirdStarOuterCont'>
-													<svg height='18' width='18' id='thirdStar' class='ratingStar'>
-														<defs>
-															<linearGradient class='starGradient' id='thirdStarGradient'>
-																<stop offset='{$thirdStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
-																<stop offset='{$thirdStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
-															</linearGradient>
-														</defs>
-														<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#thirdStarGradient);'></polygon>
-													</svg>
-													<div id='thirdStarLeftHalf' class='ratingStarLeftHalf'></div>
-													<div id='thirdStarRightHalf' class='ratingStarRightHalf'></div>
-												</div>
-												<div id='fourthStarOuterCont'>
-													<svg height='18' width='18' id='fourthStar' class='ratingStar'>
-														<defs>
-															<linearGradient class='starGradient' id='fourthStarGradient'>
-																<stop offset='{$fourthStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
-																<stop offset='{$fourthStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
-															</linearGradient>
-														</defs>
-														<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#fourthStarGradient);'></polygon>
-													</svg>
-													<div id='fourthStarLeftHalf' class='ratingStarLeftHalf'></div>
-													<div id='fourthStarRightHalf' class='ratingStarRightHalf'></div>
-												</div>
-												<div id='fifthStarOuterCont'>
-													<svg height='18' width='18' id='fifthStar' class='ratingStar'>
-														<defs>
-															<linearGradient class='starGradient' id='fifthStarGradient'>
-																<stop offset='{$fifthStarGradient}%' stop-color='#e1c900' class='filledStop'></stop>
-																<stop offset='{$fifthStarGradient}%' stop-color='#000000' class='unfilledStop'></stop>
-															</linearGradient>
-														</defs>
-														<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#fifthStarGradient);'></polygon>
-													</svg>
-													<div id='fifthStarLeftHalf' class='ratingStarLeftHalf'></div>
-													<div id='fifthStarRightHalf' class='ratingStarRightHalf'></div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>";
 						} else {
 							$loginAlert = '
 							<div id="alertCont">

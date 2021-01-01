@@ -25,7 +25,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				SELECT accountID, username, tokenHash, email, emailVerificationTime
 				FROM accountdetails
 				WHERE rememberID = '{$rememberMeID}'";
-				if ($queriedDetails = $mysqliConnection -> query($compareDetailsQuery)) {
+				if ($queriedDetails = $mysqliConnection -> query($selectAccountDetailsQuery)) {
 					if ($queriedDetails -> num_rows > 0) {
 						if ($assocQueriedDetails = $queriedDetails -> fetch_assoc()) {
 							$dbAccountID = $assocQueriedDetails["accountID"];
@@ -114,6 +114,8 @@ echo "
                         <p id='logInMessage'>{$loginError}</p>
                     </div>
                     <a href='../' id='signUpLink'>Don&#39;t have an account? Sign up here</a>
+                    <p id='midLabel'>OR</p>
+                    <a href='../home/' id='homeLink'>Browse the website</a>
                 </div>
             </div>
         </main>

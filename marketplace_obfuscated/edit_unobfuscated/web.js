@@ -35,8 +35,13 @@ const availableCategories = [
 	"tools",
 	"toys",
 	"games"];
-var marketLogoUploaded = document.querySelector("#marketLogoImageDisplay").style.backgroundImage !== 'url("../../Assets/global/imageNotFound.png")';
-var marketName = document.querySelector("#marketNameValue").innerHTML;
+var marketLogoUploaded;
+var marketName;
+if (document.querySelector("#marketLogoImageDisplay")) {
+	marketLogoUploaded = document.querySelector("#marketLogoImageDisplay").style.backgroundImage !== 'url("../../Assets/global/imageNotFound.png")';
+	marketName = document.querySelector("#marketNameValue").innerHTML;
+	edit_marketLogoTextOverlaySet();
+}
 var checkNotification;
 var checkMarketName;
 var checkDeleteMarket;
@@ -174,7 +179,6 @@ function fetchNewPage(newPage, query) {
 }
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
-edit_marketLogoTextOverlaySet();
 refMenuButton.addEventListener("click", function() {
 	if (refSideNav.classList.contains("openedSideNav") || refMenuButton.style.animationName === "menuAnimationOpen") {
 		refSideNav.classList.remove("openedSideNav");
