@@ -467,7 +467,7 @@ main {
 		height: 90vh;
 		left: -100%;
 	}
-	#marketRegistrationContainer {
+	#productCreationContainer {
 		width: 80% !important;
 	}
 }
@@ -485,9 +485,9 @@ main {
 	}
 }
 @media only screen and (max-width: 424px) {
-	#marketRegistrationContainer {
+	#productCreationContainer {
 		width: 100% !important;
-		margin: 30px 0 0 0 !important;
+		margin-top: 0 !important;
 	}
 }
 #notificationCont {
@@ -514,25 +514,7 @@ main {
 	margin: 0;
 	color: var(--UIdefaultTextColor);
 }
-.infoRow {
-	position: relative;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-}
-.infoColumnRow {
-	position: relative;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-#marketNameCont {
+#productNameCont, #productInfoCont, #productPricingCont, #productImagesCont {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -542,7 +524,43 @@ main {
 	flex-direction: column;
 	width: 100%;
 }
-.marketInputField {
+label[for="productImagesLabel"] {
+	margin-bottom: 10px;
+}
+#uploadProductImageField {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+#productImagesList {
+	position: relative;
+	display: grid;
+	grid-template-rows: repeat(auto-fill, 160px);
+	grid-template-columns: repeat(auto-fill, 120px);
+	gap: 10px;
+	grid-auto-flow: row;
+}
+#newProductImageButton {
+	background-color: #E1E3E5;
+	background-image: url("../../../Assets/lightTheme/newIcon.png");
+	background-size: 50px;
+}
+.productImageDisplay {
+	position: relative;
+	height: 160px;
+	width: 120px;
+	background-color: #000000;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	cursor: pointer;
+}
+#productInfoCont, #productPricingCont {
+	margin-bottom: 15px;
+}
+.productInputField {
 	outline: none;
 	background-color: var(--textFieldColor);
 	color: var(--UIdefaultTextColor);
@@ -554,13 +572,13 @@ main {
 	padding-right: 40px;
 	padding-left: 10px;
 }
-#marketRegistrationLabel {
+#productCreationLabel {
 	display: block;
 	margin: 0 auto 5px auto;
 	width: fit-content;
 	width: -moz-fit-content;
 }
-#marketRegistrationContainer {
+#productCreationContainer {
 	position: relative;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -587,58 +605,16 @@ main {
 	color: #ff0000;
 	overflow: hidden;
 }
-#categoryCont {
-	flex-wrap: wrap;
-	width: 100%;
-	margin-bottom: 30px;
-}
-.marketCategoryBox {
-	height: 20px;
-	width: 20px;
-	background-color: var(--checkBoxBgColor);
-	cursor: pointer;
-	border-radius: 3px;
-	background-size: 15px;
-	background-position: center;
-	background-repeat: no-repeat;
-}
-.tickedCategoryBox {
-	background-image: url("../../Assets/global/checkBoxCheck.png");
-}
-.categoryBoxCont {
-	width: fit-content;
-	width: -moz-fit-content;
-	margin-right: 20px;
-}
-.categoryBoxCont:nth-last-child(1) {
-	margin: 0 !important;
-}
-.categoryLabel {
-	margin: 0;
-	font-size: 13px;
-}
-#registerMessage {
+#creationMessage {
 	margin: 0;
 	height: 2em;
 	font-size: 15px;
 	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
 	text-align: center;
 }
-#marketRegisterButtonCont {
-	position: relative;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 40px;
-}
-#marketRegisterButton {
+#productCreationButton {
 	display: block;
-	background-color: #40AF00;
+	background-color: #000000;
 	color: var(--defaultButtonTextColor);
 	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	font-size: 18px;
@@ -650,17 +626,29 @@ main {
 	border-radius: 7px;
 	border-width: 2px;
 	border-style: solid;
-	border-color: #40AF00;
+	border-color: #000000;
 	-webkit-transition: border-color 0.3s ease;
 	-o-transition: border-color 0.3s ease;
 	transition: border-color 0.3s ease;
 }
-#marketRegisterButton:hover {
+#productCreationButton:hover {
 	border-color: #ffffff;
+}
+#productCreationButtonCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 40px;
 }
 #loadingImageCont {
 	position: relative;
-	background-image: url("../../Assets/lightTheme/loading.png");
+	background-image: url("../../../Assets/lightTheme/loading.png");
 	background-repeat: no-repeat;
 	background-size: contain;
 	height: 30px;
@@ -670,6 +658,42 @@ main {
 	animation-timing-function: linear;
 	animation-iteration-count: infinite;
 	animation-direction: normal;
+}
+#productInfoField {
+	background-color: var(--textFieldColor);
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
+	padding: 8px;
+	border-radius: 6px;
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	outline: none;
+	width: 100%;
+	resize: vertical;
+}
+#productPriceText {
+	margin: 0;
+}
+#productPriceDollars, #productPriceCents {
+	-moz-appearance: textfield;
+	width: 30px;
+	max-height: 100%;
+	outline: none;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	background-color: var(--textFieldColor);
+	color: var(--UIdefaultTextColor);
+	border: 0;
+	padding-left: 5px;
+	border-radius: 3px;
+}
+#productPriceDollars {
+	margin-right: 3px;
+}
+#productPriceCents {
+	margin-left: 3px;
+}
+#productPriceDollars::-webkit-outer-spin-button, #productPriceDollars::-webkit-inner-spin-button, #productPriceCents::-webkit-outer-spin-button, #productPriceCents::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 @keyframes loadingSpin {
 	100% {

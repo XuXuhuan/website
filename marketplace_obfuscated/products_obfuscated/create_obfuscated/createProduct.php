@@ -21,7 +21,7 @@ if ($mysqliConnection -> connect_errno) {
 		if (preg_match("[^0-9]", $_POST["id"])) {
 			$assocReturn["message"] = "Invalid request.";
 		}
-		if (preg_match("[^0-9]", $_POST["priceDollars"]) || preg_match("[^0-9]", $_POST["priceCents"])) {
+		if (preg_match("[^0-9]", $_POST["priceDollars"]) || preg_match("[^0-9]", $_POST["priceCents"]) || (int) $_POST["priceCents"] >= 100 || (int) $_POST["priceDollars"] + (int) $_POST["priceCents"] / 100 <= 0) {
 			$assocReturn["productPriceError"] = "Invalid product price.";
 		}
 		if (empty($assocReturn["imagesError"]) && empty($assocReturn["nameError"]) && empty($assocReturn["priceError"]) && empty($assocReturn["message"])) {

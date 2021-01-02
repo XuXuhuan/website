@@ -111,13 +111,18 @@ refProductNameField.addEventListener("keyup", function() {
 		}, 350);
 	}
 });
-refProductPriceDollarsField.addEventListener("input", function() {
-	if (parseInt(refProductPriceDollarsField.value) > 0) {
-		refProductPriceError.innerHTML = "";
-	} else {
-		refProductPriceError.innerHTML = "This field is required.";
-	}
-});
+document.querySelectorAll("#productPriceDollars, #productPriceCents").forEach(function(item) {
+	item.addEventListener("input", function() {
+		if (parseInt(refProductPriceDollarsField.value) + parseInt(refProductPriceCentsField.value) / 100 <= 0) {
+			refProductPriceError.innerHTML = "This field is required.";
+		}
+		else if (parseInt(refProductPriceCentsField.value) >= 100) {
+			refProductPriceError.innerHTML = "Invalid product price.";
+		} else {
+			refProductPriceError.innerHTML = "";
+		}
+	});
+})
 function create_createProduct() {
 	if (refProductNameField.value.trim().length > 0 && parseInt(refProductPriceDollarsField.value) > 0) {
 		refProductCreationButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
