@@ -82,9 +82,9 @@ function fetchNewPage(newPage, query) {
 	xhr.responseType = "json";
 	xhr.onload = function() {
 		if (xhr.status === 200) {
-			if (xhr.response["errormessage"].length === 0 && xhr.response["productDetails"].length > 0) {
+			refExistingProductsCont.innerHTML = "";
+			if (xhr.response["errormessage"].length === 0) {
 				currentProductsListPage = newPage;
-				refExistingProductsCont.innerHTML = "";
 				xhr.response["productDetails"].forEach(function(item) {
 					refExistingProductsCont.innerHTML += `
 					<div class='productContentsRow infoRow'>
@@ -115,7 +115,7 @@ function fetchNewPage(newPage, query) {
 										Edit
 										<div class='productMenuPopUpTail'></div>
 									</a>
-									<p class='productMenuDelete' data-productid='${item["productID"]}'>Delete</p>
+									<p class='productMenuDelete notSelectable' data-productid='${item["productID"]}'>Delete</p>
 								</span>
 							</div>
 						</div>
@@ -830,7 +830,7 @@ refProductsButton.addEventListener("click", function() {
 });
 refConfirmButton.addEventListener("click", function() {
 	const refConfirmationOverlay = document.querySelector("#confirmationOverlay");
-	if (refConfirmationOverlay.getAttribute("data-destid")) {
+	if (refConfirmationOverlay.getAttribute("data-destid").length > 0) {
 		refConfirmationOverlay.classList.remove("displaying");
 		const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 		xhr.open("POST", "deleteProduct.php", true);
@@ -844,6 +844,7 @@ refConfirmButton.addEventListener("click", function() {
 				if (xhr.responseText === "Product Deleted.") {
 					setNotification(xhr.responseText, false);
 					fetchNewPage(currentProductsListPage, "");
+					refConfirmationOverlay.setAttribute("data-destid", "");
 				} else {
 					setNotification(xhr.responseText, true);
 				}

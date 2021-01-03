@@ -718,3 +718,23 @@ label[for="productImagesLabel"] {
 		transform: rotate(360deg);
 	}
 }
+#backLink {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	color: var(--UIdefaultTextColor);
+	font-size: 15px;
+	text-decoration: none;
+}
+#leftArrowCont {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("../../../Assets/darkTheme/leftArrow.png");
+	width: 7px;
+	height: calc(566 / 354 * 7px);
+	margin-right: 5px;
+}
