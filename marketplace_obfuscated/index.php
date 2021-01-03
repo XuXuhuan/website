@@ -249,7 +249,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 									<circle cx='2.5' cy='17.5' r='2.5' class='menuButtonDot'/>
 								</svg>
 								<span id='popUp' class='hidePopUp'>
-									<a href='https://www.streetor.sg/marketplace/edit/?id=6' id='popUpLink' class='notSelectable'>
+									<a href='https://www.streetor.sg/marketplace/edit/?id={$assocMarketDetails["marketID"]}' id='popUpLink' class='notSelectable'>
 										Manage
 										<div id='popUpTail'></div>
 									</a>
