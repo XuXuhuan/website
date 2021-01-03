@@ -217,6 +217,15 @@ if ($mysqliConnection -> connect_errno) {
 							}
 							$editPageHTML = "
 							<div id='cancelOperationOverlay'></div>
+							<div id='confirmationOverlay' data-destid>
+								<div id='confirmationDialog'>
+									<p id='confirmationText'></p>
+									<div id='confirmationButtonCont'>
+										<button id='confirmButton'>Confirm</button>
+										<button id='cancelButton'>Cancel</button>
+									</div>
+								</div>
+							</div>
 							<nav id='editOptions'>
 								<ul id='optionsList'>
 									<li class='optionItems'>

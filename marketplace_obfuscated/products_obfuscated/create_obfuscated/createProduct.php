@@ -13,10 +13,10 @@ if ($mysqliConnection -> connect_errno) {
 } else {
 	if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 		if (empty($_POST["name"])) {
-			$assocReturn["marketNameError"] = "This field is required.";
+			$assocReturn["nameError"] = "This field is required.";
 		}
 		else if (strlen(trim($_POST["name"])) > 30) {
-			$assocReturn["marketNameError"] = "Product name must be under 30 characters long.";
+			$assocReturn["nameError"] = "Product name must be under 30 characters long.";
 		}
 		if (preg_match("[^0-9]", $_POST["id"])) {
 			$assocReturn["message"] = "Invalid request.";
@@ -127,7 +127,7 @@ if ($mysqliConnection -> connect_errno) {
 								$assocReturn["message"] = "An error occurred.";
 							}
 						} else {
-							$assocReturn["message"] = "Product name already exists in your market.";
+							$assocReturn["nameError"] = "Product name already exists in your market.";
 						}
 						$queriedName -> free();
 					}

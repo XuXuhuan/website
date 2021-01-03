@@ -682,13 +682,13 @@ main {
 #pricingLabel {
 	font-size: 22px;
 	color: #40AF00;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	margin: 0;
 }
 .pricingInfoLabel {
 	font-size: 17px;
 	color: #40AF00;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	margin: 0;
 }
 .productInfoText {

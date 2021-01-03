@@ -1043,13 +1043,13 @@ main {
 #pricingLabel {
 	font-size: 22px;
 	color: #40AF00;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	margin: 0;
 }
 .pricingInfoLabel {
 	font-size: 17px;
 	color: #40AF00;
-	font-family: RobotoReg, Helvetica, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	margin: 0;
 }
 .productInfoText {
@@ -1237,4 +1237,51 @@ main {
 }
 .hideProductMenuPopUp {
 	display: none !important;
+}
+#confirmationOverlay {
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 5;
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+#confirmationDialog {
+	position: absolute;
+	width: 80%;
+	top: calc(50% - 10vh);
+	left: 50%;
+	padding: 10px;
+	transform: translate(-50%, -50%);
+	background-color: var(--UIdefaultColor);
+	color:var(--UIdefaultTextColor);
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	font-size: 15px;
+	max-width: 300px;
+}
+#confirmationText {
+	margin: 0;
+}
+#confirmationButtonCont {
+	margin-top: 15px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+#confirmButton, #cancelButton {
+	background-color: #282A2C;
+	border: 0;
+	color: #ffffff;
+	cursor: pointer;
+	font-size: 15px;
+	padding: 8px 15px;
+	border-radius: 5px;
+	outline: none;
+}
+.displaying {
+	display: block !important;
 }

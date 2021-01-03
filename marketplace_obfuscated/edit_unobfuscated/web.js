@@ -8,6 +8,8 @@ const refNotificationText = document.querySelector("#notificationText");
 const refMarketDetailsButton = document.querySelector("#marketButton");
 const refProductsButton = document.querySelector("#productsButton");
 const refSelectedTabLine = document.querySelector("#selectedTabLine");
+const refConfirmButton = document.querySelector("#confirmButton");
+const refCancelButton = document.querySelector("#cancelButton");
 const URLparameters = new URLSearchParams(window.location.search);
 const adaptedURL = window.URL || window.webkitURL;
 const acceptedImageFileTypes = /(\.jpg|\.png|\.jpeg)$/i;
@@ -113,6 +115,7 @@ function fetchNewPage(newPage, query) {
 										Edit
 										<div class='productMenuPopUpTail'></div>
 									</a>
+									<p class='productMenuDelete' data-productid='${item["productID"]}'>Delete</p>
 								</span>
 							</div>
 						</div>
@@ -122,6 +125,18 @@ function fetchNewPage(newPage, query) {
 					const refPopUp = document.querySelectorAll(".productMenuPopUp");
 					item.addEventListener("click", function() {
 						refPopUp[index].classList.toggle("hideProductMenuPopUp");
+					});
+				});
+				document.querySelectorAll(".productMenuDelete").forEach(function(item, index) {
+					item.addEventListener("click", function() {
+						const refConfirmationOverlay = document.querySelector("#confirmationOverlay");
+						const refConfirmationText = document.querySelector("#confirmationText");
+						const refProductNames = document.querySelectorAll(".productName");
+						refConfirmationText.innerHTML = "Are you sure you want to delete " + refProductNames[index + 1].innerHTML + "? This process cannot be undone!";
+						refConfirmationOverlay.setAttribute("data-destid", item.getAttribute("data-productid"));
+						if (!refConfirmationOverlay.classList.contains("displaying")) {
+							refConfirmationOverlay.classList.add("displaying");
+						}
 					});
 				});
 				if (xhr.response["currentResults"] > 0 && xhr.response["maxResults"] > 0) {
@@ -812,6 +827,36 @@ refProductsButton.addEventListener("click", function() {
 			fetchNewPage(currentProductsListPage, "");
 		}
 	}
+});
+refConfirmButton.addEventListener("click", function() {
+	const refConfirmationOverlay = document.querySelector("#confirmationOverlay");
+	if (refConfirmationOverlay.getAttribute("data-destid")) {
+		refConfirmationOverlay.classList.remove("displaying");
+		const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+		xhr.open("POST", "deleteProduct.php", true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhr.responseType = "text";
+		xhr.onerror = function() {
+			setNotification("An error occurred.", true);
+		}
+		xhr.onload = function() {
+			if (xhr.status === 200) {
+				if (xhr.responseText === "Product Deleted.") {
+					setNotification(xhr.responseText, false);
+					fetchNewPage(currentProductsListPage, "");
+				} else {
+					setNotification(xhr.responseText, true);
+				}
+			} else {
+				setNotification("An error occurred.", true);
+			}
+		}
+		xhr.send("id=" + encodeURIComponent(refConfirmationOverlay.getAttribute("data-destid")));
+	}
+});
+refCancelButton.addEventListener("click", function() {
+	const refConfirmationOverlay = document.querySelector("#confirmationOverlay");
+	refConfirmationOverlay.classList.remove("displaying");
 });
 document.addEventListener("mousedown", function(event) {
 	if (event.detail > 1) {

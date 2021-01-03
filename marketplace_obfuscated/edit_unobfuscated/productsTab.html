@@ -56,7 +56,16 @@
 		</header>
 		<main>
 			<div id='mainCont'>
-				<div id="cancelOperationOverlay"></div>
+				<div id='cancelOperationOverlay'></div>
+				<div id='confirmationOverlay' class='displaying'>
+					<div id='confirmationDialog'>
+						<p id='confirmationText'></p>
+						<div id='confirmationButtonCont'>
+							<button id='confirmButton'>Confirm</button>
+							<button id='cancelButton'>Cancel</button>
+						</div>
+					</div>
+				</div>
 				<nav id='editOptions'>
 					<ul id='optionsList'>
 						<li class='optionItems'>
@@ -72,27 +81,27 @@
 					</ul>
 					<div id='selectedTabLine'></div>
 				</nav>
-				<div id="marketInfoCont">
-					<h1 class="topHeaderInfo">Products</h1>
-					<div id="productListCont">
-						<div id="productSearchBarContainer">
+				<div id='marketInfoCont'>
+					<h1 class='topHeaderInfo'>Products</h1>
+					<div id='productListCont'>
+						<div id='productSearchBarContainer'>
 							<input type='text' id='productSearchField' placeholder='Search'>
 							<button id='productSearchButton' type='submit'>
 								<div id='productSearchImage'></div>
 							</button>
 						</div>
-						<p id="fetchProductsError" class="inputErrorText"></p>
-						<p id="resultCount">10 of 11 results</p>
-						<div id="productRowsContainer">
-							<div id="newProductCont">
-								<div class='productContentsRow infoRow' id="newProductRow">
-									<div id="newProductIcon"></div>
-									<div class='productNameAndInfoCont infoColumnRow' id="newProductInfoCont">
-										<a href='https://www.streetor.sg/marketplace/createProduct/' class='productName' id="newProductLabel">New Product</a>
+						<p id='fetchProductsError' class='inputErrorText'></p>
+						<p id='resultCount'>10 of 11 results</p>
+						<div id='productRowsContainer'>
+							<div id='newProductCont'>
+								<div class='productContentsRow infoRow' id='newProductRow'>
+									<div id='newProductIcon'></div>
+									<div class='productNameAndInfoCont infoColumnRow' id='newProductInfoCont'>
+										<a href='https://www.streetor.sg/marketplace/createProduct/' class='productName' id='newProductLabel'>New Product</a>
 									</div>
 								</div>
 							</div>
-							<div id="existingProductsCont">
+							<div id='existingProductsCont'>
 								<div class='infoColumnRow' id='changePageWrapper'>
 									<div id='changePageCont'></div>
 									<p id='pageCount' class='notSelectable'><input type='number' value='1' max='1' min='1' value='1' id='currentPageCount' onkeyup='countFieldProductFetch(Event)'> of <span id='maxPagesCount'>0</span> pages</p>
