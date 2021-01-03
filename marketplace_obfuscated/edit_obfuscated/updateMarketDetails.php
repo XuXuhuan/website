@@ -38,6 +38,7 @@ if ($mysqliConnection -> connect_errno) {
 									WHERE marketID = '{$escapedMarketID}'";
 									if ($mysqliConnection -> query($updateMarketNameQuery)) {
 										$assocReturn["message"] = "Market name updated.";
+										$assocReturn["newMarketName"] = htmlspecialchars($usedMethod["value"], ENT_QUOTES);
 									} else {
 										$assocReturn["message"] = "An error occurred.";
 									}

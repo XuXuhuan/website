@@ -236,32 +236,7 @@ function edit_validateMarketNameFieldKeyUp(key) {
 	if (key.keyCode === 27) {
 		edit_cancelMarketNameChange();
 	}
-	else if (key.keyCode === 13) {
-		if (refNewMarketNameField.innerHTML.trim().length > 0) {
-			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-			xhr.open("POST", "updateMarketDetails.php", true);
-			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhr.responseType = "json";
-			xhr.onerror = function() {
-				setNotification("An error occurred.", true);
-			}
-			xhr.onload = function() {
-				if (xhr.status === 200) {
-					setNotification("Market Name Changed!", false);
-					marketName = xhr.response["newMarketName"];
-					document.querySelector("#marketNameValue").innerHTML = xhr.response["newMarketName"];
-					refNewMarketNameError.innerHTML = "";
-					marketNameError = "";
-				} else {
-					setNotification("An error occurred.", true);
-				}
-			}
-			xhr.send("type=1&value=" + encodeURIComponent(refNewMarketNameField.innerHTML) + "&id=" + encodeURIComponent(URLparameters.get("id")));
-		} else {
-			refNewMarketNameError.innerHTML = "This field is required.";
-			marketNameError = "This field is required.";
-		}
-	} else {
+	else if (key.keyCode !== 13) {
 		if (refNewMarketNameField.innerHTML.trim().length > 0) {
 			refNewMarketNameError.innerHTML = "";
 			marketNameError = "";
@@ -287,6 +262,7 @@ function edit_validateMarketNameFieldKeyUp(key) {
 			marketNameError = "This field is required.";
 		}
 	}
+	console.log(key.keyCode);
 }
 function edit_changeMarketCategory() {
 	var marketCategories = [];
@@ -322,8 +298,42 @@ function edit_changeMarketCategory() {
 		xhr.send(JSON.stringify(requestJSON));
 	}
 }
-function edit_validateMarketNameFieldKeyDown() {
+function edit_validateMarketNameFieldKeyDown(key) {
+	const refNewMarketNameField = document.querySelector("#marketNameValue");
+	const refNewMarketNameError = document.querySelector("#newMarketNameError");
 	clearTimeout(checkMarketName);
+	if (key.keyCode === 13) {
+		key.preventDefault();
+		if (refNewMarketNameField.innerHTML.trim().length > 0) {
+			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+			xhr.open("POST", "updateMarketDetails.php", true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.responseType = "json";
+			xhr.onerror = function() {
+				setNotification("An error occurred.", true);
+			}
+			xhr.onload = function() {
+				if (xhr.status === 200) {
+					if (xhr.response["message"] === "Market name updated.") {
+						marketName = xhr.response["newMarketName"];
+						document.querySelector("#marketNameValue").innerHTML = xhr.response["newMarketName"];
+						setNotification(xhr.response["message"], false);
+						refNewMarketNameError.innerHTML = "";
+						marketNameError = "";
+					} else {
+						setNotification(xhr.response["message"], true);
+					}
+					edit_cancelMarketNameChange();
+				} else {
+					setNotification("An error occurred.", true);
+				}
+			}
+			xhr.send("type=1&value=" + encodeURIComponent(refNewMarketNameField.innerText) + "&id=" + encodeURIComponent(URLparameters.get("id")));
+		} else {
+			refNewMarketNameError.innerHTML = "This field is required.";
+			marketNameError = "This field is required.";
+		}
+	}
 }
 function edit_marketNameEditIconClick() {
 	const refMarketNameDetailsCont = document.querySelector("#marketNameDetailsCont");
