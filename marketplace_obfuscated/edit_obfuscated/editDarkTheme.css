@@ -710,7 +710,6 @@ main {
 }
 #marketNameRow {
 	align-items: flex-start;
-	height: 57.91px;
 	-webkit-transition: height 0.3s ease-out;
 	-o-transition: height 0.3s ease-out;
 	transition: height 0.3s ease-out;
@@ -739,6 +738,7 @@ main {
 }
 #marketNameLabel {
 	margin-right: 10px;
+	min-width: 124.91px;
 }
 #marketNameValue {
 	position: relative;

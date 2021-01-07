@@ -13,7 +13,7 @@ if ($mysqliConnection -> connect_error) {
         $neededDetailsQuery = "
         SELECT 2FAenabled
         FROM accountdetails
-        WHERE accountID = {$_SESSION["userID"]}";
+        WHERE accountID = '{$_SESSION["userID"]}'";
         if ($allNeededDetails = $mysqliConnection -> query($neededDetailsQuery)) {
             if ($allNeededDetails -> num_rows > 0) {
                 if ($assocNeededDetails = $allNeededDetails -> fetch_assoc()) {

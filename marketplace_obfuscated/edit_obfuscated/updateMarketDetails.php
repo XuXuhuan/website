@@ -119,7 +119,7 @@ if ($mysqliConnection -> connect_errno) {
 								$formattedUpdateLines = implode(",\n", $updateLines);
 								$updateMarketCategories = "UPDATE marketdetails
 								SET {$formattedUpdateLines}
-								WHERE marketID = {$usedMethod["id"]}";
+								WHERE marketID = '{$usedMethod["id"]}'";
 								if ($mysqliConnection -> query($updateMarketCategories)) {
 									$assocReturn["message"] = "Categories updated.";
 									$assocReturn["isError"] = false;

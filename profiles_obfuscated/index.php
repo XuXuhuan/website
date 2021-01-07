@@ -131,7 +131,34 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					$profileUsername = htmlspecialchars($assocProfileDetails["username"], ENT_QUOTES);
 					$profileBio = nl2br(htmlspecialchars($assocProfileDetails["biography"], ENT_QUOTES));
 					$userProfile = $profileUsername;
-					if (empty($loginAlert)) {
+					$selectMarketSubscriptionsQuery = "SELECT marketdetails.marketID, marketdetails.marketName, marketdetails.biography, subscriptions.subscribedMarket
+					FROM subscriptions
+					JOIN marketdetails
+					ON subscriptions.subscribedMarket = marketdetails.marketID
+					WHERE subscriptions.subscribingUser = '{$userID}'";
+					if ($queriedSubscriptions = $mysqliConnection -> query($selectMarketSubscriptionsQuery)) {
+						$subscriptionRows;
+						if ($queriedSubscriptions -> num_rows > 0) {
+							while ($assocQueriedSubscriptions = $queriedSubscriptions -> fetch_assoc()) {
+								$imageFile = "../Assets/global/imageNotFound.png";
+								$foundMarketLogo = glob("../uploads/{$assocQueriedSubscriptions["marketID"]}.png");
+								$escapedMarketName = htmlspecialchars($assocQueriedSubscriptions["marketName"], ENT_QUOTES);
+								$escapedMarketInfo = htmlspecialchars($assocQueriedSubscriptions["biography"], ENT_QUOTES);
+								if (!empty($foundMarketLogo)) {
+									$imageFile = $foundMarketLogo[0];
+								}
+								$subscriptionRows .= "
+								<div class='marketContentsRow'>
+									<img src='{$imageFile}' alt='Market Logo' class='marketLogoImage'>
+									<div class='marketNameAndBioCont'>
+										<a href='https://www.streetor.sg/marketplace/?id={$assocQueriedSubscriptions["marketID"]}' class='marketName'>{$escapedMarketName}</a>
+										<p class='biographyText'>{$escapedMarketInfo}</p>
+									</div>
+								</div>";
+							}
+						} else {
+							$subscriptionRows = "<p id='storeSubscriptionsText'><b>None at the moment.</b></p>";
+						}
 						$profilesPageHTML = "
 						<div id='profileContents'>
 							<div id='searchFormCont'>
@@ -151,8 +178,16 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 							</div>
 							<div class='infoColumnRow'>
 								<h3 id='storeSubscriptionsLabel'>Store Subscriptions</h3>
+								<div id='storeSubscriptionsCont'>
+									{$subscriptionRows}
+								</div>
 							</div>
 						</div>";
+					} else {
+						$loginAlert = '
+						<div id="alertCont">
+							<p id="alertText">An error occurred.</p>
+						</div>';
 					}
 				} else {
 					$loginAlert = '

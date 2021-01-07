@@ -337,14 +337,12 @@ function edit_validateMarketNameFieldKeyDown(key) {
 }
 function edit_marketNameEditIconClick() {
 	const refMarketNameDetailsCont = document.querySelector("#marketNameDetailsCont");
-	const refMarketNameRow = document.querySelector("#marketNameRow");
 	refMarketNameDetailsCont.innerHTML = `
 	<p id="marketNameValue" class="rowInfo inputMethod" contenteditable="true" spellcheck="false">${marketName}</p>
 	<p id="newMarketNameError" class="inputErrorText inputMethod">Enter to confirm, Esc/click outside to cancel</p>`;
 	const refMarketNameValue = document.querySelector("#marketNameValue");
 	refMarketNameDetailsCont.style.flexDirection = "column";
 	refCancelOperationOverlay.classList.add("showOverlay");
-	refMarketNameRow.style.height = document.querySelector("#marketNameRow").getBoundingClientRect()["height"] + 26.18 + "px";
 	refMarketNameValue.onkeyup = edit_validateMarketNameFieldKeyUp;
 	refMarketNameValue.onkeydown = edit_validateMarketNameFieldKeyDown;
 	refMarketNameValue.focus();

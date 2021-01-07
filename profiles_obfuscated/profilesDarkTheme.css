@@ -595,6 +595,70 @@ main {
 }
 #storeSubscriptionsLabel {
 	display: block;
-	margin: 0 auto;
+	margin: 0 auto 10px auto;
 	text-decoration: underline;
+}
+#storeSubscriptionsCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+}
+#storeSubscriptionsText {
+	margin: 0;
+	font-size: 17px;
+}
+.marketContentsRow {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	position: relative;
+	height: 100px;
+	color: var(--UIdefaultTextColor);
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	font-size: 20px;
+	background-color: var(--UIdefaultColor);
+	margin-bottom: 10px;
+}
+.marketContentsRow:nth-last-child(1) {
+	margin-bottom: 0 !important;
+}
+.marketNameAndBioCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	padding: 0 0 0 10px !important;
+	height: 100%;
+}
+.marketName {
+	position: relative;
+	margin: 0;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	font-size: 25px;
+	width: fit-content;
+	width: -moz-fit-content;
+	word-break: break-word;
+}
+.biographyText {
+	font-size: 18px;
+	margin: 0;
+	font-size: 15px;
+	word-break: break-word;
+	height: 60px;
+	overflow: hidden;
+}
+.marketLogoImage {
+	height: 100px;
+	min-height: 100px;
+	max-width: 200px;
 }
