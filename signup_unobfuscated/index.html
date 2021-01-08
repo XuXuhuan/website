@@ -1,79 +1,3 @@
-<?php
-error_reporting(0);
-date_default_timezone_set("MST");
-session_start();
-$alertError;
-$stylesheetLink;
-$mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
-function getRandomString($stringLength) {
-	return bin2hex(random_bytes($stringLength));
-}
-if (isset($_COOKIE["darktheme"]) && $_COOKIE["darktheme"] === "false") {
-	$stylesheetLink = "signUpLightTheme.css";
-} else {
-	$stylesheetLink = "signUpDarkTheme.css";
-}
-if ($mysqliConnection -> connect_errno) {
-	$alertError = "A connection error occurred. Please try again later.";
-}
-else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
-	if (!isset($_SESSION["loggedIn"]) || $_SESSION["loggedIn"] !== true) {
-		if (isset($_COOKIE["logincookie"])) {
-			$cookieValues = json_decode($_COOKIE["logincookie"], true);
-			$rememberMeID = $mysqliConnection -> real_escape_string($cookieValues["remembermeid"]);
-			$remememberMeToken = $mysqliConnection -> real_escape_string($cookieValues["remembermetoken"]);
-			if (strlen(trim($rememberMeID)) === 30) {
-				$selectAccountDetailsQuery = "
-				SELECT accountID, username, tokenHash, email, rememberID
-				FROM accountdetails
-				WHERE rememberID = '{$rememberMeID}'";
-				if ($queriedDetails = $mysqliConnection -> query($selectAccountDetailsQuery)) {
-					if ($queriedDetails -> num_rows > 0) {
-						if ($assocQueriedDetails = $queriedDetails -> fetch_assoc()) {
-							$dbAccountID = $assocQueriedDetails["accountID"];
-							$dbUsername = $assocQueriedDetails["username"];
-							$dbTokenHash = $assocQueriedDetails["tokenHash"];
-							$dbEmail = $assocQueriedDetails["email"];
-							$dbRememberID = $assocQueriedDetails["rememberID"];
-							if (hash_equals($dbTokenHash, hash("sha512", $remememberMeToken)) === true) {
-								$randomToken = getRandomString(50);
-								$hashedRandomToken = hash("sha512", $randomToken);
-								$updateTokenHashQuery = "
-								UPDATE accountdetails
-								SET tokenHash = '{$hashedRandomToken}'
-								WHERE rememberID = '{$dbAccountID}'";
-								if ($updatedTokenHash = $mysqliConnection -> query($updateTokenHashQuery)) {
-									$newCookieDecoded = array("remembermeid" => $dbRememberID,
-															"remembermetoken" => $randomToken);
-									setcookie("logincookie", json_encode($newCookieDecoded), strtotime("9999-12-31"), "/", "www.streetor.sg", true, true);
-									$_SESSION["loggedIn"] = true;
-									$_SESSION["userID"] = $dbAccountID;
-									$_SESSION["username"] = $dbUsername;
-									$_SESSION["email"] = $dbEmail;
-									header("Location: https://www.streetor.sg");
-								} else {
-									$alertError = "An error occurred.";
-								}
-							}
-						} else {
-							$alertError = "An error occurred.";
-						}
-					} else {
-						header("Location: https://www.streetor.sg/login/");
-					}
-					$queriedDetails -> free();
-				} else {
-					$alertError = "An error occurred.";
-				}
-			}
-		}
-	} else {
-		header("Location: https://www.streetor.sg");
-	}
-} else {
-	$alertError = "Your connection is insecure and this request could not be processed. Please try again later.";
-}
-echo "
 <!DOCTYPE html>
 <html lang='en'>
     <head>
@@ -81,7 +5,7 @@ echo "
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
         <meta name='keywords' content='lifestyle, life, tips, share, social media'>
         <meta name='description' content='Share about your lifestyle or lifestyle tips!'>
-        <link rel='stylesheet' href='{$stylesheetLink}'>
+        <link rel='stylesheet' href='../signup_obfuscated/signupDarkTheme.css'>
 		<script src='web.js' defer></script>
         <title>Sign Up · Streetor</title>
     </head>
@@ -139,9 +63,9 @@ echo "
 						<div id='signUpButtonCont'>
 							<button id='signUpButton' onmouseup='submitSignUp(event)' onmousedown='cancelSubmitSignUpTimeout(event)'>Sign Up</button>
 						</div>
-						<p id='signUpMessage'>{$alertError}</p>
+						<p id='signUpMessage'></p>
 					</div>
-					<a href='../login/' id='loginLink'>Already have an account? Log in here</a>
+					<a href='login/' id='loginLink'>Already have an account? Log in here</a>
                     <p id='midLabel'>OR</p>
                     <a href='../home/' id='homeLink'>Browse the website</a>
 				</div>
@@ -150,6 +74,4 @@ echo "
 		<footer>
 		</footer>
     </body>
-</html>";
-$mysqliConnection -> close();
-?>
+</html>

@@ -48,7 +48,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 									$_SESSION["userID"] = $dbAccountID;
 									$_SESSION["username"] = $dbUsername;
 									$_SESSION["email"] = $dbEmail;
-									header("Location: https://www.streetor.sg/home/");
+									header("Location: https://www.streetor.sg");
 								} else {
 									$loginError = "An error occurred. Please log in manually or try again later.";
 								}
@@ -64,7 +64,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			}
 		}
 	} else {
-		header("Location: https://www.streetor.sg/home/");
+		header("Location: https://www.streetor.sg");
 	}
 } else {
 	$loginError = "Your connection is insecure and this request could not be processed. Please try again later.";
@@ -113,7 +113,7 @@ echo "
                         </div>
                         <p id='logInMessage'>{$loginError}</p>
                     </div>
-                    <a href='../' id='signUpLink'>Don&#39;t have an account? Sign up here</a>
+                    <a href='../signup/' id='signUpLink'>Don&#39;t have an account? Sign up here</a>
                     <p id='midLabel'>OR</p>
                     <a href='../home/' id='homeLink'>Browse the website</a>
                 </div>

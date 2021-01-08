@@ -55,7 +55,7 @@ if ($mysqliConnection -> connect_errno) {
 								$_SESSION["username"] = $dbUsername;
 								$_SESSION["email"] = $dbEmail;
 								$AssocReturn["successmessage"] = "Logging in...";
-								$AssocReturn["successURL"] = "https://www.streetor.sg/home/";
+								$AssocReturn["successURL"] = "https://www.streetor.sg";
 							} else {
 								$AssocReturn["errormessages"]["loginError"] = "An error occurred.";
 							}

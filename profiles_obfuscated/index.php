@@ -251,7 +251,7 @@ if (empty($loginAlert)) {
 				{$logoutOrLogin}
 			</nav>
 			<nav id='sidenav'>
-				<a href='https://www.streetor.sg/home/' id='homeLink'>
+				<a href='https://www.streetor.sg' id='homeLink'>
 					<div class='innerLinksCont'>
 						<div id='homeImage' class='sideNavImage'></div>
 						<p id='homeText' class='notSelectable'>Home</p>
@@ -316,7 +316,7 @@ if (empty($loginAlert)) {
 				{$logoutOrLogin}
 			</nav>
 			<nav id='sidenav'>
-				<a href='https://www.streetor.sg/home/' id='homeLink'>
+				<a href='https://www.streetor.sg' id='homeLink'>
 					<div class='innerLinksCont'>
 						<div id='homeImage' class='sideNavImage'></div>
 						<p id='homeText' class='notSelectable'>Home</p>

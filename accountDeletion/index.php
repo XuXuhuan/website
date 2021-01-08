@@ -26,7 +26,7 @@ if ($mysqliConnection -> connect_errno) {
 	if (empty(trim($_GET["email"])) || empty(trim($_GET["token"])) || empty(filter_var($_GET["email"], FILTER_VALIDATE_EMAIL)) || strlen($_GET["token"]) !== 50) {
 		$DOMtitle = "Invalid Link · Streetor";
 		$imageURL = "../Assets/global/CrossMark.png";
-		$message = "This account deletion link was keyed in wrongly. If you would like to sign up for another account, please proceed to the <a href='../' style='color: #4486f4;'>sign up page</a>.";
+		$message = "This account deletion link was keyed in wrongly. If you would like to sign up for another account, please proceed to the <a href='../signup/' style='color: #4486f4;'>sign up page</a>.";
 		$topnavText = "This link is invalid.";
 		$topnavColor = "#topnav {
 			background-color: #E60505;
@@ -61,7 +61,7 @@ if ($mysqliConnection -> connect_errno) {
 						unset($_SESSION["email"]);
 						$DOMtitle = "Account Deleted · Streetor";
 						$imageURL = "../Assets/global/CheckMark.png";
-						$message = "Your account, {$dbUsername}, has been successfully deleted. If you would like to sign up for another account, please proceed to the <a href='../' style='color: #4486f4;'>sign up page</a>.";
+						$message = "Your account, {$dbUsername}, has been successfully deleted. If you would like to sign up for another account, please proceed to the <a href='../signup/' style='color: #4486f4;'>sign up page</a>.";
 						$topnavText = "Your account has been deleted.";
 						$topnavColor = "#topnav {
 							background-color: #00D200;
@@ -87,7 +87,7 @@ if ($mysqliConnection -> connect_errno) {
 			} else {
 				$DOMtitle = "Invalid Link · Streetor";
 				$imageURL = "../Assets/global/CrossMark.png";
-				$message = "This email deletion link has either expired, was keyed in wrongly or your account has already been deleted. If you would like to sign up for another account, please proceed to the <a href='../' style='color: #4486f4;'>sign up page</a>.";
+				$message = "This email deletion link has either expired, was keyed in wrongly or your account has already been deleted. If you would like to sign up for another account, please proceed to the <a href='../signup/' style='color: #4486f4;'>sign up page</a>.";
 				$topnavText = "This link is invalid.";
 				$topnavColor = "#topnav {
 					background-color: #E60505;
