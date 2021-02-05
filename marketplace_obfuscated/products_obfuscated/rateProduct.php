@@ -20,8 +20,8 @@ if (!$mysqliConnection -> connect_errno) {
 			if ($queriedRatings = $mysqliConnection -> query($checkIfRatingExistsQuery)) {
 				if ($assocQueriedRatings = $queriedRatings -> fetch_assoc()) {
 					if (empty($assocQueriedRatings["accountID"])) {
-						$insertRatingValuesQuery = "INSERT INTO ratings(accountID, productID, rating)
-						VALUES ('{$_SESSION["userID"]}', '{$escapedProductID}', '{$escapedRating}')";
+						$insertRatingValuesQuery = "INSERT INTO ratings(accountID, productID, rating, ratingTime)
+						VALUES ('{$_SESSION["userID"]}', '{$escapedProductID}', '{$escapedRating}', NOW())";
 						if ($mysqliConnection -> query($insertRatingValuesQuery)) {
 							$assocReturn["notificationColor"] = "#40AF00";
 							$assocReturn["notificationText"] = "Rating submitted!";

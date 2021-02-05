@@ -134,13 +134,17 @@ function create_createProduct() {
 		formData.append("info", refProductInfoField.value);
 		formData.append("priceDollars", parseInt(refProductPriceDollarsField.value));
 		formData.append("priceCents", cents);
-		placeholderUploadedImages.forEach(async function(item, index) {
-			let fetchImage = await fetch(item).then(response => response.blob());
-			formData.append("image" + (index + 1), fetchImage);
-			if (index === uploadedImages.length - 1) {
-				submitXHR();
-			}
-		});
+		if (placeholderUploadedImages.length > 0) {
+			placeholderUploadedImages.forEach(async function(item, index) {
+				let fetchImage = await fetch(item).then(response => response.blob());
+				formData.append("image" + (index + 1), fetchImage);
+				if (index === uploadedImages.length - 1) {
+					submitXHR();
+				}
+			});
+		} else {
+			submitXHR();
+		}
 		function submitXHR() {
 			const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
 			xhr.open("POST", "createProduct.php", true);

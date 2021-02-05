@@ -5,7 +5,7 @@
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
         <meta name='keywords' content='lifestyle, life, tips, share, social media'>
         <meta name='description' content='Share about your lifestyle or lifestyle tips!'>
-        <link rel='stylesheet' href='home_obfuscated/homeDarkTheme.css'>
+        <link rel='stylesheet' href='../homeDarkTheme.css'>
 		<script src='web.js' defer></script>
         <title>Home · Streetor</title>
     </head>
@@ -53,6 +53,67 @@
 		</header>
 		<main>
 			<div id='mainCont'>
+				<div id="informationCont">
+					<h1 id="loginText">Hello admin!</h1>
+					<p id="websiteInfoText">Here are the statistics of your shops and products.</p>
+				</div>
+				<div id="statsContainer" class="infoColumnRow">
+					<div id="bestStatProductRow" class="infoColumnRow">
+						<p id="bestStatProductLabel">Best Product (Statistically)</p>
+						<div id="bestStatProductStatsCont">
+							<div class='productContentsRow infoRow'>
+								<img src='../Assets/global/imageNotFound.png' alt='Product Image' class='productImage'>
+								<div class='productNameAndInfoCont infoColumnRow'>
+									<a href='https://www.streetor.sg/marketplace/products/?prodid=1' class='productName'>test</a>
+									<p class='pricingInfoLabel'>S$3.00</p>
+									<p class='productInfoText'>This product was created for testing purposes.</p>
+									<div class='productRatingRow'>
+										<p class='ratingLabel'>4.5</p>
+										<svg height='18' width='18' class='productRatingStar'>
+											<defs>
+												<linearGradient id='starGradient'>
+													<stop offset='100%' stop-color='#e1c900'></stop>
+												</linearGradient>
+											</defs>
+											<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+										</svg>
+									</div>
+								</div>
+							</div>
+							<div id="productStatsRow">
+								<div class="lastMonthStatsCont">
+									<p class="lastMonthStatsLabel">Last 30 Days</p>
+									<div class='bestStatProductRatingRow'>
+										<p class='ratingLabel'>1.5</p>
+										<svg height='18' width='18' class='productRatingStar'>
+											<defs>
+												<linearGradient id='starGradient'>
+													<stop offset='100%' stop-color='#e1c900'></stop>
+												</linearGradient>
+											</defs>
+											<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+										</svg>
+									</div>
+								</div>
+								<div class="allTimeStatsCont">
+									<p class="allTimeStatsLabel">All Time</p>
+									<div class='bestStatProductRatingRow'>
+										<p class='ratingLabel'>4.5</p>
+										<svg height='18' width='18' class='productRatingStar'>
+											<defs>
+												<linearGradient id='starGradient'>
+													<stop offset='100%' stop-color='#e1c900'></stop>
+												</linearGradient>
+											</defs>
+											<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+										</svg>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--display all time and past 30 days of stats and also display product that's doing the best-->
 			</div>
 		</main>
 		<footer>

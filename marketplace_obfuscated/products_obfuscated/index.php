@@ -94,7 +94,7 @@ if ($mysqliConnection -> connect_errno) {
 				$escapedProductID = $mysqliConnection -> real_escape_string($_GET["prodid"]);
 				$selectProductDetailsQuery = "SELECT marketdetails.marketName, marketproducts.marketID, marketproducts.productID, marketproducts.productName, marketproducts.productInfo, marketproducts.pricing, COUNT(ratings.productID = '{$escapedProductID}') AS numberOfRatings, AVG(ratings.rating) AS averageRating
 				FROM marketproducts
-				JOIN ratings
+				LEFT JOIN ratings
 				ON ratings.productID = marketproducts.productID
 				JOIN marketdetails
 				ON marketdetails.marketID = marketproducts.marketID
@@ -134,7 +134,7 @@ if ($mysqliConnection -> connect_errno) {
 								}
 								$headStyles = "
 								<style>
-									body::before{
+									body::before {
 										position: absolute;
 										width: 0;
 										height: 0;
@@ -246,7 +246,7 @@ if ($mysqliConnection -> connect_errno) {
 							} else {
 								$loginAlert = '
 								<div id="alertCont">
-									<p id="alertText">An error occurred.</p>
+									<p id="alertText">This product is unavailable.</p>
 								</div>';
 							}
 						} else {
