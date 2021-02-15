@@ -50,21 +50,33 @@
 					</div>
 				</a>
 			</nav>
+			<div id='notificationCont'>
+				<p id='notificationText'></p>
+			</div>
 		</header>
 		<main>
 			<div id='mainCont'>
-				<div id="informationCont">
-					<h1 id="loginText">Hello admin!</h1>
-					<p id="websiteInfoText">Here are the statistics of your shops and products.</p>
+				<div id='confirmationOverlay'>
+					<div id='confirmationDialog'>
+						<p id='confirmationText'></p>
+						<div id='confirmationButtonCont'>
+							<button id='confirmButton'>Confirm</button>
+							<button id='cancelButton'>Cancel</button>
+						</div>
+					</div>
 				</div>
-				<div id="statsContainer" class="infoColumnRow">
-					<div id="bestStatProductRow" class="infoColumnRow">
-						<p id="bestStatProductLabel">Best Product (Statistically)</p>
-						<div id="bestStatProductStatsCont">
+				<div id='informationCont'>
+					<h1 id='loginText'>Hello admin!</h1>
+					<p id='websiteInfoText'>Here are the statistics of your shops and products.</p>
+				</div>
+				<div id='bestStatProductWrapper' class='infoColumnRow'>
+					<div id='bestStatProductRow' class='infoColumnRow'>
+						<p id='bestStatProductLabel'>Best Product (Statistically)</p>
+						<div id='bestStatProductStatsCont'>
 							<div class='productContentsRow infoRow'>
 								<img src='../Assets/global/imageNotFound.png' alt='Product Image' class='productImage'>
 								<div class='productNameAndInfoCont infoColumnRow'>
-									<a href='https://www.streetor.sg/marketplace/products/?prodid=1' class='productName'>test</a>
+									<a href='https://www.streetor.sg/marketplace/products/?prodid=1' class='productName' id='bestStatProductName'>test</a>
 									<p class='pricingInfoLabel'>S$3.00</p>
 									<p class='productInfoText'>This product was created for testing purposes.</p>
 									<div class='productRatingRow'>
@@ -78,11 +90,25 @@
 											<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
 										</svg>
 									</div>
+									<button class='productMenuButtonCont'>
+										<svg class='productMenuButton' width='5' height='20'>
+											<circle cx='2.5' cy='2.5' r='2.5' class='productMenuButtonDot'/>
+											<circle cx='2.5' cy='10' r='2.5' class='productMenuButtonDot'/>
+											<circle cx='2.5' cy='17.5' r='2.5' class='productMenuButtonDot'/>
+										</svg>
+										<span class='hidePopUp productMenuPopUp'>
+											<a href='https://www.streetor.sg/marketplace/products/edit/?id=6' class='notSelectable productMenuPopUpLink'>
+												Edit
+												<div class='productMenuPopUpTail'></div>
+											</a>
+											<p class='notSelectable' id='productMenuDelete' data-productid='63'>Delete</p>
+										</span>
+									</button>
 								</div>
 							</div>
-							<div id="productStatsRow">
-								<div class="lastMonthStatsCont">
-									<p class="lastMonthStatsLabel">Last 30 Days</p>
+							<div id='productStatsRow'>
+								<div class='lastMonthStatsCont'>
+									<p class='lastMonthStatsLabel'>Last 30 Days</p>
 									<div class='bestStatProductRatingRow'>
 										<p class='ratingLabel'>1.5</p>
 										<svg height='18' width='18' class='productRatingStar'>
@@ -95,8 +121,8 @@
 										</svg>
 									</div>
 								</div>
-								<div class="allTimeStatsCont">
-									<p class="allTimeStatsLabel">All Time</p>
+								<div class='allTimeStatsCont'>
+									<p class='allTimeStatsLabel'>All Time</p>
 									<div class='bestStatProductRatingRow'>
 										<p class='ratingLabel'>4.5</p>
 										<svg height='18' width='18' class='productRatingStar'>
@@ -113,7 +139,75 @@
 						</div>
 					</div>
 				</div>
-				<!--display all time and past 30 days of stats and also display product that's doing the best-->
+				<div id='marketStatsWrapper' class='infoColumnRow'>
+					<p id='marketStatsLabel'>Market Statistics</p>
+					<div class='marketContentsRow'>
+						<div class='marketDisplayRow infoRow'>
+							<img src='../Assets/global/imageNotFound.png' alt='Market Logo' class='marketLogoImage'>
+							<div class='marketNameAndBioCont infoColumnRow'>
+								<button class='marketMenuButtonCont'>
+									<svg class='marketMenuButton' width='5' height='20'>
+										<circle cx='2.5' cy='2.5' r='2.5' class='marketMenuButtonDot'/>
+										<circle cx='2.5' cy='10' r='2.5' class='marketMenuButtonDot'/>
+										<circle cx='2.5' cy='17.5' r='2.5' class='marketMenuButtonDot'/>
+									</svg>
+									<span class='hidePopUp marketMenuPopUp'>
+										<a href='https://www.streetor.sg/marketplace/edit/?id=6' class='notSelectable marketMenuPopUpLink'>
+											Manage
+											<div class='marketMenuPopUpTail'></div>
+										</a>
+									</span>
+								</button>
+								<a href='https://www.streetor.sg/marketplace/?id=6' class='marketName'>test</a>
+								<p class='biographyText'>This market is designed for testing purposes.</p>
+							</div>
+						</div>
+						<div class='marketStatsRow'>
+							<div class='subscriberStatColumn'>
+								<p class='subscriberStatLabel'>Subscribers</p>
+								<div class='lastMonthStatsCont'>
+									<p class='lastMonthStatsLabel'>Last 30 Days</p>
+									<p class='subscriberLabel'>1</p>
+								</div>
+								<div class='allTimeStatsCont'>
+									<p class='allTimeStatsLabel'>All Time</p>
+									<p class='subscriberLabel'>4</p>
+								</div>
+							</div>
+							<div class='marketRatingStatColumn'>
+								<p class='marketRatingStatLabel'>Ratings</p>
+								<div class='lastMonthStatsCont'>
+									<p class='lastMonthStatsLabel'>Last 30 Days</p>
+									<div class='bestStatProductRatingRow'>
+										<p class='ratingLabel'>1.5</p>
+										<svg height='18' width='18' class='productRatingStar'>
+											<defs>
+												<linearGradient id='starGradient'>
+													<stop offset='100%' stop-color='#e1c900'></stop>
+												</linearGradient>
+											</defs>
+											<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+										</svg>
+									</div>
+								</div>
+								<div class='allTimeStatsCont'>
+									<p class='allTimeStatsLabel'>All Time</p>
+									<div class='bestStatProductRatingRow'>
+										<p class='ratingLabel'>4.5</p>
+										<svg height='18' width='18' class='productRatingStar'>
+											<defs>
+												<linearGradient id='starGradient'>
+													<stop offset='100%' stop-color='#e1c900'></stop>
+												</linearGradient>
+											</defs>
+											<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+										</svg>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</main>
 		<footer>

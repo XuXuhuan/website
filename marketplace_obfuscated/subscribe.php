@@ -33,7 +33,7 @@ if (!$mysqliConnection -> connect_errno) {
 							}
 						} else {
 							if ((int) $assocQueriedSubscriptions["userSubscribedCount"] < 10) {
-								$subscribeToMarketQuery = "INSERT INTO subscriptions (subscribingUser, subscribedMarket)
+								$subscribeToMarketQuery = "INSERT INTO subscriptions (subscribingUser, subscribedMarket, subscriptionTime)
 								VALUES ('{$_SESSION["userID"]}', '{$marketID}', NOW())";
 								if ($mysqliConnection -> query($subscribeToMarketQuery)) {
 									$assocReturn["notificationText"] = "Subscribed!";

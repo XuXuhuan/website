@@ -94,7 +94,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 		LEFT JOIN subscriptions
 		ON marketdetails.marketID = subscriptions.subscribedMarket
 		GROUP BY marketdetails.marketName
-		ORDER BY COUNT(subscriptions.subscriptionID);";
+		ORDER BY subscribers;";
 		if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 			$fetchMarketsQuery .= "SELECT marketName AS ownedMarketName, marketID
 			FROM marketdetails

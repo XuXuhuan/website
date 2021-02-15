@@ -115,7 +115,7 @@ echo "
                     </div>
                     <a href='../signup/' id='signUpLink'>Don&#39;t have an account? Sign up here</a>
                     <p id='midLabel'>OR</p>
-                    <a href='../home/' id='homeLink'>Browse the website</a>
+                    <a href='../' id='homeLink'>Browse the website</a>
                 </div>
             </div>
         </main>

@@ -90,7 +90,243 @@ if ($mysqliConnection -> connect_errno) {
 			}
 		}
 		if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
-			
+			$bestProductStatsHTML;
+			$marketStatsHTML;
+			$selectStatsQuery = "SELECT marketproducts.productID, marketproducts.productName, marketproducts.productInfo, marketproducts.pricing, AVG(ratings.rating) AS allTime, (SELECT AVG(rating) FROM ratings WHERE ratingTime >= SUBDATE(NOW(), INTERVAL 30 DAY) AND productID = marketproducts.productID) AS lastMonth
+			FROM ratings
+			RIGHT JOIN marketproducts
+			ON marketproducts.productID = ratings.productID
+			JOIN marketdetails
+			ON marketproducts.marketID = marketdetails.marketID
+			WHERE marketdetails.marketOwner = '{$_SESSION["userID"]}'
+			GROUP BY marketproducts.productName
+			ORDER BY allTime DESC
+			LIMIT 1;";
+			$selectStatsQuery .= "SELECT marketdetails.marketID,
+			marketdetails.marketName,
+			marketdetails.biography,
+			AVG(ratings.rating) AS avgRAllTime,
+			(SELECT AVG(rating) FROM ratings WHERE ratings.ratingTime >= SUBDATE(NOW(), INTERVAL 30 DAY) AND productID = marketproducts.productID) AS avgRPastMonth,
+			COUNT(subscriptions.subscribingUser) AS avgSAllTime,
+			(SELECT COUNT(subscribingUser) FROM subscriptions WHERE subscriptionTime >= SUBDATE(NOW(), INTERVAL 30 DAY) AND subscribedMarket = marketdetails.marketID) AS avgSPastMonth
+			FROM marketdetails
+			JOIN marketproducts
+			ON marketdetails.marketID = marketproducts.marketID
+			LEFT JOIN subscriptions
+			ON subscriptions.subscribedMarket = marketdetails.marketID
+			LEFT JOIN ratings
+			ON ratings.productID = marketproducts.productID
+			WHERE marketdetails.marketOwner = '{$_SESSION["userID"]}'
+			GROUP BY marketdetails.marketName
+			ORDER BY marketdetails.marketName";
+			if ($mysqliConnection -> multi_query($selectStatsQuery)) {
+				if ($queriedProductStats = $mysqliConnection -> store_result()) {
+					if ($queriedProductStats -> num_rows > 0) {
+						if ($assocProductStats = $queriedProductStats -> fetch_assoc()) {
+							$productImagePath = empty(glob("uploads/productImages/{$assocProductStats["productID"]}/1.*")) ? "Assets/global/imageNotFound.png" : glob("uploads/productImages/{$assocProductStats["productID"]}/1.*")[0];
+							$adjustedPrice = number_format($assocProductStats["pricing"], 2);
+							$allTimeRating = empty($assocProductStats["allTime"]) ? 0 : $assocProductStats["allTime"];
+							$lastMonthRating = empty($assocProductStats["lastMonth"]) ? 0 : $assocProductStats["lastMonth"];
+							$escapedProductName = htmlspecialchars($assocProductStats["productName"], ENT_QUOTES);
+							$escapedProductInfo = htmlspecialchars($assocProductStats["productInfo"], ENT_QUOTES);
+							$bestProductStatsHTML = "
+							<div class='productContentsRow infoRow'>
+								<img src='{$productImagePath}' alt='Product Image' class='productImage'>
+								<div class='productNameAndInfoCont infoColumnRow'>
+									<a href='https://www.streetor.sg/marketplace/products/?prodid={$assocProductStats["productID"]}' class='productName' id='bestStatProductName'>{$escapedProductName}</a>
+									<p class='pricingInfoLabel'>S\${$adjustedPrice}</p>
+									<p class='productInfoText'>{$escapedProductInfo}</p>
+									<div class='productRatingRow'>
+										<p class='ratingLabel'>{$allTimeRating}</p>
+										<svg height='18' width='18' class='productRatingStar'>
+											<defs>
+												<linearGradient id='starGradient'>
+													<stop offset='100%' stop-color='#e1c900'></stop>
+												</linearGradient>
+											</defs>
+											<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+										</svg>
+									</div>
+									<button class='productMenuButtonCont'>
+										<svg class='productMenuButton' width='5' height='20'>
+											<circle cx='2.5' cy='2.5' r='2.5' class='productMenuButtonDot'/>
+											<circle cx='2.5' cy='10' r='2.5' class='productMenuButtonDot'/>
+											<circle cx='2.5' cy='17.5' r='2.5' class='productMenuButtonDot'/>
+										</svg>
+										<span class='hidePopUp productMenuPopUp'>
+											<a href='https://www.streetor.sg/marketplace/products/edit/?id={$assocProductStats["productID"]}' class='notSelectable productMenuPopUpLink'>
+												Edit
+												<div class='productMenuPopUpTail'></div>
+											</a>
+											<p class='notSelectable' id='productMenuDelete' data-productid='{$assocProductStats["productID"]}'>Delete</p>
+										</span>
+									</button>
+								</div>
+							</div>
+							<div id='productStatsRow'>
+								<div class='lastMonthStatsCont'>
+									<p class='lastMonthStatsLabel'>Last 30 Days</p>
+									<div class='bestStatProductRatingRow'>
+										<p class='ratingLabel'>{$lastMonthRating}</p>
+										<svg height='18' width='18' class='productRatingStar'>
+											<defs>
+												<linearGradient id='starGradient'>
+													<stop offset='100%' stop-color='#e1c900'></stop>
+												</linearGradient>
+											</defs>
+											<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+										</svg>
+									</div>
+								</div>
+								<div class='allTimeStatsCont'>
+									<p class='allTimeStatsLabel'>All Time</p>
+									<div class='bestStatProductRatingRow'>
+										<p class='ratingLabel'>{$allTimeRating}</p>
+										<svg height='18' width='18' class='productRatingStar'>
+											<defs>
+												<linearGradient id='starGradient'>
+													<stop offset='100%' stop-color='#e1c900'></stop>
+												</linearGradient>
+											</defs>
+											<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+										</svg>
+									</div>
+								</div>
+							</div>";
+						} else {
+							$loginAlert = '
+							<div id="alertCont">
+								<p id="alertText">An error occurred.</p>
+							</div>';
+						}
+					} else {
+						$bestProductStatsHTML = "<p class='inputErrorText' id='bestStatProductError'>None at the moment.</p>";
+					}
+					$queriedProductStats -> free();
+				} else {
+					$loginAlert = '
+					<div id="alertCont">
+						<p id="alertText">An error occurred.</p>
+					</div>';
+				}
+				if ($mysqliConnection -> more_results()) {
+					$mysqliConnection -> next_result();
+					if ($queriedMarketStats = $mysqliConnection -> store_result()) {
+						while ($assocMarketStats = $queriedMarketStats -> fetch_assoc()) {
+							$marketLogoPath = empty(glob("uploads/marketLogos/{$assocMarketStats["marketID"]}.*")) ? "Assets/global/imageNotFound.png" : glob("uploads/marketLogos/{$assocMarketStats["marketID"]}.*")[0];
+							$escapedMarketName = htmlspecialchars($assocMarketStats["marketName"], ENT_QUOTES);
+							$escapedMarketInfo = htmlspecialchars($assocMarketStats["biography"], ENT_QUOTES);
+							$allTimeRating = empty($assocProductStats["avgRAllTime"]) ? 0 : $assocProductStats["avgRAllTime"];
+							$lastMonthRating = empty($assocProductStats["avgRPastMonth"]) ? 0 : $assocProductStats["avgRPastMonth"];
+							$marketStatsHTML .= "
+							<div class='marketDisplayRow infoRow'>
+								<img src='{$marketLogoPath}' alt='Market Logo' class='marketLogoImage'>
+								<div class='marketNameAndBioCont infoColumnRow'>
+									<button class='marketMenuButtonCont'>
+										<svg class='marketMenuButton' width='5' height='20'>
+											<circle cx='2.5' cy='2.5' r='2.5' class='marketMenuButtonDot'/>
+											<circle cx='2.5' cy='10' r='2.5' class='marketMenuButtonDot'/>
+											<circle cx='2.5' cy='17.5' r='2.5' class='marketMenuButtonDot'/>
+										</svg>
+										<span class='hidePopUp marketMenuPopUp'>
+											<a href='https://www.streetor.sg/marketplace/edit/?id={$assocMarketStats["marketID"]}' class='notSelectable marketMenuPopUpLink'>
+												Manage
+												<div class='marketMenuPopUpTail'></div>
+											</a>
+										</span>
+									</button>
+									<a href='https://www.streetor.sg/marketplace/?id={$assocMarketStats["marketID"]}' class='marketName'>{$escapedMarketName}</a>
+									<p class='biographyText'>{$escapedMarketInfo}</p>
+								</div>
+							</div>
+							<div class='marketStatsRow'>
+								<div class='subscriberStatColumn'>
+									<p class='subscriberStatLabel'>Subscribers</p>
+									<div class='lastMonthStatsCont'>
+										<p class='lastMonthStatsLabel'>Last 30 Days</p>
+										<p class='subscriberLabel'>{$assocMarketStats["avgSPastMonth"]}</p>
+									</div>
+									<div class='allTimeStatsCont'>
+										<p class='allTimeStatsLabel'>All Time</p>
+										<p class='subscriberLabel'>{$assocMarketStats["avgSAllTime"]}</p>
+									</div>
+								</div>
+								<div class='marketRatingStatColumn'>
+									<p class='marketRatingStatLabel'>Ratings</p>
+									<div class='lastMonthStatsCont'>
+										<p class='lastMonthStatsLabel'>Last 30 Days</p>
+										<div class='bestStatProductRatingRow'>
+											<p class='ratingLabel'>{$lastMonthRating}</p>
+											<svg height='18' width='18' class='productRatingStar'>
+												<defs>
+													<linearGradient id='starGradient'>
+														<stop offset='100%' stop-color='#e1c900'></stop>
+													</linearGradient>
+												</defs>
+												<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+											</svg>
+										</div>
+									</div>
+									<div class='allTimeStatsCont'>
+										<p class='allTimeStatsLabel'>All Time</p>
+										<div class='bestStatProductRatingRow'>
+											<p class='ratingLabel'>{$allTimeRating}</p>
+											<svg height='18' width='18' class='productRatingStar'>
+												<defs>
+													<linearGradient id='starGradient'>
+														<stop offset='100%' stop-color='#e1c900'></stop>
+													</linearGradient>
+												</defs>
+												<polygon points='9,0 4,18 18,7 0,7 15,18' style='fill: url(#starGradient);'></polygon>
+											</svg>
+										</div>
+									</div>
+								</div>
+							</div>";
+						}
+					} else {
+						$loginAlert = '
+						<div id="alertCont">
+							<p id="alertText">An error occurred.</p>
+						</div>';
+					}
+				} else {
+					$marketStatsHTML = "<p class='inputErrorText' id='marketStatsError'>None at the moment.</p>";
+				}
+				$homePageHTML = "
+				<div id='confirmationOverlay'>
+					<div id='confirmationDialog'>
+						<p id='confirmationText'></p>
+						<div id='confirmationButtonCont'>
+							<button id='confirmButton'>Confirm</button>
+							<button id='cancelButton'>Cancel</button>
+						</div>
+					</div>
+				</div>
+				<div id='informationCont'>
+					<h1 id='loginText'>Hello admin!</h1>
+					<p id='websiteInfoText'>Here are the statistics of your shops and products.</p>
+				</div>
+				<div id='bestStatProductWrapper' class='infoColumnRow'>
+					<div id='bestStatProductRow' class='infoColumnRow'>
+						<p id='bestStatProductLabel'>Best Product (Statistically)</p>
+						<div id='bestStatProductStatsCont'>
+							{$bestProductStatsHTML}
+						</div>
+					</div>
+				</div>
+				<div id='marketStatsWrapper' class='infoColumnRow'>
+					<p id='marketStatsLabel'>Market Statistics</p>
+					<div class='marketContentsRow'>
+						{$marketStatsHTML}
+					</div>
+				</div>";
+			} else {
+				$loginAlert = '
+				<div id="alertCont">
+					<p id="alertText">An error occurred.</p>
+				</div>';
+			}
 		} else {
 			$selectStatsQuery = "SELECT COUNT(*) AS userCount, (SELECT COUNT(*) FROM marketdetails) AS marketCount
 			FROM accountdetails";
@@ -186,6 +422,9 @@ if (empty($loginAlert)) {
 						</div>
 					</a>
 				</nav>
+				<div id='notificationCont'>
+					<p id='notificationText'></p>
+				</div>
 			</header>
 			<main>
 				{$logoutOrLoginScript}
@@ -251,6 +490,9 @@ if (empty($loginAlert)) {
 						</div>
 					</a>
 				</nav>
+				<div id='notificationCont'>
+					<p id='notificationText'></p>
+				</div>
 			</header>
 			<main>
 				{$logoutOrLoginScript}

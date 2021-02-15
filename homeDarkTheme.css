@@ -14,6 +14,7 @@
 	--sideMenuTextTransform: scaleX(0);
 	--UIdefaultColor: #35363A;
 	--UIdefaultTextColor: #ffffff;
+	--popUpBgColor: #26272B;
 }
 @font-face {
 	font-family: MontserratReg;
@@ -437,7 +438,7 @@ main {
 	z-index: -999;
 }
 @media only screen and (max-width: 426px) {
-	.infoColumnRow, .infoRow {
+	.infoColumnRow, .infoRow, .marketContentsRow, #bestStatProductStatsCont {
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
@@ -489,6 +490,37 @@ main {
 		margin-left: 10px;
 		margin-right: 10px;
 	}
+}
+.inputErrorText {
+	margin: 0;
+	font-size: 15px;
+	font-family: Segoe UI, MontserratReg, Verdana, sans-serif;
+	color: #ff0000;
+	font-weight: 600;
+}
+#notificationCont {
+	position: fixed;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 10vh;
+	z-index: 2;
+	top: -10vh;
+	-webkit-transition: top 0.2s linear;
+	-o-transition: top 0.2s linear;
+	transition: top 0.2s linear;
+	overflow: hidden;
+}
+#notificationText {
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	font-size: 25px;
+	margin: 0;
+	color: var(--UIdefaultTextColor);
 }
 .infoRow {
 	position: relative;
@@ -542,7 +574,7 @@ main {
 #userCountLabel, #marketCountLabel {
 	font-size: 25px;
 }
-#mainCont * {
+#mainCont {
 	animation-duration: 1s;
 	animation-fill-mode: forwards;
 	animation-name: fadeIn;
@@ -550,12 +582,19 @@ main {
 #mainCont a {
 	color: #4486f4;
 }
-#bestStatProductLabel {
+#bestStatProductStatsCont, #marketStatsWrapper {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+#bestStatProductLabel, #marketStatsLabel {
 	margin: 0;
 	font-size: 20px;
 	text-align: center;
 }
-#bestStatProductRow {
+#marketStatsWrapper {
+	margin-top: 30px;
+}
+#bestStatProductRow, #marketStatsWrapper {
 	background-color: var(--UIdefaultColor);
 	padding-top: 15px;
 	padding-bottom: 15px;
@@ -563,6 +602,10 @@ main {
 .allTimeStatsLabel, .lastMonthStatsLabel {
 	margin: 0;
 	font-size: 20px;
+	text-align: center;
+}
+.marketStatsRow .allTimeStatsLabel, .marketStatsRow .lastMonthStatsLabel {
+	font-size: 17px;
 }
 .allTimeStatsCont, .lastMonthStatsCont {
 	display: -webkit-flex;
@@ -572,19 +615,33 @@ main {
 	display: flex;
 	flex-direction: column;
 }
-.ratingLabel {
+.ratingLabel, .subscriberLabel {
 	display: table-cell;
 	vertical-align: middle;
 	margin: 0 5px 0 0;
 	font-size: 15px;
 	height: 18px;
 }
-.productRatingRow {
+.subscriberLabel {
+	text-align: center;
+}
+.productRatingRow, .marketStatsRow, .subscriberStatColumn, .marketRatingStatColumn {
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
+}
+.marketStatsRow {
+	justify-content: space-around;
+}
+.subscriberStatColumn, .marketRatingStatColumn {
+	flex-direction: column;
+}
+.subscriberStatLabel, .marketRatingStatLabel {
+	text-align: center;
+	font-size: 25px;
+	margin: 0 0 5px 0;
 }
 .bestStatProductRatingRow {
 	display: -webkit-flex;
@@ -628,13 +685,13 @@ main {
 	min-height: 100px;
 	max-width: 200px;
 }
-.productContentsRow {
+.productContentsRow, .marketDisplayRow {
 	position: relative;
 	height: 130px;
 	color: var(--UIdefaultTextColor);
 	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 	font-size: 20px;
-	padding: 15px 1em 15px 1em;
+	padding: 15px 0 15px 0;
 	border-bottom: 2px solid var(--UIdefaultTextColor);
 	margin-bottom: 10px;
 }
@@ -652,7 +709,7 @@ main {
 	padding: 0 0 0 10px !important;
 	height: 100%;
 }
-.productName {
+.productName, .marketName {
 	position: relative;
 	margin: 0;
 	color: var(--UIdefaultTextColor) !important;
@@ -668,6 +725,148 @@ main {
 	display: -o-flex;
 	display: flex;
 	justify-content: space-around;
+}
+.productMenuButtonCont, .marketMenuButtonCont {
+	position: absolute;
+	top: 5px;
+	right: 1px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	z-index: 2;
+	background-color: transparent;
+	border: 0;
+	outline: none;
+}
+.productMenuButtonDot, .marketMenuButtonDot {
+	fill: #ffffff;
+}
+.productMenuPopUp, .marketMenuPopUp {
+	position: absolute;
+	right: 140%;
+	top: 10%;
+}
+.productMenuPopUpTail, .marketMenuPopUpTail {
+	position: absolute;
+	width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+	border-left: 8px solid var(--popUpBgColor);
+	top: 0;
+	left: 100%;
+	line-height: 40px;
+}
+.productMenuPopUpLink, .marketMenuPopUpLink {
+	display: inline-block;
+	position: relative;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
+	font-size: 17px;
+	color: var(--UIdefaultTextColor) !important;
+	text-decoration: none;
+	background-color: var(--popUpBgColor);
+	border-radius: 5px 0 0 0;
+	min-height: 40px;
+	min-width: 100px;
+	text-align: center;
+	line-height: 40px;
+}
+#productMenuDelete {
+	display: inline-block;
+	position: relative;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
+	font-size: 17px;
+	color: var(--UIdefaultTextColor);
+	text-decoration: none;
+	background-color: var(--popUpBgColor);
+	border-radius: 0 0 5px 5px;
+	min-height: 40px;
+	min-width: 100px;
+	text-align: center;
+	line-height: 40px;
+	margin: 0;
+	cursor: pointer;
+}
+.hidePopUp {
+	display: none !important;
+}
+.marketDisplayRow {
+	margin-bottom: 10px;
+}
+.marketDisplayRow:nth-last-child(1) {
+	margin-bottom: 0 !important;
+}
+.marketNameAndBioCont {
+	position: relative;
+	padding: 0 0 0 10px !important;
+	height: 100%;
+}
+.biographyText {
+	font-size: 18px;
+	margin: 0;
+	font-size: 15px;
+	word-break: break-word;
+	height: 3em;
+	overflow: hidden;
+}
+.marketLogoImage {
+	height: 100px;
+	min-height: 100px;
+	max-width: 200px;
+}
+#confirmationOverlay {
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 5;
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+#confirmationDialog {
+	position: absolute;
+	width: 80%;
+	top: calc(50% - 10vh);
+	left: 50%;
+	padding: 10px;
+	transform: translate(-50%, -50%);
+	background-color: var(--UIdefaultColor);
+	color: var(--UIdefaultTextColor);
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	font-size: 15px;
+	max-width: 300px;
+}
+#confirmationText {
+	margin: 0;
+}
+#confirmationButtonCont {
+	margin-top: 15px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+#confirmButton, #cancelButton {
+	background-color: #282A2C;
+	border: 0;
+	color: var(--UIdefaultTextColor);
+	cursor: pointer;
+	font-size: 15px;
+	padding: 8px 15px;
+	border-radius: 5px;
+	outline: none;
+}
+.displaying {
+	display: block !important;
 }
 @keyframes fadeIn {
 	0% {
