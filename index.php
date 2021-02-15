@@ -216,8 +216,8 @@ if ($mysqliConnection -> connect_errno) {
 							$marketLogoPath = empty(glob("uploads/marketLogos/{$assocMarketStats["marketID"]}.*")) ? "Assets/global/imageNotFound.png" : glob("uploads/marketLogos/{$assocMarketStats["marketID"]}.*")[0];
 							$escapedMarketName = htmlspecialchars($assocMarketStats["marketName"], ENT_QUOTES);
 							$escapedMarketInfo = htmlspecialchars($assocMarketStats["biography"], ENT_QUOTES);
-							$allTimeRating = empty($assocProductStats["avgRAllTime"]) ? 0 : $assocProductStats["avgRAllTime"];
-							$lastMonthRating = empty($assocProductStats["avgRPastMonth"]) ? 0 : $assocProductStats["avgRPastMonth"];
+							$allTimeRating = empty($assocMarketStats["avgRAllTime"]) ? 0 : $assocMarketStats["avgRAllTime"];
+							$lastMonthRating = empty($assocMarketStats["avgRPastMonth"]) ? 0 : $assocMarketStats["avgRPastMonth"];
 							$marketStatsHTML .= "
 							<div class='marketDisplayRow infoRow'>
 								<img src='{$marketLogoPath}' alt='Market Logo' class='marketLogoImage'>

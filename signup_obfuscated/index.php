@@ -143,7 +143,7 @@ echo "
 					</div>
 					<a href='../login/' id='loginLink'>Already have an account? Log in here</a>
                     <p id='midLabel'>OR</p>
-                    <a href='../home/' id='homeLink'>Browse the website</a>
+                    <a href='../' id='homeLink'>Browse the website</a>
 				</div>
 			</div>
 		</main>
