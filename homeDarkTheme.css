@@ -746,7 +746,7 @@ main {
 	outline: none;
 }
 .productMenuButtonDot, .marketMenuButtonDot {
-	fill: #ffffff;
+	fill: var(--UIdefaultTextColor);
 }
 .productMenuPopUp, .marketMenuPopUp {
 	position: absolute;
@@ -777,6 +777,9 @@ main {
 	min-width: 100px;
 	text-align: center;
 	line-height: 40px;
+}
+.marketMenuPopUpLink {
+	border-radius: 5px 0 5px 5px;
 }
 #productMenuDelete {
 	display: inline-block;
@@ -825,14 +828,16 @@ main {
 	position: fixed;
 	background-color: rgba(0, 0, 0, 0.7);
 	z-index: 5;
-	height: 100%;
+	height: 90%;
 	width: 100%;
+	bottom: 0;
+	left: 0;
 	display: none;
 }
 #confirmationDialog {
 	position: absolute;
 	width: 80%;
-	top: calc(50% - 10vh);
+    top: calc(50% - 5vh);
 	left: 50%;
 	padding: 10px;
 	transform: translate(-50%, -50%);

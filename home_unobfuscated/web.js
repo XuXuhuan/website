@@ -7,7 +7,7 @@ const refConfirmButton = document.querySelector("#confirmButton");
 const refCancelButton = document.querySelector("#cancelButton");
 const refMenuPopUps = document.querySelectorAll(".productMenuPopUp, .marketMenuPopUp");
 const refProductMenuDelete = document.querySelector("#productMenuDelete");
-var bestStatProductName = document.querySelector("#bestStatProductName").innerHTML;
+var bestStatProductName = document.querySelector("#bestStatProductName") ? document.querySelector("#bestStatProductName").innerHTML : null;
 var checkNotification;
 refMenuButton.style.filter = "brightness(100%)";
 refMenuButton.style.cursor = "pointer";
@@ -25,15 +25,17 @@ refMenuPopUps.forEach(function(item) {
 		item.classList.toggle("hidePopUp");
 	});
 });
-refProductMenuDelete.addEventListener("click", function() {
-	const refConfirmationOverlay = document.querySelector("#confirmationOverlay");
-	const refConfirmationText = document.querySelector("#confirmationText");
-	refConfirmationText.innerHTML = "Are you sure you want to delete " + bestStatProductName + "? This process cannot be undone!";
-	refConfirmationOverlay.setAttribute("data-destid", refProductMenuDelete.getAttribute("data-productid"));
-	if (!refConfirmationOverlay.classList.contains("displaying")) {
-		refConfirmationOverlay.classList.add("displaying");
-	}
-});
+if (document.querySelector("#bestStatProductName")) {
+	refProductMenuDelete.addEventListener("click", function() {
+		const refConfirmationOverlay = document.querySelector("#confirmationOverlay");
+		const refConfirmationText = document.querySelector("#confirmationText");
+		refConfirmationText.innerHTML = "Are you sure you want to delete " + bestStatProductName + "? This process cannot be undone!";
+		refConfirmationOverlay.setAttribute("data-destid", refProductMenuDelete.getAttribute("data-productid"));
+		if (!refConfirmationOverlay.classList.contains("displaying")) {
+			refConfirmationOverlay.classList.add("displaying");
+		}
+	});
+}
 refConfirmButton.addEventListener("click", function() {
 	const refConfirmationOverlay = document.querySelector("#confirmationOverlay");
 	if (refConfirmationOverlay.getAttribute("data-destid").length > 0) {
@@ -48,9 +50,7 @@ refConfirmButton.addEventListener("click", function() {
 		xhr.onload = function() {
 			if (xhr.status === 200) {
 				if (xhr.responseText === "Product Deleted.") {
-					setNotification(xhr.responseText, false);
-					fetchNewPage(currentProductsListPage, "");
-					refConfirmationOverlay.setAttribute("data-destid", "");
+					window.location.reload();
 				} else {
 					setNotification(xhr.responseText, true);
 				}
