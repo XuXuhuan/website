@@ -61,8 +61,6 @@ if ($mysqliConnection -> connect_errno) {
 											<p id="alertText">An error occurred.</p>
 										</div>';
 									}
-								} else {
-									header("Location: https://www.streetor.sg/login/");
 								}
 							} else {
 								$loginAlert = '
