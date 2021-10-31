@@ -599,13 +599,12 @@ if ($mysqliConnection -> connect_errno) {
 						if ($queriedNeededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 							if ($assocNeededDetails = $queriedNeededDetails -> fetch_assoc()) {
 								$dbPassword = $assocNeededDetails["password"];
-								$db2FAenabled = $assocNeededDetails["2FAenabled"];
+								$toggledDB2FAenabled = (int)!$assocNeededDetails["2FAenabled"];
 								$update2FAquery = "UPDATE accountdetails
-								SET 2FAenabled = !{$db2FAenabled}
+								SET 2FAenabled = {$toggledDB2FAenabled}
 								WHERE accountID = '{$_SESSION["userID"]}'";
 								if (password_verify(base64_encode(hash("sha512", $_POST["content2"], true)), $dbPassword) === true) {
 									if ($mysqliConnection -> query($update2FAquery)) {
-										$toggledDB2FAenabled = !$db2FAenabled;
 										$twoFactorAuthToggleState = $toggledDB2FAenabled === 1 ? "enabled" : "disabled";
 										$assocReturn["message"] = "Your 2 factor authentication has been <b>{$twoFactorAuthToggleState}</b>.";
 										$assocReturn["switch"] = (bool)$toggledDB2FAenabled;
