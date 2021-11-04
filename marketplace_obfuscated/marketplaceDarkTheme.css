@@ -746,7 +746,7 @@ main {
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 15px;
-	width: calc(733 / 680 * 15px);
+	width: calc(50 / 46 * 15px);
 }
 #marketDetailsCont {
 	position: relative;

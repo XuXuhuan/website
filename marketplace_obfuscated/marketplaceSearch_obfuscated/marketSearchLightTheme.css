@@ -630,7 +630,7 @@ main {
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 15px;
-	width: calc(733 / 680 * 15px);
+	width: calc(50 / 46 * 15px);
 }
 .marketContentsRow {
 	position: relative;
@@ -703,7 +703,7 @@ main {
 	background-repeat: no-repeat;
 	background-size: contain;
 	height: 15px;
-	width: calc(354 / 566 * 15px);
+	width: calc(31 / 50 * 15px);
 	cursor: pointer;
 }
 #leftArrowCont {

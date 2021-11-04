@@ -311,11 +311,10 @@ main {
 	background-size: contain;
 	background-image: url("../Assets/darkTheme/PasswordInvisible.png");
 	height: 15px;
-	width: calc(1012 / 616 * 15px);
+	width: calc(5 / 3 * 15px);
 }
 .showingPassImage {
 	background-image: var(--showPassLink) !important;
-	width: calc(1000 / 600 * 15px) !important;
 }
 #signUpButton {
 	display: block;

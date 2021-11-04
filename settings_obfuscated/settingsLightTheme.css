@@ -719,7 +719,7 @@ main {
 	background-size: contain;
 	background-image: url("../Assets/lightTheme/PasswordInvisible.png");
 	height: 15px;
-	width: calc(1012 / 616 * 15px);
+	width: calc(5 / 3 * 15px);
 }
 .inputErrorText {
 	height: 2em;

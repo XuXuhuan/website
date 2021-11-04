@@ -51,7 +51,6 @@ body::after{
 	url("../../../Assets/global/market.png")
 	url("../../../Assets/darkTheme/privacyLock.png")
 	url("../../../Assets/darkTheme/loading.png")
-	url("../../../Assets/global/checkBoxCheck.png")
 	url("../../../Assets/darkTheme/PasswordInvisible.png")
 	url("../../../Assets/darkTheme/PasswordVisible.png");
  }
@@ -735,6 +734,6 @@ label[for="productImagesLabel"] {
 	background-repeat: no-repeat;
 	background-image: url("../../../Assets/darkTheme/leftArrow.png");
 	width: 7px;
-	height: calc(566 / 354 * 7px);
+	height: calc(31 / 50 * 7px);
 	margin-right: 5px;
 }
