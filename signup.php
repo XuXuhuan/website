@@ -128,7 +128,7 @@ $emailDOM = "
 							</tr>
 							<tr>
 								<td align='center' style='padding-bottom: 20px;'>
-									<a id='verificationLink' href='https://www.streetor.sg/emailVerification/?email={$encodedEmail}&token={$randomString}'>
+									<a id='verificationLink' href='https://streetor.sg/emailVerification/?email={$encodedEmail}&token={$randomString}'>
 										Verify your email
 									</a>
 								</td>
@@ -235,7 +235,7 @@ if ($mysqliConnection -> connect_errno) {
 					if (mail($_POST["email"], "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
 						$assocReturn["message"] = "An email has been sent to your email address for verification.";
 					} else {
-						$assocReturn["message"] = "An error occurred and a verification email was not sent to the input email address. You can go to the <a href='https://www.streetor.sg/login/'>log in</a> page or settings page to re-send the email.";
+						$assocReturn["message"] = "An error occurred and a verification email was not sent to the input email address. You can go to the <a href='https://streetor.sg/login/'>log in</a> page or settings page to re-send the email.";
 					}
 				} else {
 					$assocReturn["message"] = "An error occurred. Please refresh the page and try again later.";

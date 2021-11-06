@@ -27,7 +27,7 @@ function fetchNewPage(newPage) {
 				<div class="marketContentsRow infoRow">
 					<img src="${item["marketLogoURL"]}" alt="Market Logo" class="marketLogoImage">
 					<div class="marketNameAndBioCont infoColumnRow">
-						<a href="https://www.streetor.sg/marketplace/?id=${item["marketID"]}" class="marketName">${item["marketName"]}</a>
+						<a href="https://streetor.sg/marketplace/?id=${item["marketID"]}" class="marketName">${item["marketName"]}</a>
 						<p class="biographyText">${item["marketBiography"]}</p>
 					</div>
 				</div>`;

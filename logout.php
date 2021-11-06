@@ -14,7 +14,7 @@ if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true && isset($_SE
 	WHERE accountID = '{$_SESSION["userID"]}'";
 	$mysqliConnection -> query($updateTokenHashQuery);
 }
-setcookie("logincookie", "", time() - 3600, "/", "www.streetor.sg", false, false);
+setcookie("logincookie", "", time() - 3600, "/", "streetor.sg", false, false);
 $_SESSION["loggedIn"] = false;
 unset($_SESSION["userID"]);
 unset($_SESSION["username"]);
@@ -25,5 +25,5 @@ unset($_SESSION["emailChangeToken"]);
 unset($_SESSION["accountDeletionToken"]);
 unset($_SESSION["email"]);
 $mysqliConnection -> close();
-echo "https://www.streetor.sg/login/";
+echo "https://streetor.sg/login/";
 ?>

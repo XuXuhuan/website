@@ -90,7 +90,7 @@ function fetchNewPage(newPage, query) {
 					<div class='productContentsRow infoRow'>
 						<img src='${item["productImageURL"]}' alt='Product Image' class='productImage'>
 						<div class='productNameAndInfoCont infoColumnRow'>
-							<a href='https://www.streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
+							<a href='https://streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
 							<p class='pricingInfoLabel'>S$${item["productPricing"]}</p>
 							<p class='productInfoText'>${item["productInfo"]}</p>
 							<div class='productRatingRow'>
@@ -111,7 +111,7 @@ function fetchNewPage(newPage, query) {
 									<circle cx='2.5' cy='17.5' r='2.5' class='productMenuButtonDot'/>
 								</svg>
 								<span class='productMenuPopUp hideProductMenuPopUp'>
-									<a href='https://www.streetor.sg/marketplace/products/edit/?id=${item["productID"]}' class='notSelectable productMenuPopUpLink'>
+									<a href='https://streetor.sg/marketplace/products/edit/?id=${item["productID"]}' class='notSelectable productMenuPopUpLink'>
 										Edit
 										<div class='productMenuPopUpTail'></div>
 									</a>
@@ -815,7 +815,7 @@ refProductsButton.addEventListener("click", function() {
 					<div class='productContentsRow infoRow' id="newProductRow">
 						<div id="newProductIcon"></div>
 						<div class='productNameAndInfoCont infoColumnRow' id="newProductInfoCont">
-							<a href='https://www.streetor.sg/marketplace/products/create/?id=${URLparameters.get("id")}' class='productName' id="newProductLabel">New Product</a>
+							<a href='https://streetor.sg/marketplace/products/create/?id=${URLparameters.get("id")}' class='productName' id="newProductLabel">New Product</a>
 						</div>
 					</div>
 				</div>

@@ -8,7 +8,13 @@ const refPasswordError = document.querySelector("#passwordError");
 const refLoginButtonCont = document.querySelector("#logInButtonCont");
 const refLoginButton = document.querySelector("#logInButton");
 const refLoginMessage = document.querySelector("#logInMessage");
+const refVignette = document.querySelector("#vignette");
+const refCancelTwoFactorAuthButton = document.querySelector("#cancelTwoFactorAuthButton");
+const refTwoFactorAuthField = document.querySelector("#verificationCodeField");
+const refTwoFactorAuthBlanks = document.querySelectorAll(".verificationCodeBlanks");
+const refTwoFactorAuthError = document.querySelector("#twoFactorAuthError");
 const userDirtRegexp = /[^a-z0-9._]/gi;
+var currentBlank = -1;
 var checkLogin;
 refUsernameField.addEventListener("keyup", function() {
 	if (refUsernameField.value.trim().length === 0) {
@@ -40,6 +46,13 @@ refPasswordToggleButton.addEventListener("click", function() {
 		refPasswordField.type = "password";
 	}
 });
+refCancelTwoFactorAuthButton.addEventListener("click", function() {
+	refVignette.style = 0;
+	currentBlank = 0;
+	refTwoFactorAuthBlanks.forEach(function(item) {
+		item.innerHTML = "";
+	});
+});
 function submitLogin(event) {
 	if (event.button === 0) {
 		clearTimeout(checkLogin);
@@ -55,6 +68,13 @@ function submitLogin(event) {
 						refUsernameError.innerHTML = xhr.response["errormessages"]["usernameError"];
 						refPasswordError.innerHTML = xhr.response["errormessages"]["passwordError"];
 						refLoginMessage.innerHTML = xhr.response["errormessages"]["loginError"];
+						refTwoFactorAuthError.innerHTML = xhr.response["errormessages"]["2FAError"];
+						if (xhr.response["2FARequired"] === true) {
+							if (refVignette.style.opacity !== 0) {
+								refVignette.style.display = "block";
+								refVignette.style.opacity = 1;
+							}
+						}
 						if (xhr.response["successURL"].length > 0) {
 							window.location = xhr.response["successURL"];
 						} else {
@@ -73,5 +93,43 @@ function submitLogin(event) {
 function cancelSubmitLoginTimeout(event) {
 	if (event.button === 0) {
 		clearTimeout(checkLogin);
+	}
+}
+function fillVerificationCodeBlanks(key) {
+	if (!isNaN(key.key)) {
+		if (currentBlank < 5) {
+			currentBlank++;
+			refTwoFactorAuthBlanks[currentBlank].innerHTML = key.key;
+			if (currentBlank === 5) {
+				var verificationCode = "";
+				refTwoFactorAuthBlanks.forEach(function(item) {
+					verificationCode += item.innerHTML;
+				});
+				const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+				xhr.open("POST", "login.php", true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.responseType = "json";
+				refLoginButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
+				xhr.onload = function() {
+					if (xhr.status === 200) {
+						refTwoFactorAuthError.innerHTML = xhr.response["errormessages"]["2FAError"];
+						if (xhr.response["successURL"].length > 0) {
+							window.location = xhr.response["successURL"];
+						} else {
+							refLoginButtonCont.innerHTML = '<button id="logInButton" onmouseup="submitLogin(event)" onmousedown="cancelSubmitLoginTimeout(event)">Login</button>';
+						}
+					} else {
+						refLoginMessage.innerHTML = "An error occurred.";
+					}
+				}
+				xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refPasswordField.value) + "&2FACode=" + encodeURIComponent(verificationCode));
+			}
+		}
+	}
+	if (key.keyCode === 8) {
+		if (currentBlank > -1) {
+			refTwoFactorAuthBlanks[currentBlank].innerHTML = "";
+			currentBlank--;
+		}
 	}
 }

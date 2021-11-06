@@ -50,7 +50,7 @@ if ($mysqliConnection -> connect_errno) {
 									WHERE accountID = '{$dbAccountID}'";
 									if ($tokenUpdateQuery = $mysqliConnection -> query($updateNewToken)) {
 										$newCookieValuesDecoded = array("remembermeid" => $rememberMeID, "remembermetoken" => $generateNewToken);
-										setcookie("logincookie", json_encode($newCookieValuesDecoded), strtotime("9999-12-31"), "/", "www.streetor.sg", true, true);
+										setcookie("logincookie", json_encode($newCookieValuesDecoded), strtotime("9999-12-31"), "/", "streetor.sg", true, true);
 										$_SESSION["loggedIn"] = true;
 										$_SESSION["userID"] = $dbAccountID;
 										$_SESSION["username"] = $dbUsername;
@@ -77,13 +77,13 @@ if ($mysqliConnection -> connect_errno) {
 						$allNeededDetails -> free();
 					}
 				} else {
-					header("https://www.streetor.sg/login");
+					header("https://streetor.sg/login");
 				}
 			} else {
-				$logoutOrLogin = "<a href='https://www.streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>";
+				$logoutOrLogin = "<a href='https://streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>";
 				$loginAlert = '
 				<div id="alertCont">
-					<p id="alertText">' . (int)isset($_COOKIE["logincookie"]) . 'You are logged out. You are now browsing as a guest.</p>
+					<p id="alertText">You are logged out. You are now browsing as a guest.</p>
 				</div>';
 			}
 		}
@@ -131,7 +131,7 @@ if ($mysqliConnection -> connect_errno) {
 							<div class='productContentsRow infoRow'>
 								<img src='{$productImagePath}' alt='Product Image' class='productImage'>
 								<div class='productNameAndInfoCont infoColumnRow'>
-									<a href='https://www.streetor.sg/marketplace/products/?prodid={$assocProductStats["productID"]}' class='productName' id='bestStatProductName'>{$escapedProductName}</a>
+									<a href='https://streetor.sg/marketplace/products/?prodid={$assocProductStats["productID"]}' class='productName' id='bestStatProductName'>{$escapedProductName}</a>
 									<p class='pricingInfoLabel'>S\${$adjustedPrice}</p>
 									<p class='productInfoText'>{$escapedProductInfo}</p>
 									<div class='productRatingRow'>
@@ -152,7 +152,7 @@ if ($mysqliConnection -> connect_errno) {
 											<circle cx='2.5' cy='17.5' r='2.5' class='productMenuButtonDot'/>
 										</svg>
 										<span class='hidePopUp productMenuPopUp'>
-											<a href='https://www.streetor.sg/marketplace/products/edit/?id={$assocProductStats["productID"]}' class='notSelectable productMenuPopUpLink'>
+											<a href='https://streetor.sg/marketplace/products/edit/?id={$assocProductStats["productID"]}' class='notSelectable productMenuPopUpLink'>
 												Edit
 												<div class='productMenuPopUpTail'></div>
 											</a>
@@ -228,13 +228,13 @@ if ($mysqliConnection -> connect_errno) {
 												<circle cx='2.5' cy='17.5' r='2.5' class='marketMenuButtonDot'/>
 											</svg>
 											<span class='hidePopUp marketMenuPopUp'>
-												<a href='https://www.streetor.sg/marketplace/edit/?id={$assocMarketStats["marketID"]}' class='notSelectable marketMenuPopUpLink'>
+												<a href='https://streetor.sg/marketplace/edit/?id={$assocMarketStats["marketID"]}' class='notSelectable marketMenuPopUpLink'>
 													Manage
 													<div class='marketMenuPopUpTail'></div>
 												</a>
 											</span>
 										</button>
-										<a href='https://www.streetor.sg/marketplace/?id={$assocMarketStats["marketID"]}' class='marketName'>{$escapedMarketName}</a>
+										<a href='https://streetor.sg/marketplace/?id={$assocMarketStats["marketID"]}' class='marketName'>{$escapedMarketName}</a>
 										<p class='biographyText'>{$escapedMarketInfo}</p>
 									</div>
 								</div>
@@ -337,7 +337,7 @@ if ($mysqliConnection -> connect_errno) {
 					$homePageHTML = "
 					<div id='informationCont'>
 						<h1 id='loginText'>Hello Guest!</h1>
-						<p id='websiteInfoText'>Streetor is a website for shops to put their products on display for users to browse from the comfort of their own home. Shop owners can also view statistics on the product ratings and subscribers in the past 30 days, or all time. <a href='https://www.streetor.sg/login/' class='hyperlinks'>Log in</a> or <a href='https://www.streetor.sg/signup/' class='hyperlinks'>sign up</a> to get access to features like giving product ratings and subscribing to shops to get notifications when shops release new products or discounts.</p>
+						<p id='websiteInfoText'>Streetor is a website for shops to put their products on display for users to browse from the comfort of their own home. Shop owners can also view statistics on the product ratings and subscribers in the past 30 days, or all time. <a href='https://streetor.sg/login/' class='hyperlinks'>Log in</a> or <a href='https://streetor.sg/signup/' class='hyperlinks'>sign up</a> to get access to features like giving product ratings and subscribing to shops to get notifications when shops release new products or discounts.</p>
 					</div>
 					<div id='countsRow' class='infoRow'>
 						<div id='userCountCont'>
@@ -393,31 +393,31 @@ if (empty($loginAlert)) {
 					{$logoutOrLogin}
 				</nav>
 				<nav id='sidenav'>
-					<a href='https://www.streetor.sg' id='homeLink'>
+					<a href='https://streetor.sg' id='homeLink'>
 						<div class='innerLinksCont'>
 							<div id='homeImage' class='sideNavImage'></div>
 							<p id='homeText' class='notSelectable'>Home</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+					<a href='https://streetor.sg/profiles/' id='profilesLink'>
 						<div class='innerLinksCont'>
 							<div id='profilesImage' class='sideNavImage'></div>
 							<p id='profilesText' class='notSelectable'>Profiles</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+					<a href='https://streetor.sg/settings/' id='settingsLink'>
 						<div class='innerLinksCont'>
 							<div id='settingsImage' class='sideNavImage'></div>
 							<p id='settingsText' class='notSelectable'>Settings</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+					<a href='https://streetor.sg/marketplace/' id='marketplaceLink'>
 						<div class='innerLinksCont'>
 							<div id='marketplaceImage' class='sideNavImage'></div>
 							<p id='marketplaceText' class='notSelectable'>Marketplace</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+					<a href='https://streetor.sg/privacy/' id='privacyLink'>
 						<div class='innerLinksCont'>
 							<div id='privacyImage' class='sideNavImage'></div>
 							<p id='privacyText' class='notSelectable'>Privacy</p>
@@ -461,31 +461,31 @@ if (empty($loginAlert)) {
 					{$logoutOrLogin}
 				</nav>
 				<nav id='sidenav'>
-					<a href='https://www.streetor.sg' id='homeLink'>
+					<a href='https://streetor.sg' id='homeLink'>
 						<div class='innerLinksCont'>
 							<div id='homeImage' class='sideNavImage'></div>
 							<p id='homeText' class='notSelectable'>Home</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+					<a href='https://streetor.sg/profiles/' id='profilesLink'>
 						<div class='innerLinksCont'>
 							<div id='profilesImage' class='sideNavImage'></div>
 							<p id='profilesText' class='notSelectable'>Profiles</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+					<a href='https://streetor.sg/settings/' id='settingsLink'>
 						<div class='innerLinksCont'>
 							<div id='settingsImage' class='sideNavImage'></div>
 							<p id='settingsText' class='notSelectable'>Settings</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+					<a href='https://streetor.sg/marketplace/' id='marketplaceLink'>
 						<div class='innerLinksCont'>
 							<div id='marketplaceImage' class='sideNavImage'></div>
 							<p id='marketplaceText' class='notSelectable'>Marketplace</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+					<a href='https://streetor.sg/privacy/' id='privacyLink'>
 						<div class='innerLinksCont'>
 							<div id='privacyImage' class='sideNavImage'></div>
 							<p id='privacyText' class='notSelectable'>Privacy</p>

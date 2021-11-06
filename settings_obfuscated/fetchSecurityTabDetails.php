@@ -36,10 +36,10 @@ if ($mysqliConnection -> connect_error) {
             }
             $allNeededDetails -> free();
         } else {
-            $assocReturn["concatText"] = "[Error. Please <a href='https://www.streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.]";
+            $assocReturn["concatText"] = "[Error. Please <a href='https://streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.]";
         }
     } else {
-        $assocReturn["concatText"] = "[This feature is reserved for signed in users only. Please <a href='https://www.streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.]";
+        $assocReturn["concatText"] = "[This feature is reserved for signed in users only. Please <a href='https://streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.]";
     }
 }
 $mysqliConnection -> close();

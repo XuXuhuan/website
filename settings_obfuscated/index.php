@@ -53,7 +53,7 @@ if ($mysqliConnection -> connect_errno) {
 									WHERE accountID = '{$dbAccountID}'";
 									if ($tokenUpdateQuery = $mysqliConnection -> query($updateNewToken)) {
 										$newCookieValuesDecoded = array("remembermeid" => $rememberMeID, "remembermetoken" => $generateNewToken);
-										setcookie("logincookie", json_encode($newCookieValuesDecoded), strtotime("9999-12-31"), "/", "www.streetor.sg", true, true);
+										setcookie("logincookie", json_encode($newCookieValuesDecoded), strtotime("9999-12-31"), "/", "streetor.sg", true, true);
 										$_SESSION["loggedIn"] = true;
 										$_SESSION["userID"] = $dbAccountID;
 										$_SESSION["username"] = $dbUsername;
@@ -65,7 +65,7 @@ if ($mysqliConnection -> connect_errno) {
 										</div>';
 									}
 								} else {
-									header("Location: https://www.streetor.sg/login/");
+									header("Location: https://streetor.sg/login/");
 								}
 							} else {
 								$loginAlert = '
@@ -82,10 +82,10 @@ if ($mysqliConnection -> connect_errno) {
 						$allNeededDetails -> free();
 					}
 				} else {
-					header("https://www.streetor.sg/login");
+					header("https://streetor.sg/login");
 				}
 			} else {
-				$logoutOrLogin = "<a href='https://www.streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>";
+				$logoutOrLogin = "<a href='https://streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>";
 				$loginAlert = '
 				<div id="alertCont">
 					<p id="alertText">You are logged out. This page is open only to logged in users.</p>
@@ -159,31 +159,31 @@ if (empty($loginAlert)) {
 					{$logoutOrLogin}
 				</nav>
 				<nav id='sidenav'>
-					<a href='https://www.streetor.sg' id='homeLink'>
+					<a href='https://streetor.sg' id='homeLink'>
 						<div class='innerLinksCont'>
 							<div id='homeImage' class='sideNavImage'></div>
 							<p id='homeText' class='notSelectable'>Home</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+					<a href='https://streetor.sg/profiles/' id='profilesLink'>
 						<div class='innerLinksCont'>
 							<div id='profilesImage' class='sideNavImage'></div>
 							<p id='profilesText' class='notSelectable'>Profiles</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+					<a href='https://streetor.sg/settings/' id='settingsLink'>
 						<div class='innerLinksCont'>
 							<div id='settingsImage' class='sideNavImage'></div>
 							<p id='settingsText' class='notSelectable'>Settings</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+					<a href='https://streetor.sg/marketplace/' id='marketplaceLink'>
 						<div class='innerLinksCont'>
 							<div id='marketplaceImage' class='sideNavImage'></div>
 							<p id='marketplaceText' class='notSelectable'>Marketplace</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+					<a href='https://streetor.sg/privacy/' id='privacyLink'>
 						<div class='innerLinksCont'>
 							<div id='privacyImage' class='sideNavImage'></div>
 							<p id='privacyText' class='notSelectable'>Privacy</p>
@@ -225,7 +225,7 @@ if (empty($loginAlert)) {
 						<div class='infoColumnRow'>
 							<p id='changeUsernameText' class='notSelectable' onclick='changeUserToggle()'>
 								Change Your Username
-								<svg version='1.0' xmlns='http://www.w3.org/2000/svg' class='dropDownMenuArrow' id='changeUserMenuArrow' width='10px' height='10px' viewBox='0 0 1131.000000 744.000000' preserveAspectRatio='xMidYMid meet'>
+								<svg version='1.0' xmlns='http://w3.org/2000/svg' class='dropDownMenuArrow' id='changeUserMenuArrow' width='10px' height='10px' viewBox='0 0 1131.000000 744.000000' preserveAspectRatio='xMidYMid meet'>
 									<g transform='translate(0.000000,744.000000) scale(0.100000,-0.100000)' stroke='none'>
 										<path d='M887 6552 c-482 -482 -877 -882 -877 -887 0 -13 5642 -5655 5655
 										-5655 12 0 5645 5645 5645 5657 0 12 -1753 1763 -1765 1763 -5 0 -882 -872
@@ -248,7 +248,7 @@ if (empty($loginAlert)) {
 						<div class='infoColumnRow'>
 							<p id='changePasswordText' class='notSelectable' onclick='changePassToggle()'>
 								Change Your Password
-								<svg version='1.0' xmlns='http://www.w3.org/2000/svg' class='dropDownMenuArrow' id='changePassMenuArrow' width='10px' height='10px' viewBox='0 0 1131.000000 744.000000' preserveAspectRatio='xMidYMid meet'>
+								<svg version='1.0' xmlns='http://w3.org/2000/svg' class='dropDownMenuArrow' id='changePassMenuArrow' width='10px' height='10px' viewBox='0 0 1131.000000 744.000000' preserveAspectRatio='xMidYMid meet'>
 									<g transform='translate(0.000000,744.000000) scale(0.100000,-0.100000)' stroke='none'>
 										<path d='M887 6552 c-482 -482 -877 -882 -877 -887 0 -13 5642 -5655 5655
 										-5655 12 0 5645 5645 5645 5657 0 12 -1753 1763 -1765 1763 -5 0 -882 -872
@@ -284,7 +284,7 @@ if (empty($loginAlert)) {
 						<div class='infoColumnRow'>
 							<p id='changeEmailText' class='notSelectable' onclick='changeEmailToggle()'>
 								Change Your Email
-								<svg version='1.0' xmlns='http://www.w3.org/2000/svg' class='dropDownMenuArrow' id='changeEmailMenuArrow' width='10px' height='10px' viewBox='0 0 1131.000000 744.000000' preserveAspectRatio='xMidYMid meet'>
+								<svg version='1.0' xmlns='http://w3.org/2000/svg' class='dropDownMenuArrow' id='changeEmailMenuArrow' width='10px' height='10px' viewBox='0 0 1131.000000 744.000000' preserveAspectRatio='xMidYMid meet'>
 									<g transform='translate(0.000000,744.000000) scale(0.100000,-0.100000)' stroke='none'>
 										<path d='M887 6552 c-482 -482 -877 -882 -877 -887 0 -13 5642 -5655 5655
 										-5655 12 0 5645 5645 5645 5657 0 12 -1753 1763 -1765 1763 -5 0 -882 -872
@@ -364,31 +364,31 @@ if (empty($loginAlert)) {
 					{$logoutOrLogin}
 				</nav>
 				<nav id='sidenav'>
-					<a href='https://www.streetor.sg' id='homeLink'>
+					<a href='https://streetor.sg' id='homeLink'>
 						<div class='innerLinksCont'>
 							<div id='homeImage' class='sideNavImage'></div>
 							<p id='homeText' class='notSelectable'>Home</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+					<a href='https://streetor.sg/profiles/' id='profilesLink'>
 						<div class='innerLinksCont'>
 							<div id='profilesImage' class='sideNavImage'></div>
 							<p id='profilesText' class='notSelectable'>Profiles</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+					<a href='https://streetor.sg/settings/' id='settingsLink'>
 						<div class='innerLinksCont'>
 							<div id='settingsImage' class='sideNavImage'></div>
 							<p id='settingsText' class='notSelectable'>Settings</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+					<a href='https://streetor.sg/marketplace/' id='marketplaceLink'>
 						<div class='innerLinksCont'>
 							<div id='marketplaceImage' class='sideNavImage'></div>
 							<p id='marketplaceText' class='notSelectable'>Marketplace</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+					<a href='https://streetor.sg/privacy/' id='privacyLink'>
 						<div class='innerLinksCont'>
 							<div id='privacyImage' class='sideNavImage'></div>
 							<p id='privacyText' class='notSelectable'>Privacy</p>

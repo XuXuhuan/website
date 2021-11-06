@@ -49,7 +49,7 @@ if ($mysqliConnection -> connect_errno) {
 					WHERE accountDeletionToken = '{$getVerifToken}'
 					AND email = '{$getEmail}'";
 					if ($preparedUpdateVerif = $mysqliConnection -> query($updateVerificationQuery)) {
-						setcookie("logincookie", null, -1, "/", "www.streetor.sg", true, true);
+						setcookie("logincookie", null, -1, "/", "streetor.sg", true, true);
 						$_SESSION["loggedIn"] = false;
 						unset($_SESSION["userID"]);
 						unset($_SESSION["username"]);

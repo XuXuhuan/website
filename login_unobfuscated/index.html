@@ -44,22 +44,24 @@
                     <p id='midLabel'>OR</p>
                     <a href='../' id='homeLink'>Browse the website</a>
                 </div>
-                <div id="vignette">
-                    <div id="twoFactorAuthCont">
-                        <button id="cancelTwoFactorAuthButton">
-                            <div id="cancelTwoFactorAuthLineOne"></div>
-                            <div id="cancelTwoFactorAuthLineTwo"></div>
+                <div id='vignette'>
+                    <div id='twoFactorAuthCont'>
+                        <button id='cancelTwoFactorAuthButton'>
+                            <div id='cancelTwoFactorAuthLineOne'></div>
+                            <div id='cancelTwoFactorAuthLineTwo'></div>
                         </button>
-                        <p id="twoFactorAuthLabel" class="notSelectable">2-Step Verification</p>
-                        <p id="twoFactorAuthDescription">An email containing a 6-digit verification code has been sent to your email address. Enter the code received to log in.</p>
-                        <div id="verificationCodeCont">
-                            <p class="verificationCodeBlanks"></p>
-                            <p class="verificationCodeBlanks"></p>
-                            <p class="verificationCodeBlanks"></p>
-                            <p class="verificationCodeBlanks"></p>
-                            <p class="verificationCodeBlanks"></p>
-                            <p class="verificationCodeBlanks"></p>
+                        <p id='twoFactorAuthLabel' class='notSelectable'>2-Step Verification</p>
+                        <p id='twoFactorAuthDescription'>An email containing a 6-digit verification code has been sent to your email address. Enter the code received to log in.</p>
+                        <div id='verificationCodeCont'>
+                            <input type='number' id='verificationCodeField' onkeydown='fillVerificationCodeBlanks(event)'>
+                            <p class='verificationCodeBlanks'></p>
+                            <p class='verificationCodeBlanks'></p>
+                            <p class='verificationCodeBlanks'></p>
+                            <p class='verificationCodeBlanks'></p>
+                            <p class='verificationCodeBlanks'></p>
+                            <p class='verificationCodeBlanks'></p>
                         </div>
+                        <p id='twoFactorAuthError' class='inputErrorText'></p>
                     </div>
                 </div>
             </div>

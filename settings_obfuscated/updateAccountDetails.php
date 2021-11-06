@@ -181,7 +181,7 @@ if ($mysqliConnection -> connect_errno) {
 																	</tr>
 																	<tr>
 																		<td align='center' style='padding-bottom: 20px;'>
-																			<a id='verificationLink' href='https://www.streetor.sg/changeUsername/?email={$dbEmail}&token={$_SESSION["userChangeToken"]}'>
+																			<a id='verificationLink' href='https://streetor.sg/changeUsername/?email={$dbEmail}&token={$_SESSION["userChangeToken"]}'>
 																				Change Username
 																			</a>
 																		</td>
@@ -359,7 +359,7 @@ if ($mysqliConnection -> connect_errno) {
 																	</tr>
 																	<tr>
 																		<td align='center' style='padding-bottom: 20px;'>
-																			<a id='verificationLink' href='https://www.streetor.sg/changePassword/?email={$dbEmail}&token={$_SESSION["passChangeToken"]}'>
+																			<a id='verificationLink' href='https://streetor.sg/changePassword/?email={$dbEmail}&token={$_SESSION["passChangeToken"]}'>
 																				Change Password
 																			</a>
 																		</td>
@@ -539,7 +539,7 @@ if ($mysqliConnection -> connect_errno) {
 																		</tr>
 																		<tr>
 																			<td align='center' style='padding-bottom: 20px;'>
-																				<a id='verificationLink' href='https://www.streetor.sg/changeEmail/?email={$dbEmail}&token={$_SESSION["emailChangeToken"]}'>
+																				<a id='verificationLink' href='https://streetor.sg/changeEmail/?email={$dbEmail}&token={$_SESSION["emailChangeToken"]}'>
 																					Change Email
 																				</a>
 																			</td>
@@ -629,7 +629,7 @@ if ($mysqliConnection -> connect_errno) {
 			}
 		}
 	} else {
-		$assocReturn["message"] = "This feature is reserved for signed in users only. Please <a href='https://www.streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.";
+		$assocReturn["message"] = "This feature is reserved for signed in users only. Please <a href='https://streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.";
 	}
 }
 $mysqliConnection -> close();

@@ -133,7 +133,7 @@ if ($mysqliConnection -> connect_errno) {
 													</tr>
 													<tr>
 														<td align='center' style='padding-bottom: 20px;'>
-															<a id='verificationLink' href='https://www.streetor.sg/emailVerification/?email={$dbEmail}&token={$_SESSION['emailVerifToken']}'>
+															<a id='verificationLink' href='https://streetor.sg/emailVerification/?email={$dbEmail}&token={$_SESSION['emailVerifToken']}'>
 																Verify your email
 															</a>
 														</td>
@@ -185,7 +185,7 @@ if ($mysqliConnection -> connect_errno) {
 			$assocReturn["message"] = "An error occurred.";
 		}
 	} else {
-		$assocReturn["message"] = "Please <a href='https://www.streetor.sg/login/' style='color: #4486f4;'>log in and try again.</a>";
+		$assocReturn["message"] = "Please <a href='https://streetor.sg/login/' style='color: #4486f4;'>log in and try again.</a>";
 	}
 }
 $mysqliConnection -> close();

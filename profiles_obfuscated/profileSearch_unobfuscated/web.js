@@ -25,7 +25,7 @@ function fetchNewPage(newPage) {
 			xhr.response["profileDetails"].forEach(function(item) {
 				refProfilesContainer.innerHTML += `
 				<div class="infoColumnRow">
-					<a href="https://www.streetor.sg/profiles/?id=${item["profileID"]}" class="userListName">${item["profileUsername"]}</a>
+					<a href="https://streetor.sg/profiles/?id=${item["profileID"]}" class="userListName">${item["profileUsername"]}</a>
 					<p class="bioPreview">${item["profileBiography"]}</p>
 				</div>`;
 			});

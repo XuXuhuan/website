@@ -56,7 +56,7 @@ function fetchNewPage(newPage) {
 				<div class='productContentsRow infoRow'>
 					<img src='${item["productImageURL"]}' alt='Product Image' class='productImage'>
 					<div class='productNameAndInfoCont infoColumnRow'>
-						<a href='https://www.streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
+						<a href='https://streetor.sg/marketplace/products/?prodid=${item["productID"]}' class='productName'>${item["productName"]}</a>
 						<p class='pricingInfoLabel'>S$${item["productPricing"]}</p>
 						<p class='productInfoText'>${item["productInfo"]}</p>
 						<div class='productRatingRow'>
@@ -394,11 +394,11 @@ if (URLparameters.has("marketid")) {
 }
 refProductSearchField.addEventListener("keyup", function(key) {
 	if (key.keyCode === 13 && refProductSearchField.value.length > 0) {
-		window.location = "https://www.streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(marketID) + "&query=" + encodeURIComponent(refProductSearchField.value);
+		window.location = "https://streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(marketID) + "&query=" + encodeURIComponent(refProductSearchField.value);
 	}
 });
 refProductSearchButton.addEventListener("click", function() {
 	if (refProductSearchField.value.length > 0) {
-		window.location = "https://www.streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(marketID) + "&query=" + encodeURIComponent(refProductSearchField.value);
+		window.location = "https://streetor.sg/marketplace/products/?marketid=" + encodeURIComponent(marketID) + "&query=" + encodeURIComponent(refProductSearchField.value);
 	}
 });

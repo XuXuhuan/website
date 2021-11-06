@@ -5,9 +5,9 @@ date_default_timezone_set("MST");
 $stylesheetLink;
 $infoText;
 if (isset($_COOKIE["darktheme"]) && $_COOKIE["darktheme"] === "false") {
-	$stylesheetLink = "https://www.streetor.sg/errors/errorsLightTheme.css";
+	$stylesheetLink = "https://streetor.sg/errors/errorsLightTheme.css";
 } else {
-	$stylesheetLink = "https://www.streetor.sg/errors/errorsDarkTheme.css";
+	$stylesheetLink = "https://streetor.sg/errors/errorsDarkTheme.css";
 }
 echo "
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ echo "
         <meta name='keywords' content='lifestyle, life, tips, share, social media'>
         <meta name='description' content='Share about your lifestyle or lifestyle tips!'>
         <link rel='stylesheet' href='{$stylesheetLink}'>
-		<script src='https://www.streetor.sg/errors/web.js' defer></script>
+		<script src='https://streetor.sg/errors/web.js' defer></script>
         <title>Error 505 · Streetor</title>
     </head>
     <body>
@@ -30,31 +30,31 @@ echo "
 				<p id='orgName' class='notSelectable'>STREETOR</p>
 			</nav>
 			<nav id='sidenav'>
-				<a href='https://www.streetor.sg' id='homeLink'>
+				<a href='https://streetor.sg' id='homeLink'>
 					<div class='innerLinksCont'>
 						<div id='homeImage' class='sideNavImage'></div>
 						<p id='homeText' class='notSelectable'>Home</p>
 					</div>
 				</a>
-				<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+				<a href='https://streetor.sg/profiles/' id='profilesLink'>
 					<div class='innerLinksCont'>
 						<div id='profilesImage' class='sideNavImage'></div>
 						<p id='profilesText' class='notSelectable'>Profiles</p>
 					</div>
 				</a>
-				<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+				<a href='https://streetor.sg/settings/' id='settingsLink'>
 					<div class='innerLinksCont'>
 						<div id='settingsImage' class='sideNavImage'></div>
 						<p id='settingsText' class='notSelectable'>Settings</p>
 					</div>
 				</a>
-				<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+				<a href='https://streetor.sg/marketplace/' id='marketplaceLink'>
 					<div class='innerLinksCont'>
 						<div id='marketplaceImage' class='sideNavImage'></div>
 						<p id='marketplaceText' class='notSelectable'>Marketplace</p>
 					</div>
 				</a>
-				<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+				<a href='https://streetor.sg/privacy/' id='privacyLink'>
 					<div class='innerLinksCont'>
 						<div id='privacyImage' class='sideNavImage'></div>
 						<p id='privacyText' class='notSelectable'>Privacy</p>

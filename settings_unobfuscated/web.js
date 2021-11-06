@@ -896,7 +896,7 @@ refAccountButton.addEventListener("click", function() {
 		<div class="infoColumnRow">
 			<p id="changeUsernameText" class="notSelectable" onclick="changeUserToggle()">
 				Change Your Username
-				<svg version="1.0" xmlns="http://www.w3.org/2000/svg" class="dropDownMenuArrow" id="changeUserMenuArrow" width="10px" height="10px" viewBox="0 0 1131.000000 744.000000" preserveAspectRatio="xMidYMid meet">
+				<svg version="1.0" xmlns="http://w3.org/2000/svg" class="dropDownMenuArrow" id="changeUserMenuArrow" width="10px" height="10px" viewBox="0 0 1131.000000 744.000000" preserveAspectRatio="xMidYMid meet">
 					<g transform="translate(0.000000,744.000000) scale(0.100000,-0.100000)" stroke="none">
 						<path d="M887 6552 c-482 -482 -877 -882 -877 -887 0 -13 5642 -5655 5655
 						-5655 12 0 5645 5645 5645 5657 0 12 -1753 1763 -1765 1763 -5 0 -882 -872
@@ -919,7 +919,7 @@ refAccountButton.addEventListener("click", function() {
 		<div class="infoColumnRow">
 			<p id="changePasswordText" class="notSelectable" onclick="changePassToggle()">
 				Change Your Password
-				<svg version="1.0" xmlns="http://www.w3.org/2000/svg" class="dropDownMenuArrow" id="changePassMenuArrow" width="10px" height="10px" viewBox="0 0 1131.000000 744.000000" preserveAspectRatio="xMidYMid meet">
+				<svg version="1.0" xmlns="http://w3.org/2000/svg" class="dropDownMenuArrow" id="changePassMenuArrow" width="10px" height="10px" viewBox="0 0 1131.000000 744.000000" preserveAspectRatio="xMidYMid meet">
 					<g transform="translate(0.000000,744.000000) scale(0.100000,-0.100000)" stroke="none">
 						<path d="M887 6552 c-482 -482 -877 -882 -877 -887 0 -13 5642 -5655 5655
 						-5655 12 0 5645 5645 5645 5657 0 12 -1753 1763 -1765 1763 -5 0 -882 -872
@@ -955,7 +955,7 @@ refAccountButton.addEventListener("click", function() {
 		<div class="infoColumnRow">
 			<p id="changeEmailText" class="notSelectable" onclick="changeEmailToggle()">
 				Change Your Email
-				<svg version="1.0" xmlns="http://www.w3.org/2000/svg" class="dropDownMenuArrow" id="changeEmailMenuArrow" width="10px" height="10px" viewBox="0 0 1131.000000 744.000000" preserveAspectRatio="xMidYMid meet">
+				<svg version="1.0" xmlns="http://w3.org/2000/svg" class="dropDownMenuArrow" id="changeEmailMenuArrow" width="10px" height="10px" viewBox="0 0 1131.000000 744.000000" preserveAspectRatio="xMidYMid meet">
 					<g transform="translate(0.000000,744.000000) scale(0.100000,-0.100000)" stroke="none">
 						<path d="M887 6552 c-482 -482 -877 -882 -877 -887 0 -13 5642 -5655 5655
 						-5655 12 0 5645 5645 5645 5657 0 12 -1753 1763 -1765 1763 -5 0 -882 -872

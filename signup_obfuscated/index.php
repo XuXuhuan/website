@@ -45,12 +45,12 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 								if ($updatedTokenHash = $mysqliConnection -> query($updateTokenHashQuery)) {
 									$newCookieDecoded = array("remembermeid" => $dbRememberID,
 															"remembermetoken" => $randomToken);
-									setcookie("logincookie", json_encode($newCookieDecoded), strtotime("9999-12-31"), "/", "www.streetor.sg", true, true);
+									setcookie("logincookie", json_encode($newCookieDecoded), strtotime("9999-12-31"), "/", "streetor.sg", true, true);
 									$_SESSION["loggedIn"] = true;
 									$_SESSION["userID"] = $dbAccountID;
 									$_SESSION["username"] = $dbUsername;
 									$_SESSION["email"] = $dbEmail;
-									header("Location: https://www.streetor.sg");
+									header("Location: https://streetor.sg");
 								} else {
 									$alertError = "An error occurred.";
 								}
@@ -59,7 +59,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 							$alertError = "An error occurred.";
 						}
 					} else {
-						header("Location: https://www.streetor.sg/login/");
+						header("Location: https://streetor.sg/login/");
 					}
 					$queriedDetails -> free();
 				} else {
@@ -68,7 +68,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			}
 		}
 	} else {
-		header("Location: https://www.streetor.sg");
+		header("Location: https://streetor.sg");
 	}
 } else {
 	$alertError = "Your connection is insecure and this request could not be processed. Please try again later.";

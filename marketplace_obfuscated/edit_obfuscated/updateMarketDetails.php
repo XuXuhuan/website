@@ -244,7 +244,7 @@ if ($mysqliConnection -> connect_errno) {
 																	</tr>
 																	<tr>
 																		<td align='center' style='padding-bottom: 20px;'>
-																			<a id='verificationLink' href='https://www.streetor.sg/marketDeletion/?id={$usedMethod["id"]}&token={$_SESSION["marketDeletionToken"]}'>
+																			<a id='verificationLink' href='https://streetor.sg/marketDeletion/?id={$usedMethod["id"]}&token={$_SESSION["marketDeletionToken"]}'>
 																				Delete Market
 																			</a>
 																		</td>

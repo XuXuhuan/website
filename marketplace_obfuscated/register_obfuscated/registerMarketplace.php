@@ -154,7 +154,7 @@ if ($mysqliConnection -> connect_errno) {
 			}
 		}
 	} else {
-		$assocReturn["message"] = "Please <a href='https://www.streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.";
+		$assocReturn["message"] = "Please <a href='https://streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.";
 	}
 }
 echo json_encode($assocReturn);

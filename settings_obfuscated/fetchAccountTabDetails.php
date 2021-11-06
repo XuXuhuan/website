@@ -42,8 +42,8 @@ if ($mysqliConnection -> connect_error) {
                     $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: Segoe UI, LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Error. Please try again later.]</p>';
                 }
             } else {
-                $assocReturn["username"] = $assocReturn["email"] = $assocReturn["emailVerifiedRowInfoText"] = "[Error. Please <a href='https://www.streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.]";
-                $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: Segoe UI, LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Error. Please <a href="https://www.streetor.sg/login/" style="color: #4486f4;">log in</a> and try again.]</p>';
+                $assocReturn["username"] = $assocReturn["email"] = $assocReturn["emailVerifiedRowInfoText"] = "[Error. Please <a href='https://streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.]";
+                $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: Segoe UI, LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Error. Please <a href="https://streetor.sg/login/" style="color: #4486f4;">log in</a> and try again.]</p>';
             }
             $allNeededDetails -> free();
         } else {
@@ -51,8 +51,8 @@ if ($mysqliConnection -> connect_error) {
             $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: Segoe UI, LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[Error. Please try again later.]</p>';
         }
     } else {
-        $assocReturn["username"] = $assocReturn["email"] = $assocReturn["emailVerifiedRowInfoText"] = "[This feature is reserved for signed in users only. Please <a href='https://www.streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.]";
-        $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: Segoe UI, LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[This feature is reserved for signed in users only. Please <a href="https://www.streetor.sg/login/" style="color: #4486f4;">log in</a> and try again.]</p>';
+        $assocReturn["username"] = $assocReturn["email"] = $assocReturn["emailVerifiedRowInfoText"] = "[This feature is reserved for signed in users only. Please <a href='https://streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.]";
+        $assocReturn["biographyHTML"] = '<p class="notSelectable" style="font-family: Segoe UI, LatoReg, Verdana, sans-serif; font-size: 20px; color: #ffffff;">[This feature is reserved for signed in users only. Please <a href="https://streetor.sg/login/" style="color: #4486f4;">log in</a> and try again.]</p>';
     }
 }
 $mysqliConnection -> close();

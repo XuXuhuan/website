@@ -51,7 +51,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 								WHERE accountID = '{$dbAccountID}'";
 								if ($tokenUpdateQuery = $mysqliConnection -> query($updateNewToken)) {
 									$newCookieValuesDecoded = array("remembermeid" => $rememberMeID, "remembermetoken" => $generateNewToken);
-									setcookie("logincookie", json_encode($newCookieValuesDecoded), strtotime("9999-12-31"), "/", "www.streetor.sg", true, true);
+									setcookie("logincookie", json_encode($newCookieValuesDecoded), strtotime("9999-12-31"), "/", "streetor.sg", true, true);
 									$_SESSION["loggedIn"] = true;
 									$_SESSION["userID"] = $dbAccountID;
 									$_SESSION["username"] = $dbUsername;
@@ -63,7 +63,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 									</div>';
 								}
 							} else {
-								header("Location: https://www.streetor.sg/login/");
+								header("Location: https://streetor.sg/login/");
 							}
 						} else {
 							$loginAlert = '
@@ -80,10 +80,10 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					$allNeededDetails -> free();
 				}
 			} else {
-				header("https://www.streetor.sg/login");
+				header("https://streetor.sg/login");
 			}
 		} else {
-			$logoutOrLogin = "<a href='https://www.streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>";
+			$logoutOrLogin = "<a href='https://streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>";
 		}
 	}
 	if (empty($_GET["id"])) {
@@ -149,7 +149,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 				$ownedMarkets = "<p class='inputErrorText' id='ownedMarketsError'>None at the moment.</p>";
 			}
 			$marketplacePageHTML = "
-			<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
+			<a href='https://streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
 				<div id='registerMarketplaceImageCont'></div>
 				Register
 			</a>
@@ -249,7 +249,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 									<circle cx='2.5' cy='17.5' r='2.5' class='menuButtonDot'/>
 								</svg>
 								<span id='popUp' class='hidePopUp'>
-									<a href='https://www.streetor.sg/marketplace/edit/?id={$assocMarketDetails["marketID"]}' id='popUpLink' class='notSelectable'>
+									<a href='https://streetor.sg/marketplace/edit/?id={$assocMarketDetails["marketID"]}' id='popUpLink' class='notSelectable'>
 										Manage
 										<div id='popUpTail'></div>
 									</a>
@@ -271,7 +271,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 							$subscribeButtonEvents = "onmousedown='cancelToggleSubscribeTimeout(event)' onmouseup='toggleSubscribe(event)'";
 						}
 						$marketplacePageHTML = "
-						<a href='https://www.streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
+						<a href='https://streetor.sg/marketplace/register/' id='registerMarketplaceLink' class='notSelectable'>
 							<div id='registerMarketplaceImageCont'></div>
 							Register
 						</a>
@@ -309,7 +309,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 										<h3 class='statLabel'>Products</h3>
 										<p class='statText' id='productCount'>{$assocMarketDetails['productCount']}</p>
 										<div id='viewProductsLinkCont'>
-											<a href='https://www.streetor.sg/marketplace/products/?marketid={$assocMarketDetails['marketID']}' id='viewProductsLink'>View Products</a>
+											<a href='https://streetor.sg/marketplace/products/?marketid={$assocMarketDetails['marketID']}' id='viewProductsLink'>View Products</a>
 										</div>
 									</div>
 								</div>
@@ -324,7 +324,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 					}
 				} else {
 					$marketplacePageHTML = '
-					<a href="https://www.streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
+					<a href="https://streetor.sg/marketplace/register/" id="registerMarketplaceLink" class="notSelectable">
 						<div id="registerMarketplaceImageCont"></div>
 						Register
 					</a>
@@ -387,31 +387,31 @@ if (empty($loginAlert)) {
 				{$logoutOrLogin}
 			</nav>
 			<nav id='sidenav'>
-				<a href='https://www.streetor.sg' id='homeLink'>
+				<a href='https://streetor.sg' id='homeLink'>
 					<div class='innerLinksCont'>
 						<div id='homeImage' class='sideNavImage'></div>
 						<p id='homeText' class='notSelectable'>Home</p>
 					</div>
 				</a>
-				<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+				<a href='https://streetor.sg/profiles/' id='profilesLink'>
 					<div class='innerLinksCont'>
 						<div id='profilesImage' class='sideNavImage'></div>
 						<p id='profilesText' class='notSelectable'>Profiles</p>
 					</div>
 				</a>
-				<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+				<a href='https://streetor.sg/settings/' id='settingsLink'>
 					<div class='innerLinksCont'>
 						<div id='settingsImage' class='sideNavImage'></div>
 						<p id='settingsText' class='notSelectable'>Settings</p>
 					</div>
 				</a>
-				<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+				<a href='https://streetor.sg/marketplace/' id='marketplaceLink'>
 					<div class='innerLinksCont'>
 						<div id='marketplaceImage' class='sideNavImage'></div>
 						<p id='marketplaceText' class='notSelectable'>Marketplace</p>
 					</div>
 				</a>
-				<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+				<a href='https://streetor.sg/privacy/' id='privacyLink'>
 					<div class='innerLinksCont'>
 						<div id='privacyImage' class='sideNavImage'></div>
 						<p id='privacyText' class='notSelectable'>Privacy</p>
@@ -455,31 +455,31 @@ if (empty($loginAlert)) {
 					{$logoutOrLogin}
 				</nav>
 				<nav id='sidenav'>
-					<a href='https://www.streetor.sg' id='homeLink'>
+					<a href='https://streetor.sg' id='homeLink'>
 						<div class='innerLinksCont'>
 							<div id='homeImage' class='sideNavImage'></div>
 							<p id='homeText' class='notSelectable'>Home</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/profiles/' id='profilesLink'>
+					<a href='https://streetor.sg/profiles/' id='profilesLink'>
 						<div class='innerLinksCont'>
 							<div id='profilesImage' class='sideNavImage'></div>
 							<p id='profilesText' class='notSelectable'>Profiles</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/settings/' id='settingsLink'>
+					<a href='https://streetor.sg/settings/' id='settingsLink'>
 						<div class='innerLinksCont'>
 							<div id='settingsImage' class='sideNavImage'></div>
 							<p id='settingsText' class='notSelectable'>Settings</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/marketplace/' id='marketplaceLink'>
+					<a href='https://streetor.sg/marketplace/' id='marketplaceLink'>
 						<div class='innerLinksCont'>
 							<div id='marketplaceImage' class='sideNavImage'></div>
 							<p id='marketplaceText' class='notSelectable'>Marketplace</p>
 						</div>
 					</a>
-					<a href='https://www.streetor.sg/privacy/' id='privacyLink'>
+					<a href='https://streetor.sg/privacy/' id='privacyLink'>
 						<div class='innerLinksCont'>
 							<div id='privacyImage' class='sideNavImage'></div>
 							<p id='privacyText' class='notSelectable'>Privacy</p>

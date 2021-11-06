@@ -43,12 +43,12 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 								if ($updatedTokenHash = $mysqliConnection -> query($updateTokenHashQuery)) {
 									$newCookieDecoded = array("remembermeid" => $dbRememberID,
 															"remembermetoken" => $randomToken);
-									setcookie("logincookie", json_encode($newCookieDecoded), strtotime("9999-12-31"), "/", "www.streetor.sg", true, true);
+									setcookie("logincookie", json_encode($newCookieDecoded), strtotime("9999-12-31"), "/", "streetor.sg", true, true);
 									$_SESSION["loggedIn"] = true;
 									$_SESSION["userID"] = $dbAccountID;
 									$_SESSION["username"] = $dbUsername;
 									$_SESSION["email"] = $dbEmail;
-									header("Location: https://www.streetor.sg");
+									header("Location: https://streetor.sg");
 								} else {
 									$loginError = "An error occurred. Please log in manually or try again later.";
 								}
@@ -64,7 +64,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			}
 		}
 	} else {
-		header("Location: https://www.streetor.sg");
+		header("Location: https://streetor.sg");
 	}
 } else {
 	$loginError = "Your connection is insecure and this request could not be processed. Please try again later.";
@@ -116,6 +116,26 @@ echo "
                     <a href='../signup/' id='signUpLink'>Don&#39;t have an account? Sign up here</a>
                     <p id='midLabel'>OR</p>
                     <a href='../' id='homeLink'>Browse the website</a>
+                </div>
+				<div id='vignette'>
+                    <div id='twoFactorAuthCont'>
+                        <button id='cancelTwoFactorAuthButton'>
+                            <div id='cancelTwoFactorAuthLineOne'></div>
+                            <div id='cancelTwoFactorAuthLineTwo'></div>
+                        </button>
+                        <p id='twoFactorAuthLabel' class='notSelectable'>2-Step Verification</p>
+                        <p id='twoFactorAuthDescription'>An email containing a 6-digit verification code has been sent to your email address. Enter the code received to log in.</p>
+                        <div id='verificationCodeCont'>
+                            <input type='number' id='verificationCodeField' onkeydown='fillVerificationCodeBlanks(event)'>
+                            <p class='verificationCodeBlanks'></p>
+                            <p class='verificationCodeBlanks'></p>
+                            <p class='verificationCodeBlanks'></p>
+                            <p class='verificationCodeBlanks'></p>
+                            <p class='verificationCodeBlanks'></p>
+                            <p class='verificationCodeBlanks'></p>
+                        </div>
+                        <p id='twoFactorAuthError' class='inputErrorText'></p>
+                    </div>
                 </div>
             </div>
         </main>

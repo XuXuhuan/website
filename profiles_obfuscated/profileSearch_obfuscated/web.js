@@ -24,7 +24,7 @@ const _0x2b01 = [
     'onload',
     'addEventListener',
     'fetchProfilesDetails.php',
-    '\x0a\x09\x09\x09\x09<div\x20class=\x22infoColumnRow\x22>\x0a\x09\x09\x09\x09\x09<a\x20href=\x22https://www.streetor.sg/profiles/?id=',
+    '\x0a\x09\x09\x09\x09<div\x20class=\x22infoColumnRow\x22>\x0a\x09\x09\x09\x09\x09<a\x20href=\x22https://streetor.sg/profiles/?id=',
     'profileDetails',
     'open',
     '#nextPageButton',

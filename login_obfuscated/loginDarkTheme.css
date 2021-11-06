@@ -386,6 +386,11 @@ main {
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.4);
 	z-index: 2;
+	opacity: 0;
+	display: none;
+	-webkit-transition: opacity 1s ease-in;
+	-o-transition: opacity 1s ease-in;
+	transition: opacity 1s ease-in;
 }
 #twoFactorAuthCont {
 	position: absolute;
@@ -406,19 +411,23 @@ main {
 	padding: 15px;
 }
 #cancelTwoFactorAuthButton {
-	position: relative;
+	position: absolute;
 	background-color: transparent;
 	padding: 0;
 	border: 0;
-	top: 0;
-	right: 0;
+	top: 15px;
+	right: 15px;
+	height: 12px;
+	width: 12px;
+	cursor: pointer;
 }
-#twoFactorAuthButtonImageCont {
-	background-image: url();
-	background-size: contain;
-	background-repeat: no-repeat;
-	height: 100%;
-	width: 100%;
+#cancelTwoFactorAuthLineOne, #cancelTwoFactorAuthLineTwo {
+	position: absolute;
+	height: 1.5px;
+	width: 15px;
+	background-color: var(--UIdefaultTextColor);
+	top: 50%;
+	transform: translate(0, 50%);
 }
 #twoFactorAuthLabel {
 	font-family: Segoe UI, MontserratMed, Verdana, sans-serif;
@@ -431,6 +440,7 @@ main {
 #twoFactorAuthDescription {
 	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	color: var(--UIdefaultTextColor);
+	margin-bottom: 20px;
 }
 #verificationCodeCont {
 	position: relative;
@@ -439,10 +449,10 @@ main {
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
-	justify-content: space-around;
 	flex-wrap: wrap;
-	max-width: 500px;
+	max-width: 400px;
 	left: 50%;
+	justify-content: space-around;
 	transform: translateX(-50%);
 }
 .verificationCodeBlanks {
@@ -452,20 +462,31 @@ main {
 	border-width: 0 0 3px 0;
 	margin: 0;
 	height: 35px;
-	width: 40px;
-}
-#cancelTwoFactorAuthLineOne, #cancelTwoFactorAuthLineTwo {
-	position: relative;
-	height: 1.5px;
-	width: 15px;
-	background-color: var(--UIdefaultTextColor);
-	top: 0;
+	width: 35px;
+	line-height: 35px;
+	font-size: 35px;
+	color: var(--UIdefaultTextColor);
+	text-align: center;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
 }
 #cancelTwoFactorAuthLineOne {
 	transform: rotate(45deg);
 }
 #cancelTwoFactorAuthLineTwo {
 	transform: rotate(135deg);
+}
+#verificationCodeField {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+}
+#verificationCodeField::-webkit-outer-spin-button, #verificationCodeField::-webkit-inner-spin-button {
+	display: none;
+}
+#twoFactorAuthError {
+	margin-top: 15px;
+	text-align: center;
 }
 @keyframes loadingSpin {
 	100% {

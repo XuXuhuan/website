@@ -18,7 +18,7 @@ const _0x2c5c = [
     'appendChild',
     'status',
     'pointer',
-    '\x22\x20alt=\x22Market\x20Logo\x22\x20class=\x22marketLogoImage\x22>\x0a\x09\x09\x09\x09\x09<div\x20class=\x22marketNameAndBioCont\x20infoColumnRow\x22>\x0a\x09\x09\x09\x09\x09\x09<a\x20href=\x22https://www.streetor.sg/marketplace/?id=',
+    '\x22\x20alt=\x22Market\x20Logo\x22\x20class=\x22marketLogoImage\x22>\x0a\x09\x09\x09\x09\x09<div\x20class=\x22marketNameAndBioCont\x20infoColumnRow\x22>\x0a\x09\x09\x09\x09\x09\x09<a\x20href=\x22https://streetor.sg/marketplace/?id=',
     'ceil',
     '&page=',
     'animationName',
