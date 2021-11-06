@@ -83,7 +83,7 @@ if ($mysqliConnection -> connect_errno) {
 				$logoutOrLogin = "<a href='https://www.streetor.sg/login/' id='logLabel' class='notSelectable'>Login</a>";
 				$loginAlert = '
 				<div id="alertCont">
-					<p id="alertText">You are logged out. You are now browsing as a guest.</p>
+					<p id="alertText">' . (int)isset($_COOKIE["logincookie"]) . 'You are logged out. You are now browsing as a guest.</p>
 				</div>';
 			}
 		}

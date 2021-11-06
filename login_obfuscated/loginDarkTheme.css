@@ -420,21 +420,52 @@ main {
 	height: 100%;
 	width: 100%;
 }
-#tripleDotsLabel {
+#twoFactorAuthLabel {
 	font-family: Segoe UI, MontserratMed, Verdana, sans-serif;
 	color: var(--UIdefaultTextColor);
-	font-size: 100px;
+	font-size: 30px;
 	margin-top: 10px;
 	margin-bottom: 20px;
 	text-align: center;
 }
-#twoFactorAuthDescription, label[for="twoFactorAuthField"] {
+#twoFactorAuthDescription {
 	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	color: var(--UIdefaultTextColor);
 }
-#twoFactorAuthField::-webkit-outer-spin-button, #twoFactorAuthField::-webkit-inner-spin-button {
-	-webkit-appearance: none;
+#verificationCodeCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	max-width: 500px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.verificationCodeBlanks {
+	box-sizing: content-box;
+	border-style: solid;
+	border-color: var(--UIdefaultTextColor);
+	border-width: 0 0 3px 0;
 	margin: 0;
+	height: 35px;
+	width: 40px;
+}
+#cancelTwoFactorAuthLineOne, #cancelTwoFactorAuthLineTwo {
+	position: relative;
+	height: 1.5px;
+	width: 15px;
+	background-color: var(--UIdefaultTextColor);
+	top: 0;
+}
+#cancelTwoFactorAuthLineOne {
+	transform: rotate(45deg);
+}
+#cancelTwoFactorAuthLineTwo {
+	transform: rotate(135deg);
 }
 @keyframes loadingSpin {
 	100% {
