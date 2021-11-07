@@ -87,6 +87,9 @@ echo "
 			<nav id='topnav'>
 				<p id='orgName' class='notSelectable'>STREETOR</p>
 			</nav>
+			<div id='notificationCont'>
+				<p id='notificationText'></p>
+			</div>
 		</header>
 		<main>
 			<div id='mainCont'>
@@ -134,7 +137,7 @@ echo "
                             <p class='verificationCodeBlanks'></p>
                             <p class='verificationCodeBlanks'></p>
                         </div>
-                        <p id='twoFactorAuthError' class='inputErrorText'></p>
+                        <p id='twoFactorAuthResendEmailButton'>Resend Email</p>
                     </div>
                 </div>
             </div>

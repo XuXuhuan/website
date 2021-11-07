@@ -12,10 +12,21 @@ const refVignette = document.querySelector("#vignette");
 const refCancelTwoFactorAuthButton = document.querySelector("#cancelTwoFactorAuthButton");
 const refTwoFactorAuthField = document.querySelector("#verificationCodeField");
 const refTwoFactorAuthBlanks = document.querySelectorAll(".verificationCodeBlanks");
-const refTwoFactorAuthError = document.querySelector("#twoFactorAuthError");
+const refNotificationCont = document.querySelector("#notificationCont");
+const refNotificationText = document.querySelector("#notificationText");
 const userDirtRegexp = /[^a-z0-9._]/gi;
-var currentBlank = -1;
+var currentBlank = 0;
+var checkNotification;
 var checkLogin;
+function setNotification(message, isError) {
+	refNotificationCont.style.top = 0;
+	refNotificationCont.style.backgroundColor = isError === true ? "#E60505" : "#40AF00";
+	refNotificationText.innerHTML = message;
+	clearTimeout(checkNotification);
+	checkNotification = setTimeout(function() {
+		refNotificationCont.style.top = "-10vh";
+	}, 1000);
+}
 refUsernameField.addEventListener("keyup", function() {
 	if (refUsernameField.value.trim().length === 0) {
 		refUsernameError.innerHTML = "This field is required.";
@@ -53,6 +64,19 @@ refCancelTwoFactorAuthButton.addEventListener("click", function() {
 		item.innerHTML = "";
 	});
 });
+refTwoFactorAuthField.addEventListener("paste", function(event) {
+	const getClipboardData = event.clipboardData;
+	if (!isNaN(parseInt(getClipboardData.getData("Text")))) {
+		var i, z;
+		for (i = currentBlank, z = 0; i < getClipboardData.getData("Text").length && i < 6 - currentBlank; i++, z++) {
+			refTwoFactorAuthBlanks[i].innerHTML = getClipboardData.getData("Text").charAt(z);
+		}
+		currentBlank = i;
+		if (currentBlank === 6) {
+			submitTwoFactorAuthCode();
+		}
+	}
+});
 function submitLogin(event) {
 	if (event.button === 0) {
 		clearTimeout(checkLogin);
@@ -68,11 +92,11 @@ function submitLogin(event) {
 						refUsernameError.innerHTML = xhr.response["errormessages"]["usernameError"];
 						refPasswordError.innerHTML = xhr.response["errormessages"]["passwordError"];
 						refLoginMessage.innerHTML = xhr.response["errormessages"]["loginError"];
-						refTwoFactorAuthError.innerHTML = xhr.response["errormessages"]["2FAError"];
 						if (xhr.response["2FARequired"] === true) {
 							if (refVignette.style.opacity !== 0) {
 								refVignette.style.display = "block";
 								refVignette.style.opacity = 1;
+								refTwoFactorAuthField.focus();
 							}
 						}
 						if (xhr.response["successURL"].length > 0) {
@@ -97,39 +121,43 @@ function cancelSubmitLoginTimeout(event) {
 }
 function fillVerificationCodeBlanks(key) {
 	if (!isNaN(key.key)) {
-		if (currentBlank < 5) {
-			currentBlank++;
+		if (currentBlank < 6) {
 			refTwoFactorAuthBlanks[currentBlank].innerHTML = key.key;
-			if (currentBlank === 5) {
-				var verificationCode = "";
-				refTwoFactorAuthBlanks.forEach(function(item) {
-					verificationCode += item.innerHTML;
-				});
-				const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
-				xhr.open("POST", "login.php", true);
-				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.responseType = "json";
-				refLoginButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
-				xhr.onload = function() {
-					if (xhr.status === 200) {
-						refTwoFactorAuthError.innerHTML = xhr.response["errormessages"]["2FAError"];
-						if (xhr.response["successURL"].length > 0) {
-							window.location = xhr.response["successURL"];
-						} else {
-							refLoginButtonCont.innerHTML = '<button id="logInButton" onmouseup="submitLogin(event)" onmousedown="cancelSubmitLoginTimeout(event)">Login</button>';
-						}
-					} else {
-						refLoginMessage.innerHTML = "An error occurred.";
-					}
-				}
-				xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refPasswordField.value) + "&2FACode=" + encodeURIComponent(verificationCode));
+			currentBlank++;
+			if (currentBlank === 6) {
+				submitTwoFactorAuthCode();
 			}
 		}
 	}
-	if (key.keyCode === 8) {
-		if (currentBlank > -1) {
-			refTwoFactorAuthBlanks[currentBlank].innerHTML = "";
-			currentBlank--;
+	if (key.keyCode === 8 && currentBlank > 0) {
+		currentBlank--;
+		refTwoFactorAuthBlanks[currentBlank].innerHTML = "";
+	}
+}
+function submitTwoFactorAuthCode() {
+	var verificationCode = "";
+	refTwoFactorAuthBlanks.forEach(function(item) {
+		verificationCode += item.innerHTML;
+	});
+	const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+	xhr.open("POST", "login.php", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.responseType = "json";
+	refLoginButtonCont.innerHTML = '<div id="loadingImageCont"></div>';
+	xhr.onload = function() {
+		if (xhr.status === 200) {
+			if (xhr.response["errormessages"]["2FAError"].length > 0) {
+				setNotification(xhr.response["errormessages"]["2FAError"], true);
+			}
+			if (xhr.response["successURL"].length > 0) {
+				window.location = xhr.response["successURL"];
+				setNotification("Login Success!", false);
+			} else {
+				refLoginButtonCont.innerHTML = '<button id="logInButton" onmouseup="submitLogin(event)" onmousedown="cancelSubmitLoginTimeout(event)">Login</button>';
+			}
+		} else {
+			refLoginMessage.innerHTML = "An error occurred.";
 		}
 	}
+	xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refPasswordField.value) + "&2FACode=" + encodeURIComponent(verificationCode));
 }

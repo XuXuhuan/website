@@ -60,7 +60,7 @@ if ($mysqliConnection -> connect_errno) {
 								else if (!empty($_POST["2FACode"]) && $db2FACode != (int)$_POST["2FACode"]) {
 									$AssocReturn["errormessages"]["2FAError"] = "Incorrect code.";
 								}
-								else if ($db2FACode == (int)$_POST["2FACode"]) {
+								else if (!empty($_POST["2FACode"]) && $db2FACode == (int)$_POST["2FACode"]) {
 									$getToken = getRandomString(50);
 									$hashedToken = hash("sha512", $getToken);
 									$updateDetailsQuery = "UPDATE accountdetails
