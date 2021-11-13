@@ -127,7 +127,7 @@ echo "
                             <div id='cancelTwoFactorAuthLineTwo'></div>
                         </button>
                         <p id='twoFactorAuthLabel' class='notSelectable'>2-Step Verification</p>
-                        <p id='twoFactorAuthDescription'>An email containing a 6-digit verification code has been sent to your email address. Enter the code received to log in.</p>
+                        <p id='twoFactorAuthDescription'>An email containing a 6-digit verification code has been sent to your email address. Enter the code received to log in. Take note that this code expires within 10 minutes.</p>
                         <div id='verificationCodeCont'>
                             <input type='number' id='verificationCodeField' onkeydown='fillVerificationCodeBlanks(event)'>
                             <p class='verificationCodeBlanks'></p>
