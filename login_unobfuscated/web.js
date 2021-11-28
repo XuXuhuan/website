@@ -162,5 +162,5 @@ function submitTwoFactorAuthCode() {
 			refLoginMessage.innerHTML = "An error occurred.";
 		}
 	}
-	xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refPasswordField.value) + "&2FACode=" + encodeURIComponent(verificationCode));
+	xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refPasswordField.value) + "&remember=" + (refRememberBox.classList.contains("tickedBox") ? 1 : 0) + "&2FACode=" + encodeURIComponent(verificationCode));
 }

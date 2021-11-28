@@ -46,7 +46,7 @@ if ($mysqliConnection -> connect_errno) {
 							if ($db2FAenabled == true) {
 								$AssocReturn["2FARequired"] = true;
 								if (empty($db2FACode) || $db2FACodeValid == "Expired") {
-									$randomToken = (int)str_pad(random_int(0, 999999), 6, "0", STR_PAD_LEFT);
+									$randomToken = str_pad(random_int(0, 999999), 6, "0", STR_PAD_LEFT);
 									$updateTokenHashQuery = "UPDATE accountdetails
 									SET 2FAtoken = '{$randomToken}',
 									2FAsentTime = NOW()
@@ -61,7 +61,7 @@ if ($mysqliConnection -> connect_errno) {
 									$AssocReturn["errormessages"]["2FAError"] = "Incorrect Code.";
 								}
 								else if (!empty($_POST["2FACode"]) && $db2FACode == (int)$_POST["2FACode"]) {
-									if ($remember == false) {
+									if ($remember === false) {
 										$_SESSION["loggedIn"] = true;
 										$_SESSION["userID"] = $dbAccountID;
 										$AssocReturn["successURL"] = "https://streetor.sg";
@@ -73,9 +73,9 @@ if ($mysqliConnection -> connect_errno) {
 										SET 2FAtoken = NULL
 										WHERE accountID = '{$dbAccountID}';
 										INSERT INTO remembereddevices(rememberID, tokenHash, accountID, 2FAverified, loggedInTime)
-										VALUES ('{$newRememberID}', '{$hashedToken}', {$dbAccountID}, 1, NOW());
+										VALUES ('{$newRememberID}', '{$hashedToken}', '{$dbAccountID}', 1, NOW());
 										DELETE FROM remembereddevices
-										WHERE loggedInTime >= SUBDATE(NOW(), INTERVAL 30 DAY);";
+										WHERE loggedInTime <= SUBDATE(NOW(), INTERVAL 30 DAY);";
 										if ($updatedDetails = $mysqliConnection -> multi_query($updateDetailsQuery)) {
 											$toCookieValue = array("remembermeid" => $newRememberID,
 																"remembermetoken" => $getToken);
@@ -90,21 +90,29 @@ if ($mysqliConnection -> connect_errno) {
 									}
 								}
 							} else {
-								$newRememberID = getRandomString(30);
-								$getToken = getRandomString(50);
-								$hashedToken = hash("sha512", $getToken);
-								$updateDetailsQuery = "INSERT INTO remembereddevices(rememberID, tokenHash, accountID, 2FAverified)
-								VALUES ('{$newRememberID}', '{$hashedToken}', {$dbAccountID}, NULL)";
-								if ($updatedDetails = $mysqliConnection -> query($updateDetailsQuery)) {
-									$toCookieValue = array("remembermeid" => $newRememberID,
-														"remembermetoken" => $getToken);
-									setcookie("logincookie", json_encode($toCookieValue), strtotime("9999-12-31"), "/", "streetor.sg", true, true);
+								if ($remember === false) {
 									$_SESSION["loggedIn"] = true;
 									$_SESSION["userID"] = $dbAccountID;
 									$AssocReturn["successURL"] = "https://streetor.sg";
 								} else {
-									$AssocReturn["errormessages"]["loginError"] = "An error occurred.";
-									$AssocReturn["errormessages"]["2FAError"] = "An error occurred.";
+									$newRememberID = getRandomString(30);
+									$getToken = getRandomString(50);
+									$hashedToken = hash("sha512", $getToken);
+									$updateDetailsQuery = "INSERT INTO remembereddevices(rememberID, tokenHash, accountID, 2FAverified, loggedInTime)
+									VALUES ('{$newRememberID}', '{$hashedToken}', {$dbAccountID}, 0, NOW());
+									DELETE FROM remembereddevices
+									WHERE loggedInTime <= SUBDATE(NOW(), INTERVAL 30 DAY);";
+									if ($updatedDetails = $mysqliConnection -> multi_query($updateDetailsQuery)) {
+										$toCookieValue = array("remembermeid" => $newRememberID,
+															"remembermetoken" => $getToken);
+										setcookie("logincookie", json_encode($toCookieValue), strtotime("9999-12-31"), "/", "streetor.sg", true, true);
+										$_SESSION["loggedIn"] = true;
+										$_SESSION["userID"] = $dbAccountID;
+										$AssocReturn["successURL"] = "https://streetor.sg";
+									} else {
+										$AssocReturn["errormessages"]["loginError"] = "An error occurred.";
+										$AssocReturn["errormessages"]["2FAError"] = "An error occurred.";
+									}
 								}
 							}
 						} else {
