@@ -16,14 +16,14 @@ if ($mysqliConnection -> connect_error) {
 } else {
     if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
         $neededDetailsQuery = "
-        SELECT emailVerified, biography
+        SELECT emailVerified, biography, username, email
         FROM accountdetails
         WHERE accountID = '{$_SESSION["userID"]}'";
         if ($allNeededDetails = $mysqliConnection -> query($neededDetailsQuery)) {
             if ($allNeededDetails -> num_rows > 0) {
                 if ($assocNeededDetails = $allNeededDetails -> fetch_assoc()) {
-                    $assocReturn["username"] = htmlspecialchars($_SESSION["username"], ENT_QUOTES);
-                    $assocReturn["email"] = htmlspecialchars($_SESSION["email"], ENT_QUOTES);
+                    $assocReturn["username"] = htmlspecialchars($assocNeededDetails["username"], ENT_QUOTES);
+                    $assocReturn["email"] = htmlspecialchars($assocNeededDetails["email"], ENT_QUOTES);
                     $assocReturn["biographyHTML"] = '<textarea id="bioInput" onkeyup="changeBioValue()" placeholder="Share about yourself in 200 characters." maxlength="200" rows="10">' . htmlspecialchars($assocNeededDetails["biography"], ENT_QUOTES) . '</textarea>';
                     if ($assocNeededDetails["emailVerified"] == false) {
                         $assocReturn["emailVerifiedRowStyle"] = "padding-bottom: 0;";

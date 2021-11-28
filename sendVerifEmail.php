@@ -15,14 +15,13 @@ if ($mysqliConnection -> connect_errno) {
 } else {
 	if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
 		$selectNeededDetailsQuery = "
-		SELECT username, tokenHash, firstName, email, emailVerified, emailVerificationTime
+		SELECT username, firstName, email, emailVerified, emailVerificationTime
 		FROM accountdetails
 		WHERE accountID = '{$_SESSION["userID"]}'";
 		if ($neededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
 			if ($neededDetails -> num_rows > 0) {
 				if ($assocNeededDetails = $neededDetails -> fetch_assoc()) {
 				$dbUsername = htmlspecialchars($assocNeededDetails["username"], ENT_QUOTES);
-				$dbTokenHash = $assocNeededDetails["tokenHash"];
 				$dbFirstName = htmlspecialchars($assocNeededDetails["firstName"], ENT_QUOTES);
 				$dbEmail = urlencode($assocNeededDetails["email"]);
 				$dbEmailVerif = $assocNeededDetails["emailVerified"];

@@ -23,9 +23,10 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			$rememberMeID = $mysqliConnection -> real_escape_string($cookieValues["remembermeid"]);
 			$remememberMeToken = $mysqliConnection -> real_escape_string($cookieValues["remembermetoken"]);
 			if (strlen(trim($rememberMeID)) === 30) {
-				$selectAccountDetailsQuery = "
-				SELECT accountID, username, tokenHash, email, rememberID
+				$selectAccountDetailsQuery = "SELECT accountdetails.accountID, accountdetails.username, remembereddevices.tokenHash, accountdetails.email
 				FROM accountdetails
+				LEFT JOIN remembereddevices
+				ON accountdetails.accountID = remembereddevices.accountID
 				WHERE rememberID = '{$rememberMeID}'";
 				if ($queriedDetails = $mysqliConnection -> query($selectAccountDetailsQuery)) {
 					if ($queriedDetails -> num_rows > 0) {
@@ -34,22 +35,18 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 							$dbUsername = $assocQueriedDetails["username"];
 							$dbTokenHash = $assocQueriedDetails["tokenHash"];
 							$dbEmail = $assocQueriedDetails["email"];
-							$dbRememberID = $assocQueriedDetails["rememberID"];
 							if (hash_equals($dbTokenHash, hash("sha512", $remememberMeToken)) === true) {
 								$randomToken = getRandomString(50);
 								$hashedRandomToken = hash("sha512", $randomToken);
-								$updateTokenHashQuery = "
-								UPDATE accountdetails
-								SET tokenHash = '{$hashedRandomToken}'
-								WHERE rememberID = '{$dbAccountID}'";
+								$updateTokenHashQuery = "UPDATE remembereddevices
+								SET tokenHash = '{$hashedNewToken}'
+								WHERE accountID = '{$dbAccountID}'";
 								if ($updatedTokenHash = $mysqliConnection -> query($updateTokenHashQuery)) {
-									$newCookieDecoded = array("remembermeid" => $dbRememberID,
+									$newCookieDecoded = array("remembermeid" => $rememberMeID,
 															"remembermetoken" => $randomToken);
 									setcookie("logincookie", json_encode($newCookieDecoded), strtotime("9999-12-31"), "/", "streetor.sg", true, true);
 									$_SESSION["loggedIn"] = true;
 									$_SESSION["userID"] = $dbAccountID;
-									$_SESSION["username"] = $dbUsername;
-									$_SESSION["email"] = $dbEmail;
 									header("Location: https://streetor.sg");
 								} else {
 									$alertError = "An error occurred.";

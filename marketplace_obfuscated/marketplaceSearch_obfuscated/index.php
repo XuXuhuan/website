@@ -32,9 +32,10 @@ if ($mysqliConnection -> connect_errno) {
 				$rememberMeID = $mysqliConnection -> real_escape_string($cookieValues["remembermeid"]);
 				$remememberMeToken = $mysqliConnection -> real_escape_string($cookieValues["remembermetoken"]);
 				if (strlen(trim($rememberMeID)) === 30) {
-					$selectAccountDetailsQuery = "
-					SELECT accountID, username, tokenHash, email
+					$selectAccountDetailsQuery = "SELECT accountdetails.accountID, accountdetails.username, remembereddevices.tokenHash, accountdetails.email
 					FROM accountdetails
+					LEFT JOIN remembereddevices
+					ON accountdetails.accountID = remembereddevices.accountID
 					WHERE rememberID = '{$rememberMeID}'";
 					if ($allNeededDetails = $mysqliConnection -> query($selectAccountDetailsQuery)) {
 						if ($allNeededDetails -> num_rows > 0) {
@@ -46,8 +47,7 @@ if ($mysqliConnection -> connect_errno) {
 								if (hash_equals($dbTokenHash, hash("sha512", $remememberMeToken)) === true) {
 									$generateNewToken = getRandomString(50);
 									$hashedNewToken = hash("sha512", $generateNewToken);
-									$updateNewToken = "
-									UPDATE accountdetails
+									$updateNewToken = "UPDATE remembereddevices
 									SET tokenHash = '{$hashedNewToken}'
 									WHERE accountID = '{$dbAccountID}'";
 									if ($tokenUpdateQuery = $mysqliConnection -> query($updateNewToken)) {
@@ -55,8 +55,6 @@ if ($mysqliConnection -> connect_errno) {
 										setcookie("logincookie", json_encode($newCookieValuesDecoded), strtotime("9999-12-31"), "/", "streetor.sg", true, true);
 										$_SESSION["loggedIn"] = true;
 										$_SESSION["userID"] = $dbAccountID;
-										$_SESSION["username"] = $dbUsername;
-										$_SESSION["email"] = $dbEmail;
 									} else {
 										$loginAlert = '
 										<div id="alertCont">

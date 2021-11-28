@@ -214,23 +214,18 @@ if ($mysqliConnection -> connect_errno) {
 				$emailHeaders[] = "Content-type:text/html; charset=utf-8";
 				$emailHeaders[] = "From: <noreply@streetor.sg>";
 				$hashedPassword = password_hash(base64_encode(hash("sha512", $getPass, true)), PASSWORD_DEFAULT);
-				$newRememberID = getRandomString(30);
 				$currentDate = date("Y-m-j H:i:s", time());
-				$onDuplicateRememberID = getRandomString(30);
 				$insertDataQuery = "
 				INSERT INTO accountdetails
-				(username, password, rememberID, firstName, lastName, email, emailVerificationToken, emailVerificationTime)
+				(username, password, firstName, lastName, email, emailVerificationToken, emailVerificationTime)
 				VALUES
 				('{$getUser}',
 				'{$hashedPassword}',
-				'{$newRememberID}',
 				'{$getfName}',
 				'{$getlName}',
 				'{$getEmail}',
 				'{$randomString}',
-				'{$currentDate}')
-				ON DUPLICATE KEY UPDATE
-				rememberID = '{$onDuplicateRememberID}'";
+				'{$currentDate}')";
 				if ($insertedData = $mysqliConnection -> query($insertDataQuery)) {
 					if (mail($_POST["email"], "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
 						$assocReturn["message"] = "An email has been sent to your email address for verification.";

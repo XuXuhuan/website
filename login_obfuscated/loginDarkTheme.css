@@ -410,11 +410,7 @@ main {
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.4);
 	z-index: 2;
-	opacity: 0;
 	display: none;
-	-webkit-transition: opacity 1s ease-in;
-	-o-transition: opacity 1s ease-in;
-	transition: opacity 1s ease-in;
 }
 #twoFactorAuthCont {
 	position: absolute;
@@ -507,6 +503,36 @@ main {
 }
 #verificationCodeField::-webkit-outer-spin-button, #verificationCodeField::-webkit-inner-spin-button {
 	display: none;
+}
+#rememberCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 15px;
+}
+#rememberLabel {
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	color: var(--UIdefaultTextColor);
+	margin: 0;
+	font-size: 14px;
+}
+#rememberTickBox {
+	height: 20px;
+	width: 20px;
+	background-color: var(--textFieldColor);
+	cursor: pointer;
+	border-radius: 3px;
+	background-size: 15px;
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-right: 5px;
+}
+.tickedBox {
+	background-image: url("../Assets/global/checkBoxCheck.png");
 }
 #twoFactorAuthResendEmailButton {
 	position: relative;

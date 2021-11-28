@@ -21,9 +21,10 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 			$rememberMeID = $mysqliConnection -> real_escape_string($cookieValues["remembermeid"]);
 			$remememberMeToken = $mysqliConnection -> real_escape_string($cookieValues["remembermetoken"]);
 			if (strlen(trim($rememberMeID)) === 30) {
-				$selectAccountDetailsQuery = "
-				SELECT accountID, username, tokenHash, email, emailVerificationTime
+				$selectAccountDetailsQuery = "SELECT accountdetails.accountID, accountdetails.username, remembereddevices.tokenHash, accountdetails.email
 				FROM accountdetails
+				LEFT JOIN remembereddevices
+				ON accountdetails.accountID = remembereddevices.accountID
 				WHERE rememberID = '{$rememberMeID}'";
 				if ($queriedDetails = $mysqliConnection -> query($selectAccountDetailsQuery)) {
 					if ($queriedDetails -> num_rows > 0) {
@@ -36,8 +37,7 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 							if (hash_equals($dbTokenHash, hash("sha512", $remememberMeToken)) === true) {
 								$randomToken = getRandomString(50);
 								$hashedRandomToken = hash("sha512", $randomToken);
-								$updateTokenHashQuery = "
-								UPDATE accountdetails
+								$updateTokenHashQuery = "UPDATE remembereddevices
 								SET tokenHash = '{$hashedRandomToken}'
 								WHERE accountID = '{$dbAccountID}'";
 								if ($updatedTokenHash = $mysqliConnection -> query($updateTokenHashQuery)) {
@@ -46,8 +46,6 @@ else if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") {
 									setcookie("logincookie", json_encode($newCookieDecoded), strtotime("9999-12-31"), "/", "streetor.sg", true, true);
 									$_SESSION["loggedIn"] = true;
 									$_SESSION["userID"] = $dbAccountID;
-									$_SESSION["username"] = $dbUsername;
-									$_SESSION["email"] = $dbEmail;
 									header("Location: https://streetor.sg");
 								} else {
 									$loginError = "An error occurred. Please log in manually or try again later.";
@@ -110,6 +108,10 @@ echo "
                         </div>
                         <p id='passwordError' class='inputErrorText'>This field is required.</p>
                     </div>
+                    <div id='rememberCont'>
+                        <div id='rememberTickBox'></div>
+                        <p id='rememberLabel'>Remember Me For 30 Days</p>
+                    </div>
                     <div id='submitLogInCont'>
                         <div id='logInButtonCont'>
                             <button id='logInButton' onmouseup='submitLogin(event)' onmousedown='cancelSubmitLoginTimeout(event)'>Login</button>
@@ -127,7 +129,7 @@ echo "
                             <div id='cancelTwoFactorAuthLineTwo'></div>
                         </button>
                         <p id='twoFactorAuthLabel' class='notSelectable'>2-Step Verification</p>
-                        <p id='twoFactorAuthDescription'>An email containing a 6-digit verification code has been sent to your email address. Enter the code received to log in. Take note that this code expires within 10 minutes.</p>
+                        <p id='twoFactorAuthDescription'>An email containing a 6-digit verification code has been sent to your email address which is valid for 10 minutes. Enter the code received to log in. Take note that logging in again will not send another email unless the &quot;Resend Email&quot; button below is clicked or the previous one expires.</p>
                         <div id='verificationCodeCont'>
                             <input type='number' id='verificationCodeField' onkeydown='fillVerificationCodeBlanks(event)'>
                             <p class='verificationCodeBlanks'></p>

@@ -600,11 +600,25 @@ if ($mysqliConnection -> connect_errno) {
 							if ($assocNeededDetails = $queriedNeededDetails -> fetch_assoc()) {
 								$dbPassword = $assocNeededDetails["password"];
 								$toggledDB2FAenabled = (int)!$assocNeededDetails["2FAenabled"];
-								$update2FAquery = "UPDATE accountdetails
-								SET 2FAenabled = {$toggledDB2FAenabled}
-								WHERE accountID = '{$_SESSION["userID"]}'";
+								if ($toggledDB2FAenabled == false) {
+									$update2FAquery = "UPDATE accountdetails
+									SET 2FAenabled = {$toggledDB2FAenabled},
+										2FAToken = NULL
+									WHERE accountID = '{$_SESSION["userID"]}';
+									UPDATE remembereddevices
+									SET 2FAverified = 0
+									WHERE accountID = '{$_SESSION["userID"]}';";
+								} else {
+									$rememberMeID = empty(json_decode($_COOKIE["logincookie"], true)["remembermeid"]) ? "": $mysqliConnection -> real_escape_string(json_decode($_COOKIE["logincookie"], true)["remembermeid"]);
+									$update2FAquery = "UPDATE accountdetails
+									SET 2FAenabled = {$toggledDB2FAenabled}
+									WHERE accountID = '{$_SESSION["userID"]}';
+									DELETE FROM remembereddevices
+									WHERE accountID = '{$_SESSION["userID"]}'
+									AND NOT rememberID = '{$rememberMeID}';";
+								}
 								if (password_verify(base64_encode(hash("sha512", $_POST["content2"], true)), $dbPassword) === true) {
-									if ($mysqliConnection -> query($update2FAquery)) {
+									if ($mysqliConnection -> multi_query($update2FAquery)) {
 										$twoFactorAuthToggleState = $toggledDB2FAenabled === 1 ? "enabled" : "disabled";
 										$assocReturn["message"] = "Your 2 factor authentication has been <b>{$twoFactorAuthToggleState}</b>.";
 										$assocReturn["switch"] = (bool)$toggledDB2FAenabled;

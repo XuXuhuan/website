@@ -52,13 +52,11 @@ if ($mysqliConnection -> connect_errno) {
 						setcookie("logincookie", null, -1, "/", "streetor.sg", true, true);
 						$_SESSION["loggedIn"] = false;
 						unset($_SESSION["userID"]);
-						unset($_SESSION["username"]);
 						unset($_SESSION["emailVerifToken"]);
 						unset($_SESSION["userChangeToken"]);
 						unset($_SESSION["passChangeToken"]);
 						unset($_SESSION["emailChangeToken"]);
 						unset($_SESSION["accountDeletionToken"]);
-						unset($_SESSION["email"]);
 						$DOMtitle = "Account Deleted · Streetor";
 						$imageURL = "../Assets/global/CheckMark.png";
 						$message = "Your account, {$dbUsername}, has been successfully deleted. If you would like to sign up for another account, please proceed to the <a href='../signup/' style='color: #4486f4;'>sign up page</a>.";

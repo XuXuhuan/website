@@ -9,6 +9,7 @@ const refLoginButtonCont = document.querySelector("#logInButtonCont");
 const refLoginButton = document.querySelector("#logInButton");
 const refLoginMessage = document.querySelector("#logInMessage");
 const refVignette = document.querySelector("#vignette");
+const refRememberBox = document.querySelector("#rememberTickBox");
 const refCancelTwoFactorAuthButton = document.querySelector("#cancelTwoFactorAuthButton");
 const refTwoFactorAuthField = document.querySelector("#verificationCodeField");
 const refTwoFactorAuthBlanks = document.querySelectorAll(".verificationCodeBlanks");
@@ -57,6 +58,9 @@ refPasswordToggleButton.addEventListener("click", function() {
 		refPasswordField.type = "password";
 	}
 });
+refRememberBox.addEventListener("click", function() {
+	refRememberBox.classList.toggle("tickedBox");
+});
 refCancelTwoFactorAuthButton.addEventListener("click", function() {
 	refVignette.style = 0;
 	currentBlank = 0;
@@ -95,7 +99,6 @@ function submitLogin(event) {
 						if (xhr.response["2FARequired"] === true) {
 							if (refVignette.style.opacity !== 0) {
 								refVignette.style.display = "block";
-								refVignette.style.opacity = 1;
 								refTwoFactorAuthField.focus();
 							}
 						}
@@ -108,7 +111,7 @@ function submitLogin(event) {
 						refLoginMessage.innerHTML = "An error occurred.";
 					}
 				}
-				xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refPasswordField.value));
+				xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refPasswordField.value) + "&remember=" + (refRememberBox.classList.contains("tickedBox") ? 1 : 0));
 				refLoginButton.style.display = "none";
 			}
 		}, 500);
