@@ -5,63 +5,72 @@ session_start();
 $mysqliConnection = new mysqli("localhost", "websiteUser", "jj4JWYh_X6OKm2x^NP", "mainManagement");
 $assocReturn = array("message" => "",
 					 "leftoverCooldown" => "");
-function getRandomString($stringLength) {
-	return bin2hex(random_bytes($stringLength / 2));
-}
-$randomString = getRandomString(20);
-$_SESSION["emailVerifToken"] = isset($_SESSION["emailVerifToken"]) ? $_SESSION["emailVerifToken"] : $randomString;
 if ($mysqliConnection -> connect_errno) {
 	$assocReturn["message"] = "An error occurred.";
 } else {
-	if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
-		$selectNeededDetailsQuery = "
-		SELECT username, tokenHash, firstName, email, emailVerified, emailVerificationTime
-		FROM accountdetails
-		WHERE accountID = '{$_SESSION["userID"]}'";
-		if ($neededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
-			if ($neededDetails -> num_rows > 0) {
-				if ($assocNeededDetails = $neededDetails -> fetch_assoc()) {
-				$dbUsername = htmlspecialchars($assocNeededDetails["username"], ENT_QUOTES);
-				$dbTokenHash = $assocNeededDetails["tokenHash"];
-				$dbFirstName = htmlspecialchars($assocNeededDetails["firstName"], ENT_QUOTES);
-				$dbEmail = urlencode($assocNeededDetails["email"]);
-				$dbEmailVerif = $assocNeededDetails["emailVerified"];
-				$dbLastSentTime = $assocNeededDetails["emailVerificationTime"];
-					if ($dbEmailVerif == true) {
-						$assocReturn["message"] = "This account has already been verified! Please reload this page.";
-					}
-					if ((time() - 120) < strtotime($dbLastSentTime)) {
-						$assocReturn["leftoverCooldown"] = strtotime($dbLastSentTime) + 120 - time();
-						$assocReturn["message"] = "Please wait until the cooldown is over!";
-					} else {
-						if (mail($assocNeededDetails["email"], "Email Verification", $emailDOM, implode(PHP_EOL, $emailHeaders))) {
-							$updateVerificationEmailTimeQuery = "
-							UPDATE accountdetails
-							SET emailVerificationTime = NOW(),
-							emailVerificationToken = '{$_SESSION["emailVerifToken"]}'
-							WHERE accountID = '{$_SESSION["userID"]}'";
-							if ($queriedUpdateTimeQuery = $mysqliConnection -> query($updateVerificationEmailTimeQuery)) {
-								$assocReturn["message"] = "Email sent!";
-								$assocReturn["leftoverCooldown"] = 120;
+	if (!isset($_SESSION["loggedIn"]) || $_SESSION["loggedIn"] === false) {
+		$getUser = $mysqliConnection -> real_escape_string($_POST["username"]);
+		$getPass = $mysqliConnection -> real_escape_string($_POST["password"]);
+		if (empty(trim($getUser))) {
+			$assocReturn["message"] = "Please fill all required fields.";
+		}
+		if (empty(trim($getPass))) {
+			$assocReturn["message"] = "Please fill all required fields.";
+		}
+		if (empty($assocReturn["message"])) {
+			$selectNeededDetailsQuery = "
+			SELECT password, email, 2FAenabled, 2FAsentTime
+			FROM accountdetails
+			WHERE username = '{$getUser}'";
+			if ($neededDetails = $mysqliConnection -> query($selectNeededDetailsQuery)) {
+				if ($neededDetails -> num_rows > 0) {
+					if ($assocNeededDetails = $neededDetails -> fetch_assoc()) {
+						$dbEmail = $assocNeededDetails["email"];
+						$dbPassword = $assocNeededDetails["password"];
+						$db2FAenabled = $assocNeededDetails["2FAenabled"];
+						$dbLastSentTime = $assocNeededDetails["2FAsentTime"];
+						if (password_verify(base64_encode(hash("sha512", $getPass, true)), $dbPassword) === true) {
+							if ($db2FAenabled == true) {
+								if ((time() - 120) < strtotime($dbLastSentTime)) {
+									$assocReturn["leftoverCooldown"] = strtotime($dbLastSentTime) + 120 - time();
+									$assocReturn["message"] = "Please wait until the cooldown is over!";
+								} else {
+									$randomToken = str_pad(random_int(0, 999999), 6, "0", STR_PAD_LEFT);
+									if (mail($dbEmail, "{$randomToken} is your account verification code", "{$randomToken} is your account login verification code. If this request was not made by you, please reset or change your password.", "From: <no_reply@streetor.sg>")) {
+										$updateVerificationEmailTimeQuery = "
+										UPDATE accountdetails
+										SET 2FAsentTime = NOW(),
+										2FAtoken = '{$randomToken}'
+										WHERE username = '{$getUser}'";
+										if ($queriedUpdateTimeQuery = $mysqliConnection -> query($updateVerificationEmailTimeQuery)) {
+											$assocReturn["message"] = "Email sent!";
+											$assocReturn["leftoverCooldown"] = 120;
+										} else {
+											$assocReturn["message"] = "An error occurred, but the email was sent.";
+										}
+									} else {
+										$assocReturn["message"] = "An error occurred and the email was not sent.";
+									}
+								}
 							} else {
-								$assocReturn["message"] = "An error occurred, but the email was sent.";
+								$assocReturn["message"] = "Please log in again.";
 							}
 						} else {
-							$assocReturn["message"] = "An error occurred and the email was not sent.";
+							$assocReturn["message"] = "Incorrect Password.";
 						}
+					} else {
+						$assocReturn["message"] = "An error occurred.";
 					}
 				} else {
-					$assocReturn["message"] = "An error occurred.";
+					$assocReturn["message"] = "No records were found in the database. This account may have been deleted.";
 				}
+				$neededDetails -> free();
 			} else {
-				$assocReturn["message"] = "No records were found in the database. This account may have been deleted.";
+				$assocReturn["message"] = "An error occurred.";
 			}
-			$neededDetails -> free();
-		} else {
-			$assocReturn["message"] = "An error occurred.";
 		}
 	} else {
-		$assocReturn["message"] = "Please <a href='https://streetor.sg/login/' style='color: #4486f4;'>log in and try again.</a>";
+		$assocReturn["message"] = "Please <a href='https://streetor.sg/login/' style='color: #4486f4;'>log in</a> and try again.";
 	}
 }
 $mysqliConnection -> close();

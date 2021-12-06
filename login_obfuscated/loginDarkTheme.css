@@ -515,15 +515,15 @@ main {
 	margin-bottom: 15px;
 }
 #rememberLabel {
-	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
 	color: var(--UIdefaultTextColor);
 	margin: 0;
-	font-size: 14px;
+	font-size: 15px;
 }
 #rememberTickBox {
 	height: 20px;
 	width: 20px;
-	background-color: var(--textFieldColor);
+	background-color: #1E1E1E;
 	cursor: pointer;
 	border-radius: 3px;
 	background-size: 15px;

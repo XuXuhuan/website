@@ -13,9 +13,11 @@ const refRememberBox = document.querySelector("#rememberTickBox");
 const refCancelTwoFactorAuthButton = document.querySelector("#cancelTwoFactorAuthButton");
 const refTwoFactorAuthField = document.querySelector("#verificationCodeField");
 const refTwoFactorAuthBlanks = document.querySelectorAll(".verificationCodeBlanks");
+const refTwoFactorAuthResendEmail = document.querySelector("#twoFactorAuthResendEmailButton");
 const refNotificationCont = document.querySelector("#notificationCont");
 const refNotificationText = document.querySelector("#notificationText");
 const userDirtRegexp = /[^a-z0-9._]/gi;
+var twoFactorAuthEmailSent = false;
 var currentBlank = 0;
 var checkNotification;
 var checkLogin;
@@ -79,6 +81,40 @@ refTwoFactorAuthField.addEventListener("paste", function(event) {
 		if (currentBlank === 6) {
 			submitTwoFactorAuthCode();
 		}
+	}
+});
+refTwoFactorAuthResendEmail.addEventListener("click", function() {
+	if (twoFactorAuthEmailSent === false) {
+		const xhr = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+		xhr.open("POST", "resend2FAEmail.php", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.responseType = "json";
+		xhr.onload = function() {
+			var leftCooldown = xhr.response["leftoverCooldown"];
+			var responseMessage = xhr.response["message"];
+			if (responseMessage.length > 0) {
+				setNotification(responseMessage, responseMessage !== "Email sent!");
+			}
+			if (leftCooldown <= 1) {
+				refTwoFactorAuthResendEmail.innerHTML = "Re-send Email";
+			} else {
+				twoFactorAuthEmailSent = true;
+				refTwoFactorAuthResendEmail.innerHTML = "Re-send Email (" + leftCooldown + ")";
+				leftCooldown--;
+				for (var i = 1; i <= xhr.response["leftoverCooldown"]; i++) {
+					setTimeout(function() {
+						if (leftCooldown === 0) {
+							refTwoFactorAuthResendEmail.innerHTML = "Re-send Email";
+							twoFactorAuthEmailSent = false;
+						} else {
+							refTwoFactorAuthResendEmail.innerHTML = "Re-send Email (" + leftCooldown + ")";
+							leftCooldown--;
+						}
+					}, 1000 * i);
+				}
+			}
+		}
+		xhr.send("username=" + encodeURIComponent(refUsernameField.value) + "&password=" + encodeURIComponent(refPasswordField.value));
 	}
 });
 function submitLogin(event) {

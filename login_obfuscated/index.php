@@ -139,7 +139,7 @@ echo "
                             <p class='verificationCodeBlanks'></p>
                             <p class='verificationCodeBlanks'></p>
                         </div>
-                        <p id='twoFactorAuthResendEmailButton'>Resend Email</p>
+                        <p id='twoFactorAuthResendEmailButton'>Re-send Email</p>
                     </div>
                 </div>
             </div>
