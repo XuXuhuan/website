@@ -52,7 +52,7 @@ if ($mysqliConnection -> connect_errno) {
 									2FAsentTime = NOW()
 									WHERE accountID = '{$dbAccountID}'";
 									if ($mysqliConnection -> query($updateTokenHashQuery)) {
-										mail($dbEmail, "{$randomToken} is your account verification code", "{$randomToken} is your account login verification code. If this request was not made by you, please reset or change your password.", "From: <no_reply@streetor.sg>");
+										mail($dbEmail, "{$randomToken} is your account verification code", "{$randomToken} is your account login verification code. If this request was not made by you, please reset or change your password.", "From: no_reply@streetor.sg");
 									} else {
 										$AssocReturn["errormessages"]["2FAerror"] = "An error occurred.";
 									}

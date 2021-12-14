@@ -36,7 +36,7 @@ if ($mysqliConnection -> connect_errno) {
 									$assocReturn["message"] = "Please wait until the cooldown is over!";
 								} else {
 									$randomToken = str_pad(random_int(0, 999999), 6, "0", STR_PAD_LEFT);
-									if (mail($dbEmail, "{$randomToken} is your account verification code", "{$randomToken} is your account login verification code. If this request was not made by you, please reset or change your password.", "From: <no_reply@streetor.sg>")) {
+									if (mail($dbEmail, "{$randomToken} is your account verification code", "{$randomToken} is your account login verification code. If this request was not made by you, please reset or change your password.", "From: no_reply@streetor.sg")) {
 										$updateVerificationEmailTimeQuery = "
 										UPDATE accountdetails
 										SET 2FAsentTime = NOW(),

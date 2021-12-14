@@ -404,6 +404,148 @@ main {
 	font-size: 15px;
 	color: var(--UIdefaultTextColor);
 }
+#vignette {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 2;
+	display: none;
+}
+#twoFactorAuthCont {
+	position: absolute;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	z-index: 3;
+	width: 80%;
+	max-width: 600px;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: var(--UIdefaultColor);
+	border-radius: 10px;
+	padding: 15px;
+}
+#cancelTwoFactorAuthButton {
+	position: absolute;
+	background-color: transparent;
+	padding: 0;
+	border: 0;
+	top: 15px;
+	right: 15px;
+	height: 12px;
+	width: 12px;
+	cursor: pointer;
+}
+#cancelTwoFactorAuthLineOne, #cancelTwoFactorAuthLineTwo {
+	position: absolute;
+	height: 1.5px;
+	width: 15px;
+	background-color: var(--UIdefaultTextColor);
+	top: 50%;
+	transform: translate(0, 50%);
+}
+#twoFactorAuthLabel {
+	font-family: Segoe UI, MontserratMed, Verdana, sans-serif;
+	color: var(--UIdefaultTextColor);
+	font-size: 30px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+#twoFactorAuthDescription {
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
+	color: var(--UIdefaultTextColor);
+	margin-bottom: 20px;
+}
+#verificationCodeCont {
+	position: relative;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 400px;
+	left: 50%;
+	justify-content: space-around;
+	transform: translateX(-50%);
+}
+.verificationCodeBlanks {
+	box-sizing: content-box;
+	border-style: solid;
+	border-color: var(--UIdefaultTextColor);
+	border-width: 0 0 3px 0;
+	margin: 0;
+	height: 35px;
+	width: 35px;
+	line-height: 35px;
+	font-size: 35px;
+	color: var(--UIdefaultTextColor);
+	text-align: center;
+	font-family: Segoe UI, LatoReg, Arial, sans-serif;
+}
+#cancelTwoFactorAuthLineOne {
+	transform: rotate(45deg);
+}
+#cancelTwoFactorAuthLineTwo {
+	transform: rotate(135deg);
+}
+#verificationCodeField {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+}
+#verificationCodeField::-webkit-outer-spin-button, #verificationCodeField::-webkit-inner-spin-button {
+	display: none;
+}
+#rememberCont {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 15px;
+}
+#rememberLabel {
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
+	color: var(--UIdefaultTextColor);
+	margin: 0;
+	font-size: 15px;
+}
+#rememberTickBox {
+	height: 20px;
+	width: 20px;
+	background-color: #46484A;
+	cursor: pointer;
+	border-radius: 3px;
+	background-size: 15px;
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-right: 5px;
+}
+.tickedBox {
+	background-image: url("../Assets/global/checkBoxCheck.png");
+}
+#twoFactorAuthResendEmailButton {
+	position: relative;
+	color: var(--UIdefaultTextColor);
+	font-family: Segoe UI, RobotoReg, Helvetica, sans-serif;
+	text-decoration: underline solid var(--UIdefaultTextColor);
+	cursor: pointer;
+	text-align: center;
+	width: fit-content;
+	height: fit-content;
+	left: 50%;
+	transform: translateX(-50%);
+}
 @keyframes loadingSpin {
 	100% {
 		transform: rotate(360deg);
